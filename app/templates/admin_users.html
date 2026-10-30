@@ -1,0 +1,83 @@
+{% extends "admin_base.html" %}
+{% set nav = 'users' %}
+{% block title %}응시자 관리{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>가입 승인 대기 <span class="muted">({{ pending|length }}명)</span></h1>
+  {% if not mail_ready %}
+    <p class="alert">메일 설정(SMTP_HOST, SMTP_FROM, PUBLIC_BASE_URL)이 없어 승인할 수 없습니다. 승인하면 비밀번호를 메일로 보내야 하기 때문입니다.</p>
+  {% endif %}
+  <p class="muted">응시자는 로그인 화면의 '가입 신청'에서 이메일과 이름을 입력합니다. 승인하면 비밀번호가 만들어져 해당 이메일로 발송되고, 메일 발송에 실패하면 승인되지 않습니다.</p>
+  {% if pending %}
+  <table>
+    <thead><tr><th>이메일</th><th>이름</th><th>신청(KST)</th><th></th></tr></thead>
+    <tbody>
+    {% for u in pending %}
+      <tr>
+        <td>{{ u.login_id }}</td><td>{{ u.name }}</td><td>{{ u.created_at|kst }}</td>
+        <td class="actions">
+          <form method="post" action="/admin/users/{{ u.id }}/approve" class="inline">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="primary" {{ 'disabled' if not mail_ready }}>승인(비밀번호 메일 발송)</button></form>
+          <form method="post" action="/admin/users/{{ u.id }}/reject" class="inline">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit" class="danger">반려</button></form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">대기 중인 신청이 없습니다.</p>{% endif %}
+</section>
+
+<section class="card">
+  <h2>계정 목록 <span class="muted">({{ total }}명)</span></h2>
+  <form method="get" action="/admin/users" class="filters">
+    <label>역할
+      <select name="role"><option value="">전체</option>
+        <option value="CANDIDATE" {{ 'selected' if role == 'CANDIDATE' }}>응시자</option><option value="ADMIN" {{ 'selected' if role == 'ADMIN' }}>관리자</option>
+      </select></label>
+    <label>가입 상태
+      <select name="status"><option value="">전체</option>
+        {% for v, t in [('ACTIVE', '승인'), ('PENDING', '승인 대기'), ('REJECTED', '반려')] %}<option value="{{ v }}" {{ 'selected' if status == v }}>{{ t }}</option>{% endfor %}
+      </select></label>
+    <label>이메일/이름 <input name="q" value="{{ q }}" maxlength="100"></label>
+    <button class="primary" type="submit">조회</button>
+  </form>
+  <table>
+    <thead><tr><th>아이디</th><th>이름</th><th>역할</th><th>가입 상태</th><th>생성(KST)</th><th>로그인</th><th></th></tr></thead>
+    <tbody>
+    {% for u in users %}
+      {% set locked = u.locked_until and u.locked_until > now %}
+      <tr>
+        <td>{{ u.login_id }}</td><td>{{ u.name }}</td>
+        <td>{{ '관리자' if u.role.value == 'ADMIN' else '응시자' }}</td>
+        <td>{{ {'ACTIVE': '승인', 'PENDING': '승인 대기', 'REJECTED': '반려'}[u.status.value] }}</td>
+        <td>{{ u.created_at|kst }}</td>
+        <td>{% if locked %}<span class="bad">잠김 ({{ u.locked_until|kst('%H:%M') }}까지)</span>{% else %}정상{% endif %}</td>
+        <td class="actions">
+          {% if u.role.value == 'CANDIDATE' and u.status.value == 'ACTIVE' %}
+            {% if locked %}
+            <form method="post" action="/admin/users/{{ u.id }}/unlock" class="inline">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit">잠금 해제</button></form>
+            {% endif %}
+            <form method="post" action="/admin/users/{{ u.id }}/reset-password" class="inline">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button type="submit">비밀번호 재설정</button></form>
+          {% endif %}
+          {% if u.role.value == 'CANDIDATE' %}<a class="button danger-link" href="/admin/users/{{ u.id }}/delete">삭제</a>{% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="7" class="muted">계정이 없습니다.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="/admin/users?role={{ role }}&status={{ status }}&q={{ q|urlencode }}&page={{ page - 1 }}">← 이전</a>{% endif %}
+    <span class="muted">{{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="/admin/users?role={{ role }}&status={{ status }}&q={{ q|urlencode }}&page={{ page + 1 }}">다음 →</a>{% endif %}
+  </div>
+  {% endif %}
+  <p class="muted">관리자 계정은 CLI(<code>python -m app.cli create-admin</code>)로만 관리합니다.</p>
+</section>
+{% endblock %}

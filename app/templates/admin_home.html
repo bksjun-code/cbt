@@ -1,0 +1,20 @@
+{% extends "admin_base.html" %}
+{% set nav = 'home' %}
+{% block title %}관리자{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>문항 현황</h1>
+  <div class="chips">
+    {% for s in ['DRAFT', 'REVIEWED', 'APPROVED', 'RETIRED'] %}
+      <a class="chip" href="/admin/items?status={{ s }}"><span class="st {{ s }}">{{ s }}</span><b>{{ counts[s] }}</b></a>
+    {% endfor %}
+  </div>
+  {% if pending_users %}
+    <p class="notice">가입 승인 대기 <b>{{ pending_users }}</b>명이 있습니다. <a href="/admin/users">응시자 관리로 이동</a></p>
+  {% endif %}
+  {% if counts['REVIEWED'] %}
+    <p>검수 대기(REVIEWED) 문항이 <b>{{ counts['REVIEWED'] }}</b>건 있습니다. <a href="/admin/items?status=REVIEWED">바로 가기</a></p>
+  {% endif %}
+  <p class="actions"><a class="button primary" href="/admin/items/new">문항 등록</a> <a class="button" href="/admin/items/upload">문항 업로드</a> <a class="button" href="/admin/blueprints">Blueprint 가용 문항</a> <a class="button" href="/admin/results">결과</a></p>
+</section>
+{% endblock %}

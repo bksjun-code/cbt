@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}로그인{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>Oracle GoldenGate 자격시험</h1>
+  {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="/login" autocomplete="off">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>아이디 <span class="muted">(가입한 이메일)</span>
+      <input name="login_id" value="{{ login_id or '' }}" maxlength="255" required autofocus autocomplete="username">
+    </label>
+    <label>비밀번호
+      <input name="password" type="password" maxlength="200" required autocomplete="current-password">
+    </label>
+    <button class="primary" type="submit">로그인</button>
+  </form>
+  <div class="loginlinks">
+    <a href="/register">처음이신가요? 가입 신청</a>
+    <a href="/password/forgot">비밀번호를 잊으셨나요?</a>
+  </div>
+  <p class="muted">로그인 5회 실패 시 10분간 계정이 잠깁니다.</p>
+</section>
+{% endblock %}

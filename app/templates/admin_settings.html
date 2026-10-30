@@ -1,0 +1,17 @@
+{% extends "admin_base.html" %}
+{% set nav = 'settings' %}
+{% block title %}설정{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>설정</h1>
+  <form method="post" action="/admin/settings" class="stack">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    {% for key, meta in items.items() %}
+      <p><label class="inl"><input type="checkbox" name="{{ key }}" {{ 'checked' if values[key] }}> <b>{{ meta[0] }}</b></label><br>
+         <span class="muted">{{ meta[1] }}</span></p>
+    {% endfor %}
+    <button class="primary" type="submit">저장</button>
+  </form>
+  <p class="muted">제한시간·합격선·영역 최소 득점률·최근 제외 횟수·난이도 정렬은 Blueprint 에서 설정합니다. 설정 변경은 감사 로그에 기록됩니다.</p>
+</section>
+{% endblock %}

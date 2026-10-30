@@ -1,0 +1,81 @@
+{% extends "admin_base.html" %}
+{% set nav = 'blueprints' %}
+{% block title %}{{ bp.name if bp else '새 Blueprint' }}{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>{% if bp %}{{ bp.name }} {% if bp.is_active %}<span class="st APPROVED">활성</span>{% else %}<span class="st DRAFT">비활성</span>{% endif %}
+      {% else %}새 Blueprint <span class="muted">(활성 Blueprint 를 복사해 시작)</span>{% endif %}</h1>
+
+  {% if errors %}
+    <div class="alert" role="alert">저장하지 못했습니다.
+      <ul class="errlist">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+
+  <form method="post" action="{{ '/admin/blueprints/%d'|format(bp.id) if bp else '/admin/blueprints/new' }}" class="stack">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="grid2">
+      <label>이름 <input type="text" name="name" value="{{ form.name }}" maxlength="100" required></label>
+      <label>제한시간(분) <input type="number" name="time_limit_min" value="{{ form.time_limit_min }}" min="1" max="600" required></label>
+      <label>합격 점수(100점 만점) <input type="number" name="pass_score" value="{{ '%g'|format(form.pass_score) }}" min="1" max="100" step="0.1" required></label>
+      <label>영역 최소 득점률(%) <input type="number" name="domain_min_percent" value="{{ '%g'|format(form.domain_min_percent) }}" min="0" max="100" step="1" required></label>
+      <label>최근 제외 횟수(N) <input type="number" name="recent_exclude_n" value="{{ form.recent_exclude_n }}" min="0" max="20" required></label>
+    </div>
+    <p class="checks">
+      <label class="inl"><input type="checkbox" name="sort_by_difficulty" {{ 'checked' if form.sort_by_difficulty }}> 난이도 하→중→상 순으로 정렬(티어 내부는 무작위)</label>
+      <label class="inl"><input type="checkbox" name="multi_partial_credit" {{ 'checked' if form.multi_partial_credit }}> MULTI 부분 점수 허용(기본: 완전 일치만 정답)</label>
+    </p>
+
+    <h2>영역 × 난이도 출제 규칙과 가용 문항</h2>
+    <p class="muted">각 칸: <b>문항 수 × 배점</b>. 아래 줄은 APPROVED 문항 중 출제 가능한 수(서로 다른 variant group 수)이며, 필요한 수보다 적으면 <span class="bad">빨간색</span>으로 표시됩니다.</p>
+    <table class="bpgrid">
+      <thead><tr><th>영역</th>{% for d in diffs %}<th>{{ d }}</th>{% endfor %}<th>영역 합계</th></tr></thead>
+      <tbody>
+      {% for row in matrix %}
+        {% set code = row.domain.code %}
+        <tr>
+          <th scope="row">{{ code }}<br><span class="muted">{{ row.domain.name }}</span></th>
+          {% for diff in diffs %}
+            {% set c = row.cells[loop.index0] %}
+            {% set v = form.rules.get((code, diff), (0, 0.0)) %}
+            <td class="{{ 'short' if c.shortage else 'okcell' }}">
+              <div class="pair">
+                <input type="number" name="count_{{ code }}_{{ diff }}" value="{{ v[0] }}" min="0" max="100" aria-label="{{ code }} {{ diff }} 문항 수">
+                <span>×</span>
+                <input type="number" name="points_{{ code }}_{{ diff }}" value="{{ '%g'|format(v[1]) }}" min="0" max="100" step="0.01" aria-label="{{ code }} {{ diff }} 배점">
+              </div>
+              <div class="avail">가용 {{ c.groups }}{% if c.approved != c.groups %} <span class="muted">(문항 {{ c.approved }})</span>{% endif %}{% if c.shortage %} · <b>부족</b>{% endif %}</div>
+            </td>
+          {% endfor %}
+          {% set ns = namespace(n=0, p=0.0) %}
+          {% for diff in diffs %}{% set v = form.rules.get((code, diff), (0, 0.0)) %}{% set ns.n = ns.n + v[0] %}{% set ns.p = ns.p + v[0] * v[1] %}{% endfor %}
+          <td class="tot">{{ ns.n }}문항<br>{{ '%g'|format(ns.p) }}점</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr><th scope="row">합계</th><td colspan="{{ diffs|length }}"></td>
+          <td class="tot {{ 'bad' if (form.total_points - 100)|abs > 0.000001 else 'good' }}"><b>{{ form.total_items }}문항<br>{{ '%g'|format(form.total_points) }}점</b></td></tr>
+      </tfoot>
+    </table>
+    <p class="muted">총 배점은 저장 시 정확히 100점이어야 합니다. 문항 수 합계(total_items)는 자동 계산됩니다.</p>
+    <p class="actions"><button class="primary" type="submit">{{ '저장' if bp else 'Blueprint 만들기' }}</button></p>
+  </form>
+</section>
+
+{% if bp %}
+<section class="card">
+  <h2>활성화</h2>
+  {% if bp.is_active %}
+    <p>현재 활성 Blueprint 입니다. 저장한 변경은 이후 시작하는 시험부터 적용되며 진행 중인 시험에는 영향이 없습니다.</p>
+  {% else %}
+    {% if shortages %}
+      <p class="alert">문항이 부족한 셀이 있어 활성화할 수 없습니다: {{ shortages|join(' · ') }}</p>
+    {% endif %}
+    <form method="post" action="/admin/blueprints/{{ bp.id }}/activate" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="primary" type="submit" {{ 'disabled' if shortages }}>이 Blueprint 활성화 (기존 활성 Blueprint 는 비활성화)</button>
+    </form>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

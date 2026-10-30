@@ -1,0 +1,62 @@
+{% extends "admin_base.html" %}
+{% set nav = 'results' %}
+{% block title %}응시 결과{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="actions between">
+    <h1>응시 결과 <span class="muted">({{ total }}건)</span></h1>
+    <span class="actions">
+      <a class="button" href="/admin/results/export.csv{{ '?' + qs if qs }}">CSV 내보내기</a>
+      <a class="button" href="/admin/results/export.xlsx{{ '?' + qs if qs }}">Excel 내보내기</a>
+    </span>
+  </div>
+
+  <form method="get" action="/admin/results" class="filters">
+    <label>상태
+      <select name="status"><option value="">전체</option>
+        {% for v, t in [('IN_PROGRESS','진행 중'),('SUBMITTED','제출'),('EXPIRED','시간 만료')] %}<option value="{{ v }}" {{ 'selected' if f.status == v }}>{{ t }}</option>{% endfor %}
+      </select></label>
+    <label>합격
+      <select name="passed"><option value="">전체</option>
+        <option value="1" {{ 'selected' if f.passed == '1' }}>합격</option><option value="0" {{ 'selected' if f.passed == '0' }}>불합격</option>
+      </select></label>
+    <label>ID/이름 <input name="q" value="{{ f.q }}" maxlength="100"></label>
+    <label>시작일(KST) 부터 <input type="date" name="date_from" value="{{ raw.date_from }}"></label>
+    <label>까지 <input type="date" name="date_to" value="{{ raw.date_to }}"></label>
+    <button class="primary" type="submit">조회</button>
+    <a href="/admin/results">초기화</a>
+  </form>
+
+  <div class="kpis">
+    <div class="kpi">종료된 응시<b>{{ summary.n }}건</b></div>
+    <div class="kpi">합격률<b>{{ '%.1f%%'|format(summary.pass_rate) if summary.pass_rate is not none else '-' }}</b></div>
+    <div class="kpi">평균 점수<b>{{ '%.1f'|format(summary.avg) if summary.avg is not none else '-' }}</b></div>
+  </div>
+
+  <table>
+    <thead><tr><th>회차</th><th>응시자</th><th>시작(KST)</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
+    <tbody>
+    {% for a, u, bpname in rows %}
+      <tr>
+        <td>#{{ a.id }}</td>
+        <td>{{ u.name }} <span class="muted">({{ u.login_id }})</span></td>
+        <td>{{ a.started_at|kst }}</td>
+        <td>{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</td>
+        <td>{{ '%.1f'|format(a.total_score) if a.total_score is not none else '-' }}</td>
+        <td>{% if a.passed is not none %}<span class="badge {{ 'pass' if a.passed else 'fail' }}">{{ '합격' if a.passed else '불합격' }}</span>{% else %}-{% endif %}</td>
+        <td><a href="/admin/results/{{ a.id }}">상세</a></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="7" class="muted">조건에 맞는 결과가 없습니다.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="/admin/results?{{ qs + '&' if qs }}page={{ page - 1 }}">← 이전</a>{% endif %}
+    <span class="muted">{{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="/admin/results?{{ qs + '&' if qs }}page={{ page + 1 }}">다음 →</a>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

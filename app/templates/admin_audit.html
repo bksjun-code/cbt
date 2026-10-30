@@ -1,0 +1,40 @@
+{% extends "admin_base.html" %}
+{% set nav = 'audit' %}
+{% block title %}감사 로그{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>감사 로그 <span class="muted">({{ total }}건)</span></h1>
+  <form method="get" action="/admin/audit" class="filters">
+    <label>작업
+      <select name="action"><option value="">전체</option>
+        {% for a in actions %}<option {{ 'selected' if a == action }}>{{ a }}</option>{% endfor %}
+      </select></label>
+    <label>사용자/대상 <input name="q" value="{{ q }}" maxlength="100"></label>
+    <label>시작일(KST) <input type="date" name="date_from" value="{{ date_from }}"></label>
+    <label>종료일 <input type="date" name="date_to" value="{{ date_to }}"></label>
+    <button class="primary" type="submit">조회</button>
+    <a href="/admin/audit">초기화</a>
+  </form>
+  <table>
+    <thead><tr><th>시각(KST)</th><th>사용자</th><th>작업</th><th>대상</th><th>상세</th></tr></thead>
+    <tbody>
+    {% for a, login in rows %}
+      <tr>
+        <td>{{ a.created_at|kst('%Y-%m-%d %H:%M:%S') }}</td>
+        <td>{{ login or '-' }}</td><td>{{ a.action }}</td><td class="muted">{{ a.target or '-' }}</td>
+        <td>{% if a.detail %}<details><summary>보기</summary><pre>{{ a.detail|pretty_json }}</pre></details>{% else %}-{% endif %}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5" class="muted">기록이 없습니다.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="/admin/audit?{{ qs + '&' if qs }}page={{ page - 1 }}">← 이전</a>{% endif %}
+    <span class="muted">{{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="/admin/audit?{{ qs + '&' if qs }}page={{ page + 1 }}">다음 →</a>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

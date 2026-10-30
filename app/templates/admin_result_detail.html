@@ -1,0 +1,52 @@
+{% extends "admin_base.html" %}
+{% set nav = 'results' %}
+{% block title %}결과 #{{ a.id }}{% endblock %}
+{% block content %}
+<section class="card">
+  <p><a href="/admin/results">← 결과 목록</a></p>
+  <h1>결과 #{{ a.id }}
+    {% if a.passed is not none %}<span class="badge {{ 'pass' if a.passed else 'fail' }}">{{ '합격' if a.passed else '불합격' }}</span>{% endif %}
+    <span class="badge">{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</span>
+  </h1>
+  <p>{{ cand.name }} <span class="muted">({{ cand.login_id }})</span> · {{ bp.name }} · seed <code>{{ a.seed }}</code></p>
+  <p class="muted">시작 {{ a.started_at|kst }} · 제출 {{ a.submitted_at|kst if a.submitted_at else '-' }} (KST)
+    {% if a.pass_score is not none %}· 합격선 {{ '%g'|format(a.pass_score) }}점 · 영역 최소 {{ '%g'|format(a.domain_min_ratio * 100) }}%{% endif %}</p>
+  {% if a.passed %}<p><a class="button" href="/admin/results/{{ a.id }}/certificate.pdf">합격증 PDF</a>
+    {% if a.certificate_no %}<span class="muted">인증번호 {{ a.certificate_no }}</span>{% endif %}</p>{% endif %}
+  {% if a.total_score is not none %}<p class="score">{{ '%.1f'|format(a.total_score) }} <span class="muted">/ 100점</span></p>{% endif %}
+
+  {% if domains %}
+  <table>
+    <thead><tr><th>영역</th><th>득점</th><th>배점</th><th>득점률</th></tr></thead>
+    <tbody>{% for code, name, v in domains %}
+      <tr><td>{{ code }} <span class="muted">{{ name }}</span></td><td>{{ '%g'|format(v.earned) }}</td><td>{{ '%g'|format(v.max) }}</td>
+          <td>{{ '%.0f'|format(v.ratio * 100) }}%{% if v.max > 0 and a.domain_min_ratio is not none and v.ratio + 0.000000001 < a.domain_min_ratio %} <span class="badge fail">과락</span>{% endif %}</td></tr>
+    {% endfor %}</tbody>
+  </table>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>문항별 결과</h2>
+  <table>
+    <thead><tr><th>#</th><th>문항</th><th>영역/난이도</th><th>응시자 선택</th><th>정답</th><th>득점</th><th>판정</th></tr></thead>
+    <tbody>
+    {% for r in rows %}
+      <tr>
+        <td>{{ r.ai.seq }}</td>
+        <td><a href="/admin/items/{{ r.ai.item_id }}">#{{ r.ai.item_id }}</a> {{ r.ai.item.stem|truncate(40) }}</td>
+        <td>{{ r.domain }}/{{ r.difficulty }}</td>
+        <td>{% for k, t in r.selected %}<b>{{ k }}</b> {{ t|truncate(24) }}{% if not loop.last %}<br>{% endif %}{% else %}<span class="muted">미응답</span>{% endfor %}</td>
+        <td>{% for k, t in r.correct %}<b>{{ k }}</b> {{ t|truncate(24) }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td>
+        <td>{% if r.ai.earned_points is not none %}{{ '%g'|format(r.ai.earned_points) }} / {{ '%g'|format(r.ai.points) }}{% else %}-{% endif %}</td>
+        <td>
+          {% if r.ai.is_correct is none and r.override %}<span class="badge">채점 제외</span>
+          {% elif r.ai.is_correct %}<span class="badge pass">정답</span>{% elif r.ai.is_correct is false %}<span class="badge fail">오답</span>{% else %}-{% endif %}
+          {% if r.override and r.override.value == 'CREDIT_ALL' %}<span class="badge">정답 인정(보정)</span>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

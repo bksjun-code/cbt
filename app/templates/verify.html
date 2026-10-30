@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}합격증 진위 확인{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>합격증 진위 확인</h1>
+  {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+  <form method="get" action="/verify" class="stack">
+    <label>인증번호 <input class="field" type="text" name="no" value="{{ number }}" maxlength="40" placeholder="RP-OGG-YYYYMMDD-XXXXXX" required></label>
+    <button class="primary" type="submit">확인</button>
+  </form>
+  {% if checked %}
+    {% if valid %}
+      <div class="notice mt1">
+        <p><b>유효한 합격증입니다.</b></p>
+        <p>성명: {{ holder.name }}<br>자격: {{ title }}<br>합격일: {{ passed_on.year }}년 {{ passed_on.month }}월 {{ passed_on.day }}일<br>
+           발급: {{ issuer }}<br>인증번호: {{ number }}</p>
+      </div>
+    {% else %}
+      <p class="alert mt1"><b>확인되지 않는 합격증입니다.</b> 인증번호가 틀렸거나, 발급 후 무효가 된 합격증입니다.</p>
+    {% endif %}
+  {% endif %}
+</section>
+{% endblock %}

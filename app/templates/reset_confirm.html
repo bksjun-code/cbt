@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}새 비밀번호 받기{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>새 비밀번호 받기</h1>
+  <p>아래 버튼을 누르면 새 비밀번호가 만들어져 이메일로 발송되고, 이전 비밀번호는 더 이상 사용할 수 없습니다.</p>
+  <form method="post" action="/password/reset/{{ token }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button class="primary" type="submit">새 비밀번호 받기</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}시험 결과{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>시험 결과 #{{ r.attempt_id }}
+    <span class="badge {{ 'pass' if r.passed else 'fail' }}">{{ '합격' if r.passed else '불합격' }}</span>
+    {% if r.status == 'EXPIRED' %}<span class="badge">시간 만료로 자동 제출</span>{% endif %}
+  </h1>
+  {% if r.passed %}<p><a class="button primary" href="/exam/{{ r.attempt_id }}/certificate.pdf">합격증 PDF 내려받기</a></p>{% endif %}
+  <p class="score">{{ '%.1f'|format(r.total_score) }} <span class="muted">/ 100점 (합격 {{ '%g'|format(r.pass_score) }}점 이상)</span></p>
+  {% if r.adjusted %}<p class="notice">일부 문항에 관리자 채점 보정(정답 인정/채점 제외)이 적용되었습니다.</p>{% endif %}
+  {% set failed = r.domains|selectattr('below_minimum')|list %}
+  {% if failed %}
+    <p class="alert">과락 영역: {% for d in failed %}{{ d.name }}({{ '%.0f'|format(d.ratio*100) }}%){% if not loop.last %}, {% endif %}{% endfor %}
+      — 모든 영역 득점률이 {{ '%.0f'|format(r.domain_min_ratio*100) }}% 이상이어야 합격입니다.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>영역별 득점률</h2>
+  <div class="charts">
+    {% if chart.area %}
+    <svg role="img" aria-label="영역별 득점률 레이더 차트" width="{{ chart.size }}" height="{{ chart.size }}" viewBox="0 0 {{ chart.size }} {{ chart.size }}">
+      {% for ring in chart.rings %}<polygon points="{{ ring }}" fill="none" stroke="#d9dee7"/>{% endfor %}
+      {% for ax in chart.axes %}<line x1="{{ chart.c }}" y1="{{ chart.c }}" x2="{{ ax[0] }}" y2="{{ ax[1] }}" stroke="#d9dee7"/>{% endfor %}
+      <polygon points="{{ chart.threshold }}" fill="none" stroke="#c0352b" stroke-dasharray="4 3"/>
+      <polygon points="{{ chart.area }}" fill="#1f5fbf" fill-opacity=".25" stroke="#1f5fbf" stroke-width="2"/>
+      {% for l in chart.labels %}<text x="{{ l.x }}" y="{{ l.y }}" text-anchor="{{ l.anchor }}" font-size="12">{{ l.text }}</text>{% endfor %}
+    </svg>
+    {% endif %}
+    <svg role="img" aria-label="영역별 득점률 막대 차트" width="440" height="{{ 30 + r.domains|length * 30 }}" viewBox="0 0 440 {{ 30 + r.domains|length * 30 }}">
+      {% set bx = 110 %}{% set bw = 260 %}
+      {% for d in r.domains %}
+        {% set y = 8 + loop.index0 * 30 %}
+        <text x="0" y="{{ y + 14 }}" font-size="13">{{ d.name }}</text>
+        <rect x="{{ bx }}" y="{{ y }}" width="{{ bw }}" height="20" fill="#eef2f8" rx="3"/>
+        <rect x="{{ bx }}" y="{{ y }}" width="{{ (bw * d.ratio)|round(1) }}" height="20" fill="{{ '#c0352b' if d.below_minimum else '#1f5fbf' }}" rx="3"/>
+        <text x="{{ bx + bw + 8 }}" y="{{ y + 15 }}" font-size="13">{{ '%.0f'|format(d.ratio * 100) }}%</text>
+      {% endfor %}
+      {% set ty = 4 + r.domains|length * 30 %}
+      <line x1="{{ bx + bw * r.domain_min_ratio }}" y1="2" x2="{{ bx + bw * r.domain_min_ratio }}" y2="{{ ty }}" stroke="#c0352b" stroke-dasharray="4 3"/>
+      <text x="{{ bx + bw * r.domain_min_ratio }}" y="{{ ty + 14 }}" font-size="11" text-anchor="middle">과락선 {{ '%.0f'|format(r.domain_min_ratio * 100) }}%</text>
+    </svg>
+  </div>
+  <table>
+    <thead><tr><th>영역</th><th>득점</th><th>배점</th><th>득점률</th></tr></thead>
+    <tbody>
+    {% for d in r.domains %}
+      <tr><td>{{ d.name }}</td><td>{{ '%g'|format(d.earned) }}</td><td>{{ '%g'|format(d.max) }}</td>
+          <td>{{ '%.0f'|format(d.ratio * 100) }}%{% if d.below_minimum %} <span class="badge fail">과락</span>{% endif %}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>오답 문항 해설</h2>
+  {% if not r.explanations_visible %}
+    <p class="muted">관리자 설정에 따라 해설이 공개되지 않습니다.</p>
+  {% elif not r.wrong_items %}
+    <p>오답이 없습니다. 🎉</p>
+  {% else %}
+    {% for w in r.wrong_items %}
+    <article class="explain">
+      <h3>문제 {{ w.seq }}</h3>
+      <p class="stem">{{ w.stem }}</p>
+      <ol>
+      {% for o in w.options %}
+        <li>{{ o.text }}
+          {% if o.key in w.correct_keys %}<span class="ok">✔ 정답</span>{% endif %}
+          {% if o.key in w.selected_keys and o.key not in w.correct_keys %}<span class="no">✘ 내 선택</span>{% endif %}
+          {% if o.key in w.selected_keys and o.key in w.correct_keys %}<span class="muted">(내 선택)</span>{% endif %}
+        </li>
+      {% endfor %}
+      </ol>
+      {% if not w.selected_keys %}<p class="muted">미응답</p>{% endif %}
+      <p>{{ w.explanation }}</p>
+      {% if w.reference %}<p class="muted">참고: {{ w.reference }}</p>{% endif %}
+    </article>
+    {% endfor %}
+  {% endif %}
+  <p><a class="button" href="/">내 시험 목록</a></p>
+</section>
+{% endblock %}

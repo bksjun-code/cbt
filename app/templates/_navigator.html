@@ -1,0 +1,10 @@
+<nav id="navigator" class="navigator" aria-label="문항 이동" data-unanswered="{{ unanswered }}"{% if oob %} hx-swap-oob="true"{% endif %}>
+  {% for n in nav %}
+  <a href="/exam/{{ attempt.id }}?q={{ n.seq }}"
+     hx-get="/exam/{{ attempt.id }}/q/{{ n.seq }}" hx-target="#panel" hx-swap="outerHTML"
+     hx-push-url="/exam/{{ attempt.id }}?q={{ n.seq }}"
+     class="nav-item{% if n.answered %} answered{% endif %}{% if n.flagged %} flagged{% endif %}{% if n.current %} current{% endif %}"
+     title="{{ '답안 있음' if n.answered else '미응답' }}{{ ', 검토 표시' if n.flagged else '' }}">{{ n.seq }}</a>
+  {% endfor %}
+  <p class="legend muted">파랑=응답 · 노랑 테두리=검토 표시 · 미응답 {{ unanswered }}문항</p>
+</nav>

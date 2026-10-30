@@ -1,0 +1,1490 @@
+[
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a Replicat parameter file, which statement correctly maps source table HR.EMP to target table HR_BKP.EMP?",
+  "options": {
+   "A": "MAP HR_BKP.EMP, TARGET HR.EMP;",
+   "B": "ROUTE HR.EMP TO HR_BKP.EMP;",
+   "C": "MAP HR.EMP, TARGET HR_BKP.EMP;",
+   "D": "MAP HR.EMP INTO HR_BKP.EMP;",
+   "E": "COPY HR.EMP, DEST HR_BKP.EMP;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Replicat 매핑 문법은 'MAP 소스테이블, TARGET 타깃테이블;' 이므로 'MAP HR.EMP, TARGET HR_BKP.EMP;' 가 정답이다. 'MAP HR_BKP.EMP, TARGET HR.EMP;' 는 소스와 타깃이 뒤바뀌었다. ROUTE ... TO, MAP ... INTO, COPY ... DEST 는 존재하지 않는 문법이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-MAP-STMT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In an Extract parameter file, which parameter specifies a source table whose changes are to be captured?",
+  "options": {
+   "A": "CAPTURETABLE",
+   "B": "TABLE",
+   "C": "OBJECT",
+   "D": "SELECTTABLE",
+   "E": "EXTTABLE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Extract(및 데이터 펌프)는 TABLE 파라미터로 처리할 소스 테이블을 지정한다(예: TABLE HR.EMP;). CAPTURETABLE, OBJECT, SELECTTABLE, EXTTABLE 은 GoldenGate 파라미터가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TABLE-STMT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In the clause COLMAP (COL_A = COL_B), what do COL_A and COL_B represent?",
+  "options": {
+   "A": "COL_A is the source column and COL_B is the target column",
+   "B": "Both are source columns that are compared for equality",
+   "C": "COL_A is a key column and COL_B is a filter column",
+   "D": "COL_A is the target column and COL_B is the source column or expression",
+   "E": "Both are target columns that receive the same value"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "COLMAP 은 'target_column = source_expression' 형식으로, 등호 왼쪽이 타깃 컬럼, 오른쪽이 소스 컬럼 또는 표현식이다. 왼쪽을 소스로 보는 설명은 방향이 반대이다. COLMAP 은 비교(조건)나 키/필터 지정 구문이 아니며, 두 타깃 컬럼에 같은 값을 넣는 의미도 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COLMAP"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract TABLE statement captures changes from all tables in the HR schema?",
+  "options": {
+   "A": "TABLE HR.%;",
+   "B": "TABLE HR.ALL;",
+   "C": "TABLE HR.*;",
+   "D": "TABLE HR(*);",
+   "E": "TABLE ALLOF HR;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "GoldenGate 와일드카드에서 별표(*)는 임의 개수의 문자를 의미하므로 'TABLE HR.*;' 가 HR 스키마의 모든 테이블을 지정한다. %는 GoldenGate 와일드카드가 아니며, HR.ALL 은 ALL 이라는 이름의 테이블을 뜻할 뿐이다. HR(*) 와 ALLOF 는 유효한 문법이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-WILDCARD"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract parameter excludes a specific table from a wildcarded TABLE specification?",
+  "options": {
+   "A": "TABLESKIP",
+   "B": "NOTABLE",
+   "C": "OMITTABLE",
+   "D": "TABLEDROP",
+   "E": "TABLEEXCLUDE"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "TABLEEXCLUDE 는 와일드카드로 지정한 TABLE 대상에서 특정 테이블(또는 패턴)을 제외한다. TABLESKIP, NOTABLE, OMITTABLE, TABLEDROP 은 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TABLEEXCLUDE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter excludes a source table from a wildcarded MAP statement?",
+  "options": {
+   "A": "MAPEXCLUDE",
+   "B": "MAPSKIP",
+   "C": "NOMAP",
+   "D": "MAPIGNORE",
+   "E": "SKIPMAP"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MAPEXCLUDE 는 Replicat 의 와일드카드 MAP 대상에서 특정 소스 테이블을 제외한다(Extract 의 TABLEEXCLUDE 에 대응). MAPSKIP, NOMAP, MAPIGNORE, SKIPMAP 은 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-MAPEXCLUDE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which TABLE/MAP option defines the columns that GoldenGate uses as a unique row identifier instead of the table's existing key?",
+  "options": {
+   "A": "KEYDEF",
+   "B": "PKCOLS",
+   "C": "KEYCOLS",
+   "D": "USEKEY",
+   "E": "ROWKEY"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "KEYCOLS (col1, col2, ...) 는 기존 기본 키/고유 키 대신 사용할 대체 키 컬럼을 지정한다. 키가 없는 테이블에서 특히 권장된다. KEYDEF, PKCOLS, USEKEY, ROWKEY 는 GoldenGate 옵션이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-KEYCOLS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which TABLE/MAP clause should you use to select records with a condition that calls a column-conversion function such as @STRFIND?",
+  "options": {
+   "A": "WHERE",
+   "B": "SELECT",
+   "C": "FILTER",
+   "D": "CONDITION",
+   "E": "HAVING"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "FILTER 절은 컬럼 변환 함수와 산술 연산을 평가할 수 있으므로 @STRFIND 같은 함수를 쓰는 조건에 사용한다. WHERE 절은 단순 비교·리터럴·@NULL/@PRESENT/@ABSENT 정도만 지원하고 함수를 호출할 수 없다. SELECT, CONDITION, HAVING 은 TABLE/MAP 옵션이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-FILTER-WHERE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which column-conversion function converts a string to uppercase?",
+  "options": {
+   "A": "@UPPER",
+   "B": "@TOUPPER",
+   "C": "@STRUP",
+   "D": "@UCASE",
+   "E": "@STRCAPS"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "@STRUP 은 문자열을 대문자로 변환하는 GoldenGate 함수이다. @UPPER, @TOUPPER, @UCASE, @STRCAPS 는 GoldenGate 컬럼 변환 함수가 아니다(SQL 의 UPPER 와 혼동 주의).",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STRUP"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Replicat, which function retrieves the value of a user token that Extract stored in the trail?",
+  "options": {
+   "A": "@GETTOKEN",
+   "B": "@USERTOKEN",
+   "C": "@READTOKEN",
+   "D": "@TOKEN",
+   "E": "@TKN"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Extract 에서 TABLE ... TOKENS 로 저장한 사용자 토큰은 Replicat 의 COLMAP/FILTER 등에서 @TOKEN(\"token_name\") 으로 읽는다. @GETTOKEN, @USERTOKEN, @READTOKEN, @TKN 은 존재하지 않는 함수이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TOKEN-FUNC"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which parameter file statement brings the contents of a macro library file into a parameter file?",
+  "options": {
+   "A": "IMPORT",
+   "B": "INCLUDE",
+   "C": "LOADMACRO",
+   "D": "USEFILE",
+   "E": "ATTACH"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "INCLUDE file_name 으로 매크로 라이브러리 파일을 파라미터 파일에 포함시켜, 여러 파라미터 파일에서 같은 매크로를 재사용할 수 있다. IMPORT, LOADMACRO, USEFILE, ATTACH 는 GoldenGate 파라미터가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-INCLUDE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "By default, which character prefixes macro names and macro parameters in GoldenGate parameter files?",
+  "options": {
+   "A": "$",
+   "B": "&",
+   "C": "#",
+   "D": "%",
+   "E": "@"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "GoldenGate 매크로 이름과 매크로 파라미터는 기본적으로 # 문자로 시작하며(예: #my_macro), MACROCHAR 파라미터로 변경할 수 있다. @ 는 컬럼 변환 함수의 접두사이고, $, &, % 는 매크로 기본 문자가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-MACRO"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter declares that the source and target tables have identical structures, so no source definitions file is needed?",
+  "options": {
+   "A": "SAMEDEFS",
+   "B": "IDENTICALDEFS",
+   "C": "DEFSMATCH",
+   "D": "NODEFS",
+   "E": "ASSUMETARGETDEFS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ASSUMETARGETDEFS 는 소스와 타깃 테이블 구조가 동일하다고 가정하고 타깃 정의를 그대로 사용하도록 한다. SAMEDEFS, IDENTICALDEFS, DEFSMATCH, NODEFS 는 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-ASSUMETARGETDEFS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter specifies the file that contains source table definitions produced by the DEFGEN utility?",
+  "options": {
+   "A": "SRCDEFFILE",
+   "B": "SOURCEDEFS",
+   "C": "DEFSOURCE",
+   "D": "LOADDEFS",
+   "E": "DEFSIN"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SOURCEDEFS 파라미터는 DEFGEN 으로 생성한 소스 정의 파일 경로를 Replicat 에 지정한다. SRCDEFFILE, DEFSOURCE, LOADDEFS, DEFSIN 은 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SOURCEDEFS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which expression can be used in COLMAP to explicitly set a target column to NULL?",
+  "options": {
+   "A": "@SETNULL()",
+   "B": "@NULLIFY",
+   "C": "@EMPTY()",
+   "D": "@COLSTAT(NULL)",
+   "E": "@VOID"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@COLSTAT 함수는 컬럼을 NULL, MISSING, INVALID 상태로 지정하는 지시자를 반환하며, @COLSTAT(NULL) 로 타깃 컬럼을 NULL 로 설정할 수 있다. @SETNULL, @NULLIFY, @EMPTY, @VOID 는 존재하지 않는 함수이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COLSTAT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which column-conversion function converts a character string such as '1234' into a number?",
+  "options": {
+   "A": "@STRNUM",
+   "B": "@TONUMBER",
+   "C": "@NUMSTR",
+   "D": "@CASTNUM",
+   "E": "@NUMBER"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "@NUMSTR 은 문자열(문자) 값을 숫자로 변환한다. @STRNUM 은 반대로 숫자를 문자열로 변환하는 함수이므로 오답이다. @TONUMBER, @CASTNUM, @NUMBER 는 GoldenGate 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-NUM-STR-CONV"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which characters are supported as wildcards in GoldenGate object names in TABLE and MAP statements? (Choose two.)",
+  "options": {
+   "A": "%",
+   "B": "*",
+   "C": "#",
+   "D": "?",
+   "E": "!"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "GoldenGate 와일드카드는 별표(*, 임의 개수 문자)와 물음표(?, 문자 한 개) 두 가지이다. %는 SQL LIKE 의 와일드카드일 뿐 GoldenGate 에서는 쓰지 않으며, #은 매크로 접두사, !는 와일드카드가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-WILDCARD"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid GoldenGate column-conversion functions for date handling? (Choose two.)",
+  "options": {
+   "A": "@SYSDATE",
+   "B": "@DATE",
+   "C": "@TODAY",
+   "D": "@DATENOW",
+   "E": "@NOWTIME"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "@DATE 는 날짜/시간 값을 다른 형식으로 변환하고, @DATENOW 는 현재 날짜와 시간을 반환한다. 둘 다 실제 GoldenGate 함수이다. @SYSDATE, @TODAY, @NOWTIME 은 GoldenGate 컬럼 변환 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-DATE-FUNCS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source table SRC.CUST and target table TGT.CUST have the same columns, except that the source column CUST_NAME is named CUSTOMER_NAME in the target. All columns must be replicated. Which MAP statement is correct?",
+  "options": {
+   "A": "MAP SRC.CUST, TARGET TGT.CUST, COLMAP (USEDEFAULTS, CUST_NAME = CUSTOMER_NAME);",
+   "B": "MAP SRC.CUST, TARGET TGT.CUST, COLMAP (USEDEFAULTS, CUSTOMER_NAME = CUST_NAME);",
+   "C": "MAP SRC.CUST, TARGET TGT.CUST, COLMAP (CUSTOMER_NAME = CUST_NAME);",
+   "D": "MAP SRC.CUST, TARGET TGT.CUST, KEYCOLS (CUSTOMER_NAME = CUST_NAME);",
+   "E": "MAP SRC.CUST, TARGET TGT.CUST, COLSEXCEPT (CUST_NAME);"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "USEDEFAULTS 로 이름이 같은 컬럼을 자동 매핑하고, 이름이 다른 컬럼만 'CUSTOMER_NAME = CUST_NAME'(타깃 = 소스)으로 지정하는 구문이 정답이다. 'CUST_NAME = CUSTOMER_NAME' 은 타깃과 소스 방향이 반대이다. USEDEFAULTS 없이 COLMAP 을 쓰면 명시한 컬럼만 매핑되어 나머지 컬럼이 복제되지 않는다. KEYCOLS 는 키 컬럼 지정용이며, COLSEXCEPT 는 컬럼을 제외할 뿐 이름을 바꾸지 못한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COLMAP-RENAME"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "All tables in source schema SALES must be replicated to tables with the same names in target schema SALES_RPT. Which Replicat MAP statement achieves this?",
+  "options": {
+   "A": "MAP SALES.*, TARGET SALES_RPT;",
+   "B": "MAP SALES_RPT.*, TARGET SALES.*;",
+   "C": "MAP SALES, TARGET SALES_RPT, COLMAP (USEDEFAULTS);",
+   "D": "MAP SALES.%, TARGET SALES_RPT.%;",
+   "E": "MAP SALES.*, TARGET SALES_RPT.*;"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "'MAP SALES.*, TARGET SALES_RPT.*;' 는 SALES 의 모든 테이블을 SALES_RPT 의 동일 이름 테이블로 매핑한다. 타깃의 * 는 소스 테이블 이름으로 치환된다. TARGET 에 테이블 부분 없이 스키마만 쓰는 형식은 유효하지 않고, SALES_RPT.* 를 소스로 쓰는 구문은 방향이 반대이다. 스키마 이름만으로 MAP 할 수 없으며, %는 GoldenGate 와일드카드가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-WILDCARD-TARGET"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statement about the WHERE clause of a TABLE or MAP statement is correct?",
+  "options": {
+   "A": "It is passed to the source database and executed as a SQL predicate",
+   "B": "It cannot call column-conversion functions or use arithmetic operators; FILTER should be used for such conditions",
+   "C": "It can contain subqueries against other tables",
+   "D": "It can be evaluated only for delete operations",
+   "E": "It is valid only in Extract and is ignored by Replicat"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GoldenGate 의 WHERE 절은 GoldenGate 가 직접 평가하며, 컬럼명·리터럴·비교 연산자·AND/OR·@NULL/@PRESENT/@ABSENT 같은 기본 요소만 지원한다. 컬럼 변환 함수나 산술 연산이 필요하면 FILTER 를 써야 한다. DB 에 SQL 조건으로 전달되지 않으며 서브쿼리도 지원하지 않는다. 특정 오퍼레이션 전용이 아니고, Extract 와 Replicat 모두에서 사용할 수 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-WHERE-LIMITS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which FILTER clause option restricts evaluation of the filter to update operations only?",
+  "options": {
+   "A": "WHEN UPDATE",
+   "B": "OPTYPE UPDATE",
+   "C": "ON UPDATE",
+   "D": "FOR UPDATE",
+   "E": "IF UPDATE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "FILTER 절은 ON INSERT, ON UPDATE, ON DELETE 옵션으로 필터를 적용할 오퍼레이션 유형을 제한할 수 있다(예: FILTER (ON UPDATE, AMOUNT > 100)). WHEN UPDATE, OPTYPE UPDATE, FOR UPDATE, IF UPDATE 는 FILTER 문법이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-FILTER-ON"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source column PHONE contains '4155551234'. Which expression returns the area code '415'?",
+  "options": {
+   "A": "@STRSUB(PHONE, 1, 3)",
+   "B": "@SUBSTR(PHONE, 1, 3)",
+   "C": "@LEFT(PHONE, 3)",
+   "D": "@STREXT(PHONE, 1, 3)",
+   "E": "@STREXT(PHONE, 3)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@STREXT(string, begin_position, end_position) 은 지정한 시작·끝 위치의 문자열을 추출하므로 @STREXT(PHONE, 1, 3) 이 '415' 를 반환한다. @STRSUB 는 문자열 치환 함수이므로 위치 추출에 쓰지 않는다. @SUBSTR, @LEFT 는 GoldenGate 함수가 아니며, @STREXT 는 시작과 끝 위치가 모두 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STREXT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which column-conversion function replaces occurrences of one string with another, for example replacing 'ST' with 'STREET' in an address column?",
+  "options": {
+   "A": "@STRREPLACE",
+   "B": "@STRSUB",
+   "C": "@REPLACE",
+   "D": "@STRSWAP",
+   "E": "@SUBST"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "@STRSUB(column, \"old\", \"new\" [, ...]) 은 문자열 안의 특정 부분 문자열을 다른 문자열로 치환한다. @STRREPLACE, @REPLACE, @STRSWAP, @SUBST 는 GoldenGate 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STRSUB"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does @EVAL(AMOUNT > 10000, \"LARGE\", AMOUNT > 1000, \"MEDIUM\", \"SMALL\") return when AMOUNT is 5000?",
+  "options": {
+   "A": "LARGE",
+   "B": "SMALL",
+   "C": "NULL",
+   "D": "MEDIUM",
+   "E": "An error, because @EVAL accepts only one condition"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@EVAL 은 조건과 결과 쌍을 순서대로 평가해 처음으로 참이 되는 조건의 결과를 반환하고, 모두 거짓이면 마지막 기본값을 반환한다. 5000은 첫 조건(>10000)은 거짓, 두 번째 조건(>1000)은 참이므로 'MEDIUM' 이다. 'LARGE' 는 첫 조건이 거짓이라 아니고, 'SMALL' 은 기본값이라 참인 조건이 있으면 반환되지 않는다. NULL 반환이나 오류도 아니며, @EVAL 은 여러 조건을 받을 수 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-EVAL"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does @CASE(STATUS, \"A\", \"ACTIVE\", \"I\", \"INACTIVE\", \"UNKNOWN\") return when STATUS is \"X\"?",
+  "options": {
+   "A": "UNKNOWN",
+   "B": "X",
+   "C": "ACTIVE",
+   "D": "INACTIVE",
+   "E": "An empty string"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "@CASE(value, value1, result1, value2, result2, ..., default) 는 값과 일치하는 항목의 결과를 반환하고, 일치하는 것이 없으면 마지막 기본값을 반환한다. 'X' 는 'A' 와 'I' 어느 쪽과도 일치하지 않으므로 기본값 'UNKNOWN' 이 반환된다. 원래 값 'X', 'ACTIVE', 'INACTIVE', 빈 문자열은 모두 반환되지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-CASE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What value does @IF(QTY > 0, QTY, 0) return when QTY is -5?",
+  "options": {
+   "A": "-5",
+   "B": "5",
+   "C": "0",
+   "D": "NULL",
+   "E": "An error, because @IF requires a string result"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "@IF(condition, true_result, false_result) 는 조건이 참이면 두 번째 인수를, 거짓이면 세 번째 인수를 반환한다. -5 > 0 은 거짓이므로 0 이 반환된다. -5 는 조건이 참일 때의 결과이고, 5 는 어떤 인수에도 해당하지 않는다. NULL 을 반환하지 않으며, @IF 는 숫자 결과도 반환할 수 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-IF"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which column-conversion function returns the result of an arithmetic expression, such as PRICE * QTY, to a target column?",
+  "options": {
+   "A": "@CALC",
+   "B": "@MATH",
+   "C": "@COMPUTE",
+   "D": "@ARITH",
+   "E": "@EXPR"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "@COMPUTE(expression) 는 산술 표현식의 결과값을 반환한다(예: TOTAL = @COMPUTE(PRICE * QTY)). @CALC, @MATH, @ARITH, @EXPR 는 GoldenGate 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COMPUTE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the primary purpose of the @RANGE function?",
+  "options": {
+   "A": "To check whether a numeric column falls between a minimum and a maximum value",
+   "B": "To generate a sequence of numbers for a surrogate key",
+   "C": "To limit the number of rows Replicat applies per transaction",
+   "D": "To divide the rows of a table across two or more GoldenGate processes, based on a hash of the key or specified columns",
+   "E": "To specify a range of trail sequence numbers to process"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@RANGE 는 주로 FILTER 절에서 사용하며, 키 또는 지정 컬럼의 해시 값으로 테이블의 행을 여러 Extract/Replicat 프로세스에 고르게 나누어 병렬 처리하게 한다. 값의 범위를 검사하는 함수가 아니고, 시퀀스 생성, 트랜잭션당 행 수 제한, 트레일 시퀀스 범위 지정과도 관계가 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-RANGE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which function returns TRUE when a column's status matches one of the specified conditions, such as NULL, MISSING, or INVALID?",
+  "options": {
+   "A": "@ISNULL",
+   "B": "@COLCHECK",
+   "C": "@NULLTEST",
+   "D": "@STATUSOF",
+   "E": "@COLTEST"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "@COLTEST(column, NULL | MISSING | INVALID [, ...]) 는 컬럼 상태가 지정한 조건 중 하나와 일치하면 TRUE 를 반환하며, 주로 @IF 와 함께 사용한다. @ISNULL, @COLCHECK, @NULLTEST, @STATUSOF 는 GoldenGate 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COLTEST"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a COLMAP, when does @COLTEST(PHONE, MISSING) evaluate to TRUE?",
+  "options": {
+   "A": "When PHONE contains an empty string",
+   "B": "When PHONE is present in the record but its value is NULL",
+   "C": "When the PHONE column is not present in the trail record, for example because it was not logged for a compressed update",
+   "D": "When PHONE does not exist in the target table",
+   "E": "When the PHONE value is longer than the target column"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MISSING 은 해당 컬럼이 트레일 레코드에 아예 포함되지 않은 상태(예: 변경되지 않아 로그에 기록되지 않은 압축 업데이트)를 의미한다. 값이 NULL 인 경우는 NULL 조건으로 검사한다. 빈 문자열은 값이 존재하는 것이며, 타깃 테이블의 컬럼 존재 여부나 길이 초과는 MISSING 과 관계가 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COLTEST"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A source CHAR column contains both leading and trailing spaces. Which function removes both?",
+  "options": {
+   "A": "@STRLTRIM",
+   "B": "@TRIMALL",
+   "C": "@STRTRIM",
+   "D": "@STRPAD",
+   "E": "@STRCLEAN"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "@STRTRIM 은 문자열의 앞뒤 공백을 모두 제거한다. @STRLTRIM 은 앞쪽(왼쪽) 공백만 제거하므로 요구 사항을 충족하지 못한다. @TRIMALL, @STRPAD, @STRCLEAN 은 GoldenGate 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STRTRIM"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which expression returns the time at which the source transaction was committed?",
+  "options": {
+   "A": "@DATENOW()",
+   "B": "@GETENV(\"GGHEADER\", \"COMMITTIMESTAMP\")",
+   "C": "@GETENV(\"GGENVIRONMENT\", \"HOSTNAME\")",
+   "D": "@TOKEN(\"COMMIT\") without defining any token in Extract",
+   "E": "@DATE(\"COMMIT\")"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "@GETENV(\"GGHEADER\", \"COMMITTIMESTAMP\") 는 트레일 레코드 헤더에 기록된 소스 트랜잭션의 커밋 시각을 반환한다. @DATENOW() 는 함수가 실행되는 시점의 현재 시각이므로 커밋 시각이 아니다. GGENVIRONMENT HOSTNAME 은 호스트 이름이고, 정의하지 않은 토큰은 값이 없으며, @DATE(\"COMMIT\") 는 유효한 사용법이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-GETENV-COMMITTS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When a SQLEXEC statement is specified as a standalone parameter (not within a TABLE or MAP statement), when does it execute?",
+  "options": {
+   "A": "For every row processed by the process",
+   "B": "Only when Replicat encounters an apply error",
+   "C": "When the process starts, and additionally at a regular interval if the EVERY option is used",
+   "D": "Only when the process is stopped",
+   "E": "Only when the trail file rolls over"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "독립형(standalone) SQLEXEC 는 프로세스 시작 시 실행되며, EVERY n {SECONDS | MINUTES | HOURS | DAYS} 옵션으로 주기적 실행도 할 수 있다. 행 단위 실행은 TABLE/MAP 안의 SQLEXEC 이다. 오류 발생 시, 프로세스 종료 시, 트레일 롤오버 시에만 실행되는 것이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC-STANDALONE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A MAP statement contains SQLEXEC (ID LKP, QUERY \"select dname from dept where deptno = :p_dno\", PARAMS (p_dno = DEPTNO)). How is the returned DNAME value referenced in COLMAP?",
+  "options": {
+   "A": "@SQL(LKP, DNAME)",
+   "B": "LKP.DNAME",
+   "C": "#LKP.DNAME",
+   "D": "LKP->DNAME",
+   "E": "$LKP(DNAME)"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SQLEXEC 의 결과(쿼리 출력 컬럼 또는 프로시저 출력 파라미터)는 'ID 이름.컬럼명' 형식(예: LKP.DNAME)으로 COLMAP 에서 참조한다. @SQL 은 존재하지 않는 함수이고, #은 매크로 접두사이며, -> 와 $ 표기는 GoldenGate 문법이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC-OUTPUT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Oracle GoldenGate 19c, when Extract writes the trail using format release 12.2 or later, how can Replicat obtain the source table structure?",
+  "options": {
+   "A": "Only from a SOURCEDEFS file generated by DEFGEN",
+   "B": "By querying the source database through a database link",
+   "C": "From the checkpoint table",
+   "D": "From the table definition metadata records that are written into the trail",
+   "E": "From the Extract report file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "12.2 이후의 트레일 형식에는 테이블 정의(메타데이터) 레코드가 포함되므로, Replicat 은 트레일에서 소스 구조를 읽을 수 있고 DEFGEN/SOURCEDEFS 가 일반적으로 필요 없다. SOURCEDEFS 만 가능한 것은 아니며, DB 링크 조회, 체크포인트 테이블, 리포트 파일은 정의 정보 출처가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TRAIL-METADATA"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a DEFGEN parameter file, which parameter names the output file that will contain the table definitions?",
+  "options": {
+   "A": "OUTFILE",
+   "B": "DEFOUT",
+   "C": "SOURCEFILE",
+   "D": "DUMPFILE",
+   "E": "DEFSFILE"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "DEFGEN 파라미터 파일에서는 DEFSFILE 로 정의 파일의 출력 경로를 지정하고, TABLE 문으로 대상 테이블을 나열한다. OUTFILE, DEFOUT, SOURCEFILE, DUMPFILE 은 DEFGEN 파라미터가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-DEFGEN"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the purpose of the EVENTACTIONS option of TABLE and MAP statements?",
+  "options": {
+   "A": "To trigger specified actions, such as stopping the process, ignoring the record, or running a shell command, when a qualifying record is processed",
+   "B": "To define default values for target columns",
+   "C": "To schedule database jobs on the target",
+   "D": "To convert DDL operations into DML operations",
+   "E": "To encrypt selected columns in the trail"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "EVENTACTIONS 는 이벤트 마커 시스템의 일부로, TABLE/MAP(보통 FILTER 나 WHERE 로 조건 지정)에 해당하는 레코드를 만나면 STOP, IGNORE, SHELL, ROLLOVER 등 지정한 동작을 수행한다. 컬럼 기본값 정의, DB 작업 스케줄링, DDL→DML 변환, 컬럼 암호화 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-EVENTACTIONS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a GoldenGate MACRO definition, which keywords enclose the macro body?",
+  "options": {
+   "A": "START and STOP",
+   "B": "BEGIN and END",
+   "C": "{ and }",
+   "D": "MACRO and ENDMACRO",
+   "E": "DO and DONE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "매크로는 'MACRO #name PARAMS (#p1, ...) BEGIN 본문 END;' 형식으로 정의하므로 본문은 BEGIN 과 END 사이에 둔다. START/STOP, 중괄호, ENDMACRO, DO/DONE 은 매크로 정의 문법이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-MACRO-DEF"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does an OBEY file_name statement do when placed inside an Extract or Replicat parameter file?",
+  "options": {
+   "A": "It runs file_name as an operating-system script",
+   "B": "It reads and processes the parameters contained in file_name, then resumes processing the current parameter file",
+   "C": "It overwrites the current parameter file with file_name",
+   "D": "It generates source definitions into file_name",
+   "E": "It writes the current parameters to file_name as a backup"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "파라미터 파일 안의 OBEY 는 다른 파일에 있는 파라미터를 읽어 처리한 뒤 현재 파라미터 파일 처리를 이어가므로, 공통 파라미터를 여러 프로세스에서 재사용할 수 있다. OS 스크립트 실행, 파일 덮어쓰기, 정의 파일 생성(DEFGEN 의 역할), 백업 기록 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-OBEY"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does @STRNUM(ORDER_QTY) return when ORDER_QTY is a numeric column?",
+  "options": {
+   "A": "A number parsed from a string",
+   "B": "A character string representation of the number",
+   "C": "The length of ORDER_QTY",
+   "D": "TRUE if ORDER_QTY is numeric",
+   "E": "The absolute value of ORDER_QTY"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "@STRNUM 은 숫자 값을 문자열로 변환한다(문자 타깃 컬럼에 숫자를 넣을 때 사용). 문자열을 숫자로 바꾸는 것은 @NUMSTR 이다. 길이 반환(@STRLEN), 숫자 여부 판단, 절대값 계산 기능은 @STRNUM 이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-NUM-STR-CONV"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An audit team wants every insert, update, and delete on ORD.ORDERS to be stored as a new row in table AUD.ORDERS_HIST, together with the operation type and the source commit time. The history table has its own surrogate key. Which Replicat configuration meets this requirement?",
+  "options": {
+   "A": "Use HANDLECOLLISIONS so that updates and deletes are applied as inserts",
+   "B": "Use KEYCOLS listing all columns of AUD.ORDERS_HIST",
+   "C": "Use ASSUMETARGETDEFS so that Replicat keeps old row versions",
+   "D": "Use INSERTALLRECORDS and map the extra columns with @GETENV(\"GGHEADER\", \"OPTYPE\") and @GETENV(\"GGHEADER\", \"COMMITTIMESTAMP\")",
+   "E": "Use MAPEXCLUDE for update and delete operations"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "INSERTALLRECORDS 는 모든 오퍼레이션(업데이트·삭제 포함)을 타깃에 INSERT 로 적용하므로 변경 이력을 행 단위로 쌓을 수 있고, @GETENV(\"GGHEADER\", ...) 로 오퍼레이션 유형과 커밋 시각을 함께 저장할 수 있다. HANDLECOLLISIONS 는 충돌 처리용이지 이력 보관 기능이 아니다. KEYCOLS 는 키 지정, ASSUMETARGETDEFS 는 정의 가정용이며, MAPEXCLUDE 는 테이블 제외용으로 오퍼레이션 유형을 다루지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-HISTORY-TABLE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Rows of source table APP.CUSTOMERS with REGION = 'EAST' must go to target table EAST.CUSTOMERS, and all other rows must go to target table OTHER.CUSTOMERS, using a single Replicat. What is the correct approach?",
+  "options": {
+   "A": "Use one MAP statement with two TARGET clauses",
+   "B": "Use two MAP statements for APP.CUSTOMERS, each with its own target and a complementary WHERE or FILTER condition",
+   "C": "Use MAPEXCLUDE APP.CUSTOMERS for rows that are not in the EAST region",
+   "D": "Use @RANGE(1, 2) to send EAST rows to the first target",
+   "E": "This requires two separate Replicat groups; a single Replicat cannot map one source table to two targets"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "하나의 소스 테이블에 대해 MAP 문을 여러 번 쓰고, 각각 다른 TARGET 과 서로 보완적인 WHERE/FILTER 조건을 주면 행을 여러 타깃으로 분할할 수 있다. MAP 하나에 TARGET 을 두 번 쓸 수 없다. MAPEXCLUDE 는 행 단위가 아니라 테이블 단위로 제외한다. @RANGE 는 컬럼 값이 아닌 해시로 행을 나누므로 REGION 기준 분할이 되지 않는다. 단일 Replicat 에서도 가능하므로 Replicat 이 두 개 필요하다는 설명은 틀렸다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SPLIT-TABLE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "The target table must record the host name of the source server in column SRC_HOST for every replicated row. Which configuration achieves this?",
+  "options": {
+   "A": "Extract: TABLE APP.ORDERS, TOKENS (TK_HOST = @GETENV(\"GGENVIRONMENT\", \"HOSTNAME\")); Replicat: COLMAP (USEDEFAULTS, SRC_HOST = @TOKEN(\"TK_HOST\"))",
+   "B": "Replicat only: COLMAP (USEDEFAULTS, SRC_HOST = @GETENV(\"GGENVIRONMENT\", \"HOSTNAME\"))",
+   "C": "Extract: TABLE APP.ORDERS, COLMAP (SRC_HOST = @TOKEN(\"TK_HOST\")); Replicat: TOKENS (TK_HOST = \"SOURCE\")",
+   "D": "Replicat only: COLMAP (USEDEFAULTS, SRC_HOST = @DATENOW())",
+   "E": "Extract: TABLE APP.ORDERS, KEYCOLS (SRC_HOST); Replicat: MAP with USEDEFAULTS only"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "소스 측 정보를 타깃에 저장하려면 Extract 의 TABLE ... TOKENS 로 @GETENV(\"GGENVIRONMENT\", \"HOSTNAME\") 값을 트레일 사용자 토큰에 담고, Replicat 에서 @TOKEN 으로 읽어 매핑한다. Replicat 에서 직접 @GETENV 로 호스트명을 얻으면 Replicat 서버(타깃)의 호스트명이 된다. TOKENS 는 Extract 의 TABLE 에서 정의하는 것이므로 역할이 뒤바뀐 구성은 틀렸다. @DATENOW 는 시각을 반환하며, KEYCOLS 는 키 컬럼을 지정하는 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TOKEN-E2E"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source table HR.EMP contains DEPTNO, but target table RPT.EMP also requires DEPT_NAME. The department names exist only in table DEPT on the target database. How can Replicat populate DEPT_NAME?",
+  "options": {
+   "A": "Specify KEYCOLS (DEPTNO) so that Replicat joins to DEPT automatically",
+   "B": "Use @TOKEN(\"DEPT_NAME\") without defining any token in Extract",
+   "C": "Use SQLEXEC in the MAP statement to query DEPT with DEPTNO as a parameter, and map DEPT_NAME from the query output",
+   "D": "Use COLMAP (USEDEFAULTS), because Replicat resolves foreign keys automatically",
+   "E": "Use TABLEEXCLUDE DEPT so that its names are merged into RPT.EMP"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MAP 안의 SQLEXEC 로 DEPTNO 를 파라미터로 넘겨 DEPT 를 조회하고, 그 결과(예: lookup.dname)를 COLMAP 에서 DEPT_NAME 에 매핑하는 것이 표준 조회 방식이다. KEYCOLS 는 조인 기능이 없다. 정의하지 않은 토큰에는 값이 없다. USEDEFAULTS 는 이름이 같은 컬럼만 매핑하고 외래 키를 해석하지 않는다. TABLEEXCLUDE 는 Extract 의 테이블 제외 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A 19c Replicat must read a trail written with FORMAT RELEASE 12.1, which does not contain table metadata. The source and target tables have different column layouts. What must be done so that Replicat can interpret the source records?",
+  "options": {
+   "A": "Specify ASSUMETARGETDEFS in Replicat",
+   "B": "Add COLMAP (USEDEFAULTS) to every MAP statement; no definitions are needed",
+   "C": "Specify KEYCOLS for every table",
+   "D": "Run DEFGEN on the source system for the tables, transfer the definitions file to the target, and reference it with SOURCEDEFS in Replicat",
+   "E": "No action is needed, because Replicat queries the source database for definitions"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "메타데이터가 없는 이전 형식 트레일이면서 소스와 타깃 구조가 다를 때는, 소스에서 DEFGEN 으로 정의 파일을 만들어 타깃으로 옮긴 뒤 Replicat 에 SOURCEDEFS 로 지정해야 한다. ASSUMETARGETDEFS 는 구조가 같을 때만 쓴다. USEDEFAULTS 나 KEYCOLS 는 소스 정의를 제공하지 않는다. Replicat 은 소스 DB 를 조회해 정의를 얻지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SOURCEDEFS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Extract must capture all tables in schema HR except the work tables whose names start with TEMP_. What is the simplest way to configure this?",
+  "options": {
+   "A": "Use TABLE HR.* together with TABLEEXCLUDE HR.TEMP_*",
+   "B": "Use TABLE HR.* EXCEPT TEMP_*",
+   "C": "Use TABLE HR.*, COLSEXCEPT (TEMP_*)",
+   "D": "Use MAPEXCLUDE HR.TEMP_* in the Extract parameter file",
+   "E": "List every non-TEMP_ table individually; wildcards cannot be combined with exclusions"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "TABLE HR.* 로 스키마 전체를 지정하고 TABLEEXCLUDE HR.TEMP_* 로 와일드카드 패턴에 맞는 테이블을 제외하는 방식이 가장 간단하다. TABLE 문에 EXCEPT 구문은 없다. COLSEXCEPT 는 테이블이 아니라 컬럼을 제외한다. MAPEXCLUDE 는 Replicat 의 MAP 용이다. 와일드카드와 제외 지정은 함께 쓸 수 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TABLEEXCLUDE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source columns AREA_CODE ('415') and PHONE ('5551234') must be combined into target column FULL_PHONE as '415-5551234'. Which COLMAP entry is correct?",
+  "options": {
+   "A": "FULL_PHONE = AREA_CODE || '-' || PHONE",
+   "B": "FULL_PHONE = @CONCAT(AREA_CODE, \"-\", PHONE)",
+   "C": "FULL_PHONE = @STREXT(AREA_CODE, PHONE)",
+   "D": "FULL_PHONE = @STRCAT(AREA_CODE, \"-\", PHONE)",
+   "E": "AREA_CODE = @STRCAT(FULL_PHONE, \"-\")"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@STRCAT 은 여러 문자열을 순서대로 이어 붙이므로 @STRCAT(AREA_CODE, \"-\", PHONE) 이 '415-5551234' 를 만든다. COLMAP 에서는 SQL 의 || 연산자를 쓸 수 없고, @CONCAT 은 GoldenGate 함수가 아니다. @STREXT 는 부분 문자열 추출 함수이다. AREA_CODE 에 @STRCAT(FULL_PHONE, ...) 을 넣는 구문은 타깃과 소스의 위치가 뒤바뀌어 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STRCAT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which elements can be used in the WHERE clause of a TABLE or MAP statement? (Choose all that apply.)",
+  "options": {
+   "A": "Comparison operators such as =, <>, and >",
+   "B": "Column-conversion functions such as @STRFIND",
+   "C": "The tests @NULL, @PRESENT, and @ABSENT",
+   "D": "Arithmetic expressions such as (PRICE * QTY) > 1000",
+   "E": "The conjunctive operators AND and OR"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "WHERE 절에서는 컬럼명, 숫자·문자 리터럴, 비교 연산자, AND/OR, 그리고 @NULL/@PRESENT/@ABSENT 같은 상태 검사를 쓸 수 있다. @STRFIND 같은 컬럼 변환 함수와 산술 연산은 WHERE 에서 지원되지 않으므로 FILTER 절을 사용해야 한다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-WHERE-LIMITS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which values can be retrieved with @GETENV(\"GGHEADER\", ...)? (Choose all that apply.)",
+  "options": {
+   "A": "OPTYPE (the operation type of the record)",
+   "B": "CPUUSAGE (the CPU usage of the process)",
+   "C": "COMMITTIMESTAMP (the source commit time)",
+   "D": "DISKFREE (free space in the trail directory)",
+   "E": "TABLENAME (the source table name)"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "GGHEADER 정보 유형은 트레일 레코드 헤더 값을 반환하며, OPTYPE, COMMITTIMESTAMP, TABLENAME 등을 제공한다. CPU 사용량이나 디스크 여유 공간은 레코드 헤더 정보가 아니므로 GGHEADER 로 얻을 수 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-GETENV-GGHEADER"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid EVENTACTIONS actions? (Choose all that apply.)",
+  "options": {
+   "A": "STOP",
+   "B": "SENDMAIL",
+   "C": "ROLLOVER",
+   "D": "REBUILD",
+   "E": "SHELL"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "EVENTACTIONS 에는 STOP(프로세스 정상 중지), ROLLOVER(새 트레일 파일로 전환), SHELL(셸 명령 실행) 등의 동작이 있다. SENDMAIL 과 REBUILD 는 EVENTACTIONS 동작이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-EVENTACTIONS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid GoldenGate string column-conversion functions? (Choose three.)",
+  "options": {
+   "A": "@STREXT",
+   "B": "@STRREVERSE",
+   "C": "@STRCAT",
+   "D": "@STRSPLIT",
+   "E": "@STRUP"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "@STREXT(부분 문자열 추출), @STRCAT(문자열 연결), @STRUP(대문자 변환)은 모두 실제 GoldenGate 문자열 함수이다. @STRREVERSE 와 @STRSPLIT 은 존재하지 않는 함수이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-STRING-FUNCS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which tasks can be performed with SQLEXEC? (Choose all that apply.)",
+  "options": {
+   "A": "Execute a stored procedure and use its output parameters in COLMAP",
+   "B": "Automatically create missing target tables before mapping",
+   "C": "Execute a query whose results are used in COLMAP",
+   "D": "Run SQL as a standalone statement, for example at process startup or at an interval with EVERY",
+   "E": "Replace trail files with the results of a query"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "SQLEXEC 는 저장 프로시저 호출과 쿼리 실행으로 결과를 매핑에 쓸 수 있고, 독립형으로 시작 시 또는 EVERY 주기로 SQL 을 실행할 수 있다. 타깃 테이블 자동 생성이나 트레일 파일 교체 기능은 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC-CAP"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which mechanisms allow common parameter text to be reused across multiple GoldenGate parameter files? (Choose two.)",
+  "options": {
+   "A": "Defining macros in a macro library file and adding it with INCLUDE",
+   "B": "Using @TOKEN to share parameters between parameter files",
+   "C": "Placing common parameters in a separate file and referencing it with OBEY",
+   "D": "Running DEFGEN to copy parameters into each file",
+   "E": "Using the IMPORTPARAMS parameter"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "매크로 라이브러리를 INCLUDE 로 포함하거나 공통 파라미터 파일을 OBEY 로 읽게 하면 여러 파라미터 파일에서 같은 내용을 재사용할 수 있다. @TOKEN 은 트레일의 사용자 토큰을 읽는 함수이고, DEFGEN 은 테이블 정의 파일 생성 도구이며, IMPORTPARAMS 는 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-PARAM-REUSE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about KEYCOLS are correct? (Choose two.)",
+  "options": {
+   "A": "It defines one or more columns to be used as the row identifier in place of the existing primary or unique key",
+   "B": "It creates a primary key constraint on the target table",
+   "C": "It is valid only in Extract",
+   "D": "It can be used for tables that have no primary key or unique key",
+   "E": "It removes the specified columns from the trail"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "KEYCOLS 는 기존 키 대신 행 식별에 쓸 컬럼을 지정하며, 키가 없는 테이블에서 모든 컬럼을 키로 쓰는 비효율을 피하는 데 쓰인다. 타깃 DB 에 제약 조건을 만들지 않는다. Extract(TABLE)와 Replicat(MAP) 모두에서 사용할 수 있다. 컬럼을 트레일에서 제거하는 기능(COLSEXCEPT 등)과도 다르다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-KEYCOLS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source and target tables both have columns ID, NAME, and EMAIL. The MAP statement uses COLMAP (ID = ID, NAME = NAME) WITHOUT USEDEFAULTS. What happens to the EMAIL column?",
+  "options": {
+   "A": "EMAIL is mapped automatically because the column names match",
+   "B": "Replicat abends because not all target columns are mapped",
+   "C": "EMAIL is not mapped from the source; only the explicitly mapped columns are applied",
+   "D": "EMAIL is always set to an empty string",
+   "E": "Extract stops capturing EMAIL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "COLMAP 을 쓰면서 USEDEFAULTS 를 지정하지 않으면 명시적으로 매핑한 컬럼만 적용되고, 이름이 같은 다른 컬럼은 자동 매핑되지 않는다. 이름 기반 자동 매핑은 USEDEFAULTS 가 있을 때만 일어난다. 매핑되지 않은 컬럼 때문에 Replicat 이 중단되지 않으며, 빈 문자열이 강제로 들어가지도 않는다. Replicat 의 COLMAP 은 Extract 의 캡처 대상에 영향을 주지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-USEDEFAULTS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statement about user tokens is correct?",
+  "options": {
+   "A": "Tokens are defined with the TOKENS option of MAP in Replicat and read with @GETENV in Extract",
+   "B": "Tokens are written to the target database automatically, without any mapping",
+   "C": "Tokens defined with TABLE ... TOKENS in Extract are stored in the user token area of the trail record and can be read downstream with @TOKEN",
+   "D": "Tokens can be read only by the Extract that created them",
+   "E": "Tokens require a SOURCEDEFS file in order to be read"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "사용자 토큰은 Extract 의 TABLE 문 TOKENS 옵션으로 정의되어 트레일 레코드의 사용자 토큰 영역에 저장되고, 이후 데이터 펌프나 Replicat 에서 @TOKEN 으로 읽어 매핑·필터에 사용한다. 정의(Extract)와 읽기(Replicat) 위치가 반대인 설명은 틀렸다. 토큰은 매핑 없이 자동으로 타깃에 저장되지 않는다. 생성한 Extract 만 읽을 수 있는 것도 아니며, SOURCEDEFS 와는 관계가 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-TOKENS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which SQLEXEC ERROR option causes an error from the SQL to be handled according to the REPERROR rules of the Replicat?",
+  "options": {
+   "A": "IGNORE",
+   "B": "REPORT",
+   "C": "RAISE",
+   "D": "FATAL",
+   "E": "DEFER"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SQLEXEC 의 ERROR RAISE 는 SQL 오류를 REPERROR 에 정의한 오류 처리 규칙에 따라 처리하게 한다. IGNORE 는 오류를 무시하고 계속 진행하고, REPORT 는 리포트에 기록하고 계속 진행하며, FATAL 은 프로세스를 중단(abend)시킨다. DEFER 는 SQLEXEC ERROR 옵션이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC-ERROR"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Replicat MAP statement contains both a FILTER and a SQLEXEC query, and the FILTER condition must use the query output. Which SQLEXEC option makes the query run before the filter is evaluated?",
+  "options": {
+   "A": "PREFILTER",
+   "B": "EXECFIRST",
+   "C": "BEFOREFILTER",
+   "D": "FILTERLAST",
+   "E": "EARLYEXEC"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MAP 안의 SQLEXEC 는 기본적으로 FILTER 평가 이후에 실행되므로, 쿼리 결과를 FILTER 에서 쓰려면 BEFOREFILTER 옵션으로 필터 전에 실행되게 해야 한다. PREFILTER, EXECFIRST, FILTERLAST, EARLYEXEC 는 존재하지 않는 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SQLEXEC-ORDER"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A macro is defined as MACRO #make_date PARAMS (#y, #m, #d) BEGIN @DATE(\"YYYY-MM-DD\", \"CC\", @IF(#y > 50, 19, 20), \"YY\", #y, \"MM\", #m, \"DD\", #d) END; How is it invoked in a COLMAP?",
+  "options": {
+   "A": "ORDER_DATE = @make_date(YR, MO, DA)",
+   "B": "ORDER_DATE = CALL make_date(YR, MO, DA)",
+   "C": "ORDER_DATE = MACRO #make_date(YR, MO, DA)",
+   "D": "ORDER_DATE = #make_date(YR, MO, DA)",
+   "E": "ORDER_DATE = INCLUDE #make_date(YR, MO, DA)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "매크로는 정의할 때와 같은 매크로 문자(#)를 붙인 이름 뒤에 인수를 괄호로 넘겨 호출한다(#make_date(YR, MO, DA)). 호출 시 매크로 본문이 인수로 치환되어 전개된다. @ 는 내장 컬럼 변환 함수 접두사이므로 매크로 호출에 쓰지 않는다. CALL 은 매크로 호출 문법이 아니다. MACRO 키워드는 정의할 때만 쓰며, INCLUDE 는 매크로 라이브러리 파일을 포함하는 문장이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-MACRO-INVOKE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A COLMAP entry is ORDER_DATE = @DATE(\"YYYY-MM-DD\", \"YYYYMMDD\", ORDER_DT). Which statement describes this expression?",
+  "options": {
+   "A": "It converts ORDER_DT from YYYY-MM-DD format to YYYYMMDD format",
+   "B": "It converts ORDER_DT, which is in YYYYMMDD format, into YYYY-MM-DD format",
+   "C": "It returns the current date in both formats",
+   "D": "It compares two date formats and returns TRUE if they are equal",
+   "E": "It is invalid, because @DATE accepts only a single argument"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "@DATE 의 첫 번째 인수는 출력 형식, 두 번째 인수는 입력 형식 설명자이고, 그 뒤에 소스 값이 온다. 따라서 YYYYMMDD 형식의 ORDER_DT 를 YYYY-MM-DD 형식으로 변환한다. 변환 방향을 반대로 설명한 것은 틀렸다. 현재 날짜 반환은 @DATENOW 이다. @DATE 는 비교 함수가 아니며, 여러 인수를 받는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-DATE-FUNC"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "The source Oracle database uses the WE8ISO8859P1 character set and the target database uses AL32UTF8. Which statement BEST describes how GoldenGate handles character data in this case?",
+  "options": {
+   "A": "Replication fails unless both databases use the same character set",
+   "B": "Replicat converts character data from the source character set, which is identified in the trail, to the target database character set",
+   "C": "DEFGEN must be run to convert the character data",
+   "D": "All character data is written to the trail as 7-bit ASCII and non-ASCII characters are discarded",
+   "E": "Character data can be converted only by mapping every column with @STRCAT"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "트레일에는 소스 문자 집합 정보가 기록되며, Replicat 이 적용 시 소스 문자 집합의 데이터를 타깃 DB 문자 집합으로 변환한다. 따라서 문자 집합이 서로 달라도 복제할 수 있다. 같은 문자 집합이어야만 동작하는 것은 아니다. DEFGEN 은 테이블 정의 생성 도구이다. 비ASCII 문자를 버리지 않으며, @STRCAT 은 문자 집합 변환 함수가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-CHARSET"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Replicat FILTER compares BEFORE.SALARY with SALARY to detect salary increases, but the before values are not available in the trail. Which Extract parameter writes before images of update operations to the trail?",
+  "options": {
+   "A": "LOGBEFOREIMAGES",
+   "B": "BEFOREIMAGEON",
+   "C": "GETUPDATEBEFORES",
+   "D": "CAPTUREOLDVALUES",
+   "E": "UPDATEBEFOREALL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "GETUPDATEBEFORES 를 지정하면 Extract 가 업데이트의 이전 이미지(before image)도 트레일에 기록하므로, 하위 프로세스에서 BEFORE.column 형태로 이전 값을 참조할 수 있다. LOGBEFOREIMAGES, BEFOREIMAGEON, CAPTUREOLDVALUES, UPDATEBEFOREALL 은 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-BEFORE-IMAGE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Table OE.ORDER_LINES has no primary key or unique key, and Replicat applies updates slowly because every column is used to locate rows. The combination of ORDER_ID and LINE_NO is unique. What is the recommended solution?",
+  "options": {
+   "A": "Specify KEYCOLS (ORDER_ID, LINE_NO) in the Extract TABLE and Replicat MAP statements, and make sure these columns are logged for every update",
+   "B": "Specify KEYCOLS only in Replicat, because Extract always writes every column for every update",
+   "C": "Use COLSEXCEPT to remove all non-key columns from the trail",
+   "D": "Use INSERTALLRECORDS so that no row lookup is required",
+   "E": "Use ASSUMETARGETDEFS so that Replicat uses the target primary key"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "키가 없는 테이블은 모든 컬럼이 키로 쓰여 비효율적이므로, 실제로 고유한 ORDER_ID, LINE_NO 를 KEYCOLS 로 Extract 와 Replicat 양쪽에 지정하고, 해당 컬럼이 업데이트마다 로깅되도록(보충 로깅) 해야 한다. Extract 가 업데이트마다 모든 컬럼을 항상 기록한다는 전제는 틀렸다. COLSEXCEPT 로 데이터 컬럼을 제거하면 데이터가 복제되지 않는다. INSERTALLRECORDS 는 이력 저장용으로 동기화 요구에 맞지 않으며, 타깃에도 키가 없으므로 ASSUMETARGETDEFS 로 해결되지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-NOKEY"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Table SALES.ORDER_ITEMS is too busy for one Replicat, so three Replicat groups will apply it in parallel. All changes for the same ORDER_ID must always be processed by the same Replicat. How should the MAP statements be written?",
+  "options": {
+   "A": "Use the same FILTER (@RANGE(1, 3, ORDER_ID)) in all three Replicat groups",
+   "B": "In each Replicat, use WHERE (@RANGE(n, 3, ORDER_ID)), with n = 1, 2, and 3",
+   "C": "Specify KEYCOLS (ORDER_ID) in one Replicat and MAPEXCLUDE in the other two",
+   "D": "In the three Replicat groups, use FILTER (@RANGE(1, 3, ORDER_ID)), FILTER (@RANGE(2, 3, ORDER_ID)), and FILTER (@RANGE(3, 3, ORDER_ID)) respectively",
+   "E": "Use @RANGE without a column list, because @RANGE always uses ORDER_ID"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@RANGE(range_number, total_ranges, column) 를 FILTER 에 넣고 각 Replicat 에 1, 2, 3 의 서로 다른 범위 번호를 주면 ORDER_ID 해시 기준으로 행이 나뉘어, 같은 ORDER_ID 는 항상 같은 Replicat 이 처리한다. 세 Replicat 에 같은 범위 번호를 쓰면 한 범위만 세 번 처리되고 나머지 행은 누락된다. WHERE 절에서는 함수를 쓸 수 없다. KEYCOLS/MAPEXCLUDE 조합은 부하를 나누지 못한다. 컬럼을 생략하면 @RANGE 는 ORDER_ID 가 아니라 테이블의 키 컬럼을 사용한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-RANGE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source tables EAST.ORDERS and WEST.ORDERS have identical structures, and their ORDER_ID values never overlap. Both must be consolidated into target table DW.ORDERS, where column REGION must contain the constant value EAST or WEST to show where each row came from. Which approach is correct?",
+  "options": {
+   "A": "Use one MAP statement that lists both source tables separated by a comma",
+   "B": "Use two MAP statements, one for EAST.ORDERS and one for WEST.ORDERS, both with TARGET DW.ORDERS, each using COLMAP (USEDEFAULTS, ...) to set REGION to its own constant",
+   "C": "Use TABLEEXCLUDE so that both tables are merged automatically",
+   "D": "This is not possible; GoldenGate can map each target table from only one source table",
+   "E": "Use @RANGE to assign the REGION value"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "여러 소스 테이블을 하나의 타깃으로 통합하려면 소스마다 MAP 문을 두고 같은 TARGET 을 지정하며, COLMAP(USEDEFAULTS, REGION = 상수)로 출처를 표시하면 된다. MAP 하나에 소스 테이블 두 개를 나열하는 문법은 없다. TABLEEXCLUDE 는 테이블 제외용이다. 다대일 매핑은 가능하므로 불가능하다는 설명은 틀렸다. @RANGE 는 행 분배 함수이지 상수 지정용이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-COMBINE-TABLES"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "After a long Replicat lag, auditors notice that column CHANGE_TS in the target history table shows when Replicat applied each row, not when the change was committed on the source. The current mapping is CHANGE_TS = @DATENOW(). What should the mapping be changed to?",
+  "options": {
+   "A": "CHANGE_TS = @DATE(\"YYYY-MM-DD HH:MI:SS\", \"NOW\")",
+   "B": "CHANGE_TS = @GETENV(\"GGENVIRONMENT\", \"HOSTNAME\")",
+   "C": "CHANGE_TS = @COMPUTE(@DATENOW() - LAG)",
+   "D": "CHANGE_TS = @GETENV(\"GGHEADER\", \"COMMITTIMESTAMP\")",
+   "E": "CHANGE_TS = @COLSTAT(NULL)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "@DATENOW() 는 Replicat 이 함수를 평가하는 시점의 현재 시각이므로 지연이 생기면 적용 시각이 기록된다. 소스 커밋 시각은 트레일 헤더에 있으므로 @GETENV(\"GGHEADER\", \"COMMITTIMESTAMP\") 를 사용해야 한다. 'NOW' 는 @DATE 의 유효한 입력이 아니다. HOSTNAME 은 시각 정보가 아니다. LAG 컬럼을 빼는 식은 근거 없는 계산이며, @COLSTAT(NULL) 은 값을 NULL 로 만들 뿐이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-GETENV-COMMITTS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source and target tables have different structures. Which methods can provide Replicat with the source table definitions? (Choose two.)",
+  "options": {
+   "A": "Table definition metadata written into a trail with format release 12.2 or later",
+   "B": "Specifying ASSUMETARGETDEFS in Replicat",
+   "C": "Using COLMAP (USEDEFAULTS) in every MAP statement",
+   "D": "A definitions file generated by DEFGEN and specified with SOURCEDEFS",
+   "E": "Defining a user token for each column"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "소스 정의는 12.2 이상 형식 트레일에 포함된 메타데이터 레코드, 또는 DEFGEN 으로 생성해 SOURCEDEFS 로 지정한 정의 파일로 제공할 수 있다. ASSUMETARGETDEFS 는 구조가 같을 때 타깃 정의를 그대로 쓰겠다는 의미라 구조가 다르면 맞지 않는다. USEDEFAULTS 는 매핑 규칙일 뿐 정의를 제공하지 않으며, 사용자 토큰은 정의 제공 수단이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-SOURCE-DEFS-METHODS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about the Replicat parameter INSERTALLRECORDS are correct? (Choose two.)",
+  "options": {
+   "A": "It causes update and delete operations to be applied to the target as inserts",
+   "B": "It converts insert operations into updates",
+   "C": "It must be specified in Extract so that the trail contains only inserts",
+   "D": "It is commonly combined with @GETENV(\"GGHEADER\", ...) values in COLMAP to record the operation type and commit time in a history table",
+   "E": "It requires a unique constraint on the source key columns in the target table"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "INSERTALLRECORDS 는 Replicat 파라미터로, 업데이트·삭제를 포함한 모든 오퍼레이션을 타깃에 INSERT 로 적용한다. 그래서 @GETENV(\"GGHEADER\", \"OPTYPE\"/\"COMMITTIMESTAMP\") 와 함께 이력(감사) 테이블 구성에 흔히 쓰인다. INSERT 를 UPDATE 로 바꾸는 기능이 아니다. Extract 에 지정하는 파라미터도 아니다. 같은 키의 행이 여러 번 들어가므로, 소스 키 컬럼에 고유 제약이 있으면 오히려 중복 오류가 발생한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-HISTORY-TABLE"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid information types for the first argument of @GETENV? (Choose all that apply.)",
+  "options": {
+   "A": "GGHEADER",
+   "B": "HOSTINFO",
+   "C": "GGENVIRONMENT",
+   "D": "CPUSTAT",
+   "E": "OSVARIABLE"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "@GETENV 의 정보 유형에는 GGHEADER(트레일 레코드 헤더), GGENVIRONMENT(GoldenGate 환경 정보: 그룹 이름, 호스트명 등), OSVARIABLE(OS 환경 변수) 등이 있다. HOSTINFO 와 CPUSTAT 은 @GETENV 정보 유형이 아니다(호스트명은 GGENVIRONMENT 의 HOSTNAME 으로 얻는다).",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "MAP-GETENV-TYPES"
+ }
+]

@@ -1,0 +1,120 @@
+:root {
+  --bg: #f4f6f9; --card: #fff; --ink: #1d2733; --muted: #667085; --line: #d9dee7;
+  --brand: #1f5fbf; --brand-ink: #fff; --ok: #1a7f4b; --bad: #c0352b; --warn: #b7791f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 16px/1.6 "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: .6rem 1.2rem; background: #fff; border-bottom: 1px solid var(--line); }
+.brand { font-weight: 700; color: var(--brand); text-decoration: none; }
+.container { max-width: 1040px; margin: 1.5rem auto; padding: 0 1rem; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; }
+.card.narrow { max-width: 440px; margin: 3rem auto; }
+h1 { font-size: 1.35rem; margin: 0 0 .8rem; } h2 { font-size: 1.1rem; margin: 0 0 .6rem; } h3 { font-size: 1rem; margin: 0 0 .6rem; }
+label { display: block; margin: .7rem 0; font-weight: 600; }
+input[name=login_id], input[name=password] { display: block; width: 100%; padding: .55rem .7rem; margin-top: .25rem; border: 1px solid var(--line); border-radius: 6px; font-size: 1rem; }
+button, .button { font: inherit; padding: .5rem 1rem; border: 1px solid var(--line); background: #fff; border-radius: 6px; cursor: pointer; text-decoration: none; color: var(--ink); display: inline-block; }
+button.primary, .button.primary { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+button.link { border: 0; background: none; color: var(--brand); padding: 0; text-decoration: underline; }
+.inline { display: inline; margin: 0; }
+.muted { color: var(--muted); font-size: .88rem; }
+.alert { background: #fdecea; border: 1px solid #f5c2bd; color: var(--bad); padding: .6rem .8rem; border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; } th, td { text-align: left; padding: .45rem .5rem; border-bottom: 1px solid var(--line); }
+.badge { font-size: .75rem; padding: .1rem .5rem; border-radius: 999px; background: #eef2f8; color: var(--muted); font-weight: 600; vertical-align: middle; }
+.badge.pass { background: #e3f4ea; color: var(--ok); } .badge.fail { background: #fdecea; color: var(--bad); }
+
+/* 응시 화면 */
+.exam-bar { display: flex; gap: 1rem; align-items: center; }
+.timer { font: 700 1.3rem/1 ui-monospace, Consolas, monospace; padding: .35rem .7rem; border-radius: 6px; background: #eef2f8; }
+.timer.warn { background: #fdecea; color: var(--bad); }
+.layout { display: grid; grid-template-columns: 1fr 220px; gap: 1rem; align-items: start; }
+@media (max-width: 760px) { .layout { grid-template-columns: 1fr; } }
+.exam-body { -webkit-user-select: none; user-select: none; }
+.q-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.stem { white-space: pre-wrap; font-size: 1.05rem; margin: .8rem 0 1rem; }
+.opt { display: flex; gap: .6rem; align-items: flex-start; font-weight: 400; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; }
+.opt:hover { background: #f8fafc; } .opt:has(input:checked) { border-color: var(--brand); background: #eef4ff; }
+.opt input { margin-top: .45rem; }
+.opt .no { min-width: 1.4rem; font-weight: 700; color: var(--brand); } .opt .txt { flex: 1; }
+.row { display: flex; justify-content: space-between; align-items: center; margin-top: .6rem; }
+.pager { display: flex; justify-content: space-between; margin-top: 1rem; }
+button.flag.on { background: #fff7e0; border-color: var(--warn); color: var(--warn); }
+.navigator { display: flex; flex-wrap: wrap; gap: .35rem; }
+.nav-item { width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--ink); font-size: .9rem; }
+.nav-item.answered { background: #dbe8ff; border-color: var(--brand); }
+.nav-item.flagged { outline: 2px solid #e8b100; }
+.nav-item.current { background: var(--brand); color: #fff; }
+.legend { width: 100%; margin: .5rem 0 0; }
+
+/* 결과 */
+.score { font-size: 2.4rem; font-weight: 800; }
+.charts { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+.explain { border-top: 1px solid var(--line); padding: .8rem 0; }
+.explain .ok { color: var(--ok); font-weight: 700; } .explain .no { color: var(--bad); font-weight: 700; }
+svg text { font-family: inherit; fill: var(--ink); }
+
+/* 관리자 */
+.notice { background: #e8f5ee; border: 1px solid #b9e0c9; color: var(--ok); padding: .6rem .8rem; border-radius: 6px; }
+.adminnav { display: flex; gap: 1rem; align-items: center; }
+.adminnav a { text-decoration: none; color: var(--ink); padding: .2rem .1rem; border-bottom: 2px solid transparent; }
+.adminnav a.on { border-color: var(--brand); color: var(--brand); font-weight: 700; }
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; align-items: end; margin-bottom: 1rem; }
+.filters label { margin: 0; font-size: .85rem; } .filters select, .filters input { display: block; padding: .35rem .5rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1rem; }
+.chip { padding: .15rem .6rem; border-radius: 999px; background: #eef2f8; text-decoration: none; color: var(--ink); font-size: .85rem; }
+.chip b { margin-left: .25rem; }
+.st { font-size: .75rem; padding: .1rem .5rem; border-radius: 999px; font-weight: 700; }
+.st.DRAFT { background: #eef2f8; color: var(--muted); } .st.REVIEWED { background: #fff4d6; color: var(--warn); }
+.st.APPROVED { background: #e3f4ea; color: var(--ok); } .st.RETIRED { background: #eee; color: #888; text-decoration: line-through; }
+form.stack label { font-weight: 600; } form.stack input[type=text], form.stack select, form.stack textarea { display: block; width: 100%; padding: .45rem .6rem; margin-top: .2rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+form.stack textarea { min-height: 5rem; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0 1rem; }
+.optrow { display: grid; grid-template-columns: 2.2rem 1fr 4.5rem; gap: .5rem; align-items: center; margin: .3rem 0; }
+.optrow .k { font-weight: 700; color: var(--brand); text-align: center; } .optrow label { margin: 0; font-weight: 400; font-size: .85rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+button.danger { background: #fff; color: var(--bad); border-color: var(--bad); }
+.errlist { margin: .3rem 0 0 1rem; padding: 0; }
+.pagination { display: flex; gap: .8rem; align-items: center; justify-content: center; margin-top: 1rem; }
+td.stemcell { max-width: 460px; }
+.correct { background: #e3f4ea; border-radius: 4px; padding: 0 .3rem; }
+pre.code { background: #f4f6f9; border: 1px solid var(--line); border-radius: 6px; padding: .7rem; overflow-x: auto; font-size: .85rem; }
+fieldset.plain { border: 0; padding: 0; margin: 0; min-width: 0; }
+.tight { margin-bottom: .2rem; } .mt1 { margin-top: 1.1rem; } .actions.between { justify-content: space-between; }
+
+/* Blueprint / 결과 / 기타 관리자 화면 */
+.bad { color: var(--bad); font-weight: 700; } .good { color: var(--ok); font-weight: 700; }
+.checks { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+label.inl { display: inline-flex; gap: .4rem; align-items: center; font-weight: 400; margin: .2rem 0; }
+table.bpgrid th, table.bpgrid td { vertical-align: top; text-align: center; }
+table.bpgrid th[scope=row] { text-align: left; white-space: nowrap; }
+table.bpgrid .pair { display: flex; gap: .3rem; align-items: center; justify-content: center; }
+table.bpgrid input[type=number] { width: 4.6rem; padding: .3rem .4rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+table.bpgrid td.short { background: #fdecea; } table.bpgrid td.short .avail { color: var(--bad); font-weight: 700; }
+table.bpgrid td.okcell .avail { color: var(--ok); }
+table.bpgrid .avail { font-size: .8rem; margin-top: .2rem; } .tot { white-space: nowrap; }
+.kpis { display: flex; flex-wrap: wrap; gap: 1rem; margin: .5rem 0 1rem; }
+.kpi { background: #f4f6f9; border: 1px solid var(--line); border-radius: 8px; padding: .5rem .9rem; } .kpi b { font-size: 1.2rem; display: block; }
+.filters input[type=date] { padding: .3rem .5rem; }
+details pre { margin: .3rem 0 0; white-space: pre-wrap; word-break: break-all; font-size: .8rem; background: #f4f6f9; padding: .5rem; border-radius: 6px; }
+.secret { font: 700 1rem/1.4 ui-monospace, Consolas, monospace; letter-spacing: .04em; }
+.warnbox { background: #fff7e0; border: 1px solid #ecd48a; padding: .6rem .8rem; border-radius: 6px; }
+.cutoff { color: var(--bad); }
+.grid2 input[type=number] { display: block; width: 100%; padding: .45rem .6rem; margin-top: .2rem; border: 1px solid var(--line); border-radius: 6px; font: inherit; }
+th { white-space: nowrap; }
+.badge, .st { white-space: nowrap; }
+
+/* 최종 제출 확인 팝업(<dialog>): showModal() 은 기본으로 화면 정가운데에 고정된다 */
+dialog.modal { border: 0; border-radius: 12px; padding: 1.4rem 1.6rem 1.2rem; width: min(420px, calc(100vw - 2rem));
+  box-shadow: 0 20px 50px rgba(15, 23, 42, .3); color: var(--ink); background: var(--card);
+  word-break: keep-all; /* 한국어를 단어 중간에서 끊지 않는다 */ }
+dialog.modal::backdrop { background: rgba(15, 23, 42, .45); }
+dialog.modal h2 { margin: 0 0 .9rem; font-size: 1.15rem; }
+dialog.modal p { margin: .4rem 0; }
+.modal-warn { color: var(--bad); font-weight: 700; background: #fdecea; padding: .5rem .7rem; border-radius: 6px; }
+.modal-note { color: var(--warn); font-weight: 600; background: #fff7e0; padding: .5rem .7rem; border-radius: 6px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.2rem; }
+.modal-actions button { min-width: 5.5rem; }
+.field, input.field { display: block; width: 100%; padding: .55rem .7rem; margin-top: .25rem; border: 1px solid var(--line); border-radius: 6px; font-size: 1rem; }
+.loginlinks { display: flex; justify-content: space-between; gap: 1rem; margin-top: .8rem; font-size: .9rem; }
+.topbar-right { display: flex; gap: 1rem; align-items: center; }
+a.danger-link { color: var(--bad); border-color: var(--bad); }
+.button.small { padding: .2rem .6rem; font-size: .85rem; }

@@ -1,0 +1,1493 @@
+[
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command displays the contents of the current report file of Replicat rep1?",
+  "options": {
+   "A": "SHOW REPORT rep1",
+   "B": "INFO REPORT rep1",
+   "C": "VIEW REPORT rep1",
+   "D": "LIST REPORT rep1",
+   "E": "OPEN REPORT rep1"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "VIEW REPORT <그룹명> 은 해당 프로세스의 현재 리포트 파일(dirrpt/<그룹명>.rpt) 내용을 보여 줍니다. SHOW/INFO/LIST/OPEN REPORT 는 GGSCI 에 존재하지 않는 명령 형식입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-VIEW-REPORT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which are valid ways to read the GoldenGate error log (ggserr.log) of a Classic Architecture installation? (Choose two.)",
+  "options": {
+   "A": "Run STATS MANAGER in GGSCI",
+   "B": "Query the DBA_GOLDENGATE_ERRLOG view",
+   "C": "Run VIEW GGSEVT in GGSCI",
+   "D": "Run VIEW REPORT MGR in GGSCI",
+   "E": "Open the ggserr.log file in the GoldenGate home with an operating system text viewer"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "VIEW GGSEVT 는 GGSCI 에서 ggserr.log 를 보여 주며, ggserr.log 는 일반 텍스트 파일이므로 OS 도구(more, tail 등)로 직접 열 수도 있습니다. VIEW REPORT MGR 은 Manager 리포트(MGR.rpt)를 보여 줄 뿐 ggserr.log 가 아닙니다. STATS MANAGER 와 DBA_GOLDENGATE_ERRLOG 뷰는 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-VIEW-GGSEVT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "An operator must stop Extract ext1 for a short maintenance window. The process is healthy, and it must resume from exactly where it left off when restarted. Which command should the operator use?",
+  "options": {
+   "A": "DELETE EXTRACT ext1",
+   "B": "STOP MANAGER",
+   "C": "STOP EXTRACT ext1",
+   "D": "SEND EXTRACT ext1, ROLLOVER",
+   "E": "KILL EXTRACT ext1"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "STOP EXTRACT 는 프로세스를 정상(graceful) 종료하며 체크포인트를 기록하므로 재시작 시 마지막 위치부터 이어서 처리합니다. KILL 은 정상 종료가 불가능할 때만 쓰는 강제 종료이고, DELETE 는 그룹 자체를 삭제합니다. STOP MANAGER 는 Manager 를 중지할 뿐 Extract 중지 수단이 아니며, ROLLOVER 는 트레일 파일을 새 파일로 넘기는 명령입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STOP-GRACEFUL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command starts all Extract and Replicat groups with a single command?",
+  "options": {
+   "A": "BEGIN ER *",
+   "B": "START ALLGROUPS",
+   "C": "START ER *",
+   "D": "RUN ER *",
+   "E": "START PROCESS ALL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ER 은 Extract 와 Replicat 을 함께 지정하는 키워드이며, 와일드카드 * 와 함께 START ER * 로 모든 그룹을 시작합니다(INFO ER *, STOP ER * 등도 동일). 나머지 보기는 GGSCI 에 없는 명령입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-ER-WILDCARD"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command reports only whether Replicat rep1 is running, without lag or checkpoint details?",
+  "options": {
+   "A": "STATUS REPLICAT rep1",
+   "B": "ISRUNNING rep1",
+   "C": "STATE REPLICAT rep1",
+   "D": "PING REPLICAT rep1",
+   "E": "CHECK REPLICAT rep1"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "STATUS REPLICAT 는 프로세스의 실행 상태(RUNNING, STOPPED, ABENDED 등)만 간단히 보여 줍니다. 랙·체크포인트까지 보려면 INFO 를 사용합니다. PING/CHECK/ISRUNNING/STATE 는 존재하지 않는 명령입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STATUS-CMDS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Manager parameter specifies the TCP/IP port on which Manager listens for requests?",
+  "options": {
+   "A": "LISTENPORT",
+   "B": "MGRPORT",
+   "C": "TCPPORT",
+   "D": "PORT",
+   "E": "RMTPORT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Manager 파라미터 파일(mgr.prm)의 PORT 파라미터로 Manager 의 리스닝 포트를 지정합니다. LISTENPORT, MGRPORT, TCPPORT, RMTPORT 는 Manager 파라미터가 아닙니다(원격 Manager 포트는 Extract 의 RMTHOST ... MGRPORT 옵션으로 지정하며 Manager 파라미터가 아닙니다).",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-MGR-PORT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Manager parameter causes Extract and Replicat groups to be started automatically when Manager starts?",
+  "options": {
+   "A": "BOOTSTART",
+   "B": "AUTORUN",
+   "C": "AUTOSTART",
+   "D": "AUTORESTART",
+   "E": "STARTUPGROUPS"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "AUTOSTART (예: AUTOSTART ER *) 는 Manager 기동 시 지정한 프로세스를 자동으로 시작합니다. AUTORESTART 는 비정상 종료(ABEND)된 프로세스를 재시작하는 파라미터로 Manager 기동 시 시작과는 다릅니다. STARTUPGROUPS, BOOTSTART, AUTORUN 은 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-AUTOSTART"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture installation, which subdirectory of the GoldenGate home holds process report files by default?",
+  "options": {
+   "A": "dirdat",
+   "B": "dirrpt",
+   "C": "dirchk",
+   "D": "dirtmp",
+   "E": "dirprm"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "프로세스 리포트 파일(*.rpt)은 기본적으로 dirrpt 에 생성됩니다. dirprm 은 파라미터 파일, dirdat 은 트레일 파일, dirchk 는 체크포인트 파일, dirtmp 는 임시 파일용 디렉터리입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-DIR-REPORT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture installation, which subdirectory stores the checkpoint files of Extract and Replicat groups?",
+  "options": {
+   "A": "dirsql",
+   "B": "dirchk",
+   "C": "dirdef",
+   "D": "dirprm",
+   "E": "dirrpt"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "체크포인트 파일(Extract 는 .cpe, Replicat 은 .cpr)은 dirchk 에 저장됩니다. dirdef 는 정의 파일(SOURCEDEFS 등), dirprm 은 파라미터 파일, dirrpt 는 리포트 파일, dirsql 은 SQL 스크립트용입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-DIR-CHKPT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command makes a running Extract close its current trail file and begin writing to the next file in the trail sequence?",
+  "options": {
+   "A": "ROLL EXTRACT ext1",
+   "B": "SEND EXTRACT ext1, ROLLOVER",
+   "C": "INFO EXTRACT ext1, ROLL",
+   "D": "SWITCH TRAIL ext1",
+   "E": "SEND EXTRACT ext1, NEXTFILE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SEND EXTRACT <그룹>, ROLLOVER 는 실행 중인 Extract 가 트레일 시퀀스 번호를 하나 올려 새 트레일 파일에 쓰도록 합니다. SWITCH TRAIL, NEXTFILE, ROLL EXTRACT, INFO ... ROLL 은 존재하지 않는 명령/옵션입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SEND-ROLLOVER"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the lag value reported for an Extract or Replicat process represent?",
+  "options": {
+   "A": "The number of trail files that have not yet been purged",
+   "B": "The difference between the time a record was processed by the process and the timestamp of that record in the data source",
+   "C": "The time Manager waits before restarting an abended process",
+   "D": "The network round-trip time between the source and target hosts",
+   "E": "The time elapsed since the process was started"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GoldenGate 의 lag 는 프로세스가 레코드를 처리한 시점과 해당 레코드가 원본(소스)에서 발생(커밋)한 시점의 차이입니다. 미삭제 트레일 수, 재시작 대기 시간, 네트워크 왕복 시간, 프로세스 기동 후 경과 시간은 lag 의 정의가 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAG-DEF"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which command-line utility do administrators use to connect to a deployment and run commands such as INFO ALL?",
+  "options": {
+   "A": "srvctl",
+   "B": "oggca.sh",
+   "C": "sqlplus",
+   "D": "logdump",
+   "E": "Admin Client (adminclient)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "MA 에서는 Admin Client(adminclient) 로 CONNECT 한 뒤 INFO ALL 등 운영 명령을 실행합니다. sqlplus 는 DB 클라이언트, logdump 는 트레일 분석 유틸리티, srvctl 은 Oracle Clusterware 도구, oggca.sh 는 Service Manager/배포 생성용 구성 도구입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-ADMINCLIENT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which component acts as a watchdog that starts, stops, and monitors the other servers of each deployment?",
+  "options": {
+   "A": "Receiver Server",
+   "B": "Distribution Server",
+   "C": "Collector",
+   "D": "Logmining Server",
+   "E": "Service Manager"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Service Manager 는 각 배포(deployment)의 Administration/Distribution/Receiver/Performance Metrics Server 를 시작·중지·모니터링하는 감시자 역할을 합니다. Receiver Server 는 트레일 수신, Distribution Server 는 트레일 전송, Collector 는 Classic 의 수신 프로세스, Logmining Server 는 DB 내부의 캡처 구성 요소입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-SERVICE-MANAGER"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which server collects and stores performance metrics of Extract, Replicat, and the other GoldenGate processes?",
+  "options": {
+   "A": "Service Manager",
+   "B": "Administration Server",
+   "C": "Performance Metrics Server",
+   "D": "Receiver Server",
+   "E": "Distribution Server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Performance Metrics Server 는 GoldenGate 프로세스의 성능 지표(처리량, lag 등)를 수집·저장하고 Web UI 로 보여 줍니다. Administration Server 는 Extract/Replicat 관리, Receiver/Distribution Server 는 트레일 수신/전송, Service Manager 는 서버 감시 역할입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-PMSRVR"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command displays the parameter file of Extract ext1 without opening it in an editor?",
+  "options": {
+   "A": "DUMP PARAMS ext1",
+   "B": "VIEW PARAMS ext1",
+   "C": "PRINT PARAMS ext1",
+   "D": "SHOW PARAMS ext1",
+   "E": "LIST PARAMS ext1"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "VIEW PARAMS 는 파라미터 파일을 읽기 전용으로 출력합니다(편집은 EDIT PARAMS). SHOW/LIST/DUMP/PRINT PARAMS 는 GGSCI 명령이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-VIEW-PARAMS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Every night an operator types the same eight GGSCI commands to stop several processes, take a backup, and start them again. The team wants to keep these commands in a text file and run them with one GGSCI command. Which command runs the commands stored in such a file?",
+  "options": {
+   "A": "OBEY",
+   "B": "EXECFILE",
+   "C": "RUNSCRIPT",
+   "D": "LOADCMD",
+   "E": "BATCH"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "OBEY <파일명> 은 텍스트 파일(OBEY 파일)에 저장된 GGSCI 명령들을 순서대로 실행하므로 반복 운영 작업 스크립트화에 사용합니다. EXECFILE, RUNSCRIPT, LOADCMD, BATCH 는 GGSCI 명령이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-OBEY"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command shows Extract ext1 along with details such as its trail files and the locations of its parameter file and report file?",
+  "options": {
+   "A": "SHOW EXTRACT ext1, LOCATIONS",
+   "B": "LIST FILES ext1",
+   "C": "INFO EXTRACT ext1, PATHS",
+   "D": "VIEW EXTRACT ext1, ALL",
+   "E": "INFO EXTRACT ext1, DETAIL"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "INFO EXTRACT ... DETAIL 은 기본 상태 정보에 더해 연결된 트레일 파일 목록과 파라미터 파일, 리포트 파일, 체크포인트 파일 등의 위치를 보여 줍니다. PATHS, VIEW EXTRACT, SHOW ... LOCATIONS, LIST FILES 는 존재하지 않는 형식입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-INFO-DETAIL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command stops Manager without asking for confirmation?",
+  "options": {
+   "A": "STOP MANAGER !",
+   "B": "STOP MANAGER -y",
+   "C": "QUIT MANAGER",
+   "D": "STOP MANAGER /Q",
+   "E": "STOP MANAGER NOPROMPT"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "STOP MANAGER 는 기본적으로 확인을 묻고, 뒤에 ! 를 붙이면(STOP MANAGER !) 확인 없이 중지합니다. NOPROMPT, -y, /Q 옵션이나 QUIT MANAGER 명령은 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STOP-MGR"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command checks whether the Manager process is running?",
+  "options": {
+   "A": "LIST MANAGER",
+   "B": "CHECK MANAGER",
+   "C": "PING MANAGER",
+   "D": "SHOW MANAGER",
+   "E": "INFO MANAGER"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "INFO MANAGER 는 Manager 의 실행 여부와 사용 중인 포트 등을 보여 줍니다(STATUS MANAGER 도 같은 용도). CHECK/PING/SHOW/LIST MANAGER 는 GGSCI 명령이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-INFO-MGR"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which values can appear in the Status column of the INFO ALL output for an Extract or Replicat group? (Choose all that apply.)",
+  "options": {
+   "A": "ABENDED",
+   "B": "HALTED",
+   "C": "STOPPED",
+   "D": "RUNNING",
+   "E": "PAUSED"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "INFO ALL 의 Status 에는 RUNNING(실행 중), STOPPED(정상 중지), ABENDED(비정상 종료) 등이 표시됩니다(기동 중에는 STARTING). PAUSED 와 HALTED 는 GoldenGate 프로세스 상태 값이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-PROCESS-STATES"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which of the following are valid time-based options of the STATS EXTRACT command? (Choose all that apply.)",
+  "options": {
+   "A": "TOTAL",
+   "B": "WEEKLY",
+   "C": "DAILY",
+   "D": "MONTHLY",
+   "E": "HOURLY"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "STATS 명령은 TOTAL(프로세스 기동 이후 누계), DAILY(당일 0시 이후), HOURLY(현재 시각 정각 이후), LATEST(마지막 RESET 이후) 옵션을 제공합니다. WEEKLY 와 MONTHLY 옵션은 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STATS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "An operator runs STATS REPLICAT rep1, RESET. Which statistics are reset?",
+  "options": {
+   "A": "The lag values reported by INFO ALL",
+   "B": "The report file, which is rolled over",
+   "C": "All statistics including TOTAL",
+   "D": "Only the counters in the LATEST statistical field",
+   "E": "The checkpoint position of Replicat"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "STATS 의 RESET 옵션은 LATEST 통계 필드의 카운터만 초기화합니다. 이후 LATEST 는 리셋 시점 이후 값을 보여 줍니다. TOTAL 누계, 체크포인트, lag 값, 리포트 파일에는 영향이 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STATS-RESET"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command displays the operation counts that Replicat rep1 has applied only for the table HR.EMP?",
+  "options": {
+   "A": "INFO REPLICAT rep1, TABLE HR.EMP",
+   "B": "VIEW REPORT rep1, TABLE HR.EMP",
+   "C": "LAG REPLICAT rep1, TABLE HR.EMP",
+   "D": "SEND REPLICAT rep1, TABLESTATS HR.EMP",
+   "E": "STATS REPLICAT rep1, TABLE HR.EMP"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "STATS 명령의 TABLE 옵션으로 특정 테이블의 INSERT/UPDATE/DELETE 처리 건수만 볼 수 있습니다. INFO, VIEW REPORT, LAG 에는 TABLE 필터 옵션이 없으며 SEND ... TABLESTATS 는 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STATS-TABLE"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the difference between the lag shown by INFO EXTRACT ext1 and the lag shown by LAG EXTRACT ext1?",
+  "options": {
+   "A": "INFO shows lag in minutes; LAG shows the number of unprocessed records",
+   "B": "INFO shows network lag only; LAG shows database lag only",
+   "C": "INFO shows lag as of the last checkpoint; LAG communicates with the running process to obtain a more current lag",
+   "D": "INFO works only for stopped processes; LAG works only for running processes",
+   "E": "There is no difference; LAG is an alias of INFO"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "INFO 의 'Lag at Chkpt' 는 마지막 체크포인트 시점 기준 lag 이며, LAG 명령은 실행 중인 프로세스와 통신하여 현재 시점에 더 가까운(정확한) lag 를 구합니다. 네트워크/DB lag 구분, 정지/실행 구분, 별칭, 미처리 레코드 수 설명은 모두 사실이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAG-ACCURACY"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "The source application has been shut down and Extract has been stopped after capturing all changes. Before stopping Replicat for a switchover, you must confirm that Replicat has applied everything in its trail. Which output indicates this?",
+  "options": {
+   "A": "VIEW GGSEVT shows no messages for the last hour",
+   "B": "STATS REPLICAT rep1 shows non-zero TOTAL counters",
+   "C": "INFO MANAGER reports that Manager is running",
+   "D": "INFO REPLICAT rep1 shows status STOPPED",
+   "E": "LAG REPLICAT rep1 reports \"At EOF, no more records to process\""
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LAG REPLICAT 가 'At EOF, no more records to process' 를 보고하면 Replicat 이 트레일의 끝까지 처리하여 더 이상 적용할 데이터가 없다는 뜻이므로 이후 안전하게 중지할 수 있습니다. STOPPED 상태, ggserr 메시지 없음, 누계 통계, Manager 실행 여부는 모두 적용 완료를 보장하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SAFE-STOP-ORDER"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What does the command SEND EXTRACT ext1, LOGEND report?",
+  "options": {
+   "A": "Whether Extract has processed all records currently in the data source (transaction log)",
+   "B": "The name of the last trail file written by Extract",
+   "C": "The time at which the redo log will next switch",
+   "D": "Whether the report file has reached its maximum size",
+   "E": "The number of archive logs that can be deleted"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SEND EXTRACT ... LOGEND 는 Extract 가 데이터 소스(트랜잭션 로그)의 모든 레코드를 처리했는지 여부(YES/NO)를 확인합니다. 계획된 전환 전 캡처 완료 확인에 사용합니다. 마지막 트레일 이름, 로그 스위치 시점, 리포트 크기, 삭제 가능한 아카이브 로그 수를 보여 주는 명령이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LOGEND"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which information does SEND REPLICAT rep1, STATUS return?",
+  "options": {
+   "A": "The Manager port number",
+   "B": "The database version of the target",
+   "C": "The list of tables mapped in the parameter file",
+   "D": "The current processing status and the current read position in the trail (sequence number and RBA)",
+   "E": "The contents of the discard file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SEND REPLICAT ... STATUS 는 실행 중인 Replicat 의 현재 처리 상태(예: Processing data, At EOF)와 트레일 상의 현재 위치(시퀀스 번호, RBA)를 보여 줍니다. 매핑 목록, discard 파일 내용, Manager 포트, DB 버전은 반환하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SEND-STATUS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command makes a running Extract write its current interim processing statistics to its report file without stopping?",
+  "options": {
+   "A": "VIEW REPORT ext1",
+   "B": "STATS EXTRACT ext1, TOTAL",
+   "C": "INFO EXTRACT ext1, DETAIL",
+   "D": "ALTER EXTRACT ext1, REPORT",
+   "E": "SEND EXTRACT ext1, REPORT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SEND EXTRACT ... REPORT 는 실행 중인 프로세스가 중간 통계를 리포트 파일에 기록하게 합니다. VIEW REPORT 는 리포트 파일을 보기만 하고, STATS 는 화면에 통계를 출력할 뿐 리포트에 쓰지 않으며, INFO DETAIL 은 상태 정보 조회입니다. ALTER EXTRACT 에는 REPORT 옵션이 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SEND-REPORT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which SEND EXTRACT option forces Extract to stop immediately, bypassing any notifications?",
+  "options": {
+   "A": "SEND EXTRACT ext1, TERMINATE",
+   "B": "SEND EXTRACT ext1, QUIT",
+   "C": "SEND EXTRACT ext1, ABORT",
+   "D": "SEND EXTRACT ext1, FORCESTOP",
+   "E": "SEND EXTRACT ext1, HALT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SEND EXTRACT ... FORCESTOP 은 알림(예: 장기 미완료 트랜잭션 경고)을 무시하고 Extract 를 즉시 중지시킵니다. QUIT, ABORT, HALT, TERMINATE 는 SEND EXTRACT 의 유효한 옵션이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-FORCESTOP"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "The Manager parameter file contains AUTORESTART ER *, RETRIES 3, WAITMINUTES 5, RESETMINUTES 60. What does WAITMINUTES 5 specify?",
+  "options": {
+   "A": "A process must run for 5 minutes before it can be stopped",
+   "B": "Manager checks lag every 5 minutes",
+   "C": "Manager purges trail files every 5 minutes",
+   "D": "Manager waits 5 minutes after a process abends before trying to restart it",
+   "E": "Manager restarts processes every 5 minutes even when they are running"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "AUTORESTART 의 WAITMINUTES 는 프로세스가 비정상 종료된 뒤 재시작을 시도하기 전 대기하는 시간입니다. RETRIES 는 최대 재시도 횟수, RESETMINUTES 는 재시도 횟수를 세는 시간 창입니다. 정상 프로세스 재시작, 최소 실행 시간, lag 점검 주기(LAGREPORT*), 트레일 삭제 주기와는 관계가 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-AUTORESTART"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the effect of the USECHECKPOINTS option of the Manager parameter PURGEOLDEXTRACTS?",
+  "options": {
+   "A": "Trail files are purged as soon as they reach their maximum size",
+   "B": "A trail file is purged only after all processes that read it have finished processing it, according to their checkpoints",
+   "C": "Checkpoint files are purged together with trail files",
+   "D": "Trail files are purged only when Manager is restarted",
+   "E": "Trail files are copied to a backup directory before purging"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "USECHECKPOINTS 를 사용하면 Manager 가 해당 트레일을 읽는 모든 프로세스의 체크포인트를 확인하여 모두 처리를 마친 파일만 삭제합니다. 최대 크기 도달 시 삭제, 체크포인트 파일 삭제, 재시작 시에만 삭제, 백업 복사는 USECHECKPOINTS 의 동작이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-PURGE-CHECKPOINTS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Manager is configured with PURGEOLDEXTRACTS ./dirdat/rt*, USECHECKPOINTS, MINKEEPHOURS 24. A trail file was fully processed by its only reader, and it was last modified 3 hours ago. What happens to this file?",
+  "options": {
+   "A": "It is moved to dirtmp for 24 hours",
+   "B": "It is purged immediately and the reader abends",
+   "C": "It is purged at the next purge cycle because it has been processed",
+   "D": "It is kept until at least 24 hours have passed since it was last modified, and then purged",
+   "E": "It is never purged because MINKEEPHOURS disables USECHECKPOINTS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MINKEEP 옵션(MINKEEPHOURS/MINKEEPDAYS/MINKEEPFILES)은 처리가 끝난 파일이라도 최소 보존 기준을 만족할 때까지 남겨 둡니다. 따라서 처리 완료 + 마지막 수정 후 24시간 경과 조건이 모두 충족된 뒤에 삭제됩니다. MINKEEP 이 USECHECKPOINTS 를 무효화하지 않으며, dirtmp 이동이나 즉시 삭제 동작은 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-PURGE-MINKEEP"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Why is it recommended to specify PURGEOLDEXTRACTS in the Manager parameter file rather than in individual Extract or Replicat parameter files?",
+  "options": {
+   "A": "PURGEOLDEXTRACTS is ignored in Extract and Replicat parameter files",
+   "B": "Manager compresses trail files before purging them",
+   "C": "Only Manager has operating system privileges to delete files",
+   "D": "Purging from Manager also purges archive logs in the database",
+   "E": "Manager can evaluate the checkpoints of all processes that read a trail, so it does not purge files that another process still needs"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Manager 에서 PURGEOLDEXTRACTS 를 사용하면 해당 트레일을 읽는 모든 프로세스의 체크포인트를 기준으로 판단하므로, 다른 프로세스가 아직 필요로 하는 파일을 지우는 위험을 피하고 중앙에서 관리할 수 있습니다. Extract/Replicat 에서도 문법상 사용할 수는 있으므로 '무시된다'는 틀렸고, 압축, OS 권한 독점, 아카이브 로그 삭제는 사실이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-PURGE-LOCATION"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the purpose of the Manager parameter DYNAMICPORTLIST?",
+  "options": {
+   "A": "It sets the port of the database listener used by Replicat",
+   "B": "It lists the ports of remote Managers that Extract may connect to",
+   "C": "It specifies the range of ports that Manager can dynamically allocate to processes such as Collector and Replicat for remote communication",
+   "D": "It lists ports that Manager must never use",
+   "E": "It defines the HTTP ports of the Microservices servers"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DYNAMICPORTLIST 는 Manager 가 원격 통신을 위해 Collector, Replicat, GGSCI 등의 프로세스에 동적으로 할당할 수 있는 포트 목록/범위를 지정합니다. 방화벽 환경에서 허용 포트를 제한할 때 사용합니다. 원격 Manager 목록, 사용 금지 포트, MA 서버 포트, DB 리스너 포트를 지정하는 파라미터가 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-DYNAMICPORTLIST"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What does the Manager parameter LAGREPORTMINUTES control?",
+  "options": {
+   "A": "How often the report file is rolled over",
+   "B": "How long lag history is kept in the heartbeat table",
+   "C": "The interval at which Extract writes checkpoints",
+   "D": "The interval at which Manager checks the lag of Extract and Replicat processes",
+   "E": "The maximum lag after which Manager stops Replicat"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "LAGREPORTMINUTES(또는 LAGREPORTHOURS)는 Manager 가 Extract/Replicat 의 lag 를 점검하는 주기를 지정하며, LAGINFO*/LAGCRITICAL* 임계값과 함께 사용됩니다. Replicat 을 중지시키는 기능은 없고, 리포트 롤오버(REPORTROLLOVER), heartbeat 보존, 체크포인트 주기와는 무관합니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAGREPORT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Manager parameter writes an informational message to the error log when the lag of a process exceeds the specified number of minutes?",
+  "options": {
+   "A": "LAGALERTMINUTES",
+   "B": "LAGINFOMINUTES",
+   "C": "LAGWARNMINUTES",
+   "D": "LAGNOTICEMINUTES",
+   "E": "INFOLAGMINUTES"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "LAGINFOMINUTES(또는 LAGINFOSECONDS/LAGINFOHOURS)는 lag 가 임계값을 넘으면 ggserr.log 에 정보성 메시지를 기록합니다. 더 심각한 경고는 LAGCRITICAL* 계열입니다. 나머지 보기는 존재하지 않는 파라미터입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAGTHRESH"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What does the Manager parameter CHECKMINUTES determine?",
+  "options": {
+   "A": "How often GGSCI refreshes the INFO ALL display",
+   "B": "The interval at which Replicat commits transactions",
+   "C": "How often Manager cycles through its maintenance activities",
+   "D": "How long Manager waits before starting processes listed in AUTOSTART",
+   "E": "The maximum allowed lag of Extract"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "CHECKMINUTES 는 Manager 가 유지보수 작업(프로세스 감시, 트레일 정리 등)을 순환 수행하는 주기를 정합니다. AUTOSTART 대기 시간, 최대 허용 lag, GGSCI 화면 갱신, Replicat 커밋 주기와는 관련이 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-CHECKMINUTES"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which database objects are created by the ADD HEARTBEATTABLE command for an Oracle database? (Choose all that apply.)",
+  "options": {
+   "A": "GG_CHECKPOINT_HISTORY table",
+   "B": "GG_HEARTBEAT_SEED table",
+   "C": "GG_LAG view",
+   "D": "GG_TRAIL_STATUS view",
+   "E": "GG_HEARTBEAT table"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "ADD HEARTBEATTABLE 은 GG_HEARTBEAT_SEED, GG_HEARTBEAT, GG_HEARTBEAT_HISTORY 테이블과 GG_LAG, GG_LAG_HISTORY 뷰, 그리고 주기적으로 heartbeat 를 갱신하는 스케줄러 작업 등을 생성합니다. GG_CHECKPOINT_HISTORY 와 GG_TRAIL_STATUS 는 이 명령이 만드는 객체가 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEARTBEAT-SETUP"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "After heartbeat tables are configured, which view do you query to see the current replication lag between databases?",
+  "options": {
+   "A": "V$GG_LAG_CURRENT",
+   "B": "GG_LAG",
+   "C": "GG_DELAY",
+   "D": "DBA_GG_LAG_STATS",
+   "E": "GG_STATS_LAG"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ADD HEARTBEATTABLE 로 생성되는 GG_LAG 뷰에서 원격 DB 별 incoming/outgoing lag 를 조회할 수 있습니다(과거 기록은 GG_LAG_HISTORY). 나머지 보기는 GoldenGate 가 생성하는 객체가 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEARTBEAT-VIEW"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GLOBALS parameter specifies the database schema in which the heartbeat tables are created?",
+  "options": {
+   "A": "CHECKPOINTTABLE",
+   "B": "DDLSCHEMA",
+   "C": "LAGSCHEMA",
+   "D": "HEARTBEATSCHEMA",
+   "E": "GGSCHEMA"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "GLOBALS 파일의 GGSCHEMA 가 heartbeat 테이블(및 DDL 지원 객체 등)이 생성될 GoldenGate 스키마를 지정합니다. CHECKPOINTTABLE 은 기본 체크포인트 테이블 이름을 지정하는 파라미터이고, HEARTBEATSCHEMA, DDLSCHEMA, LAGSCHEMA 는 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEARTBEAT-GGSCHEMA"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the parameter REPORTCOUNT EVERY 30 MINUTES, RATE do in an Extract or Replicat parameter file?",
+  "options": {
+   "A": "Rolls over the report file every 30 minutes",
+   "B": "Writes the number of records processed since startup to the report file every 30 minutes, including processing rate statistics",
+   "C": "Stops the process if fewer than 30 records are processed per minute",
+   "D": "Purges report files older than 30 minutes",
+   "E": "Sends lag alerts to Manager every 30 minutes"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "REPORTCOUNT 는 지정한 간격(레코드 수 또는 시간)마다 기동 이후 처리한 레코드 수를 리포트 파일에 기록하며, RATE 를 지정하면 처리율 정보도 함께 기록합니다. 리포트 롤오버는 REPORTROLLOVER, lag 알림은 Manager LAG* 파라미터의 역할이며, 처리 중지나 리포트 삭제 기능은 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-REPORTCOUNT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Replicat has been running for months, and its single report file has grown very large and is hard to read. The team wants the process to start a new report file every day at midnight without restarting the process. Which parameter should be added?",
+  "options": {
+   "A": "PURGEOLDEXTRACTS ./dirrpt/*",
+   "B": "REPORT AT 00:00",
+   "C": "REPORTCOUNT EVERY 24 HOURS",
+   "D": "REPORTROLLOVER AT 00:00",
+   "E": "STATOPTIONS RESETREPORTSTATS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "REPORTROLLOVER AT 00:00 은 프로세스를 재시작하지 않고 매일 지정 시각에 리포트 파일을 새로 시작(이전 파일은 번호를 붙여 보관)합니다. REPORTCOUNT 는 처리 건수 기록, STATOPTIONS RESETREPORTSTATS 는 롤오버 시 통계 초기화 여부, PURGEOLDEXTRACTS 는 트레일 삭제, REPORT AT 은 지정 시각에 중간 통계를 기록할 뿐 새 리포트 파일을 만들지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-REPORTROLLOVER"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What does STATOPTIONS RESETREPORTSTATS control?",
+  "options": {
+   "A": "Whether the STATS command output includes per-table details",
+   "B": "Whether Manager restarts a process after an abend",
+   "C": "Whether lag is reported in seconds or minutes",
+   "D": "Whether trail file statistics are written to ggserr.log",
+   "E": "Whether statistics in the report are reset when a new report file is created by a report rollover"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "STATOPTIONS 의 RESETREPORTSTATS(반대는 NORESETREPORTSTATS)는 리포트 롤오버로 새 리포트 파일이 만들어질 때 리포트 통계를 초기화할지 여부를 제어합니다. STATS 명령 출력 형식, 자동 재시작, lag 단위, ggserr.log 기록과는 관계가 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-STATOPTIONS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Replicat rep1 is stopped. You need it to start reading from the beginning of trail file sequence number 15 when restarted. Which command do you use?",
+  "options": {
+   "A": "ADD REPLICAT rep1, EXTSEQNO 15, EXTRBA 0",
+   "B": "ALTER REPLICAT rep1, EXTSEQNO 15, EXTRBA 0",
+   "C": "SEND REPLICAT rep1, EXTSEQNO 15",
+   "D": "START REPLICAT rep1, SEQNO 15",
+   "E": "ALTER EXTTRAIL rep1, SEQNO 15"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "중지된 Replicat 의 읽기 위치는 ALTER REPLICAT ... EXTSEQNO <시퀀스>, EXTRBA <RBA> 로 변경합니다. SEND 는 실행 중인 프로세스용이며 EXTSEQNO 옵션이 없고, START ... SEQNO 와 ALTER EXTTRAIL 로는 Replicat 읽기 위치를 바꾸지 않습니다. ADD REPLICAT 은 이미 존재하는 그룹에 사용할 수 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-REPOSITION-REPLICAT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "An Integrated Extract must recapture changes starting from 08:00 today, a time that is after the Extract was registered and for which redo is still available. Which procedure is correct?",
+  "options": {
+   "A": "Restart Manager so that AUTOSTART repositions Extract",
+   "B": "Run ALTER EXTRACT ext1, BEGIN <timestamp> while Extract is running; it takes effect immediately",
+   "C": "Run ALTER EXTTRAIL ./dirdat/lt, EXTRACT ext1, BEGIN 08:00",
+   "D": "Stop the Extract, run ALTER EXTRACT ext1, BEGIN <today 08:00 timestamp>, then start it",
+   "E": "While Extract is running, run SEND EXTRACT ext1, REWIND 08:00"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Extract 의 시작 위치를 변경하려면 먼저 프로세스를 중지한 뒤 ALTER EXTRACT ... BEGIN <시각>(또는 SCN)으로 재지정하고 시작합니다. SEND ... REWIND 는 존재하지 않고, Manager 재시작은 위치를 바꾸지 않으며, ALTER 는 실행 중인 프로세스에 적용할 수 없습니다. ALTER EXTTRAIL 은 트레일 속성을 바꾸는 명령으로 캡처 시작 위치를 지정하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-REPOSITION-EXTRACT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which two Classic Architecture subdirectories contain the files needed to restore process parameter definitions and processing positions after a host failure? (Choose two.)",
+  "options": {
+   "A": "dirrpt",
+   "B": "dirprm",
+   "C": "dirtmp",
+   "D": "dirchk",
+   "E": "dirsql"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "dirprm 에는 파라미터 파일이, dirchk 에는 체크포인트 파일(처리 위치)이 있으므로 정기 백업 대상에 반드시 포함해야 합니다. dirrpt 는 리포트, dirtmp 는 임시 파일, dirsql 은 SQL 스크립트용으로 파라미터 정의나 처리 위치 복원에 필요하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-BACKUP-DIRS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture REST API, which resource path on the Administration Server is used to list and manage Extract processes?",
+  "options": {
+   "A": "/api/v1/processes/extract",
+   "B": "/deployment/extract/list",
+   "C": "/services/v2/extracts",
+   "D": "/ogg/api/extract",
+   "E": "/rest/admin/extract"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MA 의 Administration Server REST API 는 /services/v2/extracts (개별 프로세스는 /services/v2/extracts/{extract}) 리소스로 Extract 를 조회·생성·변경·삭제합니다. 나머지 경로는 GoldenGate REST API 형식이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-MA-REST"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which is the least privileged user role that still allows a user to start and stop Extract and Replicat processes?",
+  "options": {
+   "A": "Operator",
+   "B": "Administrator",
+   "C": "Security",
+   "D": "Monitor",
+   "E": "User"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MA 의 역할은 User(조회 위주) < Operator(프로세스 시작·중지 등 운영 작업) < Administrator(생성·변경 등 관리) < Security(사용자/보안 관리) 순입니다. 시작·중지가 가능한 최소 권한은 Operator 입니다. Monitor 는 MA 의 기본 역할이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-MA-ROLES"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In a Microservices Architecture deployment, a Replicat occasionally abends because of transient network errors to the target database. The team wants it restarted automatically after a short delay. What should they do?",
+  "options": {
+   "A": "Set the Replicat parameter REPERROR (DEFAULT, RESTART)",
+   "B": "Add AUTORESTART REPLICAT * to the mgr.prm file of the deployment",
+   "C": "Configure auto-restart settings in a managed process profile in the Administration Server and use it for the Replicat",
+   "D": "Create a Distribution Path that targets the Replicat",
+   "E": "Restart the Service Manager every hour with an operating system scheduler"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MA 에는 Classic 의 Manager(mgr.prm)가 없으며, 자동 시작·자동 재시작은 Administration Server 의 Managed Process 프로필(재시도 횟수, 지연 등)로 구성합니다. Distribution Path 는 트레일 전송용이고, Service Manager 주기적 재시작은 해결책이 아닙니다. REPERROR 에는 RESTART 라는 응답 옵션이 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-MA-MANAGED-PROCESS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "When is it appropriate to use KILL EXTRACT ext1?",
+  "options": {
+   "A": "To delete the Extract group and its checkpoints",
+   "B": "To reset the statistics counters of Extract",
+   "C": "To force Extract to roll over to a new trail file",
+   "D": "As the normal way to stop Extract every night",
+   "E": "Only when the process cannot be stopped gracefully with STOP EXTRACT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "KILL EXTRACT 는 STOP EXTRACT 로 정상 종료할 수 없는 경우에만 사용하는 강제 종료 명령입니다. 일상적 중지는 STOP, 그룹 삭제는 DELETE, 통계 초기화는 STATS ... RESET, 트레일 롤오버는 SEND ... ROLLOVER 를 사용합니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-KILL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Monitoring shows: primary Extract lag 2 seconds, data pump lag 3 seconds, Replicat lag 45 minutes and growing. The Replicat status is RUNNING and its trail keeps receiving new data. Where is the bottleneck most likely located?",
+  "options": {
+   "A": "Reading the source redo logs",
+   "B": "The network between source and target",
+   "C": "Applying changes on the target database by Replicat",
+   "D": "The Manager process on the source",
+   "E": "The heartbeat scheduler job on the source"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Extract 와 Pump 의 lag 는 작고 트레일에 데이터가 계속 도착하는데 Replicat lag 만 커진다면, 데이터가 대상 서버까지는 제때 전달되고 있으며 Replicat 의 대상 DB 적용 단계가 병목입니다. 로그 읽기나 네트워크가 원인이라면 Extract 또는 Pump 의 lag 가 커져야 합니다. Manager 와 heartbeat 작업은 데이터 흐름의 병목 지점이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAG-SOURCE"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which of the following columns are displayed by INFO ALL in GGSCI? (Choose all that apply.)",
+  "options": {
+   "A": "Trail Size",
+   "B": "Time Since Chkpt",
+   "C": "Status",
+   "D": "Rows Inserted",
+   "E": "Lag at Chkpt"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "INFO ALL 은 Program, Status, Group, Lag at Chkpt, Time Since Chkpt 열을 보여 줍니다. Time Since Chkpt 는 마지막 체크포인트 이후 경과 시간입니다. 처리 건수는 STATS, 트레일 크기는 INFO EXTTRAIL 등으로 확인하며 INFO ALL 의 열이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-INFOALL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which kinds of information are recorded in the GoldenGate error log, ggserr.log? (Choose all that apply.)",
+  "options": {
+   "A": "The before and after images of every replicated row",
+   "B": "Error and warning messages",
+   "C": "Commands issued to GoldenGate processes",
+   "D": "The complete SQL text of every statement applied by Replicat",
+   "E": "Start and stop events of GoldenGate processes"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "ggserr.log 에는 프로세스 시작/중지 이벤트, 오류·경고 메시지, 실행된 명령 기록 등이 남습니다. 행 단위 변경 이미지나 Replicat 이 적용한 모든 SQL 문장은 기록되지 않습니다(데이터는 트레일, 실패 레코드는 discard 파일에 남습니다).",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-GGSERR"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Extract parameter writes a warning to the error log when a transaction has remained open longer than a specified time?",
+  "options": {
+   "A": "OPENTXNWARN",
+   "B": "LONGTXNALERT",
+   "C": "WARNLONGTRANS",
+   "D": "MAXTRANSOPS",
+   "E": "TRANSTIMEOUT"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WARNLONGTRANS 는 지정한 시간보다 오래 열려 있는 트랜잭션이 있으면 ggserr.log 에 경고를 기록합니다(점검 주기는 CHECKINTERVAL 옵션). MAXTRANSOPS 는 Replicat 에서 큰 트랜잭션을 분할하는 파라미터로 경고 기능이 아니며, 나머지는 존재하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-WARNLONGTRANS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which of the following are appropriate items for a routine daily GoldenGate health check? (Choose all that apply.)",
+  "options": {
+   "A": "Review ggserr.log for new WARNING and ERROR messages",
+   "B": "Restart Manager every hour by using KILL",
+   "C": "Monitor free space on the file system that holds the trail files",
+   "D": "Check INFO ALL for processes in ABENDED or STOPPED status",
+   "E": "Delete and recreate checkpoint files to keep them small"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "일상 점검에는 INFO ALL 로 ABENDED/STOPPED 프로세스 확인, ggserr.log 의 경고·오류 확인, 트레일 파일시스템 여유 공간 확인 등이 포함됩니다. 체크포인트 파일을 지우면 처리 위치를 잃게 되며, KILL 로 Manager 를 주기적으로 재시작하는 것은 불필요하고 위험한 작업입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEALTHCHECK"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Manager contains AUTORESTART ER *, RETRIES 3, WAITMINUTES 2, RESETMINUTES 30. A Replicat abends at startup every time because of a persistent mapping error. What will Manager do?",
+  "options": {
+   "A": "Restart it every 2 minutes indefinitely until the error is fixed",
+   "B": "Wait 30 minutes before the first restart attempt",
+   "C": "Make up to 3 restart attempts, waiting 2 minutes before each; after 3 attempts within the 30-minute window, it makes no further attempts in that window",
+   "D": "Delete the Replicat group after 3 failed attempts",
+   "E": "Skip the failing record and restart Replicat automatically"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "RETRIES 는 RESETMINUTES 로 정한 시간 창 안에서의 최대 재시작 시도 횟수, WAITMINUTES 는 각 재시작 전 대기 시간입니다. 따라서 30분 창 안에서 2분 대기 후 최대 3회 시도하고, 횟수를 모두 소진하면 그 창에서는 더 이상 시도하지 않습니다. 무한 재시작, 최초 30분 대기, 그룹 삭제, 오류 레코드 자동 건너뛰기는 AUTORESTART 의 동작이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-AUTORESTART"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Manager uses PURGEOLDEXTRACTS ./dirdat/rt*, USECHECKPOINTS, MINKEEPHOURS 12. The Replicat that reads trail rt has been stopped for three days, and the trail file system is almost full. Why are the old rt files not being purged?",
+  "options": {
+   "A": "PURGEOLDEXTRACTS works only for local trails written by a primary Extract",
+   "B": "Manager purges files only when it is restarted",
+   "C": "MINKEEPHOURS 12 keeps every file for at least three days",
+   "D": "USECHECKPOINTS prevents purging files that the Replicat has not yet processed according to its checkpoint",
+   "E": "Manager purges files only while all processes are running"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "USECHECKPOINTS 는 트레일을 읽는 프로세스의 체크포인트를 확인하여 아직 처리되지 않은 파일은 삭제하지 않습니다. Replicat 이 3일간 중지되어 체크포인트가 진행되지 않았으므로 파일이 남는 것이 정상 동작이며, Replicat 을 재개하거나 공간을 확보해야 합니다. MINKEEPHOURS 12 는 최소 12시간 보존일 뿐이고, 모든 프로세스 실행 조건·로컬 트레일 한정·재시작 시에만 삭제는 사실이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-PURGE-CHECKPOINTS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which information is included in the output of INFO EXTRACT ext1, SHOWCH? (Choose all that apply.)",
+  "options": {
+   "A": "The current write position (sequence number and RBA) in the output trail",
+   "B": "The SQL text of each captured transaction",
+   "C": "The list of tables in the TABLE statements",
+   "D": "The commit SCN last applied by the target Replicat",
+   "E": "The recovery checkpoint, which marks the position of the oldest open transaction"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "SHOWCH 는 읽기 체크포인트(시작·복구·현재 위치)와 쓰기 체크포인트(출력 트레일의 시퀀스 번호와 RBA)를 상세히 보여 줍니다. 복구(recovery) 체크포인트는 가장 오래된 미완료 트랜잭션의 위치입니다. 캡처한 SQL 문장, TABLE 목록, 대상 Replicat 의 적용 위치는 Extract 체크포인트 정보에 포함되지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SHOWCH"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "The target was instantiated with Oracle Data Pump using FLASHBACK_SCN=5500000. Replicat has not yet been started. Which command starts Replicat so that only transactions committed after that SCN are applied?",
+  "options": {
+   "A": "START REPLICAT rep1, SKIPTRANSACTION",
+   "B": "START REPLICAT rep1, ATCSN 5500000",
+   "C": "START REPLICAT rep1, AFTERCSN 5500000",
+   "D": "START REPLICAT rep1, BEGIN 5500000",
+   "E": "ALTER REPLICAT rep1, SCN 5500000"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "FLASHBACK_SCN 기준으로 적재한 경우 해당 SCN 까지 커밋된 변경은 이미 대상에 있으므로 START REPLICAT ... AFTERCSN <SCN> 으로 그 이후 커밋분만 적용합니다. ATCSN 은 지정 CSN 의 트랜잭션부터 적용하므로 이미 적재된 트랜잭션이 중복 적용될 수 있습니다. START 에는 BEGIN 옵션이 없고, ALTER REPLICAT 에 SCN 옵션으로 이 목적을 수행하지 않으며, SKIPTRANSACTION 은 첫 트랜잭션을 건너뛰는 옵션입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "OPS-START-AFTERCSN"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Monitoring shows: primary Extract lag 3 seconds; data pump lag 40 minutes and growing; Replicat on the target reports \"At EOF\" with low lag. Where should you investigate first?",
+  "options": {
+   "A": "Redo log reading by the primary Extract",
+   "B": "The heartbeat purge job on the target",
+   "C": "The REPORTCOUNT setting of Replicat",
+   "D": "The Replicat apply rate on the target database",
+   "E": "The data pump and the network transfer between source and target"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Extract lag 는 작고 Pump lag 만 커지며 Replicat 은 EOF 에서 대기 중이라면, 데이터가 대상에 제때 도착하지 못하는 것이므로 Pump 또는 소스-대상 간 네트워크 전송이 병목입니다. Replicat 은 받을 데이터가 없어 EOF 상태이므로 적용 속도 문제가 아니고, Extract 로그 읽기도 정상입니다. heartbeat 정리 작업과 REPORTCOUNT 는 lag 원인이 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAG-SOURCE"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "LAG REPLICAT on the target reports \"At EOF, no more records to process\", but the GG_LAG view on the target shows the incoming lag from the source growing steadily. What is the most likely interpretation?",
+  "options": {
+   "A": "Replicat is applying too slowly and must be split into more groups",
+   "B": "Heartbeat lag is always unreliable and should be ignored",
+   "C": "Changes are being delayed upstream (in capture or transport), because Replicat only measures lag for records that have already reached its trail",
+   "D": "The target database clock is ahead of the source, so no action is needed",
+   "E": "The GG_LAG view shows lag only for the local Extract"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Replicat 의 LAG 는 이미 트레일에 도착한 레코드에 대해서만 계산되므로, 데이터가 도착하지 않으면 EOF 로 보입니다. heartbeat 기반 GG_LAG 는 소스에서 대상까지 전 구간의 지연을 보여 주므로, incoming lag 증가는 캡처(Extract) 또는 전송(Pump/네트워크) 구간의 지연을 의미합니다. Replicat 분할은 원인과 무관하고, heartbeat 는 종단 간 지연 확인용으로 유효하며, GG_LAG 는 원격 DB 로부터의 incoming lag 를 보여 줍니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEARTBEAT-LAG"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "For a planned switchover, the source application has been stopped. You must make sure that every captured change is applied on the target before shutting down all GoldenGate processes. Which sequence is correct?",
+  "options": {
+   "A": "Run KILL ER * to stop all processes at once",
+   "B": "Run STOP ER * immediately and verify the result later with STATS",
+   "C": "Stop Manager first, then stop Extract, the data pump, and Replicat",
+   "D": "Stop Replicat first, then stop the data pump and Extract",
+   "E": "Confirm Extract has reached the end of the log and stop it, wait until the data pump and Replicat report At EOF, stop the data pump and Replicat, and then stop Manager"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "모든 변경을 적용하려면 상류부터 순서대로 비워야 합니다. Extract 가 로그 끝까지 처리했는지(SEND ... LOGEND 등) 확인 후 중지하고, Pump 와 Replicat 이 EOF 에 도달한 것을 확인한 뒤 중지하며 Manager 는 마지막에 중지합니다. Manager 를 먼저 중지하거나 Replicat 을 먼저 중지하면 미적용 데이터가 남을 수 있고, KILL 이나 즉시 STOP ER * 는 적용 완료를 보장하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-SAFE-STOP-ORDER"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which statements about ALTER REPLICAT rep1, EXTSEQNO n, EXTRBA 0 are correct? (Choose all that apply.)",
+  "options": {
+   "A": "When Replicat is next started, it begins reading the trail from the specified position",
+   "B": "If the new position is earlier than the previous checkpoint, records that were already applied may be applied again",
+   "C": "It automatically deletes trail files older than sequence n",
+   "D": "It can be issued while Replicat is running and takes effect immediately",
+   "E": "Replicat must be stopped before the command is issued"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "E"
+  ],
+  "explanation": "ALTER REPLICAT 의 EXTSEQNO/EXTRBA 는 중지된 Replicat 의 읽기 시작 위치를 바꾸며, 다음 기동 시 해당 위치부터 읽습니다. 이전 체크포인트보다 앞으로 되돌리면 이미 적용된 레코드가 다시 적용될 수 있어 충돌 처리 대책이 필요합니다. 트레일 파일을 삭제하는 기능은 없고, 실행 중인 프로세스에는 적용할 수 없습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-REPOSITION-REPLICAT"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which statements about KILL EXTRACT are correct? (Choose all that apply.)",
+  "options": {
+   "A": "When the process is started again, it resumes from its last recorded checkpoint",
+   "B": "It should be used only when the process cannot be stopped with STOP EXTRACT",
+   "C": "It removes the checkpoint file of the group",
+   "D": "Manager does not attempt to automatically restart a process that was killed",
+   "E": "It writes a final checkpoint and stops gracefully exactly like STOP EXTRACT"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "KILL EXTRACT 는 정상 중지가 불가능할 때만 쓰는 강제 종료이며, Manager 는 KILL 된 프로세스를 자동 재시작하지 않습니다. 체크포인트 파일은 삭제되지 않으므로 다시 시작하면 마지막으로 기록된 체크포인트부터 재개합니다. KILL 은 STOP 처럼 정상 종료 절차를 거치지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-KILL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "An Extract parameter file contains WARNLONGTRANS 2H, CHECKINTERVAL 10M. What is the resulting behavior?",
+  "options": {
+   "A": "Extract stops after 2 hours if no transactions are committed",
+   "B": "Extract checks every 2 hours and warns about transactions open longer than 10 minutes",
+   "C": "Extract writes a checkpoint every 10 minutes and rolls over the trail every 2 hours",
+   "D": "Extract checks every 10 minutes and writes a warning for transactions that have been open longer than 2 hours",
+   "E": "Extract aborts any transaction that stays open longer than 2 hours"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "WARNLONGTRANS 는 경고 기준 시간(2시간), CHECKINTERVAL 은 장기 트랜잭션을 점검하는 주기(10분)입니다. 따라서 10분마다 확인하여 2시간 이상 열린 트랜잭션에 대해 경고를 기록합니다. 트랜잭션을 중단하거나 Extract 를 멈추지 않으며, 두 값의 의미를 뒤바꾼 설명과 체크포인트/롤오버 설명은 틀렸습니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-WARNLONGTRANS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "Using the Administration Server REST API, which HTTP method on /services/v2/extracts/{extract} creates a new Extract?",
+  "options": {
+   "A": "GET",
+   "B": "POST",
+   "C": "DELETE",
+   "D": "HEAD",
+   "E": "OPTIONS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GoldenGate REST API 에서 리소스 생성은 POST, 조회는 GET, 삭제는 DELETE, 속성 변경(예: 상태 변경)은 PATCH 를 사용합니다. HEAD 와 OPTIONS 는 Extract 생성에 사용되지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "OPS-MA-REST"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a unidirectional configuration from database SRC to database TGT, you want end-to-end heartbeat lag information. On which database(s) must ADD HEARTBEATTABLE be run?",
+  "options": {
+   "A": "On neither; Manager maintains heartbeat data in dirchk",
+   "B": "Only on the database where Manager runs",
+   "C": "Only on SRC",
+   "D": "Only on TGT",
+   "E": "On both SRC and TGT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "heartbeat 는 소스에서 생성된 heartbeat 레코드가 Extract-전송-Replicat 을 거쳐 대상 heartbeat 테이블에 기록되는 구조이므로 소스와 대상 모두에 ADD HEARTBEATTABLE 을 실행해야 합니다. 한쪽만 생성하면 종단 간 lag 를 계산할 수 없고, Manager 나 dirchk 는 heartbeat 데이터를 관리하지 않습니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-HEARTBEAT-SETUP"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "An OBEY file named startall.oby contains the line OBEY ./dirprm/startpumps.oby. When it is run, GGSCI refuses to process the nested OBEY file. Which GGSCI command must be issued first to permit nested OBEY files?",
+  "options": {
+   "A": "ALLOWNESTED",
+   "B": "OBEY ./dirprm/startall.oby, NESTED",
+   "C": "ENABLE OBEY",
+   "D": "SHELL ALLOWNESTED",
+   "E": "SET NESTED ON"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "기본적으로 OBEY 파일 안에서 다른 OBEY 를 호출하는 중첩 실행은 허용되지 않으며, GGSCI 에서 ALLOWNESTED 명령을 먼저 실행해야 합니다(되돌릴 때는 NOALLOWNESTED). SET NESTED ON, OBEY ... NESTED, ENABLE OBEY 는 존재하지 않고, SHELL 은 OS 명령을 실행할 뿐입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-OBEY"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "You want Manager to check lag every 5 minutes, write an informational message when lag exceeds 10 minutes, and write a critical message when lag exceeds 30 minutes. Which Manager parameters accomplish this? (Choose all that apply.)",
+  "options": {
+   "A": "LAGWARNMINUTES 30",
+   "B": "LAGREPORTMINUTES 5",
+   "C": "LAGALERTMINUTES 10",
+   "D": "LAGINFOMINUTES 10",
+   "E": "LAGCRITICALMINUTES 30"
+  },
+  "correct_keys": [
+   "B",
+   "D",
+   "E"
+  ],
+  "explanation": "LAGREPORTMINUTES 로 lag 점검 주기, LAGINFOMINUTES 로 정보성 메시지 임계값, LAGCRITICALMINUTES 로 심각(critical) 메시지 임계값을 지정하며 메시지는 ggserr.log 에 기록됩니다. LAGALERTMINUTES 와 LAGWARNMINUTES 는 존재하지 않는 파라미터입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-LAG-MONITOR-CONFIG"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A data pump on the source must connect to the target Manager on port 7809. The firewall between the sites allows only ports 7809 and 7810-7820 to the target host. Which setting on the target ensures that the processes started for incoming connections use only allowed ports?",
+  "options": {
+   "A": "RMTHOST target, MGRPORT 7810-7820 in the data pump parameter file",
+   "B": "AUTOSTART ER * in the target Manager parameter file",
+   "C": "PURGEOLDEXTRACTS ./dirdat/*, PORT 7810-7820 in the target Manager parameter file",
+   "D": "PORT 7810-7820 in the target Manager parameter file",
+   "E": "DYNAMICPORTLIST 7810-7820 in the target Manager parameter file"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "대상 Manager 는 7809(PORT)로 요청을 받고, 원격 통신용으로 기동하는 Collector 등에는 DYNAMICPORTLIST 에 지정된 포트를 할당하므로 DYNAMICPORTLIST 7810-7820 을 설정하면 방화벽 허용 범위만 사용합니다. PORT 는 Manager 자신의 단일 포트이며, MGRPORT 는 연결할 원격 Manager 포트일 뿐 범위를 받지 않습니다. AUTOSTART 와 PURGEOLDEXTRACTS 는 포트와 무관합니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "OPS-DYNAMICPORTLIST"
+ }
+]

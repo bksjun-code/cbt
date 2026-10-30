@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}비밀번호 재발급{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>비밀번호 재발급</h1>
+  <p class="muted">가입한 이메일을 입력하면 비밀번호 재설정 링크를 보내 드립니다.</p>
+  {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="/password/forgot">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>이메일
+      <input class="field" type="email" name="email" maxlength="254" required autofocus autocomplete="email"></label>
+    <button class="primary" type="submit">재설정 링크 받기</button>
+  </form>
+  <p class="muted"><a href="/login">로그인 화면으로</a></p>
+</section>
+{% endblock %}

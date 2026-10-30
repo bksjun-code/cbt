@@ -1,0 +1,1493 @@
+[
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, which process runs on the target system, receives data sent by a Data Pump over TCP/IP, and writes it to the remote trail?",
+  "options": {
+   "A": "Replicat",
+   "B": "Server Collector",
+   "C": "Manager",
+   "D": "Primary Extract",
+   "E": "Logdump"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Server Collector는 타깃 시스템에서 동작하며 Data Pump(또는 원격 trail에 쓰는 Extract)가 TCP/IP로 보낸 데이터를 받아 원격 trail에 기록한다. Replicat은 trail을 읽어 타깃 DB에 적용하는 프로세스이고, Manager는 프로세스 시작·감시 및 포트 관리를 담당한다. Primary Extract는 소스에서 변경분을 캡처하며, Logdump는 trail 조회용 유틸리티이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-SERVER-COLLECTOR"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the primary role of the Replicat process?",
+  "options": {
+   "A": "It reads the database transaction logs on the source system",
+   "B": "It transfers trail files from the source system to the target system",
+   "C": "It reads change data from a trail and applies it to the target database",
+   "D": "It manages ports and restarts failed processes",
+   "E": "It collects performance metrics for all processes"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Replicat은 trail에서 변경 데이터를 읽어 타깃 데이터베이스에 SQL(또는 통합 모드에서는 DB 내부 적용 프로세스)로 반영한다. 트랜잭션 로그 읽기는 Extract, trail 전송은 Data Pump/Distribution Server, 포트·재시작 관리는 Manager, 성능 지표 수집은 Performance Metrics Server의 역할이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-REPLICAT-ROLE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which component acts as a watchdog that starts, stops, and monitors the other services of one or more deployments on a host?",
+  "options": {
+   "A": "Administration Server",
+   "B": "Receiver Server",
+   "C": "Distribution Server",
+   "D": "Service Manager",
+   "E": "Admin Client"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Service Manager는 호스트의 하나 이상의 배포(deployment)를 관리하며 각 배포의 서비스들을 시작·중지·감시하는 watchdog 역할을 한다. Administration Server는 Extract/Replicat 관리, Receiver Server는 trail 수신, Distribution Server는 trail 송신을 담당하며, Admin Client는 명령행 클라이언트일 뿐 서비스를 감시하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-SERVICE-MANAGER"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which service on the target deployment receives trail data from a Distribution Path and writes it to a trail, similar to the Classic Server Collector?",
+  "options": {
+   "A": "Receiver Server",
+   "B": "Administration Server",
+   "C": "Performance Metrics Server",
+   "D": "Service Manager",
+   "E": "Distribution Server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Receiver Server는 원격 Distribution Server가 보낸 trail 데이터를 받아 타깃 측 trail에 기록하며, Classic의 Server Collector에 해당한다. Administration Server는 프로세스 관리, Performance Metrics Server는 성능 지표 수집, Service Manager는 서비스 감시, Distribution Server는 소스 측에서 데이터를 보내는 역할이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-RECEIVER"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "Which Microservices Architecture service collects and stores performance and status metrics of GoldenGate processes for monitoring?",
+  "options": {
+   "A": "Distribution Server",
+   "B": "Receiver Server",
+   "C": "Service Manager",
+   "D": "Administration Server",
+   "E": "Performance Metrics Server"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Performance Metrics Server는 배포 내 Extract, Replicat 등 프로세스의 성능·상태 지표를 수집·저장하여 모니터링에 사용한다. Distribution/Receiver Server는 trail 송수신, Service Manager는 서비스 감시, Administration Server는 프로세스 생성·관리를 담당한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-PMSRVR"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which command-line utility is used instead of GGSCI to issue commands to a deployment?",
+  "options": {
+   "A": "Logdump",
+   "B": "Admin Client",
+   "C": "SQL*Plus",
+   "D": "DEFGEN",
+   "E": "Manager"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "MA에서는 GGSCI 대신 Admin Client(adminclient)를 사용하며, Admin Client는 REST API를 통해 배포의 서비스에 명령을 보낸다. Logdump는 trail 조회, SQL*Plus는 DB 클라이언트, DEFGEN은 테이블 정의 파일 생성 유틸리티이고, Manager는 Classic 아키텍처의 프로세스이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-ADMIN-CLIENT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a typical Classic configuration that uses a Data Pump, where does the remote trail reside?",
+  "options": {
+   "A": "On the source system, written by the primary Extract",
+   "B": "Inside the source database as a GoldenGate-owned table",
+   "C": "On the target system, written by the Server Collector",
+   "D": "In the Manager parameter file",
+   "E": "In the target database redo logs"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "원격 trail(RMTTRAIL)은 타깃 시스템에 위치하며 Data Pump가 보낸 데이터를 Server Collector가 기록한다. 소스 시스템에서 Primary Extract가 쓰는 것은 로컬 trail(EXTTRAIL)이다. trail은 DB 테이블, 파라미터 파일, redo 로그가 아니라 GoldenGate 전용 파일이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-LOCAL-REMOTE-TRAIL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A transaction on the source database performs several updates and is then rolled back. What does Oracle GoldenGate do with these operations?",
+  "options": {
+   "A": "Replicat applies them and then issues a rollback on the target",
+   "B": "Extract writes them to the trail marked as rolled back",
+   "C": "Replicat applies them and they must be removed manually",
+   "D": "They are not written to the trail, because only committed transactions are replicated",
+   "E": "They are written to the discard file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "GoldenGate는 커밋된 트랜잭션만 복제한다. Extract는 트랜잭션의 작업을 커밋될 때까지 메모리(필요 시 디스크)에 보관하며, 롤백된 트랜잭션은 trail에 기록하지 않는다. 따라서 타깃에 적용 후 롤백하거나, 롤백 표시로 trail에 기록하거나, discard 파일에 기록하는 일은 없다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-COMMITTED-ONLY"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which is a typical use of a unidirectional GoldenGate configuration?",
+  "options": {
+   "A": "Offloading reporting queries to a target database that is kept up to date from the production source",
+   "B": "Allowing users to update the same tables on two databases at the same time",
+   "C": "Merging changes from many regional databases into one warehouse",
+   "D": "Resolving update conflicts between two active databases",
+   "E": "Passing data through an intermediate system that cannot be bypassed"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "단방향(unidirectional) 구성은 소스에서 타깃으로만 변경분을 보내며, 대표적으로 운영 DB의 부하를 줄이기 위한 조회/리포팅용 타깃 DB 유지에 사용된다. 양쪽 동시 갱신과 충돌 해결은 양방향(active-active), 다수 소스 통합은 consolidation, 중간 시스템 경유는 cascading 구성에 해당한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-UNIDIRECTIONAL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Several branch databases each send their changes to a single central data warehouse. Which topology is this?",
+  "options": {
+   "A": "Broadcast",
+   "B": "Bidirectional",
+   "C": "Cascading",
+   "D": "Peer-to-peer",
+   "E": "Consolidation (many-to-one)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "여러 소스의 변경분을 하나의 중앙 타깃으로 모으는 구성은 consolidation(다대일)이다. Broadcast는 하나의 소스에서 여러 타깃으로 배포, 양방향/peer-to-peer는 여러 DB가 서로 변경을 주고받는 구성, Cascading은 중간 시스템을 거쳐 다음 시스템으로 전달하는 구성이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-CONSOLIDATION"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which topology distributes changes from one source database to multiple target databases?",
+  "options": {
+   "A": "Consolidation",
+   "B": "Broadcast",
+   "C": "Bidirectional",
+   "D": "Active-active",
+   "E": "Many-to-one"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "하나의 소스에서 여러 타깃으로 데이터를 배포하는 구성은 broadcast(일대다)이다. Consolidation과 Many-to-one은 여러 소스를 하나의 타깃으로 모으는 구성이며, 양방향/active-active는 두 DB가 서로 변경을 주고받는 구성이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-BROADCAST"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the main purpose of GoldenGate checkpoints?",
+  "options": {
+   "A": "To compress trail files",
+   "B": "To encrypt data sent across the network",
+   "C": "To record read and write positions so that a process can recover after a failure without losing or duplicating data",
+   "D": "To store the parameter settings of each process",
+   "E": "To record database errors for troubleshooting"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "체크포인트는 프로세스가 데이터 소스에서 읽은 위치와 trail에 쓴 위치를 기록하여, 장애 후 재시작 시 데이터 누락이나 중복 없이 정확한 위치부터 복구하도록 한다. 압축·암호화·파라미터 저장·오류 기록은 체크포인트의 목적이 아니다(오류는 report 파일이나 ggserr.log에 기록된다).",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-PURPOSE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "For an Oracle source, which capture mode has the Extract process read the redo and archive logs directly, without using a logmining server inside the database?",
+  "options": {
+   "A": "Integrated capture",
+   "B": "Downstream integrated capture",
+   "C": "Classic capture",
+   "D": "Initial-load capture",
+   "E": "Parallel capture"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Classic capture는 Extract가 Oracle redo/archive 로그를 직접 읽는 방식이다. Integrated capture와 downstream integrated capture는 DB의 logmining server를 이용한다. Initial-load 방식은 로그가 아니라 테이블을 직접 읽으며, 'Parallel capture'는 Oracle 캡처 모드 이름이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-CLASSIC-CAPTURE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "How do clients such as the web interface and Admin Client communicate with the services of a Microservices Architecture deployment?",
+  "options": {
+   "A": "Through a REST API over HTTP or HTTPS",
+   "B": "Through the Classic Manager port only",
+   "C": "By editing checkpoint files directly",
+   "D": "Through database links in the source database",
+   "E": "Through shared memory segments only"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MA의 각 서비스는 HTTP/HTTPS 기반 REST API를 제공하며, 웹 UI와 Admin Client 모두 이 REST API를 통해 서비스와 통신한다. MA에는 Classic Manager가 없고, 체크포인트 파일 직접 편집, DB 링크, 공유 메모리는 클라이언트 통신 방식이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-REST"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the purpose of an initial load in a GoldenGate replication setup?",
+  "options": {
+   "A": "To purge old trail files",
+   "B": "To populate the target tables with the existing source data before ongoing change synchronization takes over",
+   "C": "To register Extract with the database",
+   "D": "To create the GoldenGate subdirectories",
+   "E": "To enable supplemental logging"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Initial load(초기 적재)는 변경 동기화를 시작하기 전에 소스의 기존 데이터를 타깃 테이블에 채워 넣어(instantiation) 양쪽을 동일한 시작 상태로 맞추는 작업이다. trail 정리, Extract 등록, 하위 디렉터리 생성, supplemental logging 활성화는 별도의 작업이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-INITLOAD-PURPOSE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Two databases are both open for user updates, and changes made on either database must be replicated to the other. Which topology is this?",
+  "options": {
+   "A": "Unidirectional",
+   "B": "Broadcast",
+   "C": "Consolidation",
+   "D": "Bidirectional (active-active)",
+   "E": "Cascading"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "두 DB가 모두 사용자 갱신을 받고 변경을 서로 복제하는 구성은 양방향(active-active)이다. 단방향은 한쪽으로만, broadcast는 일대다, consolidation은 다대일, cascading은 중간 시스템을 거쳐 전달하는 구성이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-BIDIRECTIONAL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, which file holds settings that apply to the whole GoldenGate instance, such as the default checkpoint table name?",
+  "options": {
+   "A": "The Manager report file",
+   "B": "The ggserr.log file",
+   "C": "The Replicat discard file",
+   "D": "The trail file header",
+   "E": "The GLOBALS file"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "GLOBALS 파일은 GoldenGate 인스턴스 전체에 적용되는 설정(예: CHECKPOINTTABLE, GGSCHEMA)을 담는다. report 파일과 ggserr.log는 실행 기록·오류 로그, discard 파일은 적용 실패 레코드 기록, trail 헤더는 trail 파일 자체의 메타데이터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-GLOBALS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "Which of the following are services that run as part of a Microservices Architecture deployment? (Choose all that apply.)",
+  "options": {
+   "A": "Administration Server",
+   "B": "Manager",
+   "C": "Distribution Server",
+   "D": "Server Collector",
+   "E": "Receiver Server"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "MA 배포에는 Administration Server, Distribution Server, Receiver Server(그리고 Performance Metrics Server)가 포함된다. Manager와 Server Collector는 Classic 아키텍처의 프로세스이며, MA에서는 각각 Service Manager/Administration Server와 Receiver Server가 그 역할을 대신한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-SERVICES-LIST"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a typical Classic unidirectional configuration with a primary Extract and a Data Pump on the source, which processes run on the target system? (Choose all that apply.)",
+  "options": {
+   "A": "Manager",
+   "B": "Primary Extract",
+   "C": "Server Collector",
+   "D": "Data Pump",
+   "E": "Replicat"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "타깃 시스템에서는 Manager(프로세스 관리 및 Collector 기동), Server Collector(원격 trail 기록), Replicat(타깃 DB 적용)이 동작한다. Primary Extract와 Data Pump는 소스 시스템에서 동작하여 변경분을 캡처하고 타깃으로 전송한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CLASSIC-COMPONENTS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Classic configuration uses a primary Extract that writes to a local trail and a Data Pump that sends the data to the target. The network between the source and target fails for 30 minutes. What happens to change capture on the source during the outage?",
+  "options": {
+   "A": "The primary Extract stops immediately and the changes are lost",
+   "B": "The primary Extract continues to capture changes into the local trail, and the Data Pump sends them after the network is restored",
+   "C": "Replicat captures the changes directly from the source redo logs",
+   "D": "The source database blocks all user transactions until the network is restored",
+   "E": "The changes are written to the discard file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Data Pump를 사용하면 Primary Extract는 로컬 trail에 계속 기록하므로 네트워크 장애가 캡처에 영향을 주지 않는다. 네트워크가 복구되면 Data Pump가 체크포인트 위치부터 이어서 전송한다. Extract가 중지되어 데이터가 유실되거나, Replicat이 소스 redo를 읽거나, DB 트랜잭션이 차단되거나, discard 파일에 기록되는 일은 없다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PUMP-ISOLATION"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GoldenGate process maintains read checkpoints but no write checkpoints?",
+  "options": {
+   "A": "Primary Extract",
+   "B": "Data Pump",
+   "C": "Replicat",
+   "D": "Initial-load Extract that writes to a trail",
+   "E": "Extract that writes directly to a remote trail"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Replicat은 trail에서 읽은 위치(read checkpoint)만 유지하며, trail에 쓰지 않으므로 write checkpoint가 없다. Primary Extract는 로그 읽기 위치와 trail 쓰기 위치를, Data Pump는 로컬 trail 읽기 위치와 원격 trail 쓰기 위치를 모두 유지한다. trail에 쓰는 Extract는 모두 write checkpoint를 가진다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-TYPES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about Extract checkpoints are correct? (Choose all that apply.)",
+  "options": {
+   "A": "Read checkpoints record positions in the data source, such as the transaction log",
+   "B": "Write checkpoints record the position in the trail where Extract has written data",
+   "C": "Extract checkpoints are stored in the target database redo logs",
+   "D": "The recovery checkpoint marks the position needed to recover the oldest open transaction",
+   "E": "Extract records checkpoints only when it is stopped normally"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "Extract의 read checkpoint는 트랜잭션 로그 등 데이터 소스에서의 읽기 위치를, write checkpoint는 trail에 기록한 위치를 나타낸다. recovery checkpoint는 아직 열려 있는 가장 오래된 트랜잭션을 복구하기 위해 다시 읽어야 할 위치이다. 체크포인트는 타깃 redo가 아니라 체크포인트 파일(또는 Replicat의 경우 체크포인트 테이블)에 저장되며, 정상 종료 시뿐 아니라 실행 중 주기적으로 기록된다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-TYPES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the main benefit of using a checkpoint table in the target database for a nonintegrated Replicat?",
+  "options": {
+   "A": "It removes the need for a trail",
+   "B": "The checkpoint is updated in the same database transaction as the applied data, so the checkpoint and the target data stay consistent",
+   "C": "It allows Replicat to read the source redo logs",
+   "D": "It stores the Replicat parameter file in the database",
+   "E": "It replaces supplemental logging on the source"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "체크포인트 테이블을 사용하면 Replicat이 적용한 트랜잭션과 체크포인트 갱신이 같은 DB 트랜잭션으로 커밋되어, 장애 후에도 체크포인트와 타깃 데이터가 일치한다(중복 적용 방지). trail을 대체하거나, 소스 redo를 읽게 하거나, 파라미터 파일을 저장하거나, supplemental logging을 대신하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-TABLE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture installation, in which subdirectory of the GoldenGate home are process checkpoint files stored by default?",
+  "options": {
+   "A": "dirprm",
+   "B": "dirrpt",
+   "C": "dirdat",
+   "D": "dirchk",
+   "E": "dirdef"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Classic에서 체크포인트 파일은 기본적으로 dirchk 하위 디렉터리에 저장된다(예: Extract는 .cpe, Replicat은 .cpr). dirprm은 파라미터 파일, dirrpt는 report 파일, dirdat는 trail 파일, dirdef는 정의(definitions) 파일 위치이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-FILES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which are advantages of integrated capture compared to classic capture for an Oracle source? (Choose all that apply.)",
+  "options": {
+   "A": "It supports capture from a multitenant container database (CDB)",
+   "B": "It does not require supplemental logging",
+   "C": "It works with Oracle RAC without having to configure the number of redo threads for Extract",
+   "D": "It does not need any database connection",
+   "E": "It supports a wider range of data types and storage features because the database logmining server interprets the redo"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "Integrated capture는 DB 내부 logmining server가 redo를 해석하므로 더 많은 데이터 타입과 저장 기능을 지원하고, 멀티테넌트 CDB 캡처를 지원하며, RAC 환경에서 redo thread 수를 Extract에 지정할 필요가 없다. 그러나 supplemental logging은 여전히 필요하며, logmining server를 사용하기 위해 DB 연결과 등록(REGISTER EXTRACT)이 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-CAPTURE-MODE-COMPARE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Integrated Extract uses a logmining server inside the Oracle database. From which memory area does this logmining server allocate its memory?",
+  "options": {
+   "A": "The Streams pool",
+   "B": "The PGA of the Extract OS process only",
+   "C": "The large pool exclusively",
+   "D": "The redo log buffer",
+   "E": "The Java pool"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Integrated capture의 logmining server는 SGA의 Streams pool에서 메모리를 할당하므로 STREAMS_POOL_SIZE를 충분히 설정해야 한다. Extract OS 프로세스의 PGA, large pool, redo log buffer, Java pool은 logmining server 메모리 영역이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-STREAMS-POOL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A company plans to capture changes from three pluggable databases (PDBs) in an Oracle Database 19c multitenant container database. The team is choosing a capture mode. Which capture mode must they use?",
+  "options": {
+   "A": "Classic capture, with one Extract per PDB",
+   "B": "Classic capture, reading the archived logs of the CDB root",
+   "C": "Integrated capture",
+   "D": "Initial-load capture with SOURCEISTABLE",
+   "E": "No capture mode can capture from PDBs"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "멀티테넌트 컨테이너 DB(CDB)에서 캡처하려면 integrated capture를 사용해야 하며, classic capture는 CDB를 지원하지 않는다. 하나의 Integrated Extract로 여러 PDB를 캡처할 수 있다. SOURCEISTABLE은 초기 적재용으로 지속적인 변경 캡처가 아니며, PDB 캡처는 integrated capture로 가능하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-CDB-CAPTURE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat apply mode constructs logical change records (LCRs) and passes them to an inbound server inside the Oracle target database for apply?",
+  "options": {
+   "A": "Classic Replicat",
+   "B": "Integrated Replicat",
+   "C": "Coordinated Replicat",
+   "D": "Initial-load Replicat with SPECIALRUN",
+   "E": "Nonintegrated Parallel Replicat"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Integrated Replicat은 trail 데이터를 LCR로 만들어 타깃 Oracle DB의 inbound server에 전달하고, inbound server가 의존성을 계산하여 병렬로 적용한다. Classic/Coordinated Replicat과 nonintegrated Parallel Replicat은 SQL을 직접 실행하여 적용하며, SPECIALRUN은 일회성 초기 적재용 실행 방식이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-INTEGRATED-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How does Coordinated Replicat parallelize the apply workload?",
+  "options": {
+   "A": "The database inbound server automatically computes dependencies between transactions",
+   "B": "Each target table is always assigned to its own Replicat process group with a separate parameter file",
+   "C": "The user partitions the workload across threads with THREAD or THREADRANGE options in MAP statements, and a coordinator thread manages the threads",
+   "D": "Mapper and applier processes are started automatically based on MAP_PARALLELISM",
+   "E": "It does not parallelize; it always applies with one thread"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Coordinated Replicat은 하나의 파라미터 파일에서 MAP 문의 THREAD/THREADRANGE 옵션으로 사용자가 작업을 스레드에 분할하고, coordinator 스레드가 각 스레드를 관리한다. 자동 의존성 계산은 Integrated Replicat(inbound server)의 방식이고, MAP_PARALLELISM 기반 mapper/applier는 Parallel Replicat의 방식이다. 테이블마다 별도 파라미터 파일이 필요한 것도 아니며, 단일 스레드는 Classic Replicat이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-COORDINATED-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statement correctly describes Parallel Replicat?",
+  "options": {
+   "A": "It requires the user to assign tables to threads with THREADRANGE",
+   "B": "It can only apply data to non-Oracle databases",
+   "C": "It reads the source redo logs directly",
+   "D": "It uses mapper processes to read and map trail data in parallel and applier processes to apply it, with transaction dependencies computed automatically",
+   "E": "It is the same as Classic Replicat with BATCHSQL enabled"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Parallel Replicat은 여러 mapper가 trail을 병렬로 읽고 매핑하며, 의존성을 자동으로 계산하여 여러 applier가 병렬 적용하는 구조이다. THREADRANGE 지정은 Coordinated Replicat의 방식이고, Parallel Replicat은 Oracle 타깃을 지원한다. Replicat은 소스 redo를 읽지 않으며, BATCHSQL은 Classic Replicat의 SQL 배치 기능일 뿐 Parallel Replicat과 다르다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PARALLEL-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A team replicates from Oracle to a Microsoft SQL Server target. They need multi-threaded apply and want to control how tables are distributed across threads by using MAP statement options. Which apply mode fits this requirement?",
+  "options": {
+   "A": "Integrated Replicat",
+   "B": "Coordinated Replicat",
+   "C": "Integrated Extract",
+   "D": "Downstream integrated capture",
+   "E": "Classic Replicat, which uses one thread per table automatically"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Coordinated Replicat은 비Oracle 타깃에서도 사용할 수 있고, MAP 문의 THREAD/THREADRANGE로 사용자가 스레드 분할을 제어하는 다중 스레드 적용 방식이다. Integrated Replicat은 Oracle DB의 inbound server를 사용하므로 Oracle 타깃 전용이다. Integrated Extract와 downstream capture는 캡처 방식이며, Classic Replicat은 단일 스레드로 적용한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-APPLY-NONORACLE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When you examine a trail record with Logdump, what two main parts does each record contain?",
+  "options": {
+   "A": "A record header area and a data area",
+   "B": "A SQL statement and a bind variable list",
+   "C": "A redo block address and an undo segment",
+   "D": "A checkpoint area and a parameter area",
+   "E": "A compressed block and an encryption key"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "각 trail 레코드는 레코드 헤더 영역(작업 유형, before/after 표시, 커밋 시각, 트랜잭션 정보 등)과 실제 컬럼 값을 담은 데이터 영역으로 구성된다. trail은 SQL 문장과 바인드 변수를 저장하지 않으며, redo 블록 주소/undo 세그먼트, 체크포인트/파라미터 영역, 암호화 키는 레코드의 기본 구성 요소가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TRAIL-RECORD"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For a DELETE operation captured from the source, which image is written to the trail?",
+  "options": {
+   "A": "An after image only",
+   "B": "A before image, containing at least the key columns needed to identify the row",
+   "C": "No image; only the table name is recorded",
+   "D": "Both before and after images of every column, always",
+   "E": "The full table contents"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DELETE는 삭제 이후의 값이 없으므로 trail에는 before image가 기록되며, 최소한 행을 식별할 키 컬럼(supplemental logging 설정에 따라 추가 컬럼)이 포함된다. after image만 기록되거나, 테이블 이름만 기록되거나, 테이블 전체가 기록되지 않으며, 모든 컬럼의 before/after가 항상 기록되는 것도 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-BEFORE-AFTER-IMAGE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "By default, Extract writes only the after image of UPDATE operations to the trail. Which Extract parameter makes it also write the before images of updates?",
+  "options": {
+   "A": "GETUPDATEAFTERS",
+   "B": "IGNOREUPDATEBEFORES",
+   "C": "GETUPDATEBEFORES",
+   "D": "NOCOMPRESSDELETES",
+   "E": "GETTRUNCATES"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "GETUPDATEBEFORES를 지정하면 UPDATE의 before image도 trail에 기록된다(기본값은 IGNOREUPDATEBEFORES). GETUPDATEAFTERS는 after image 기록(기본 동작), IGNOREUPDATEBEFORES는 before image 미기록, NOCOMPRESSDELETES는 DELETE 시 전체 컬럼 기록, GETTRUNCATES는 TRUNCATE 캡처와 관련된 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-BEFORE-AFTER-IMAGE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When you define a trail such as ./dirdat/ea, how are the actual trail file names formed?",
+  "options": {
+   "A": "GoldenGate appends a sequence number to the two-character trail name prefix, creating a series of files",
+   "B": "GoldenGate uses the Extract group name as the file name",
+   "C": "Each file name is the SCN of the first record it contains",
+   "D": "The trail is stored as a single file that grows without limit",
+   "E": "GoldenGate appends a timestamp to the full path"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "trail은 경로와 2자리 접두어로 정의하며, GoldenGate가 접두어 뒤에 순번(sequence number)을 붙여 일련의 파일(예: ea000000000, ea000000001)을 만든다. 파일이 지정된 크기에 도달하면 다음 순번 파일로 넘어간다. Extract 그룹명, SCN, 타임스탬프로 이름을 만들지 않으며, 단일 파일로 무한히 커지지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TRAIL-NAMING"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A new Oracle GoldenGate 19c Extract on the source must send data to a target that still runs an older Oracle GoldenGate 12.1 Replicat, which cannot read the newer trail format. What should you do?",
+  "options": {
+   "A": "Use the FORMAT RELEASE option for the trail so that it is written in a format the older Replicat can read",
+   "B": "Convert the trail with Logdump after each file is closed",
+   "C": "Configure Replicat with HANDLECOLLISIONS",
+   "D": "Use the DEFGEN utility to rewrite the trail",
+   "E": "Enable GETUPDATEBEFORES in Extract"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "trail(EXTTRAIL/RMTTRAIL)에 FORMAT RELEASE 옵션을 지정하면 하위 버전 Replicat이 읽을 수 있는 이전 trail 형식으로 기록된다. Logdump는 조회 도구이고 trail 변환기가 아니다. HANDLECOLLISIONS는 중복/누락 행 충돌 처리, DEFGEN은 테이블 정의 파일 생성, GETUPDATEBEFORES는 before image 기록 옵션으로 trail 형식 호환과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TRAIL-FORMAT-RELEASE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Oracle GoldenGate 19c, why does Replicat usually not need a SOURCEDEFS file even when source and target table structures differ?",
+  "options": {
+   "A": "Replicat queries the source database directly for metadata",
+   "B": "The trail is self-describing: it carries metadata records that describe the source tables",
+   "C": "SOURCEDEFS was replaced by checkpoint tables",
+   "D": "Source and target structures must always be identical in 19c",
+   "E": "Manager sends the metadata to Replicat at startup"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "12.2 이후 trail은 테이블 정의 정보를 메타데이터 레코드(TDR 등)로 포함하는 self-describing 형식이므로 Replicat이 별도의 SOURCEDEFS 파일 없이 소스 구조를 알 수 있다. Replicat은 소스 DB에 메타데이터를 조회하지 않으며, 체크포인트 테이블은 무관하고, 구조가 달라도 매핑이 가능하며, Manager가 메타데이터를 전달하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-SELF-DESC-TRAIL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the effect of configuring a Data Pump with the PASSTHRU parameter?",
+  "options": {
+   "A": "The Data Pump applies the data to the target database",
+   "B": "The Data Pump reads the source redo logs directly",
+   "C": "The Data Pump moves the data without looking up table definitions, which is suitable when it performs no column mapping or conversion",
+   "D": "The Data Pump stops writing checkpoints",
+   "E": "The Data Pump encrypts all trail records automatically"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PASSTHRU 모드의 Data Pump는 테이블 정의를 조회하지 않고 데이터를 그대로 전달하므로, 컬럼 매핑이나 변환을 하지 않는 경우에 적합하며 DB 로그인도 필요 없다. Data Pump는 타깃에 적용하지 않고(Replicat의 역할), redo를 읽지 않으며(Primary Extract의 역할), 체크포인트를 계속 기록하고, PASSTHRU가 암호화를 의미하지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PUMP-PASSTHRU"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A primary Extract is configured to write directly to a remote trail on the target, without a Data Pump. What is the main drawback of this design?",
+  "options": {
+   "A": "Replicat cannot read a remote trail",
+   "B": "Supplemental logging cannot be used",
+   "C": "Checkpoints are not supported",
+   "D": "Because there is no local trail, a network or target outage directly affects the capture process",
+   "E": "The target needs a separate Manager for each table"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Extract가 원격 trail에 직접 쓰면 소스에 로컬 trail이 없어 네트워크나 타깃 장애가 곧바로 캡처 프로세스에 영향을 준다. Data Pump를 두면 Primary Extract는 로컬 trail에 계속 기록하며 장애가 격리된다. Replicat은 원격 trail을 정상적으로 읽으며, supplemental logging과 체크포인트는 그대로 사용되고, 테이블별 Manager는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PUMP-ISOLATION"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, by default how is the Server Collector started on the target system?",
+  "options": {
+   "A": "Manager on the target starts a Server Collector dynamically when a Data Pump or Extract requests a connection",
+   "B": "Replicat starts it when Replicat starts",
+   "C": "The database starts it as a background process",
+   "D": "The administrator must start it manually with START COLLECTOR before every run",
+   "E": "The source Manager starts it remotely over SSH"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "기본적으로 소스의 Data Pump(또는 원격 trail에 쓰는 Extract)가 타깃 Manager에 연결을 요청하면, 타깃 Manager가 동적으로 Server Collector를 기동한다(dynamic Collector). Replicat이나 DB가 Collector를 띄우지 않으며, 매번 수동으로 시작할 필요가 없고, 소스 Manager가 SSH로 원격 기동하지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-DYNAMIC-COLLECTOR"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "A team is building a Microservices Architecture unidirectional replication from a source deployment to a target deployment. Which sequence correctly describes how a captured change flows to the target database?",
+  "options": {
+   "A": "Extract -> Receiver Server -> trail -> Distribution Server -> Replicat",
+   "B": "Extract -> local trail -> Distribution Server (distribution path) -> Receiver Server -> trail on target -> Replicat",
+   "C": "Extract -> Service Manager -> Administration Server -> Replicat",
+   "D": "Replicat -> trail -> Distribution Server -> Extract",
+   "E": "Extract -> Performance Metrics Server -> Receiver Server -> Replicat"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "MA에서는 Extract가 로컬 trail에 기록하고, 소스 배포의 Distribution Server가 distribution path로 trail 데이터를 타깃 배포의 Receiver Server에 보내며, Receiver Server가 타깃 trail에 기록하면 Replicat이 이를 읽어 적용한다. Receiver Server는 타깃 측 수신 역할이고, Service Manager·Administration Server·Performance Metrics Server는 데이터 전송 경로에 있지 않다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-DATAFLOW"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture configuration with a Data Pump, which sequence correctly describes the flow of a captured change?",
+  "options": {
+   "A": "Transaction log -> Replicat -> remote trail -> Data Pump -> target database",
+   "B": "Transaction log -> Data Pump -> local trail -> Extract -> Replicat",
+   "C": "Transaction log -> Manager -> Server Collector -> Replicat",
+   "D": "Transaction log -> Extract -> local trail -> Data Pump -> Server Collector -> remote trail -> Replicat -> target database",
+   "E": "Transaction log -> Server Collector -> local trail -> Replicat -> Data Pump"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Classic 흐름은 트랜잭션 로그 -> Primary Extract -> 로컬 trail -> Data Pump -> (TCP/IP) Server Collector -> 원격 trail -> Replicat -> 타깃 DB 순이다. 다른 보기들은 프로세스 순서가 뒤바뀌었거나(Replicat이 로그를 읽는 등), Manager처럼 데이터 경로에 있지 않은 프로세스를 포함한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CLASSIC-DATAFLOW"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, what is a deployment?",
+  "options": {
+   "A": "A single Extract or Replicat process",
+   "B": "A trail file that has been distributed to a target",
+   "C": "An independent GoldenGate instance with its own configuration and its own set of services (Administration, Distribution, Receiver, and Performance Metrics Servers)",
+   "D": "A database user that owns the checkpoint table",
+   "E": "The web browser session used to manage GoldenGate"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MA의 배포(deployment)는 자체 설정과 디렉터리, 그리고 Administration/Distribution/Receiver/Performance Metrics Server 서비스 세트를 가진 독립된 GoldenGate 인스턴스이며, Service Manager가 이를 관리한다. 단일 프로세스, trail 파일, DB 사용자, 브라우저 세션은 배포가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-DEPLOYMENT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "The Microservices Architecture has no Manager process. Which service lets you define autostart and autorestart behavior for Extract and Replicat processes?",
+  "options": {
+   "A": "Receiver Server",
+   "B": "Distribution Server",
+   "C": "Performance Metrics Server",
+   "D": "Administration Server",
+   "E": "Admin Client acting as a background daemon"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MA에서는 Administration Server가 Extract/Replicat을 생성·관리하며, 관리 프로세스(managed processes) 프로파일로 자동 시작·자동 재시작 동작을 설정한다. Receiver/Distribution Server는 trail 송수신, Performance Metrics Server는 지표 수집을 담당하고, Admin Client는 상주 데몬이 아니라 명령행 클라이언트이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-MANAGED-PROCESSES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "Which of the following are predefined user roles in a Microservices Architecture deployment? (Choose all that apply.)",
+  "options": {
+   "A": "Security",
+   "B": "Supervisor",
+   "C": "Operator",
+   "D": "Administrator",
+   "E": "Replicator"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "MA의 사전 정의 사용자 역할은 Security, Administrator, Operator, User이다. 따라서 Security, Operator, Administrator가 정답이다. Supervisor와 Replicator는 MA의 역할 이름이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-ROLES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "GoldenGate uses a commit sequence number (CSN) to identify the position of a transaction. For an Oracle source database, what does the CSN correspond to?",
+  "options": {
+   "A": "The trail file sequence number",
+   "B": "The system change number (SCN)",
+   "C": "The Extract group name",
+   "D": "The redo log file size",
+   "E": "The operating system process ID"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "CSN은 DB 고유의 커밋 순서 식별자를 기반으로 하며, Oracle에서는 SCN(System Change Number)에 해당한다. trail 파일 순번, Extract 그룹명, redo 로그 크기, OS 프로세스 ID는 CSN이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CSN"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In what order does Extract write transactions to the trail?",
+  "options": {
+   "A": "In the order in which each transaction started",
+   "B": "In alphabetical order of table name",
+   "C": "In the order of transaction commit",
+   "D": "In random order, and Replicat sorts them later",
+   "E": "In the order of the size of each transaction"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Extract는 트랜잭션을 커밋 순서대로 trail에 기록하며, 커밋 전까지는 작업을 보관한다. 따라서 Replicat은 소스의 커밋 순서를 기준으로 적용할 수 있다. 시작 순서, 테이블 이름 순, 임의 순서, 크기 순으로 기록하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TXN-ORDER"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You are instantiating an Oracle-to-Oracle target. The change-capture Extract is already running. You export the source schema with Oracle Data Pump using FLASHBACK_SCN=5500000 and import it on the target. How should you start Replicat so that no transaction is applied twice or missed?",
+  "options": {
+   "A": "START REPLICAT with HANDLECOLLISIONS from the beginning of the trail",
+   "B": "START REPLICAT with AFTERCSN 5500000",
+   "C": "START REPLICAT with ATCSN 1",
+   "D": "Start Replicat first, then run the import",
+   "E": "Restart Extract with BEGIN NOW and start Replicat normally"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Data Pump export가 FLASHBACK_SCN 5500000 시점까지 커밋된 데이터를 포함하므로, Replicat을 AFTERCSN 5500000으로 시작하면 그 이후 커밋된 트랜잭션만 적용되어 중복도 누락도 없다. HANDLECOLLISIONS는 정확한 SCN 기반 인스턴스화에서는 필요 없고 불일치를 숨길 수 있다. ATCSN 1은 이미 적재된 데이터를 다시 적용하며, import 전에 Replicat을 시작하거나 Extract를 BEGIN NOW로 재시작하면 데이터가 누락될 수 있다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-INITLOAD-PRECISE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For a GoldenGate initial load, which option makes the initial-load Extract read data directly from the source tables instead of from the transaction logs?",
+  "options": {
+   "A": "TRANLOG",
+   "B": "INTEGRATED TRANLOG",
+   "C": "EXTTRAILSOURCE",
+   "D": "SOURCEISTABLE",
+   "E": "SPECIALRUN"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SOURCEISTABLE은 초기 적재용 Extract가 트랜잭션 로그가 아니라 소스 테이블에서 직접 데이터를 읽도록 한다. TRANLOG와 INTEGRATED TRANLOG는 로그 기반 변경 캡처, EXTTRAILSOURCE는 trail을 읽는 Data Pump용, SPECIALRUN은 일회성 Replicat 실행 방식이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-INITLOAD-SOURCEISTABLE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A team plans an initial load of a busy source database by using GoldenGate initial-load processes while users continue to update the source. Why must the change-capture Extract be started before the initial load begins?",
+  "options": {
+   "A": "So that changes made while the load is running are captured and can be applied after the load",
+   "B": "Because the initial-load Extract reads its data from the change-capture trail",
+   "C": "Because Manager cannot start two processes at the same time",
+   "D": "So that the source tables are locked during the load",
+   "E": "Because supplemental logging is enabled only by the change-capture Extract"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "초기 적재가 진행되는 동안에도 소스는 계속 변경되므로, 변경 캡처 Extract를 먼저 시작해야 적재 중 발생한 변경분이 trail에 확보되어 적재 후 Replicat이 반영할 수 있다(이 겹치는 구간은 HANDLECOLLISIONS 등으로 처리). 초기 적재 Extract는 테이블을 직접 읽고, Manager는 여러 프로세스를 관리할 수 있으며, 소스 테이블을 잠그지 않고, supplemental logging은 Extract가 활성화하는 것이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-INITLOAD-ORDER"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Data from database SALES must reach database ARCHIVE, but SALES has no network access to ARCHIVE. Database HUB can reach both. The design replicates SALES to HUB, and then HUB to ARCHIVE. Which topology is this?",
+  "options": {
+   "A": "Broadcast",
+   "B": "Consolidation",
+   "C": "Cascading",
+   "D": "Bidirectional",
+   "E": "Peer-to-peer"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SALES에서 HUB로 복제한 뒤 HUB에서 다시 ARCHIVE로 전달하는 구성은 cascading(계단식)이다. Broadcast는 하나의 소스에서 여러 타깃으로 직접 배포, consolidation은 여러 소스를 하나로 통합, 양방향/peer-to-peer는 DB 간에 서로 변경을 주고받는 구성이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-CASCADING"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which issues must be addressed when designing a bidirectional (active-active) configuration? (Choose all that apply.)",
+  "options": {
+   "A": "Preventing loops, so that changes applied by Replicat are not captured and sent back",
+   "B": "Disabling checkpoints on both databases",
+   "C": "Detecting and resolving conflicts when the same row is changed on both databases",
+   "D": "Preventing key collisions, for example by assigning different sequence ranges on each database",
+   "E": "Removing all primary keys from the replicated tables"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "양방향 구성에서는 Replicat이 적용한 변경을 Extract가 다시 캡처해 되돌려 보내는 루프를 방지해야 하고, 같은 행이 양쪽에서 변경될 때의 충돌 감지·해결(CDR)이 필요하며, 시퀀스 범위 분리 등으로 키 충돌을 막아야 한다. 체크포인트 비활성화는 불가능하고 복구를 위해 필수이며, 기본 키 제거는 오히려 행 식별과 충돌 처리를 어렵게 한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-ACTIVE-ACTIVE-REQS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about downstream integrated capture are correct? (Choose two.)",
+  "options": {
+   "A": "The logmining server runs in a separate downstream mining database, which reduces capture overhead on the source database",
+   "B": "Extract reads the source online redo logs over NFS and does not use a logmining server",
+   "C": "The source database sends its redo to the downstream database by using Oracle redo transport",
+   "D": "The downstream database must be the replication target database",
+   "E": "Downstream capture uses classic capture mode"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Downstream integrated capture는 소스 DB가 Oracle redo transport로 redo를 별도의 downstream 마이닝 DB에 보내고, 그곳의 logmining server가 redo를 해석하므로 소스 DB의 캡처 부하를 줄일 수 있다. NFS로 redo를 직접 읽는 방식이 아니며, downstream DB가 복제 타깃일 필요는 없고, classic capture가 아니라 integrated capture 방식이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-DOWNSTREAM"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about heterogeneous replication with Oracle GoldenGate are correct? (Choose two.)",
+  "options": {
+   "A": "The trail uses a platform-independent format, so data captured from one database type can be applied to a different database type",
+   "B": "Integrated Replicat can apply data to a Microsoft SQL Server target",
+   "C": "The source and target databases must use the same character set",
+   "D": "Each Extract and Replicat must use a GoldenGate build for the specific database it connects to",
+   "E": "Heterogeneous replication requires the Classic Architecture Manager on the source to run SQL on the target"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "trail은 플랫폼·DB 독립적인 형식이므로 한 종류의 DB에서 캡처한 데이터를 다른 종류의 DB에 적용할 수 있으며, Extract와 Replicat은 각자 접속하는 DB용 GoldenGate 빌드를 사용해야 한다. Integrated Replicat은 Oracle inbound server를 사용하므로 Oracle 타깃 전용이다. GoldenGate는 문자셋 변환을 지원하므로 문자셋이 같을 필요가 없고, 소스 Manager가 타깃에서 SQL을 실행하지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-HETEROGENEOUS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A classic capture Extract is being added for an Oracle RAC database with four redo threads. What must be specified that is not required for integrated capture?",
+  "options": {
+   "A": "The THREADS option in ADD EXTRACT, matching the number of redo threads",
+   "B": "A separate Manager for each RAC instance",
+   "C": "A separate local trail for each RAC instance",
+   "D": "The PASSTHRU parameter",
+   "E": "A checkpoint table on the source"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Classic capture로 RAC에서 캡처할 때는 ADD EXTRACT에 THREADS 옵션으로 redo thread 수를 지정해야 한다. Integrated capture는 logmining server가 RAC thread를 자동으로 처리하므로 필요 없다. 인스턴스별 Manager나 trail은 필요 없으며, PASSTHRU는 Data Pump 옵션이고, 체크포인트 테이블은 Replicat(타깃)용이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-RAC-CLASSIC"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A large Oracle target must apply a high volume of changes from many tables. The team does not want to partition tables to threads manually. They want Replicat itself to compute transaction dependencies and to scale by setting MAP_PARALLELISM and APPLY_PARALLELISM. Which apply mode should they choose?",
+  "options": {
+   "A": "Classic Replicat",
+   "B": "Coordinated Replicat",
+   "C": "Parallel Replicat",
+   "D": "Initial-load Replicat with SPECIALRUN",
+   "E": "A Data Pump in PASSTHRU mode"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Parallel Replicat은 mapper가 trail을 병렬로 읽고 매핑하며, Replicat이 의존성을 자동 계산하여 applier들이 병렬 적용한다. MAP_PARALLELISM(mapper 수)과 APPLY_PARALLELISM(applier 수)으로 확장한다. Classic Replicat은 단일 스레드, Coordinated Replicat은 THREAD/THREADRANGE로 수동 분할이 필요하다. SPECIALRUN은 일회성 적재, PASSTHRU Data Pump는 전송 프로세스이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PARALLEL-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A nonintegrated Replicat uses checkpoint files only, with no checkpoint table. The server fails right after Replicat commits a transaction on the target but before Replicat updates its checkpoint file. What is the most likely result when Replicat restarts?",
+  "options": {
+   "A": "The transaction is lost because it was removed from the trail",
+   "B": "Replicat may try to apply the same transaction again, causing errors such as duplicate rows",
+   "C": "Replicat automatically reads the target redo logs to find its position",
+   "D": "The source Extract rolls back the transaction",
+   "E": "Nothing, because checkpoint files are written in the same database transaction"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "체크포인트 파일은 타깃 DB 트랜잭션과 별개로 기록되므로, 커밋 후 체크포인트 파일 갱신 전에 장애가 나면 재시작 시 이전 위치부터 읽어 같은 트랜잭션을 다시 적용하려 할 수 있다(중복 행 오류 등). 체크포인트 테이블을 쓰면 체크포인트가 적용 트랜잭션과 함께 커밋되어 이 문제를 막는다. trail의 데이터는 삭제되지 않았고, Replicat은 타깃 redo를 읽지 않으며, 소스 Extract가 롤백하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-CHECKPOINT-TABLE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does Extract Bounded Recovery do?",
+  "options": {
+   "A": "It limits the size of each trail file",
+   "B": "It periodically persists the state of long-running open transactions to disk so that, after a restart, Extract does not have to reread the logs back to the start of the oldest open transaction",
+   "C": "It limits the number of tables that Extract can capture",
+   "D": "It prevents Replicat from applying transactions larger than a set size",
+   "E": "It automatically deletes archive logs that Extract has read"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Bounded Recovery는 오래 열려 있는 트랜잭션의 상태를 주기적으로 디스크에 저장하여, 재시작 시 가장 오래된 열린 트랜잭션 시작 위치까지 로그를 다시 읽지 않아도 되도록 복구 시간을 제한한다. trail 크기 제한, 캡처 테이블 수 제한, Replicat 트랜잭션 크기 제한, 아카이브 로그 삭제 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-BOUNDED-RECOVERY"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "To reduce load on a production Oracle database, a team configures a separate mining database that receives redo from production. They want Extract to capture changes with minimal latency, before each source log switch, instead of waiting for archived logs. What configuration is required?",
+  "options": {
+   "A": "Downstream integrated capture in real-time mode, with standby redo logs configured on the downstream mining database",
+   "B": "Classic capture reading the production online redo logs over a database link",
+   "C": "Downstream capture in archived-log-only mode with a smaller archive log size",
+   "D": "Integrated Replicat on the mining database",
+   "E": "An initial-load Extract with SOURCEISTABLE on the mining database"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Downstream 마이닝 DB에서 로그 스위치를 기다리지 않고 거의 실시간으로 캡처하려면 real-time mining 모드의 downstream integrated capture를 사용하며, 이를 위해 downstream DB에 standby redo log가 있어야 한다. archived-log-only 모드는 아카이브된 로그만 마이닝하므로 지연이 생긴다. classic capture는 DB 링크로 redo를 읽지 않으며, Integrated Replicat과 SOURCEISTABLE은 캡처 방식이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "ARCH-DOWNSTREAM"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In a Microservices Architecture setup, the target deployment is in a network zone that can open connections to the source host, but security policy does not allow the source to open connections to the target. How should trail data be moved from the source to the target?",
+  "options": {
+   "A": "Create a target-initiated distribution path on the target Receiver Server so that the target connects to the source and pulls the trail data",
+   "B": "Configure a Classic Server Collector on the source host",
+   "C": "Have Replicat on the target read the source redo logs remotely",
+   "D": "Create a normal distribution path on the source Distribution Server and disable the firewall",
+   "E": "Use the Performance Metrics Server to copy the trail files"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "소스가 타깃으로 연결을 열 수 없는 경우, 타깃 Receiver Server에서 target-initiated distribution path를 생성하면 타깃이 소스로 연결을 열어 trail 데이터를 가져온다. Classic Collector를 소스에 두는 것은 연결 방향 문제를 해결하지 못하고, Replicat은 소스 redo를 읽지 않는다. 방화벽 해제는 보안 정책 위반이며, Performance Metrics Server는 trail 전송 기능이 없다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-TARGET-INITIATED"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements correctly compare Replicat apply modes? (Choose all that apply.)",
+  "options": {
+   "A": "Classic Replicat applies transactions with a single thread in source commit order",
+   "B": "Integrated Replicat relies on the database inbound server to compute dependencies and apply in parallel",
+   "C": "Coordinated Replicat can only be used with Oracle Database targets",
+   "D": "Coordinated Replicat requires the user to define how work is partitioned across threads",
+   "E": "Parallel Replicat requires a separate parameter file for each applier"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "Classic Replicat은 단일 스레드로 소스 커밋 순서대로 적용하고, Integrated Replicat은 DB inbound server가 의존성을 계산해 병렬 적용하며, Coordinated Replicat은 사용자가 THREAD/THREADRANGE로 분할을 정의해야 한다. Coordinated Replicat은 비Oracle 타깃에서도 사용할 수 있고, Parallel Replicat은 하나의 파라미터 파일로 mapper/applier 수를 지정하므로 applier별 파라미터 파일이 필요 없다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-APPLY-MODES-COMPARE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Coordinated Replicat, how is an operation such as DDL, which must be applied in a consistent order across all threads, handled?",
+  "options": {
+   "A": "Each thread applies the DDL independently at its own pace",
+   "B": "The DDL is written to the discard file and must be applied manually",
+   "C": "It is processed as a barrier transaction: the threads synchronize to a common point and the operation is applied serially",
+   "D": "It is sent to the source database to be applied there",
+   "E": "The coordinator skips the DDL to avoid contention"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Coordinated Replicat에서 DDL처럼 모든 스레드에 걸쳐 순서를 보장해야 하는 작업은 barrier 트랜잭션으로 처리된다. coordinator가 모든 스레드를 같은 지점까지 동기화한 뒤 해당 작업을 직렬로 적용하고 다시 병렬 처리를 재개한다. 각 스레드가 독립적으로 적용하면 순서가 깨지고, discard 기록·소스 적용·건너뛰기는 실제 동작이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-COORDINATED-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about the contents of a GoldenGate trail are correct? (Choose all that apply.)",
+  "options": {
+   "A": "The trail contains only committed transactions",
+   "B": "Uncommitted operations are written to the trail and Replicat discards them if a rollback record follows",
+   "C": "Transactions appear in the trail in source commit order",
+   "D": "Each record header indicates information such as the operation type and whether the record is a before or after image",
+   "E": "The trail stores the original SQL statement text that Replicat re-executes verbatim"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "trail에는 커밋된 트랜잭션만 커밋 순서대로 기록되며, 각 레코드 헤더에는 작업 유형(INSERT/UPDATE/DELETE 등)과 before/after image 여부 등의 정보가 있다. 미커밋 작업은 trail에 기록되지 않으므로 Replicat이 롤백 레코드로 버리는 구조가 아니다. 또한 trail은 원본 SQL 텍스트가 아니라 변경된 행의 컬럼 값을 저장하며, Replicat이 이를 바탕으로 SQL을 구성한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TRAIL-CONTENTS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "An administrator familiar with the Classic Architecture is moving to the Microservices Architecture. Which statements are correct? (Choose two.)",
+  "options": {
+   "A": "There is no Manager process; the Service Manager and Administration Server take over process control functions",
+   "B": "The Distribution Server writes the trail on the target system",
+   "C": "The Receiver Server takes the role of the Classic Server Collector",
+   "D": "The Microservices Architecture cannot use Integrated Extract",
+   "E": "Admin Client must be kept running for Extract and Replicat to continue working"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "MA에는 Manager가 없으며 Service Manager와 Administration Server가 프로세스 제어 기능을 맡고, Receiver Server가 Classic Server Collector 역할을 한다. 타깃 trail은 Distribution Server가 아니라 Receiver Server가 기록한다. MA에서도 Integrated Extract를 사용할 수 있으며, Admin Client는 명령을 보내는 클라이언트일 뿐이므로 종료해도 프로세스는 계속 실행된다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-CLASSIC-MAPPING"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a cascading configuration SALES -> HUB -> ARCHIVE, what is required on the intermediate system HUB to forward the data to ARCHIVE?",
+  "options": {
+   "A": "Only a Data Pump on HUB that reads the HUB redo logs",
+   "B": "An Extract on HUB that captures the operations applied by the local Replicat, instead of excluding them",
+   "C": "Nothing, because the Replicat on HUB automatically forwards data to ARCHIVE",
+   "D": "A bidirectional conflict resolution configuration between SALES and ARCHIVE",
+   "E": "Disabling supplemental logging on HUB"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Cascading에서 중간 시스템 HUB는 SALES에서 받은 변경을 Replicat으로 적용한 뒤, HUB의 Extract가 그 Replicat 적용분을 제외하지 않고 캡처해야 ARCHIVE로 전달할 수 있다(일반적으로 Replicat 작업은 캡처에서 제외되므로 별도 설정이 필요). Data Pump는 redo를 읽지 않고, Replicat은 데이터를 다음 시스템으로 전달하지 않는다. SALES-ARCHIVE 간 충돌 해결은 단방향 cascading과 무관하며, HUB에서 supplemental logging은 오히려 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TOPO-CASCADING"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are initial-load methods that use GoldenGate processes to move the data? (Choose all that apply.)",
+  "options": {
+   "A": "An initial-load Extract writes the source data to a file, and a Replicat applies it to the target",
+   "B": "An initial-load Extract sends the data directly to an initial-load Replicat task on the target (direct load)",
+   "C": "An initial-load Extract sends data to a Replicat that loads it through SQL*Loader (direct bulk load)",
+   "D": "Integrated Replicat reads the source data files directly",
+   "E": "The Distribution Server copies the source database data files to the target"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "GoldenGate 프로세스를 사용하는 초기 적재 방식에는 파일에 기록 후 Replicat으로 적용(file to Replicat), Extract에서 Replicat 태스크로 직접 전송(direct load), SQL*Loader API를 이용한 direct bulk load 등이 있다. Integrated Replicat은 소스 데이터 파일을 읽지 않으며, Distribution Server는 trail을 전송할 뿐 DB 데이터 파일을 복사하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-INITLOAD-METHODS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A nonintegrated Replicat is configured with GROUPTRANSOPS. Which statement about its effect is correct?",
+  "options": {
+   "A": "It splits each large source transaction into several target transactions",
+   "B": "It groups multiple smaller source transactions into one larger target transaction while preserving their order",
+   "C": "It reorders source transactions by table to improve performance",
+   "D": "It disables checkpoints for grouped transactions",
+   "E": "It makes Replicat apply uncommitted source operations"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GROUPTRANSOPS는 여러 개의 작은 소스 트랜잭션을 하나의 큰 타깃 트랜잭션으로 묶어 커밋 횟수를 줄이며, 원래의 순서는 유지된다. 큰 트랜잭션을 나누는 것은 MAXTRANSOPS의 기능이다. 테이블별 재정렬, 체크포인트 비활성화, 미커밋 작업 적용은 일어나지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-TXN-GROUPING"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "One host runs a single Service Manager that manages two deployments, DEP_A and DEP_B. Which statement is correct?",
+  "options": {
+   "A": "DEP_A and DEP_B share one Administration Server",
+   "B": "Each deployment has its own Administration, Distribution, Receiver, and Performance Metrics Servers with its own configuration",
+   "C": "Only one of the two deployments can run Extract processes",
+   "D": "The Service Manager stores the trail files of both deployments in one shared directory",
+   "E": "Each deployment requires its own Service Manager on the same host"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "하나의 Service Manager가 여러 배포를 관리할 수 있으며, 각 배포는 자체 설정과 함께 자신만의 Administration/Distribution/Receiver/Performance Metrics Server를 가진다. 배포 간에 Administration Server를 공유하지 않으며, 두 배포 모두 Extract를 실행할 수 있다. trail은 각 배포의 디렉터리에 저장되며, 배포마다 별도의 Service Manager가 필요한 것은 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "ARCH-MA-DEPLOYMENT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Extract is stopped for maintenance. Its checkpoint information shows the recovery checkpoint in redo log sequence 100 and the current checkpoint in sequence 150. The DBA wants to delete old archived logs. From which sequence must the logs remain available for Extract to restart without data loss?",
+  "options": {
+   "A": "Sequence 150, because Extract resumes at its current checkpoint only",
+   "B": "Sequence 151, because sequence 150 was already processed",
+   "C": "Sequence 100, because Extract must reread from the recovery checkpoint to rebuild open transactions",
+   "D": "Any sequence, because all data is already in the trail",
+   "E": "Sequence 1, because Extract always rereads all logs"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "recovery checkpoint는 재시작 시 아직 커밋되지 않은 열린 트랜잭션을 재구성하기 위해 다시 읽어야 하는 가장 오래된 위치이다. 따라서 sequence 100부터의 로그가 남아 있어야 한다. current checkpoint(150)만 남기면 열린 트랜잭션의 앞부분을 잃는다. 미커밋 트랜잭션은 trail에 아직 기록되지 않았으며, 모든 로그를 처음부터 다시 읽지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-EXTRACT-CKPT-POSITIONS"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which checkpoints does a Classic Data Pump maintain?",
+  "options": {
+   "A": "A read checkpoint in the source redo logs and a write checkpoint in the local trail",
+   "B": "Only a write checkpoint in the remote trail",
+   "C": "A read checkpoint in the target database checkpoint table",
+   "D": "No checkpoints, because it only forwards data",
+   "E": "A read checkpoint in the local trail and a write checkpoint in the remote trail"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Data Pump는 Extract의 한 형태로, 로컬 trail에서 읽은 위치(read checkpoint)와 원격 trail에 쓴 위치(write checkpoint)를 유지한다. redo 읽기와 로컬 trail 쓰기는 Primary Extract의 체크포인트이고, 체크포인트 테이블은 Replicat이 사용한다. Data Pump도 체크포인트가 없으면 재시작 위치를 알 수 없으므로 반드시 유지한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "ARCH-PUMP-CHECKPOINTS"
+ }
+]

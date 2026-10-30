@@ -1,0 +1,47 @@
+{% extends "admin_base.html" %}
+{% set nav = 'upload' %}
+{% block title %}일괄 업로드{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>문항 일괄 업로드</h1>
+  <p>JSON 또는 CSV 파일을 올리면 전체를 먼저 검증하고, <b>오류가 한 건도 없을 때만</b> 모두 <b>DRAFT</b> 로 등록합니다.</p>
+  {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+  {% if result %}
+    <div class="alert" role="alert">
+      {{ result.total }}건 중 <b>{{ result.errors|length }}</b>건에 오류가 있어 아무것도 등록하지 않았습니다. 수정 후 다시 올려 주세요.
+      <ul class="errlist">
+        {% for e in result.errors[:100] %}
+          <li><b>{{ e.row }}번</b>
+            <ul>{% for m in e.messages %}<li>{{ m }}</li>{% endfor %}</ul></li>
+        {% endfor %}
+      </ul>
+      {% if result.errors|length > 100 %}<p>… 외 {{ result.errors|length - 100 }}건</p>{% endif %}
+    </div>
+  {% endif %}
+  <form method="post" action="/admin/items/upload" enctype="multipart/form-data" class="stack">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>파일 (.json / .csv, 최대 {{ max_mb }}MB, 1,000문항)
+      <input type="file" name="file" accept=".json,.csv" required></label>
+    <button class="primary" type="submit">검증 후 등록</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>형식 안내</h2>
+  <h3>JSON</h3>
+<pre class="code">[
+  {
+    "domain": "EXTRACT", "difficulty": "MID", "item_type": "SINGLE",
+    "ogg_version": "19c", "architecture": "MA",
+    "stem": "지문", "options": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
+    "correct_keys": ["B"], "explanation": "해설", "reference": "참고",
+    "variant_group": "EXT-INTEGRATED-PREREQ"
+  }
+]</pre>
+  <h3>CSV (UTF-8 또는 Excel 한글 CP949)</h3>
+<pre class="code">domain,difficulty,item_type,stem,option_A,option_B,option_C,option_D,option_E,correct_keys,explanation,variant_group,ogg_version,architecture,reference
+EXTRACT,MID,SINGLE,"지문","보기1","보기2","보기3","보기4","보기5",B,"해설",EXT-GROUP-1,19c,BOTH,"참고"</pre>
+  <p class="muted">영역: ARCH, INSTALL, EXTRACT, REPLICAT, MAPPING, OPS, TROUBLE · 난이도: LOW/MID/HIGH · 유형: SINGLE/MULTI/SCENARIO ·
+    복수 정답은 <code>A|C</code> 형식 · 같은 영역에 지문이 같은 문항이 이미 있으면 거부됩니다.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+# /etc/systemd/system/ogg-cbt.service
+# 경로 가정: 코드 /opt/ogg-cbt/app, 가상환경 /opt/ogg-cbt/.venv, DB /var/lib/ogg-cbt, 설정 /etc/ogg-cbt/env
+[Unit]
+Description=OGG-CBT (Oracle GoldenGate 자격시험)
+After=network.target
+
+[Service]
+User=cbt
+Group=cbt
+WorkingDirectory=/opt/ogg-cbt/app
+EnvironmentFile=/etc/ogg-cbt/env
+
+# 기동 때마다 스키마를 최신으로 맞추고 필수 기본 데이터(영역 7개, 기본 Blueprint)를 넣는다. 둘 다 반복 실행해도 안전(멱등).
+# 샘플 문항은 넣지 않는다. 마이그레이션이 실패하면 서비스가 기동하지 않는다.
+ExecStartPre=/opt/ogg-cbt/.venv/bin/python -m alembic upgrade head
+ExecStartPre=/opt/ogg-cbt/.venv/bin/python -m app.cli seed
+
+# 워커는 1개로 둔다: SQLite 단일 파일 + 만료 시험 자동 제출 스케줄러가 프로세스 안에서 돈다
+ExecStart=/opt/ogg-cbt/.venv/bin/uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+
+# 최소 권한
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/ogg-cbt
+
+[Install]
+WantedBy=multi-user.target

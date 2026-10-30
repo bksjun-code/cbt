@@ -1,0 +1,4 @@
+<button id="flag-btn" type="button" class="flag{% if q.flagged %} on{% endif %}"
+        hx-put="/exam/{{ attempt.id }}/q/{{ q.seq }}/flag" hx-vals='{"flagged": "{{ 'false' if q.flagged else 'true' }}"}'
+        hx-target="#flag-btn" hx-swap="outerHTML">{{ '검토 표시 해제' if q.flagged else '검토 표시' }}</button>
+{% if oob_nav %}{% with oob=True %}{% include "_navigator.html" %}{% endwith %}{% endif %}

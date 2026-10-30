@@ -1,0 +1,150 @@
+{% extends "admin_base.html" %}
+{% set nav = 'items' %}
+{% block title %}{{ '문항 #%d'|format(item.id) if item else '문항 등록' }}{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>
+    {% if item %}문항 #{{ item.id }} <span class="st {{ item.status.value }}">{{ item.status.value }}</span>
+      <span class="muted">v{{ item.version }}</span>
+      {% if item.is_sample %}<span class="badge">샘플(검수 필요)</span>{% endif %}
+    {% else %}문항 등록 <span class="muted">(DRAFT 로 저장됩니다)</span>{% endif %}
+  </h1>
+
+  {% if errors %}
+    <div class="alert" role="alert">입력을 확인해 주세요.
+      <ul class="errlist">{% for e in errors %}<li>{{ e }}</li>{% endfor %}</ul></div>
+  {% endif %}
+
+  {% if item and not editable %}
+    <p class="alert">
+      {% if item.status.value == 'RETIRED' %}폐기된 문항입니다.{% else %}출제 이력이 있어 수정할 수 없습니다.{% endif %}
+      내용을 고치려면 <b>신규 버전</b>을 만드세요(원본은 RETIRED 처리).
+    </p>
+  {% endif %}
+
+  {% if item and (item.approved_at) %}
+    <p class="muted">승인: {{ item.approved_at|kst }} KST (관리자 #{{ item.approved_by }})</p>
+  {% endif %}
+  {% if lineage and (lineage.previous or lineage.newer) %}
+    <p class="muted">버전 이력:
+      {% if lineage.previous %}이전 <a href="/admin/items/{{ lineage.previous.id }}">#{{ lineage.previous.id }} (v{{ lineage.previous.version }})</a>{% endif %}
+      {% for n in lineage.newer %} · 이후 <a href="/admin/items/{{ n.id }}">#{{ n.id }} (v{{ n.version }}, {{ n.status.value }})</a>{% endfor %}
+    </p>
+  {% endif %}
+
+  <form method="post" action="{{ '/admin/items/%d'|format(item.id) if item else '/admin/items/new' }}" class="stack">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <fieldset class="plain" {{ 'disabled' if not editable }}>
+      <div class="grid2">
+        <label>영역
+          <select name="domain" required>
+            <option value="">선택</option>
+            {% for d in domains %}<option value="{{ d.code }}" {{ 'selected' if form.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+          </select></label>
+        <label>난이도
+          <select name="difficulty">{% for v in difficulties %}<option {{ 'selected' if form.difficulty == v }}>{{ v }}</option>{% endfor %}</select></label>
+        <label>유형
+          <select name="item_type">{% for v in types %}<option {{ 'selected' if form.item_type == v }}>{{ v }}</option>{% endfor %}</select></label>
+        <label>아키텍처
+          <select name="architecture">{% for v in architectures %}<option {{ 'selected' if form.architecture == v }}>{{ v }}</option>{% endfor %}</select></label>
+        <label>OGG 버전
+          <input type="text" name="ogg_version" value="{{ form.ogg_version }}" maxlength="20"></label>
+        <label>variant group
+          <input type="text" name="variant_group" value="{{ form.variant_group }}" list="vg" maxlength="100" required>
+          <datalist id="vg">{% for g in groups %}<option value="{{ g }}">{% endfor %}</datalist></label>
+      </div>
+
+      <label>지문
+        <textarea name="stem" required maxlength="4000">{{ form.stem }}</textarea></label>
+
+      <p class="tight"><b>보기</b> <span class="muted">(A·B 필수, 정답 체크 — SINGLE/SCENARIO 는 1개, MULTI 는 2개 이상)</span></p>
+      {% for k in keys %}
+      <div class="optrow">
+        <span class="k">{{ k }}</span>
+        <input type="text" name="option_{{ k }}" value="{{ form.options.get(k, '') }}" maxlength="500" aria-label="보기 {{ k }}">
+        <label><input type="checkbox" name="correct_keys" value="{{ k }}" {{ 'checked' if k in form.correct_keys }}> 정답</label>
+      </div>
+      {% endfor %}
+
+      <label>해설 <span class="muted">(정답 근거와 오답 보기별 오류 이유)</span>
+        <textarea name="explanation" required maxlength="4000">{{ form.explanation }}</textarea></label>
+      <label>참고 문헌
+        <input type="text" name="reference" value="{{ form.reference or '' }}" maxlength="300"></label>
+    </fieldset>
+    {% if editable %}
+      <p class="actions">
+        <button class="primary" type="submit">{{ '저장' if item else 'DRAFT 로 등록' }}</button>
+        {% if item and item.status.value in ('REVIEWED', 'APPROVED') %}<span class="muted">수정하면 DRAFT 로 되돌아가 재검수가 필요합니다.</span>{% endif %}
+      </p>
+    {% endif %}
+  </form>
+</section>
+
+{% if item %}
+<section class="card">
+  <h2>검수 / 상태 변경</h2>
+  <div class="actions">
+    {% set st = item.status.value %}
+    {% macro post(action, label, cls='') %}
+      <form method="post" action="/admin/items/{{ item.id }}/{{ action }}" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit" class="{{ cls }}">{{ label }}</button>
+      </form>
+    {% endmacro %}
+    {% if st == 'DRAFT' %}{{ post('submit-review', '검수 요청 (DRAFT → REVIEWED)', 'primary') }}{% endif %}
+    {% if st == 'REVIEWED' %}{{ post('approve', '승인 (REVIEWED → APPROVED)', 'primary') }}{% endif %}
+    {% if st in ('DRAFT', 'REVIEWED', 'APPROVED') %}{{ post('retire', '폐기 (RETIRED)', 'danger') }}{% endif %}
+    {{ post('new-version', '신규 버전 만들기') }}
+  </div>
+  {% if st == 'REVIEWED' %}
+  <form method="post" action="/admin/items/{{ item.id }}/reject" class="stack mt1">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>반려 사유 <span class="muted">(필수)</span>
+      <input type="text" name="reason" required maxlength="500"></label>
+    <button type="submit" class="danger">반려 (REVIEWED → DRAFT)</button>
+  </form>
+  {% endif %}
+
+  <h3 class="mt1">이력</h3>
+  {% if history %}
+  <table>
+    <thead><tr><th>시각(KST)</th><th>작업</th><th>사유</th><th>관리자</th></tr></thead>
+    <tbody>{% for h in history %}
+      <tr><td>{{ h.created_at|kst }}</td><td>{{ h.action.value }}</td><td>{{ h.reason or '-' }}</td><td>#{{ h.actor_id }}</td></tr>
+    {% endfor %}</tbody>
+  </table>
+  {% else %}<p class="muted">검수 이력이 없습니다.</p>{% endif %}
+  {% if has_history %}<p class="muted">※ 이 문항은 출제된 이력이 있습니다. <a href="/admin/analytics/items/{{ item.id }}">문항 분석 보기</a></p>{% endif %}
+</section>
+
+{% if has_history or override %}
+<section class="card">
+  <h2>채점 보정 (결과 수정)</h2>
+  <p class="muted">문항 오류가 발견되었을 때, 이 문항이 출제된 종료된 응시 결과를 모두 자동 재채점합니다. 사유가 필수이며 변경 전·후 점수와 합불 변화가 감사 로그에 기록됩니다.</p>
+  {% if override %}
+    <p class="warnbox">현재 보정: <b>{{ '전원 정답 인정' if override.mode.value == 'CREDIT_ALL' else '채점 제외' }}</b>
+      — {{ override.reason }} <span class="muted">({{ override.created_at|kst }})</span></p>
+  {% endif %}
+  <form method="post" action="/admin/items/{{ item.id }}/override" class="stack">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="grid2">
+      <label>보정 유형
+        <select name="mode">
+          <option value="CREDIT_ALL">전원 정답 인정 (무응답 포함)</option>
+          <option value="EXCLUDE">채점 제외 (배점·만점에서 제외, 100점 환산 유지)</option>
+        </select></label>
+      <label>사유 <span class="muted">(필수)</span> <input type="text" name="reason" required maxlength="500"></label>
+    </div>
+    <button type="submit" class="danger">{{ '보정 변경 및 재채점' if override else '적용 및 재채점' }}</button>
+  </form>
+  {% if override %}
+  <form method="post" action="/admin/items/{{ item.id }}/override/revoke" class="stack mt1">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>해제 사유 <span class="muted">(필수)</span> <input type="text" name="reason" required maxlength="500"></label>
+    <button type="submit">보정 해제 및 재채점</button>
+  </form>
+  {% endif %}
+</section>
+{% endif %}
+{% endif %}
+{% endblock %}

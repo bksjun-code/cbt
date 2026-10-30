@@ -1,0 +1,76 @@
+{% extends "admin_base.html" %}
+{% set nav = 'analytics' %}
+{% block title %}문항 분석{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="actions between">
+    <h1>문항 분석 <span class="muted">({{ total }}문항)</span></h1>
+    <a class="button" href="/admin/analytics/export.csv{{ '?' + qs if qs }}">CSV 내보내기</a>
+  </div>
+  <p class="muted">종료된 응시 결과만 집계합니다. 정답 여부는 응시자가 고른 보기와 정답 키를 직접 비교한 값이며, 채점 보정은 반영하지 않습니다.
+    변별도(D)는 상·하위 27% 정답률 차이이고, 응시 수가 {{ min_sample }} 미만이면 <b>표본 부족</b>으로 보고 경고하지 않습니다.
+    D &lt; {{ d_warn }} 인 문항은 <span class="bad">경고</span>로 표시합니다.</p>
+
+  <div class="kpis">
+    <div class="kpi">분석 문항<b>{{ summary.count }}</b></div>
+    <div class="kpi">표본 충분<b>{{ summary.enough }}</b></div>
+    <div class="kpi">변별도 경고<b class="{{ 'bad' if summary.warn }}">{{ summary.warn }}</b></div>
+    <div class="kpi">평균 정답률(p)<b>{{ '%.2f'|format(summary.avg_p) if summary.avg_p is not none else '-' }}</b></div>
+    <div class="kpi">평균 변별도(D)<b>{{ '%.2f'|format(summary.avg_d) if summary.avg_d is not none else '-' }}</b></div>
+  </div>
+
+  <form method="get" action="/admin/analytics" class="filters">
+    <label>영역
+      <select name="domain"><option value="">전체</option>
+        {% for d in domains %}<option value="{{ d.code }}" {{ 'selected' if f.domain == d.code }}>{{ d.code }}</option>{% endfor %}
+      </select></label>
+    <label>난이도
+      <select name="difficulty"><option value="">전체</option>
+        {% for v in ['LOW', 'MID', 'HIGH'] %}<option {{ 'selected' if f.difficulty == v }}>{{ v }}</option>{% endfor %}
+      </select></label>
+    <label>상태
+      <select name="status"><option value="">전체</option>
+        {% for v in ['APPROVED', 'RETIRED', 'REVIEWED', 'DRAFT'] %}<option {{ 'selected' if f.status == v }}>{{ v }}</option>{% endfor %}
+      </select></label>
+    <label>정렬
+      <select name="sort">
+        {% for v, t in [('d', '변별도 낮은 순(경고 우선)'), ('p', '정답률 낮은 순'), ('n', '응시 수 많은 순'), ('id', '문항 번호')] %}<option value="{{ v }}" {{ 'selected' if f.sort == v }}>{{ t }}</option>{% endfor %}
+      </select></label>
+    <label class="inl"><input type="checkbox" name="warn" value="1" {{ 'checked' if f.warn_only }}> 경고만</label>
+    <button class="primary" type="submit">조회</button>
+    <a href="/admin/analytics">초기화</a>
+  </form>
+
+  <table>
+    <thead><tr><th>#</th><th>영역/난이도</th><th>지문</th><th>응시</th><th>정답률 p</th><th>상위/하위</th><th>변별도 D</th><th>비고</th></tr></thead>
+    <tbody>
+    {% for s in rows %}
+      <tr>
+        <td><a href="/admin/analytics/items/{{ s.item.id }}">{{ s.item.id }}</a></td>
+        <td>{{ s.item.domain.code }}/{{ s.item.difficulty.value }}</td>
+        <td class="stemcell">{{ s.item.stem|truncate(60) }}</td>
+        <td>{{ s.n }}</td>
+        <td>{{ '%.2f'|format(s.p) }} <span class="muted">{{ s.p_label }}</span></td>
+        <td class="muted">{{ '%.2f'|format(s.p_upper) }} / {{ '%.2f'|format(s.p_lower) }}</td>
+        <td>{% if s.enough %}<b class="{{ 'bad' if s.warn else 'good' }}">{{ '%.2f'|format(s.d) }}</b>{% else %}<span class="muted">{{ '%.2f'|format(s.d) }}</span>{% endif %}</td>
+        <td>
+          {% if not s.enough %}<span class="badge">표본 부족</span>{% endif %}
+          {% if s.negative %}<span class="badge fail">D 음수</span>{% elif s.warn %}<span class="badge fail">변별도 경고</span>{% endif %}
+          {% if s.override %}<span class="badge">보정 {{ '정답 인정' if s.override.value == 'CREDIT_ALL' else '제외' }}</span>{% endif %}
+          {% if s.item.status.value == 'RETIRED' %}<span class="st RETIRED">RETIRED</span>{% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr><td colspan="8" class="muted">분석할 응시 데이터가 없습니다. 시험이 제출되면 집계됩니다.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="/admin/analytics?{{ qs + '&' if qs }}page={{ page - 1 }}">← 이전</a>{% endif %}
+    <span class="muted">{{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="/admin/analytics?{{ qs + '&' if qs }}page={{ page + 1 }}">다음 →</a>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

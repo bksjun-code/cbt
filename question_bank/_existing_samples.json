@@ -1,0 +1,1350 @@
+[
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When capturing changes from a source Oracle database, what does Oracle GoldenGate read by default?",
+  "options": {
+   "A": "Alert log (alert.log)",
+   "B": "Listener log",
+   "C": "SQL*Net trace files",
+   "D": "Data files (.dbf)",
+   "E": "Transaction logs (redo/archive logs)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Extract는 DB의 트랜잭션 로그에서 변경분을 캡처한다. 나머지 보기는 변경 캡처 소스가 아니다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-CAPTURE-SOURCE"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GoldenGate-specific file stores the change data captured by Extract?",
+  "options": {
+   "A": "Parameter file",
+   "B": "Report file",
+   "C": "Checkpoint table dump",
+   "D": "Trail file",
+   "E": "Discard file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "캡처된 변경 데이터는 trail 파일에 기록된다. Discard/Report는 진단용, Parameter는 설정 파일이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-TRAIL"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, which process starts, stops, and monitors the other GoldenGate processes and manages ports?",
+  "options": {
+   "A": "Manager",
+   "B": "Extract",
+   "C": "Collector",
+   "D": "Logdump",
+   "E": "Replicat"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Manager가 프로세스 기동·감시·trail 정리 등을 수행한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-MANAGER"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the primary role of a Data Pump Extract?",
+  "options": {
+   "A": "It compresses and deletes trail files",
+   "B": "It applies DML directly to the target database",
+   "C": "It reads the local trail and sends it to a trail on the target system",
+   "D": "It configures supplemental logging on the source database",
+   "E": "It converts DDL only"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Data Pump는 로컬 trail을 읽어 원격으로 전송한다(PASSTHRU 사용 가능).",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-PUMP"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which service provides the REST API for creating and managing Extract and Replicat?",
+  "options": {
+   "A": "Distribution Server",
+   "B": "Administration Server",
+   "C": "Service Manager",
+   "D": "Receiver Server",
+   "E": "Performance Metrics Server"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Administration Server가 프로세스 생성·관리를 담당한다. Distribution/Receiver는 trail 전송 서비스다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-MA-SERVICES"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which component provides the equivalent of the Classic Data Pump?",
+  "options": {
+   "A": "A Replicat in the Administration Server",
+   "B": "A checkpoint in the Receiver Server",
+   "C": "A Distribution Path in the Distribution Server",
+   "D": "A Deployment in the Service Manager",
+   "E": "Performance Metrics Server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Distribution Path가 trail을 원격 Receiver Server로 전송한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-MA-DISTPATH"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about Integrated Replicat with an Oracle target are correct? (Choose all that apply.)",
+  "options": {
+   "A": "It can be used the same way with non-Oracle databases",
+   "B": "It computes transaction dependencies and applies them in parallel",
+   "C": "It applies LCRs through a database inbound server",
+   "D": "It must always be used together with Coordinated Replicat",
+   "E": "It connects directly to the source database without a trail"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "Integrated Replicat은 Oracle DB의 inbound server를 이용하며 의존성 기반 병렬 적용을 한다. Oracle DB 전용이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-INTEGRATED-REPLICAT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How does Integrated Extract capture change data from an Oracle 19c source?",
+  "options": {
+   "A": "It extracts increments with Data Pump (expdp)",
+   "B": "Triggers on the target database collect the changes",
+   "C": "Extract parses the redo files directly at the OS level",
+   "D": "It periodically runs full comparisons with Flashback Query",
+   "E": "A logmining server inside the database generates LCRs, and Extract receives them"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Integrated Extract는 DB 로그마이닝 서버를 활용한다. Classic Extract가 redo를 직접 읽는 방식이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-INTEGRATED-EXTRACT"
+ },
+ {
+  "domain": "ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, what transport does a Distribution Path use to send trail data to a remote Receiver Server?",
+  "options": {
+   "A": "FTP",
+   "B": "SFTP scripts",
+   "C": "An Oracle database link",
+   "D": "WebSocket-based transport (ws/wss)",
+   "E": "An NFS shared directory"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MA의 Distribution Path는 WebSocket 기반으로 trail을 전송한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "ARCH-MA-TRANSPORT"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, which command-line tool runs GoldenGate commands interactively?",
+  "options": {
+   "A": "SQL*Plus",
+   "B": "GGSCI",
+   "C": "lsnrctl",
+   "D": "adrci",
+   "E": "RMAN"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GGSCI가 Classic의 기본 명령행 인터페이스다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-GGSCI"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the default port of the Manager process?",
+  "options": {
+   "A": "7809",
+   "B": "22",
+   "C": "9090",
+   "D": "8080",
+   "E": "1521"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Manager 기본 포트는 7809이다(PORT 파라미터로 변경).",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-MGR-PORT"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command creates working subdirectories such as dirprm and dirdat in the GoldenGate home?",
+  "options": {
+   "A": "INIT DIRS",
+   "B": "SETUP HOME",
+   "C": "MKDIR GG",
+   "D": "ADD SUBDIRS",
+   "E": "CREATE SUBDIRS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "CREATE SUBDIRS 명령으로 작업 디렉터리를 만든다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-SUBDIRS"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which initialization parameter must be set to TRUE in Oracle Database to use GoldenGate replication?",
+  "options": {
+   "A": "ENABLE_REPLICATION_LOG",
+   "B": "GOLDENGATE_MODE",
+   "C": "ENABLE_GOLDENGATE_REPLICATION",
+   "D": "STREAMS_POOL_ENABLE",
+   "E": "LOG_ARCHIVE_GG"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ENABLE_GOLDENGATE_REPLICATION=TRUE 가 필요하다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-ENABLE-PARAM"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What must be enabled at the database level on an Oracle source for GoldenGate capture?",
+  "options": {
+   "A": "Flashback Database",
+   "B": "Database Vault",
+   "C": "Minimal supplemental logging (ALTER DATABASE ADD SUPPLEMENTAL LOG DATA)",
+   "D": "Block Change Tracking",
+   "E": "Transparent Data Encryption"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "최소 보충 로깅이 필수이며, 테이블/스키마 단위 보충 로깅이 추가로 필요하다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-SUPLOG"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GGSCI command enables supplemental logging at the schema level and also applies it to tables created later?",
+  "options": {
+   "A": "ADD SCHEMATRANDATA",
+   "B": "ADD TRACETABLE",
+   "C": "ADD CHECKPOINTTABLE",
+   "D": "ALTER SCHEMALOG",
+   "E": "ADD TRANDATA (per table)"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADD SCHEMATRANDATA는 스키마 단위로 적용되며 신규 테이블에도 반영된다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-SCHEMATRANDATA"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "You need to create the Service Manager and a deployment for the Microservices Architecture in silent (unattended) mode. Which tool do you use?",
+  "options": {
+   "A": "CREATE DEPLOYMENT in GGSCI",
+   "B": "runInstaller -deploy",
+   "C": "The INSTALL command in adminclient",
+   "D": "Run oggca.sh with a response file",
+   "E": "Run a deployment script in SQL*Plus"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Configuration Assistant(oggca.sh)의 silent 모드로 배포를 생성할 수 있다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-OGGCA"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the most appropriate way to keep database passwords from appearing in plain text in parameter files?",
+  "options": {
+   "A": "Use a PASSWORD environment variable",
+   "B": "Only restrict access to the parameter file with chmod",
+   "C": "Store the user in the credential store and use USERIDALIAS",
+   "D": "Store the password in the trail file",
+   "E": "Write the password Base64-encoded"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Credential Store + USERIDALIAS가 권장 방식이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-CREDSTORE"
+ },
+ {
+  "domain": "INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "With a multitenant (CDB) source, which accounts should Integrated Extract and Replicat connect with?",
+  "options": {
+   "A": "Extract needs no connection; Replicat connects to CDB$ROOT",
+   "B": "Both: a local user in the PDB",
+   "C": "Extract: a local user in the PDB; Replicat: CDB$ROOT",
+   "D": "Both: SYS in CDB$ROOT",
+   "E": "Extract: a common user in CDB$ROOT; Replicat: a user in the target PDB"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Integrated Extract는 CDB$ROOT의 common user로, Replicat은 대상 PDB로 접속한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "INST-CDB-USERS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract parameter specifies the location of the local trail?",
+  "options": {
+   "A": "EXTTRAIL",
+   "B": "OUTFILE",
+   "C": "WRITETRAIL",
+   "D": "SOURCETRAIL",
+   "E": "TRAILDIR"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "EXTTRAIL은 로컬 trail을, RMTTRAIL은 원격 trail을 지정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-EXTTRAIL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which keyword in an Extract parameter file specifies the tables to capture?",
+  "options": {
+   "A": "INCLUDE",
+   "B": "TABLE",
+   "C": "SOURCE",
+   "D": "CAPTURE",
+   "E": "MAP"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Extract는 TABLE, Replicat은 MAP을 사용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-TABLE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command associates a local trail with an Extract?",
+  "options": {
+   "A": "ADD EXTTRAIL ./dirdat/aa, EXTRACT ext1",
+   "B": "ATTACH TRAIL ext1",
+   "C": "ADD REPLICAT rep1, EXTTRAIL ./dirdat/aa",
+   "D": "ADD TRAIL ext1 ./dirdat/aa",
+   "E": "ADD CHECKPOINTTABLE ./dirdat/aa"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADD EXTTRAIL로 trail을 Extract에 연결한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-ADDEXTTRAIL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GGSCI command registers an Integrated Extract with the database before it is used?",
+  "options": {
+   "A": "ALTER DATABASE REGISTER ext1",
+   "B": "START EXTRACT ext1 REGISTER",
+   "C": "REGISTER EXTRACT ext1 DATABASE",
+   "D": "ENABLE EXTRACT ext1",
+   "E": "ADD EXTRACT ext1 REGISTER"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "REGISTER EXTRACT ... DATABASE 로 로그마이닝 서버에 등록한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-REGISTER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GGSCI command creates an Integrated Extract?",
+  "options": {
+   "A": "ADD EXTRACT ext1, INTEGRATED TRANLOG, BEGIN NOW",
+   "B": "ADD INTEGRATED ext1, BEGIN NOW",
+   "C": "ADD EXTRACT ext1, EXTFILE",
+   "D": "ADD EXTRACT ext1, SOURCEISTABLE",
+   "E": "ADD EXTRACT ext1, TRANLOG, INTEGRATED OFF"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "INTEGRATED TRANLOG 옵션을 지정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-ADD-INTEGRATED"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How do you make an Integrated Extract start capturing from a specific SCN?",
+  "options": {
+   "A": "Specify the SCN <scn> option in ADD EXTRACT",
+   "B": "Specify the SCN in the Manager parameters",
+   "C": "Specify the SCN in Replicat",
+   "D": "Run ETROLLOVER",
+   "E": "Use BEGIN NOW only"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADD EXTRACT ... INTEGRATED TRANLOG, SCN n 으로 시작 지점을 정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-START-SCN"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Extract lag is growing and you want to find long-running open transactions. Which command do you use?",
+  "options": {
+   "A": "INFO MANAGER",
+   "B": "LAG TRAIL ext1",
+   "C": "SEND EXTRACT ext1, SHOWTRANS",
+   "D": "VIEW GGSEVT",
+   "E": "STATS EXTRACT ext1, TOTAL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SHOWTRANS로 오픈 트랜잭션 목록을 볼 수 있다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-LONGTXN"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When Extract restarts after an abnormal termination, what information ensures that it does not miss uncommitted transactions?",
+  "options": {
+   "A": "The SCN of the target database",
+   "B": "The last line of alert.log",
+   "C": "Manager's AUTORESTART history",
+   "D": "The recovery checkpoint recorded in the checkpoint file",
+   "E": "The RBA in the discard file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "복구 체크포인트(가장 오래된 열린 트랜잭션 시작 위치)부터 다시 읽는다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-RECOVERY-CKPT"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a bidirectional configuration, which Extract setting prevents Extract from recapturing transactions applied by Replicat?",
+  "options": {
+   "A": "GETUPDATEBEFORES",
+   "B": "TRANLOGOPTIONS EXCLUDEUSER (or EXCLUDETAG)",
+   "C": "NOCOMPRESSUPDATES",
+   "D": "PASSTHRU",
+   "E": "FETCHOPTIONS NOUSESNAPSHOT"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Replicat 사용자 또는 tag를 제외하여 루프를 방지한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "EXT-EXCLUDEUSER"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does Replicat read change data from?",
+  "options": {
+   "A": "Data files of the source database",
+   "B": "The report file",
+   "C": "The Manager log",
+   "D": "Redo logs of the source database",
+   "E": "Trail files"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Replicat은 trail을 읽어 타겟에 적용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-TRAIL-READ"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which keyword in a Replicat parameter file maps a source table to a target table?",
+  "options": {
+   "A": "TABLE ... SINK ...",
+   "B": "MAP ... TARGET ...",
+   "C": "COPY ... TO ...",
+   "D": "SEND ... INTO ...",
+   "E": "ROUTE ... DEST ..."
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "MAP src, TARGET tgt; 형식을 사용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-MAP"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command creates a Classic Replicat that reads a trail?",
+  "options": {
+   "A": "ADD TRAIL rep1 ./dirdat/rt",
+   "B": "ADD EXTRACT rep1, EXTTRAIL ./dirdat/rt",
+   "C": "CREATE REPLICAT rep1 TRAIL ./dirdat/rt",
+   "D": "ADD REPLICAT rep1, EXTTRAIL ./dirdat/rt",
+   "E": "START REPLICAT rep1 NEW"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "ADD REPLICAT ... EXTTRAIL 로 읽을 trail을 지정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-ADD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GGSCI command creates an Integrated Replicat?",
+  "options": {
+   "A": "ADD REPLICAT rep1, TRANLOG, EXTTRAIL ./dirdat/aa",
+   "B": "ADD REPLICAT rep1, INTEGRATED, EXTTRAIL ./dirdat/aa",
+   "C": "ADD INTEGRATED REPLICAT rep1 ./dirdat/aa",
+   "D": "ADD REPLICAT rep1 EXTFILE ./dirdat/aa",
+   "E": "ADD REPLICAT rep1, COORDINATED OFF"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "INTEGRATED 키워드를 지정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-ADD-INTEGRATED"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter temporarily handles duplicate-row and missing-row collisions while an initial load is in progress?",
+  "options": {
+   "A": "IGNOREINSERTS",
+   "B": "HANDLECOLLISIONS",
+   "C": "RESOLVECONFLICT OFF",
+   "D": "FORCECOMMIT",
+   "E": "ALLOWDUPS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "HANDLECOLLISIONS는 초기 적재와 변경분 적용이 겹칠 때 쓰고, 동기화 후 NOHANDLECOLLISIONS로 해제한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-HANDLECOLL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "To send a record to the discard file and continue when a specific error (for example, 1403) occurs, what do you configure?",
+  "options": {
+   "A": "ERRORMODE SKIP",
+   "B": "REPERROR (1403, DISCARD) together with DISCARDFILE",
+   "C": "IGNOREERROR ALL",
+   "D": "ONERROR CONTINUE",
+   "E": "REPERROR (1403, ABEND)"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "REPERROR로 오류별 처리 방식을 지정한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-REPERROR"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which setting makes Replicat apply DDL only for mapped objects?",
+  "options": {
+   "A": "DDL EXCLUDE MAPPED",
+   "B": "DDL INCLUDE ALL",
+   "C": "DDL INCLUDE MAPPED",
+   "D": "SKIPDDL MAPPED",
+   "E": "DDLONLY"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "INCLUDE MAPPED는 MAP/TABLE로 지정된 객체의 DDL만 대상으로 한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-DDL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In Coordinated Replicat, which MAP option distributes the rows of a large table across multiple threads by key range?",
+  "options": {
+   "A": "THREADMAX",
+   "B": "PARALLELISM",
+   "C": "THREADRANGE",
+   "D": "SPLITROWS",
+   "E": "RANGEMAP"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "THREADRANGE(1-4, key) 형태로 키 해시 기반 분배한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-COORD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a bidirectional configuration you want conflict resolution that keeps the row with the larger timestamp. What is the correct approach?",
+  "options": {
+   "A": "Handle it only with triggers on the target",
+   "B": "Specify PASSTHRU in Extract",
+   "C": "Specify COMPARECOLS and RESOLVECONFLICT (... USEMAX(timestamp column)) in MAP",
+   "D": "Always enable HANDLECOLLISIONS",
+   "E": "Ignore all errors with REPERROR (DEFAULT, IGNORE)"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "CDR(Conflict Detection and Resolution)을 사용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-CDR"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the BATCHSQL parameter do?",
+  "options": {
+   "A": "It combines transactions into a single COMMIT",
+   "B": "It batches capture on the Extract side",
+   "C": "It applies DDL in batches",
+   "D": "It reads trail records in compressed form",
+   "E": "It groups similar DML into arrays and reprocesses in normal mode when an error occurs"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "BATCHSQL은 성능 향상용이며 오류 시 일반 처리로 폴백한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "REP-BATCHSQL"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which MAP option maps source and target columns individually?",
+  "options": {
+   "A": "COLSWAP",
+   "B": "COLJOIN",
+   "C": "MAPCOL",
+   "D": "COLMAP",
+   "E": "COLLINK"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "COLMAP(target = source) 형식이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-COLMAP"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which COLMAP option automatically maps columns that have the same name?",
+  "options": {
+   "A": "DEFAULTALL",
+   "B": "MATCHCOLS",
+   "C": "AUTOMAP",
+   "D": "USEDEFAULTS",
+   "E": "SAMENAME"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "COLMAP(USEDEFAULTS, ...)",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-USEDEFAULTS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which TABLE/MAP option excludes specific columns from processing?",
+  "options": {
+   "A": "NOCOLS",
+   "B": "COLSEXCEPT",
+   "C": "EXCLUDECOL",
+   "D": "COLSKIP",
+   "E": "DROPCOLS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "COLSEXCEPT로 컬럼을 제외한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-COLSEXCEPT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GoldenGate column-conversion function concatenates two strings?",
+  "options": {
+   "A": "@MERGE",
+   "B": "@JOIN",
+   "C": "@STRADD",
+   "D": "@CONCAT",
+   "E": "@STRCAT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "@STRCAT 함수가 문자열을 이어 붙인다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-STRCAT"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which option lets Extract store user-defined metadata (for example, the host name) in the trail record header?",
+  "options": {
+   "A": "METADATA",
+   "B": "TAGS",
+   "C": "HEADERS",
+   "D": "TOKENS",
+   "E": "LABELS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "TABLE ... TOKENS(name = @GETENV(...)) 로 저장한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-TOKENS"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which option runs SQL or calls a stored procedure to look up values during mapping?",
+  "options": {
+   "A": "CALLDB",
+   "B": "RUNSQL",
+   "C": "EXECSQL",
+   "D": "LOOKUPROW",
+   "E": "SQLEXEC"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SQLEXEC로 SQL/프로시저를 실행해 결과를 매핑에 사용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-SQLEXEC"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When replicating a source table that has no primary key or unique key, how does GoldenGate identify rows by default?",
+  "options": {
+   "A": "It treats all usable columns as the key (specifying KEYCOLS is recommended)",
+   "B": "It generates an arbitrary sequence",
+   "C": "It uses only the first column",
+   "D": "It uses ROWID only",
+   "E": "It automatically skips replication"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "키가 없으면 전체 컬럼을 사용하므로 성능/정확성 이슈가 있어 KEYCOLS를 권장한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-NOKEY"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GoldenGate functions can be used for conditional value conversion? (Choose all that apply.)",
+  "options": {
+   "A": "@SWITCHCOL",
+   "B": "@CASE",
+   "C": "@LOOKUPROW",
+   "D": "@IF",
+   "E": "@MERGE"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "@IF, @CASE 는 조건 처리 함수다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-FUNCS-COND"
+ },
+ {
+  "domain": "MAPPING",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which GoldenGate utility generates a SOURCEDEFS file?",
+  "options": {
+   "A": "reverse",
+   "B": "logdump",
+   "C": "defgen",
+   "D": "keygen",
+   "E": "convprm"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "defgen이 소스 테이블 정의 파일을 생성한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "MAP-DEFGEN"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command shows the status of all GoldenGate processes at once?",
+  "options": {
+   "A": "INFO ALL",
+   "B": "STATUS ALL",
+   "C": "SHOW ALL",
+   "D": "DISPLAY GG",
+   "E": "LIST PROCESS"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "INFO ALL로 Manager/Extract/Replicat 상태와 lag를 본다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-INFOALL"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command shows the number of INSERT, UPDATE, and DELETE operations processed by Extract?",
+  "options": {
+   "A": "SHOW ROWS ext1",
+   "B": "COUNT EXTRACT ext1",
+   "C": "STATS EXTRACT ext1",
+   "D": "SUMMARY ext1",
+   "E": "INFO COUNTS ext1"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "STATS로 처리 통계를 확인한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-STATS"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the default log file where GoldenGate records error and event messages?",
+  "options": {
+   "A": "ggserr.log",
+   "B": "alert.log",
+   "C": "listener.log",
+   "D": "gg.trc",
+   "E": "audit.log"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ggserr.log에 이벤트·오류가 기록된다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-GGSERR"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command checks Replicat lag?",
+  "options": {
+   "A": "CHECK REPLICAT rep1",
+   "B": "INFO LAG rep1",
+   "C": "DELAY REPLICAT rep1",
+   "D": "LAG REPLICAT rep1",
+   "E": "SHOW LAG rep1"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "LAG 명령으로 지연을 조회한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-LAG"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which parameter makes Manager automatically purge old trail files that have been fully processed?",
+  "options": {
+   "A": "CLEANTRAIL",
+   "B": "PURGEOLDEXTRACTS",
+   "C": "AUTOPURGE",
+   "D": "TRAILRETENTION",
+   "E": "DELETETRAIL"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Manager 파라미터 PURGEOLDEXTRACTS ... USECHECKPOINTS 등을 사용한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-PURGE"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which parameter makes Manager restart a process automatically after it terminates abnormally?",
+  "options": {
+   "A": "AUTORESTART",
+   "B": "RESTARTONFAIL",
+   "C": "KEEPALIVE",
+   "D": "RETRYPROCESS",
+   "E": "RESPAWN"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "AUTORESTART는 재시도 횟수·간격을 지정한다(AUTOSTART는 Manager 기동 시 시작).",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-AUTORESTART"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Manager parameter writes a critical message to ggserr.log when lag exceeds a threshold?",
+  "options": {
+   "A": "LAGCRITICALMINUTES (or LAGCRITICALSECONDS)",
+   "B": "LAGALERTMAX",
+   "C": "LAGFATAL",
+   "D": "LAGSTOPMINUTES",
+   "E": "ALERTLAG"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "LAGINFO/LAGCRITICAL 계열이 임계 알림 설정이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-LAGTHRESH"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which command shows the log position that an Extract is currently reading and its checkpoint details?",
+  "options": {
+   "A": "INFO EXTRACT ext1, RBAONLY",
+   "B": "STATS EXTRACT ext1, POS",
+   "C": "INFO EXTRACT ext1, SHOWCH",
+   "D": "VIEW CHECKPOINT ext1",
+   "E": "SHOW EXTRACT ext1 POS"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SHOWCH로 체크포인트 상세를 본다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-SHOWCH"
+ },
+ {
+  "domain": "OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI commands correctly show the status or details of an Extract? (Choose all that apply.)",
+  "options": {
+   "A": "LIST EXTRACT ext1",
+   "B": "STATUS EXTRACT ext1",
+   "C": "SHOW EXTRACT ext1",
+   "D": "INFO EXTRACT ext1, DETAIL",
+   "E": "CHECK EXTRACT ext1"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "INFO ... DETAIL, STATUS 는 유효한 명령이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "OPS-STATUS-CMDS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When a process is ABENDED, what should you check first to find the cause?",
+  "options": {
+   "A": "The OS boot log",
+   "B": "The listener configuration file",
+   "C": "Delete the trail files",
+   "D": "The target database data files",
+   "E": "The report file and ggserr.log"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "리포트/ggserr.log에 오류 원인이 기록된다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-REPORT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat abended with ORA-00001. What does this mean?",
+  "options": {
+   "A": "The tablespace is full",
+   "B": "The listener is not running",
+   "C": "A unique constraint was violated (duplicate key)",
+   "D": "Insufficient privileges",
+   "E": "The network was disconnected"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ORA-00001은 unique constraint violated 이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-ORA1"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command starts the stopped Extract ext1?",
+  "options": {
+   "A": "RESUME EXTRACT ext1",
+   "B": "RUN EXTRACT ext1",
+   "C": "ENABLE EXTRACT ext1",
+   "D": "START EXTRACT ext1",
+   "E": "BEGIN EXTRACT ext1"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "START EXTRACT 로 기동한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-START"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat hit error 1403 (no data found) during an UPDATE or DELETE. What does this mean?",
+  "options": {
+   "A": "The target disk is full",
+   "B": "The target row does not exist (source and target data are out of sync)",
+   "C": "The trail version does not match",
+   "D": "The Manager port conflicts",
+   "E": "Supplemental logging is not configured"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "1403은 대상 행을 찾지 못했다는 뜻으로 데이터 불일치를 시사한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-1403"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which are likely causes of increasing Replicat lag? (Choose all that apply.)",
+  "options": {
+   "A": "Large transactions are applied by a single thread",
+   "B": "Full table scans occur because the target table has no PK or index",
+   "C": "The Manager port was changed",
+   "D": "ggserr.log has grown large",
+   "E": "Supplemental logging is enabled"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "비효율적 apply와 인덱스 부재가 대표적 원인이다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-REP-LAG"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Extract must read from an old SCN, but the required archive logs were deleted by RMAN. What is the appropriate action?",
+  "options": {
+   "A": "Skip ahead arbitrarily with ALTER EXTRACT",
+   "B": "Delete the Replicat",
+   "C": "Delete the trail files",
+   "D": "Restore those archive logs and restart Extract",
+   "E": "Disable supplemental logging"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "건너뛰면 데이터 유실이 발생하므로 로그를 복원한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-ARCHLOG-MISSING"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat abended with error 1403 in production. What is the most appropriate sequence of actions?",
+  "options": {
+   "A": "Delete the trail and redo the initial load",
+   "B": "Change permanently to REPERROR (DEFAULT, IGNORE)",
+   "C": "Drop and recreate the Extract",
+   "D": "Identify the failed record (RBA/table/key) → compare source and target → correct the data and restart",
+   "E": "Run SKIPTRANSACTION and restart without analysis"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "원인 분석 없이 건너뛰면 불일치가 누적된다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-1403-ACTION"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which view lets you check the capture performance and status of an Integrated Extract directly in the database?",
+  "options": {
+   "A": "V$ARCHIVED_LOG",
+   "B": "V$LOG",
+   "C": "V$GOLDENGATE_CAPTURE",
+   "D": "V$SESSION",
+   "E": "DBA_JOBS"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "V$GOLDENGATE_CAPTURE 에서 캡처 통계를 확인한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-VCAPTURE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat stopped with an error that suggests a corrupted trail record. Which utility lets you inspect the record at that RBA directly?",
+  "options": {
+   "A": "convchk",
+   "B": "sqlldr",
+   "C": "GGSCI VIEW TRAIL",
+   "D": "Logdump",
+   "E": "defgen"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Logdump로 trail 레코드를 열람·검증한다.",
+  "reference": "Oracle GoldenGate 19c 공식 문서(검수 필요)",
+  "variant_group": "TR-LOGDUMP"
+ }
+]

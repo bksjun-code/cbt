@@ -1,0 +1,1489 @@
+[
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the main purpose of a Replicat checkpoint table in the target database?",
+  "options": {
+   "A": "It stores the source table definitions used by ASSUMETARGETDEFS",
+   "B": "It records the Replicat read position in the target database as part of the applied transaction, so recovery is consistent",
+   "C": "It holds the rows that Replicat could not apply",
+   "D": "It buffers trail records before they are applied",
+   "E": "It stores the DDL history of the source database"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 '타겟 DB에 Replicat 읽기 위치를 적용 트랜잭션과 함께 기록해 복구를 일관되게 하는 것'이다. 체크포인트가 타겟 트랜잭션과 같이 커밋되므로 재시작 시 이미 적용된 트랜잭션을 정확히 판단할 수 있다. 테이블 정의 저장, 적용 실패 행 보관(discard 파일/예외 테이블의 역할), trail 레코드 버퍼링, DDL 이력 저장은 체크포인트 테이블의 용도가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CKPTTABLE-PURPOSE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "After DBLOGIN to the target database in GGSCI, which command creates a Replicat checkpoint table?",
+  "options": {
+   "A": "CREATE CHECKPOINTTABLE ggadmin.ggs_ckpt",
+   "B": "ADD TRANDATA ggadmin.ggs_ckpt",
+   "C": "REGISTER REPLICAT ggadmin.ggs_ckpt",
+   "D": "ADD CHECKPOINTTABLE ggadmin.ggs_ckpt",
+   "E": "ADD REPLICAT ggadmin.ggs_ckpt, CHECKPOINT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'ADD CHECKPOINTTABLE ggadmin.ggs_ckpt'이다. DBLOGIN 후 이 명령으로 타겟 DB에 체크포인트 테이블을 만든다. 'CREATE CHECKPOINTTABLE'은 존재하지 않는 명령이고, 'ADD TRANDATA'는 소스 테이블 보충 로깅 설정, 'REGISTER'는 Extract를 DB에 등록하는 명령이며, ADD REPLICAT에 'CHECKPOINT' 같은 형식의 옵션은 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ADD-CKPTTABLE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat mode applies all transactions through a single apply process, serially, in the order in which they were committed on the source?",
+  "options": {
+   "A": "Classic (nonintegrated, noncoordinated) Replicat",
+   "B": "Coordinated Replicat",
+   "C": "Integrated Replicat",
+   "D": "Parallel Replicat",
+   "E": "Distributed Replicat"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 Classic(nonintegrated, noncoordinated) Replicat이다. 하나의 프로세스로 trail의 트랜잭션을 소스 커밋 순서대로 직렬 적용한다. Coordinated는 여러 스레드, Integrated는 inbound server의 여러 apply server, Parallel은 mapper/applier 다중 스레드를 사용하므로 오답이다. 'Distributed Replicat'이라는 모드는 없다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-TYPES"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Integrated Replicat can be used only when the target is which type of system?",
+  "options": {
+   "A": "Any ODBC-compliant database",
+   "B": "Apache Kafka",
+   "C": "An Oracle Database that supports the inbound server",
+   "D": "Microsoft SQL Server",
+   "E": "A flat file target"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 inbound server를 지원하는 Oracle Database이다. Integrated Replicat은 Oracle DB의 inbound server(apply)를 이용하기 때문이다. ODBC 호환 DB나 SQL Server 같은 비 Oracle DB는 Classic/Coordinated/Parallel 방식을 사용하며, Kafka나 파일 대상은 Big Data 계열 어댑터 영역으로 Integrated Replicat 대상이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INTEGRATED-TARGET"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat statement maps every table in source schema HR to a table of the same name in target schema HR_COPY?",
+  "options": {
+   "A": "MAP HR, TARGET HR_COPY;",
+   "B": "MAP HR.%, TARGET HR_COPY.%;",
+   "C": "TABLE HR.*, TARGET HR_COPY.*;",
+   "D": "MAP HR.* TO HR_COPY.*;",
+   "E": "MAP HR.*, TARGET HR_COPY.*;"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 'MAP HR.*, TARGET HR_COPY.*;'이다. '*' 와일드카드로 같은 이름의 테이블에 매핑한다. 스키마 이름만 쓰는 형식은 없고, '%'는 OGG 와일드카드가 아니며, TABLE은 Extract 쪽 파라미터로 TARGET과 함께 쓰지 않고, MAP 구문에 'TO' 키워드는 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-MAP-WILDCARD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source and target tables have identical structures. Which Replicat parameter states that the target definitions can be assumed for the source data?",
+  "options": {
+   "A": "SAMEDEFS",
+   "B": "MATCHDEFS",
+   "C": "ASSUMETARGETDEFS",
+   "D": "NODEFS",
+   "E": "DEFSIDENTICAL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 ASSUMETARGETDEFS이다. 소스와 타겟 구조가 동일하다고 가정하고 타겟 정의를 그대로 사용하게 한다. SAMEDEFS, MATCHDEFS, NODEFS, DEFSIDENTICAL은 모두 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DEFS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Source and target table structures differ, and the trail does not carry the needed table metadata. Which Replicat parameter points to the source definitions file?",
+  "options": {
+   "A": "SOURCEDEFS",
+   "B": "DEFSFILE",
+   "C": "SOURCEMETA",
+   "D": "LOADDEFS",
+   "E": "DEFINITIONS"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 SOURCEDEFS이다. 구조가 다르고 trail에 메타데이터가 없을 때 DEFGEN으로 만든 소스 정의 파일을 SOURCEDEFS로 지정한다(12.2 이상 형식의 trail은 메타데이터를 포함하므로 보통 불필요). DEFSFILE은 DEFGEN 파라미터 파일에서 출력 파일을 지정하는 것으로 Replicat 파라미터가 아니며, SOURCEMETA, LOADDEFS, DEFINITIONS는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DEFS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "If no REPERROR parameter is specified, how does Replicat respond to a database error during apply?",
+  "options": {
+   "A": "It ignores the error and continues",
+   "B": "It writes the record to the discard file and continues",
+   "C": "It retries the operation indefinitely",
+   "D": "It abends",
+   "E": "It converts the operation to an insert"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'abend'이다. REPERROR를 지정하지 않으면 기본 응답은 ABEND이다. 무시하고 계속하기(IGNORE)나 discard 파일 기록(DISCARD)은 명시적으로 지정해야 하고, 무한 재시도는 하지 않으며, insert로 변환하는 것은 HANDLECOLLISIONS 등 다른 파라미터의 기능이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-DEFAULT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the Replicat DISCARDFILE parameter specify?",
+  "options": {
+   "A": "The file where Replicat writes operations it could not process, along with error information",
+   "B": "The trail file that Replicat reads",
+   "C": "The file that stores Replicat checkpoints",
+   "D": "The file that lists tables to exclude from replication",
+   "E": "The report file name for the Replicat group"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 '처리하지 못한 연산과 오류 정보를 기록하는 파일'이다. 읽을 trail은 ADD REPLICAT의 EXTTRAIL로, 체크포인트는 체크포인트 파일/테이블로 관리한다. 제외 테이블 목록 파일이나 리포트 파일 이름을 지정하는 파라미터가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DISCARDFILE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When should HANDLECOLLISIONS be turned off after an initial load?",
+  "options": {
+   "A": "Immediately before starting the initial load",
+   "B": "Never; it should remain on permanently",
+   "C": "Once Replicat has applied the changes that overlapped the load and the target is synchronized",
+   "D": "Only when the Extract is restarted",
+   "E": "Before the first trail file is created"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'Replicat이 적재와 겹치는 변경분을 모두 적용해 타겟이 동기화된 시점'이다. HANDLECOLLISIONS는 초기 적재 중 충돌을 처리하기 위한 임시 설정이다. 영구히 켜두면 실제 불일치를 숨길 수 있어 오답이며, 적재 시작 전, Extract 재시작 시, 첫 trail 생성 전은 해제 시점과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-HANDLECOLL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter applies every captured operation (insert, update, delete) as a new INSERT, for example to build a history table?",
+  "options": {
+   "A": "UPDATEDELETES",
+   "B": "INSERTMISSINGUPDATES",
+   "C": "OVERRIDEDUPS",
+   "D": "INSERTALLRECORDS",
+   "E": "HANDLECOLLISIONS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 INSERTALLRECORDS이다. 모든 연산을 INSERT로 적용해 변경 이력을 행으로 쌓는다. UPDATEDELETES는 delete를 update로, INSERTMISSINGUPDATES는 대상 행이 없는 update를 insert로 바꾸고, OVERRIDEDUPS는 중복 insert를 덮어쓰며, HANDLECOLLISIONS는 충돌 처리용이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-INSERTALLRECORDS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does START REPLICAT rep1 SKIPTRANSACTION do?",
+  "options": {
+   "A": "Skips all transactions that cause errors from now on",
+   "B": "Starts Replicat and skips the first transaction at its start position in the trail",
+   "C": "Skips all DDL transactions",
+   "D": "Skips the transaction with the highest CSN",
+   "E": "Starts Replicat without using the checkpoint table"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 '시작 위치에 있는 첫 번째 트랜잭션을 건너뛰고 시작'이다. 이후 발생하는 모든 오류 트랜잭션을 건너뛰는 기능(이는 REPERROR의 영역)이 아니며, DDL만 건너뛰거나 CSN 크기 기준으로 고르지 않고, 체크포인트 테이블 사용 여부와도 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-SKIPTRANSACTION"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command creates a nonintegrated Parallel Replicat?",
+  "options": {
+   "A": "ADD PARALLEL REPLICAT rep1, EXTTRAIL ./dirdat/rt",
+   "B": "ADD REPLICAT rep1, THREADS 4, EXTTRAIL ./dirdat/rt",
+   "C": "ADD REPLICAT rep1, MULTIAPPLY, EXTTRAIL ./dirdat/rt",
+   "D": "ADD REPLICAT rep1, INTEGRATED, EXTTRAIL ./dirdat/rt",
+   "E": "ADD REPLICAT rep1, PARALLEL, EXTTRAIL ./dirdat/rt, CHECKPOINTTABLE ggadmin.ggs_ckpt"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 'ADD REPLICAT rep1, PARALLEL, EXTTRAIL ..., CHECKPOINTTABLE ...'이다. Parallel Replicat은 PARALLEL 옵션으로 만들고 체크포인트 테이블을 지정한다. 'ADD PARALLEL REPLICAT', 'THREADS 4', 'MULTIAPPLY'는 존재하지 않는 구문이며, INTEGRATED 옵션은 Integrated Replicat을 만든다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ADD-PARALLEL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command creates a Coordinated Replicat that can use up to 8 threads?",
+  "options": {
+   "A": "ADD REPLICAT rep1, COORDINATED MAXTHREADS 8, EXTTRAIL ./dirdat/rt",
+   "B": "ADD REPLICAT rep1, THREADS 8, EXTTRAIL ./dirdat/rt",
+   "C": "ADD COORDINATOR rep1, MAXTHREADS 8, EXTTRAIL ./dirdat/rt",
+   "D": "ADD REPLICAT rep1, COORDINATED THREADRANGE 1-8, EXTTRAIL ./dirdat/rt",
+   "E": "ADD REPLICAT rep1, INTEGRATED MAXTHREADS 8, EXTTRAIL ./dirdat/rt"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 'ADD REPLICAT rep1, COORDINATED MAXTHREADS 8, EXTTRAIL ...'이다. 'THREADS 8'과 'ADD COORDINATOR'는 없는 구문이고, THREADRANGE는 MAP 문의 옵션이지 ADD REPLICAT 옵션이 아니며, INTEGRATED에는 MAXTHREADS를 쓰지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ADD-COORD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the effect of the GROUPTRANSOPS parameter in Replicat?",
+  "options": {
+   "A": "It splits each large source transaction into smaller target transactions",
+   "B": "It groups multiple small source transactions into one larger target transaction to reduce commit overhead",
+   "C": "It groups trail files into a single file",
+   "D": "It groups tables into threads for Coordinated Replicat",
+   "E": "It groups error messages in the report file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 '여러 개의 작은 소스 트랜잭션을 하나의 큰 타겟 트랜잭션으로 묶어 커밋 부담을 줄인다'이다. 큰 트랜잭션을 나누는 것은 MAXTRANSOPS이고, Coordinated 스레드 배정은 THREAD/THREADRANGE이며, trail 파일 병합이나 리포트 메시지 묶음과는 관계없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-GROUPTRANSOPS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter splits a very large source transaction into smaller target transactions of a specified number of operations?",
+  "options": {
+   "A": "GROUPTRANSOPS",
+   "B": "BATCHSQL",
+   "C": "MAXTRANSOPS",
+   "D": "TRANSSPLIT",
+   "E": "COMMITEVERY"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 MAXTRANSOPS이다. 소스 트랜잭션을 지정한 연산 수 이하의 타겟 트랜잭션들로 나눈다. GROUPTRANSOPS는 반대로 묶는 기능이고, BATCHSQL은 유사 SQL을 배열로 실행하며, TRANSSPLIT과 COMMITEVERY는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-MAXTRANSOPS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does DBOPTIONS SUPPRESSTRIGGERS do for an Oracle target?",
+  "options": {
+   "A": "It drops all triggers on target tables",
+   "B": "It disables triggers for all sessions in the target database",
+   "C": "It prevents Extract from capturing trigger-generated changes",
+   "D": "It prevents target triggers from firing for the Replicat session",
+   "E": "It converts triggers into Replicat MAP statements"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'Replicat 세션에 대해서만 타겟 트리거가 실행되지 않게 한다'이다. 트리거를 삭제하거나 DB 전체 세션에서 비활성화하지 않으며, Extract 캡처 설정이나 트리거를 MAP으로 변환하는 기능도 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-SUPPRESSTRIGGERS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You must replicate source table SALES.ORDERS into target table SALES_RPT.ORDERS_COPY. Both tables have identical columns. Which Replicat MAP statement is correct?",
+  "options": {
+   "A": "MAP SALES_RPT.ORDERS_COPY, TARGET SALES.ORDERS;",
+   "B": "TARGET SALES_RPT.ORDERS_COPY, MAP SALES.ORDERS;",
+   "C": "MAP SALES.ORDERS TARGET SALES_RPT.ORDERS_COPY",
+   "D": "MAP SALES.ORDERS, TARGET SALES_RPT.ORDERS_COPY;",
+   "E": "MAP SALES.ORDERS = SALES_RPT.ORDERS_COPY;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'MAP SALES.ORDERS, TARGET SALES_RPT.ORDERS_COPY;'이다. MAP <소스>, TARGET <타겟>; 순서로 쉼표와 세미콜론을 쓴다. 소스와 타겟을 뒤바꾼 문장, TARGET을 먼저 쓴 문장, 쉼표와 세미콜론이 빠진 문장, '='를 사용한 문장은 모두 올바른 구문이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-MAP"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid REPERROR response options? (Choose all that apply.)",
+  "options": {
+   "A": "DISCARD",
+   "B": "SKIPROW",
+   "C": "IGNORE",
+   "D": "CONTINUE",
+   "E": "TRANSABORT"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "정답은 DISCARD, IGNORE, TRANSABORT이다. REPERROR 응답에는 ABEND, DISCARD, IGNORE, EXCEPTION, RETRYOP, TRANSABORT 등이 있다. SKIPROW와 CONTINUE는 REPERROR 응답 옵션이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-ACTIONS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat modes in Oracle GoldenGate 19c apply changes using multiple threads or apply servers? (Choose all that apply.)",
+  "options": {
+   "A": "Coordinated Replicat",
+   "B": "Classic (nonintegrated) Replicat",
+   "C": "Integrated Replicat",
+   "D": "Parallel Replicat",
+   "E": "Passive Replicat"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "정답은 Coordinated(다중 스레드), Integrated(inbound server의 여러 apply server), Parallel(mapper/applier 다중 스레드) Replicat이다. Classic(nonintegrated) Replicat은 단일 스레드로 직렬 적용하므로 오답이며, 'Passive Replicat'이라는 모드는 없다(passive는 Extract 쪽 개념).",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-TYPES"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the difference between START REPLICAT ... ATCSN and START REPLICAT ... AFTERCSN?",
+  "options": {
+   "A": "ATCSN is for Integrated Replicat only; AFTERCSN is for Classic Replicat only",
+   "B": "ATCSN starts at the transaction whose CSN equals the value; AFTERCSN starts at the first transaction after that CSN",
+   "C": "ATCSN skips the transaction with that CSN; AFTERCSN applies it",
+   "D": "Both are identical and differ only in syntax",
+   "E": "ATCSN uses a timestamp; AFTERCSN uses a trail sequence number"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 'ATCSN은 해당 CSN의 트랜잭션부터(포함), AFTERCSN은 그 CSN 다음 트랜잭션부터(제외) 시작한다'이다. 모드 전용 옵션이 아니며, 의미를 반대로 설명한 보기는 틀렸고, 두 옵션의 동작은 다르며, 둘 다 타임스탬프나 trail 순번이 아니라 CSN을 사용한다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-START-CSN"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You instantiated the target with an Oracle Data Pump export taken with FLASHBACK_SCN=1234567 and imported it. Extract has been capturing since before that SCN. You do not want to use HANDLECOLLISIONS. How should you start Replicat?",
+  "options": {
+   "A": "START REPLICAT rep1, ATCSN 1234567",
+   "B": "START REPLICAT rep1, BEGIN NOW",
+   "C": "START REPLICAT rep1, AFTERCSN 1234567",
+   "D": "START REPLICAT rep1 SKIPTRANSACTION",
+   "E": "START REPLICAT rep1, CSNFILTER 1234567"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'START REPLICAT rep1, AFTERCSN 1234567'이다. export에는 SCN 1234567 시점까지 커밋된 데이터가 포함되므로 그 이후 트랜잭션부터 적용해야 한다. ATCSN 1234567은 해당 CSN의 트랜잭션을 다시 적용해 중복이 생길 수 있고, BEGIN NOW는 START 옵션이 아니며 적재 시점과 무관해 데이터가 누락될 수 있다. SKIPTRANSACTION은 한 트랜잭션만 건너뛰며, CSNFILTER는 존재하지 않는 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INITLOAD-CSN"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat mode does NOT require a checkpoint table, because its apply progress is tracked by the target Oracle database?",
+  "options": {
+   "A": "Coordinated Replicat",
+   "B": "Nonintegrated Parallel Replicat",
+   "C": "Integrated Replicat",
+   "D": "Classic Replicat when exactly-once recovery through a checkpoint table is required"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 Integrated Replicat이다. inbound server가 DB 내부에서 적용 진행 상황을 관리하므로 체크포인트 테이블이 필요 없다. Coordinated Replicat과 Parallel Replicat은 체크포인트 테이블을 사용해야 하며, 체크포인트 테이블 기반 복구가 필요한 Classic Replicat은 지문 그대로 체크포인트 테이블이 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CKPT-MODES"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the effect of specifying NODBCHECKPOINT in ADD REPLICAT for a Classic Replicat?",
+  "options": {
+   "A": "Replicat does not use a checkpoint table and keeps checkpoints only in its checkpoint file",
+   "B": "Replicat does not write any checkpoints at all",
+   "C": "Replicat stores checkpoints only in the source database",
+   "D": "Replicat runs without connecting to the target database",
+   "E": "Replicat creates the checkpoint table automatically"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 '체크포인트 테이블을 사용하지 않고 체크포인트 파일에만 기록한다'이다. 체크포인트 자체를 쓰지 않는 것은 아니며, 소스 DB에 저장하지도 않고, 타겟 DB 연결은 여전히 필요하며, 체크포인트 테이블을 자동 생성하지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-NODBCHECKPOINT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "You want every new Replicat to use ggadmin.ggs_ckpt as its checkpoint table without specifying CHECKPOINTTABLE in each ADD REPLICAT command. Where do you configure this?",
+  "options": {
+   "A": "In each Replicat parameter file with ASSUMETARGETDEFS",
+   "B": "In the Manager parameter file with PORT",
+   "C": "In the GLOBALS file with CHECKPOINTTABLE ggadmin.ggs_ckpt",
+   "D": "In the Extract parameter file with EXTTRAIL",
+   "E": "In the DEFGEN parameter file"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'GLOBALS 파일에 CHECKPOINTTABLE ggadmin.ggs_ckpt 지정'이다. 이렇게 하면 ADD REPLICAT에서 CHECKPOINTTABLE을 생략해도 기본값으로 사용된다. ASSUMETARGETDEFS는 정의 관련, Manager의 PORT는 포트 설정, Extract의 EXTTRAIL은 출력 trail 지정, DEFGEN은 정의 파일 생성 도구로 모두 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-GLOBALS-CKPT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat is running with HANDLECOLLISIONS and has now passed the point where the initial load finished. How can you turn off collision handling without restarting Replicat?",
+  "options": {
+   "A": "STOP MANAGER and edit the GLOBALS file",
+   "B": "ALTER REPLICAT rep1, NOHANDLECOLLISIONS",
+   "C": "SEND EXTRACT ext1, NOHANDLECOLLISIONS",
+   "D": "SEND REPLICAT rep1, NOHANDLECOLLISIONS, and also remove HANDLECOLLISIONS from the parameter file",
+   "E": "DELETE REPLICAT rep1 and add it again"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'SEND REPLICAT rep1, NOHANDLECOLLISIONS를 실행하고 파라미터 파일에서도 HANDLECOLLISIONS를 제거'이다. 파라미터 파일에서 빼지 않으면 재시작 시 다시 켜진다. Manager/GLOBALS 수정은 관련 없고, ALTER REPLICAT에는 이 옵션이 없으며, Extract에 보내는 SEND는 대상이 틀렸고, 그룹 삭제 후 재생성은 불필요하며 위치 정보를 잃을 위험이 있다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-HANDLECOLL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "With HANDLECOLLISIONS enabled, which behaviors does Replicat show? (Choose two.)",
+  "options": {
+   "A": "An insert that finds an existing row with the same key is applied as an update of that row",
+   "B": "Replicat abends on the first duplicate-key error",
+   "C": "A delete whose target row does not exist is ignored",
+   "D": "All updates are converted into inserts",
+   "E": "Collisions are automatically written to an exceptions table"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "정답은 '같은 키 행이 이미 있는 insert는 그 행의 update로 적용'과 '대상 행이 없는 delete는 무시'이다. 충돌 시 abend하지 않는 것이 이 파라미터의 목적이며, 모든 update를 insert로 바꾸지 않고, 예외 테이블 기록은 REPERROR EXCEPTION과 예외 MAP을 구성해야 가능하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-HANDLECOLL-BEHAVIOR"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which REPERROR response rolls back the current target transaction and repositions Replicat to the beginning of that transaction, optionally retrying it?",
+  "options": {
+   "A": "IGNORE",
+   "B": "DISCARD",
+   "C": "EXCEPTION",
+   "D": "ABEND",
+   "E": "TRANSABORT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 TRANSABORT이다. 현재 트랜잭션을 롤백하고 트랜잭션 시작 위치로 되돌아가며 MAXRETRIES, DELAYSECS로 재시도를 제어한다. IGNORE는 오류 레코드를 무시하고 계속, DISCARD는 discard 파일에 기록 후 계속, EXCEPTION은 예외 매핑으로 처리, ABEND는 프로세스를 중단한다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-TRANSABORT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which REPERROR response retries only the failed operation, up to the number of times set by MAXRETRIES?",
+  "options": {
+   "A": "RESET",
+   "B": "RETRYOP",
+   "C": "IGNORE",
+   "D": "DISCARD",
+   "E": "EXCEPTION"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 RETRYOP이다. 실패한 연산 자체를 MAXRETRIES 횟수만큼 재시도한다. RESET은 앞서 지정한 REPERROR 규칙을 초기화하는 용도이고, IGNORE와 DISCARD는 재시도 없이 무시하거나 discard 처리하며, EXCEPTION은 예외 매핑으로 넘긴다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-RETRYOP"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Operations that fail on target table FIN.LEDGER must be recorded in exceptions table FIN.LEDGER_EXC together with error details, and Replicat must keep running. Which configuration achieves this?",
+  "options": {
+   "A": "REPERROR (DEFAULT, EXCEPTION), the regular MAP for FIN.LEDGER, and then a second MAP for FIN.LEDGER with TARGET FIN.LEDGER_EXC, EXCEPTIONSONLY, INSERTALLRECORDS",
+   "B": "DISCARDFILE FIN.LEDGER_EXC",
+   "C": "HANDLECOLLISIONS EXCEPTIONTABLE FIN.LEDGER_EXC",
+   "D": "REPERROR (DEFAULT, IGNORE) and a MAP to FIN.LEDGER_EXC with EXCEPTIONSONLY",
+   "E": "REPERROR (DEFAULT, ABEND) and an EXCEPTIONSONLY MAP placed before the regular MAP"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 'REPERROR (DEFAULT, EXCEPTION), 일반 MAP, 그 뒤에 EXCEPTIONSONLY·INSERTALLRECORDS를 지정한 예외 테이블용 MAP'이다. 예외 MAP에서는 @GETENV로 오류 정보를 함께 기록할 수 있다. DISCARDFILE은 파일이지 테이블이 아니고, HANDLECOLLISIONS에 EXCEPTIONTABLE 옵션은 없다. REPERROR가 IGNORE이면 예외 MAP이 실행되지 않으며, ABEND이면 프로세스가 중단되고 예외 MAP은 일반 MAP 뒤에 와야 한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-EXCEPTION-MAP"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When the source tables are specified with a wildcard in a MAP statement, which MAP option defines the exceptions mapping inside that same MAP statement?",
+  "options": {
+   "A": "EXCEPTIONTARGET",
+   "B": "ERRORMAP",
+   "C": "MAPEXCEPTION",
+   "D": "MAPERRORS",
+   "E": "WILDEXCEPTION"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 MAPEXCEPTION이다. 와일드카드 MAP에서는 같은 MAP 문 안에 MAPEXCEPTION (TARGET 예외테이블, ...)으로 예외 매핑을 정의한다. EXCEPTIONTARGET, ERRORMAP, MAPERRORS, WILDEXCEPTION은 존재하지 않는 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-MAPEXCEPTION"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which workload typically benefits most from enabling BATCHSQL in Replicat?",
+  "options": {
+   "A": "A few very large LOB updates",
+   "B": "Mostly DDL operations",
+   "C": "Operations that frequently fail with constraint errors",
+   "D": "A high volume of small, similar DML operations on the same tables",
+   "E": "Transactions that contain only one row each on different tables"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 '같은 테이블에 대한 작고 유사한 DML이 대량으로 발생하는 작업'이다. BATCHSQL은 같은 테이블·같은 유형의 DML을 배열로 묶어 실행한다. 큰 LOB 갱신 몇 건은 이점이 적고, DDL에는 적용되지 않으며, 제약 오류가 잦으면 일반 모드로 되돌아가 처리하므로 효율이 떨어지고, 서로 다른 테이블의 단건 트랜잭션은 묶을 대상이 적다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-BATCHSQL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does DBOPTIONS DEFERREFCONST do for an Oracle target?",
+  "options": {
+   "A": "It drops foreign key constraints before applying data",
+   "B": "It defers checking of deferrable referential constraints until the Replicat transaction commits",
+   "C": "It disables all constraints for the entire database",
+   "D": "It converts foreign keys into triggers",
+   "E": "It sorts operations so that parents are always applied first"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 '지연 가능한(deferrable) 참조 제약의 검사를 Replicat 트랜잭션 커밋 시점으로 미룬다'이다. 외래 키를 삭제하거나 DB 전체에서 제약을 끄지 않으며, 외래 키를 트리거로 바꾸거나 부모 행이 먼저 오도록 연산을 재정렬하는 기능도 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DEFERREFCONST"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How do you set the number of apply servers of an Integrated Replicat to 4?",
+  "options": {
+   "A": "TRANLOGOPTIONS INTEGRATEDPARAMS (PARALLELISM 4)",
+   "B": "MAXTHREADS 4",
+   "C": "THREADS 4",
+   "D": "DBOPTIONS INTEGRATEDPARAMS (PARALLELISM 4)",
+   "E": "SET PARALLEL_DEGREE 4"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'DBOPTIONS INTEGRATEDPARAMS (PARALLELISM 4)'이다. Integrated Replicat의 inbound server 파라미터는 Replicat 파라미터 파일에서 DBOPTIONS INTEGRATEDPARAMS로 지정한다. TRANLOGOPTIONS INTEGRATEDPARAMS는 Integrated Extract용이고, MAXTHREADS는 Coordinated Replicat의 ADD 옵션이며, THREADS 4와 SET PARALLEL_DEGREE 4는 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-INTEGRATEDPARAMS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Coordinated Replicat applies HR.EMPLOYEES and HR.DEPARTMENTS. Because the tables are related, you want all operations on both tables to be processed by thread 3. Which MAP statements do this?",
+  "options": {
+   "A": "MAP HR.EMPLOYEES, TARGET HR.EMPLOYEES, MAXTHREADS 3; MAP HR.DEPARTMENTS, TARGET HR.DEPARTMENTS, MAXTHREADS 3;",
+   "B": "MAP HR.EMPLOYEES, TARGET HR.EMPLOYEES, THREADRANGE(3); MAP HR.DEPARTMENTS, TARGET HR.DEPARTMENTS, THREADRANGE(3);",
+   "C": "MAP HR.EMPLOYEES, TARGET HR.EMPLOYEES, THREAD(3); MAP HR.DEPARTMENTS, TARGET HR.DEPARTMENTS, THREAD(3);",
+   "D": "MAP HR.*, TARGET HR.*, COORDINATED 3;",
+   "E": "MAP HR.EMPLOYEES, TARGET HR.EMPLOYEES, APPLY_PARALLELISM 3;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 두 MAP 문에 모두 THREAD(3)을 지정하는 구성이다. 특정 테이블을 한 스레드에 고정하려면 THREAD(n)을 쓰며, 같은 스레드에서 순서대로 처리된다. MAXTHREADS는 ADD REPLICAT 옵션이고, THREADRANGE는 스레드 범위와 키 열로 행을 분산할 때 쓰는 옵션이라 이 형식은 맞지 않으며, MAP의 'COORDINATED 3' 옵션은 없고, APPLY_PARALLELISM은 Parallel Replicat 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-COORD-THREAD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How does a Coordinated Replicat process a DDL operation?",
+  "options": {
+   "A": "Each thread applies the DDL independently at its own position",
+   "B": "It ignores DDL",
+   "C": "It sends the DDL to the Extract for re-execution",
+   "D": "It applies the DDL after the next restart",
+   "E": "As a barrier transaction: the threads synchronize to a common point, the DDL is applied, and then parallel processing resumes"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 'barrier 트랜잭션으로 처리: 스레드들이 공통 지점까지 동기화한 뒤 DDL을 적용하고 병렬 처리를 재개'이다. 스레드마다 제 위치에서 DDL을 따로 실행하면 순서 불일치가 생기므로 그렇게 하지 않으며, DDL을 무시하거나 Extract로 되돌려 보내거나 재시작 후로 미루지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-COORD-BARRIER"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Coordinated Replicat stopped abnormally and its threads are at different trail positions. Which command brings all threads to the same position so that you can safely change the configuration, such as thread assignments?",
+  "options": {
+   "A": "SYNCHRONIZE REPLICAT rep1",
+   "B": "ALIGN REPLICAT rep1",
+   "C": "SEND REPLICAT rep1, FLUSH",
+   "D": "ALTER REPLICAT rep1, ETROLLOVER",
+   "E": "START REPLICAT rep1 SKIPTRANSACTION"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 SYNCHRONIZE REPLICAT이다. Coordinated Replicat의 모든 스레드를 같은 위치까지 처리시켜 맞춘 뒤 정지 상태로 두므로 스레드 구성 변경 등을 안전하게 할 수 있다. ALIGN REPLICAT은 없는 명령이고, SEND ... FLUSH, ETROLLOVER, SKIPTRANSACTION은 스레드 위치를 맞추는 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-SYNC-REPLICAT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements describe the architecture of Parallel Replicat? (Choose all that apply.)",
+  "options": {
+   "A": "Mapper threads read and map trail records; their number is controlled by MAP_PARALLELISM",
+   "B": "A LogMiner server reads the target database redo logs",
+   "C": "Applier threads apply the transactions to the target; their number is controlled by APPLY_PARALLELISM",
+   "D": "THREADRANGE must be specified in every MAP statement",
+   "E": "A dependency-aware scheduler assigns transactions to appliers so that dependent transactions are applied in order"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "정답은 mapper 스레드(MAP_PARALLELISM), applier 스레드(APPLY_PARALLELISM), 의존성을 고려해 트랜잭션을 applier에 배분하는 scheduler에 대한 설명이다. LogMiner server는 Extract 캡처 쪽 구성 요소이며, THREADRANGE는 Coordinated Replicat에서 수동 분배할 때 쓰는 것으로 Parallel Replicat은 의존성을 자동 계산한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-PARALLEL-COMPONENTS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is a key operational difference between Coordinated Replicat and Parallel Replicat?",
+  "options": {
+   "A": "Coordinated Replicat requires an Oracle target; Parallel Replicat supports only non-Oracle targets",
+   "B": "Coordinated Replicat cannot apply DML",
+   "C": "Coordinated Replicat requires you to partition the workload with THREAD/THREADRANGE in MAP statements; Parallel Replicat computes transaction dependencies and distributes work automatically",
+   "D": "Parallel Replicat reads redo logs directly instead of trail files",
+   "E": "Coordinated Replicat is the only mode that uses a checkpoint table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'Coordinated는 MAP의 THREAD/THREADRANGE로 사용자가 작업을 나누고, Parallel은 트랜잭션 의존성을 자동 계산해 분배한다'이다. Coordinated는 비 Oracle 타겟도 지원하므로 타겟 종류 설명은 틀렸고, Coordinated도 DML을 적용하며, Parallel Replicat도 redo가 아닌 trail을 읽고, 체크포인트 테이블은 Parallel Replicat 등도 사용한다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-COORD-VS-PARALLEL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In conflict detection and resolution (CDR), what is the purpose of the COMPARECOLS option of MAP?",
+  "options": {
+   "A": "It specifies which columns are compared between the before image in the trail and the current target row to detect conflicts",
+   "B": "It compares source and target table structures at startup",
+   "C": "It defines the columns used to split rows among threads",
+   "D": "It lists columns to exclude from replication",
+   "E": "It compares row counts between source and target"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 'trail의 before image와 타겟 현재 행을 비교할 열을 지정한다'이다. 시작 시 테이블 구조 비교, 스레드 분배 열 지정(THREADRANGE의 역할), 복제 제외 열 지정(COLSEXCEPT 등의 역할), 행 건수 비교는 COMPARECOLS의 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR-COMPARECOLS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid conflict types for RESOLVECONFLICT? (Choose all that apply.)",
+  "options": {
+   "A": "INSERTROWEXISTS",
+   "B": "INSERTROWMISSING",
+   "C": "UPDATEROWMISSING",
+   "D": "DELETEROWEXISTS",
+   "E": "UPDATEKEYCHANGED"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "정답은 INSERTROWEXISTS, UPDATEROWMISSING, DELETEROWEXISTS이다. RESOLVECONFLICT의 충돌 유형은 INSERTROWEXISTS, UPDATEROWEXISTS, UPDATEROWMISSING, DELETEROWEXISTS, DELETEROWMISSING이다. INSERTROWMISSING(insert는 행이 없는 것이 정상)과 UPDATEKEYCHANGED는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR-TYPES"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For a numeric column such as an account balance that can be updated concurrently on two sites, which RESOLVECONFLICT resolution adds the difference between the before and after images to the current target value?",
+  "options": {
+   "A": "USEMAX",
+   "B": "OVERWRITE",
+   "C": "IGNORE",
+   "D": "USEDELTA",
+   "E": "DISCARD"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 USEDELTA이다. before/after 값의 차이를 타겟 현재 값에 더해 양쪽의 동시 증감을 모두 반영하므로 잔액·카운터 열에 적합하다. USEMAX는 더 큰 값을 가진 쪽을 채택하고, OVERWRITE는 들어온 값으로 덮어쓰며, IGNORE는 타겟 값을 유지하고, DISCARD는 discard 파일에 기록하고 적용하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR-USEDELTA"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You configured MAP ... COMPARECOLS (ON UPDATE ALL) with RESOLVECONFLICT on an Oracle-to-Oracle active-active setup, but update conflicts on non-key columns are not detected because the trail lacks their before images. What should you change?",
+  "options": {
+   "A": "Enable HANDLECOLLISIONS in Replicat",
+   "B": "Add ASSUMETARGETDEFS to Replicat",
+   "C": "Increase GROUPTRANSOPS in Replicat",
+   "D": "Enable supplemental logging for the compared columns and configure Extract (for example with LOGALLSUPCOLS) so their before images are written to the trail",
+   "E": "Enable BATCHSQL in Replicat"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 '비교 열에 대한 보충 로깅을 켜고 Extract(예: LOGALLSUPCOLS)에서 before image를 trail에 기록하도록 설정'이다. CDR은 trail에 비교 열의 before image가 있어야 동작한다. HANDLECOLLISIONS는 충돌을 숨길 뿐이고, ASSUMETARGETDEFS는 정의 관련이며, GROUPTRANSOPS와 BATCHSQL은 성능 파라미터로 before image를 만들어 주지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-CDR-BEFOREIMG"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter defines how errors on replicated DDL operations are handled (for example, ignoring a specific error)?",
+  "options": {
+   "A": "DDLERROR",
+   "B": "REPERROR DDL",
+   "C": "DDLOPTIONS ABENDONERROR",
+   "D": "DDLFAIL",
+   "E": "DDLSKIP"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 DDLERROR이다. Replicat에서 DDL 오류 처리 방식(예: 특정 오류 IGNORE)을 지정한다. REPERROR는 DML 오류 처리용으로 'REPERROR DDL' 형식은 없으며, DDLOPTIONS ABENDONERROR, DDLFAIL, DDLSKIP은 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DDL-ERROR"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Replicat parameter performs string substitution within the text of replicated DDL statements?",
+  "options": {
+   "A": "DDLREPLACE",
+   "B": "DDLSUBST",
+   "C": "DDLMAP",
+   "D": "COLMAP",
+   "E": "SQLEXEC"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 DDLSUBST이다. 복제되는 DDL 문 텍스트의 문자열을 치환한다. DDLREPLACE와 DDLMAP은 존재하지 않고, COLMAP은 DML 열 매핑, SQLEXEC은 SQL/프로시저 실행 기능이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DDL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An audit team wants target table ORDERS_HIST to receive one new row for every insert, update, and delete on source table ORDERS, including the operation type and the commit timestamp. What is the correct Replicat approach?",
+  "options": {
+   "A": "Use HANDLECOLLISIONS on the MAP for ORDERS_HIST",
+   "B": "Use UPDATEDELETES only",
+   "C": "Use INSERTALLRECORDS on the MAP to ORDERS_HIST, and use COLMAP with @GETENV ('GGHEADER', 'OPTYPE') and @GETENV ('GGHEADER', 'COMMITTIMESTAMP')",
+   "D": "Use BATCHSQL with a larger BATCHESPERQUEUE",
+   "E": "Use OVERRIDEDUPS on the MAP for ORDERS_HIST"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'INSERTALLRECORDS와 @GETENV(GGHEADER의 OPTYPE, COMMITTIMESTAMP)를 사용하는 COLMAP'이다. 모든 연산을 insert로 쌓고 연산 유형과 커밋 시각을 함께 기록하면 이력 테이블이 된다. HANDLECOLLISIONS와 OVERRIDEDUPS는 충돌/중복 처리라 이력이 남지 않고, UPDATEDELETES는 delete만 update로 바꾸며, BATCHSQL은 성능 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-INSERTALLRECORDS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You want to split the apply load of one large table between two Replicat groups reading the same trail. Which approach is correct?",
+  "options": {
+   "A": "Specify THREAD(1) in one Replicat and THREAD(2) in the other",
+   "B": "Use FILTER (@RANGE (1, 2)) in the MAP of the first Replicat and FILTER (@RANGE (2, 2)) in the MAP of the second",
+   "C": "Use MAXTRANSOPS 2 in both Replicats",
+   "D": "Use GROUPTRANSOPS 2 in both Replicats",
+   "E": "Add the same Replicat group twice with ADD REPLICAT"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 두 Replicat의 MAP에 각각 FILTER (@RANGE (1, 2)), FILTER (@RANGE (2, 2))를 지정하는 방법이다. @RANGE는 키 해시 기준으로 행을 나누어 여러 Replicat에 분산한다. THREAD는 Coordinated Replicat 내부 스레드 지정이고, MAXTRANSOPS와 GROUPTRANSOPS는 트랜잭션 크기 조정이며, 같은 그룹을 두 번 추가할 수는 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-RANGE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How does Integrated Replicat apply changes to an Oracle target?",
+  "options": {
+   "A": "It reads the source redo logs directly and applies them",
+   "B": "It generates SQL*Loader files that are loaded by a scheduler job",
+   "C": "It sends trail files to Data Pump for import",
+   "D": "It reads the trail, builds logical change records (LCRs), and passes them to an inbound server in the target database that applies them",
+   "E": "It writes changes to the target redo logs directly"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'trail을 읽어 LCR을 만들고 타겟 DB의 inbound server에 전달해 적용'이다. Integrated Replicat은 redo를 직접 읽거나 쓰지 않으며, SQL*Loader 파일이나 Data Pump import를 사용하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INTEGRATED-HOW"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You want to change an existing nonintegrated Replicat to integrated mode. Which sequence is correct?",
+  "options": {
+   "A": "Stop Replicat, DBLOGIN to the target, run ALTER REPLICAT rep1, INTEGRATED, then start Replicat",
+   "B": "Run SEND REPLICAT rep1, INTEGRATED while it is running",
+   "C": "Edit the GLOBALS file to add INTEGRATED and restart Manager",
+   "D": "Run REGISTER REPLICAT rep1 DATABASE",
+   "E": "Delete the checkpoint table and restart Replicat"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 'Replicat 정지, 타겟 DBLOGIN, ALTER REPLICAT rep1, INTEGRATED, Replicat 시작' 순서이다. 실행 중 SEND 명령으로 모드를 바꿀 수 없고, GLOBALS 수정이나 Manager 재시작으로 모드가 바뀌지 않으며, REGISTER ... DATABASE는 Integrated Extract용이고, 체크포인트 테이블 삭제로는 모드가 바뀌지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ALTER-INTEGRATED"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In an Oracle bidirectional configuration, which mechanism prevents the local Extract from recapturing changes that Replicat applied?",
+  "options": {
+   "A": "HANDLECOLLISIONS in Replicat",
+   "B": "DBOPTIONS SUPPRESSTRIGGERS in Replicat",
+   "C": "NODBCHECKPOINT in ADD REPLICAT",
+   "D": "ASSUMETARGETDEFS in Replicat",
+   "E": "Replicat marks its redo with a tag (DBOPTIONS SETTAG), and Extract excludes it with TRANLOGOPTIONS EXCLUDETAG"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 'Replicat이 redo에 태그를 붙이고(DBOPTIONS SETTAG) Extract가 TRANLOGOPTIONS EXCLUDETAG로 제외'하는 방식이다. HANDLECOLLISIONS는 충돌 처리, SUPPRESSTRIGGERS는 트리거 억제, NODBCHECKPOINT는 체크포인트 방식, ASSUMETARGETDEFS는 정의 관련 설정으로 재캡처를 막지 못한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-LOOP-PREVENT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about REPERROR are correct? (Choose two.)",
+  "options": {
+   "A": "REPERROR applies only to DDL errors",
+   "B": "The DEFAULT keyword sets the response for all errors that are not explicitly specified by another REPERROR rule",
+   "C": "The IGNORE response writes the failed record to the discard file",
+   "D": "REPERROR can be specified within a MAP statement to override the global rule for that table",
+   "E": "Without REPERROR, Replicat ignores errors and continues"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "정답은 'DEFAULT 키워드는 따로 지정되지 않은 모든 오류에 적용된다'와 'MAP 문 안의 REPERROR가 해당 테이블의 전역 규칙을 재정의한다'이다. REPERROR는 DML 오류 처리용이며 DDL은 DDLERROR를 쓰고, discard 파일 기록은 IGNORE가 아니라 DISCARD의 동작이며, REPERROR가 없을 때의 기본값은 ABEND이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-RULES"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which of the following are valid options of the GGSCI ADD REPLICAT command? (Choose all that apply.)",
+  "options": {
+   "A": "EXTTRAIL",
+   "B": "TRANLOG",
+   "C": "CHECKPOINTTABLE",
+   "D": "THREADRANGE",
+   "E": "NODBCHECKPOINT"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "정답은 EXTTRAIL, CHECKPOINTTABLE, NODBCHECKPOINT이다. 각각 읽을 trail, 체크포인트 테이블 지정, 체크포인트 테이블 미사용을 뜻한다. TRANLOG는 ADD EXTRACT 옵션이고, THREADRANGE는 MAP 문의 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ADD-OPTIONS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A nonintegrated Replicat abended on a transaction that a DBA had already applied manually on the target. The business confirms that only this one transaction must be skipped. What should you do?",
+  "options": {
+   "A": "Set REPERROR (DEFAULT, IGNORE) permanently and restart",
+   "B": "Run ALTER REPLICAT rep1, BEGIN NOW and restart",
+   "C": "Run START REPLICAT rep1 SKIPTRANSACTION",
+   "D": "Enable HANDLECOLLISIONS permanently and restart",
+   "E": "Delete and re-add the Replicat group"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'START REPLICAT rep1 SKIPTRANSACTION'이다. 시작 위치의 첫 트랜잭션 하나만 건너뛴다. REPERROR (DEFAULT, IGNORE)나 HANDLECOLLISIONS를 계속 켜두면 이후 모든 오류·충돌까지 숨겨 요구사항(한 건만 건너뛰기)에 맞지 않고, BEGIN NOW로 바꾸면 많은 트랜잭션이 누락될 수 있으며, 그룹 삭제 후 재생성은 위치 정보를 잃어 위험하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-SKIPTRANSACTION"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about GROUPTRANSOPS and MAXTRANSOPS are correct? (Choose two.)",
+  "options": {
+   "A": "GROUPTRANSOPS combines several small source transactions into one target transaction",
+   "B": "GROUPTRANSOPS splits source transactions that exceed the specified number of operations",
+   "C": "MAXTRANSOPS can cause one source transaction to be committed on the target as several separate transactions",
+   "D": "MAXTRANSOPS limits the number of trail files Replicat can read",
+   "E": "Both are Extract parameters"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "정답은 'GROUPTRANSOPS는 작은 소스 트랜잭션 여러 개를 하나의 타겟 트랜잭션으로 묶는다'와 'MAXTRANSOPS는 한 소스 트랜잭션을 여러 타겟 트랜잭션으로 나누어 커밋할 수 있다'이다. 분할은 GROUPTRANSOPS가 아닌 MAXTRANSOPS의 역할이고, trail 파일 수 제한과는 무관하며, 둘 다 Extract가 아닌 Replicat 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-TXN-SIZE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which are prerequisites or recommended settings for running Integrated Replicat on an Oracle target? (Choose all that apply.)",
+  "options": {
+   "A": "Set the initialization parameter ENABLE_GOLDENGATE_REPLICATION to TRUE",
+   "B": "Specify THREADRANGE in every MAP statement",
+   "C": "Issue DBLOGIN before ADD REPLICAT ... INTEGRATED",
+   "D": "Create a checkpoint table, because Integrated Replicat cannot run without one",
+   "E": "Allocate sufficient STREAMS_POOL_SIZE for the inbound server"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "정답은 ENABLE_GOLDENGATE_REPLICATION=TRUE 설정, ADD REPLICAT ... INTEGRATED 전 DBLOGIN, inbound server를 위한 충분한 STREAMS_POOL_SIZE이다. THREADRANGE는 Coordinated Replicat 옵션이며, Integrated Replicat은 체크포인트 테이블이 없어도 동작한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INTEGRATED-PREREQ"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You instantiate an Oracle target with Data Pump. The source tables were prepared so that Data Pump records an instantiation CSN for each table, and the tables were exported and imported at different times. You want Replicat to skip, per table, the changes already included in the import, without using HANDLECOLLISIONS or a single AFTERCSN. What should you configure?",
+  "options": {
+   "A": "START REPLICAT rep1, ATCSN 0",
+   "B": "DBOPTIONS ENABLE_INSTANTIATION_FILTERING in the Replicat parameter file",
+   "C": "ASSUMETARGETDEFS in the Replicat parameter file",
+   "D": "START REPLICAT rep1 SKIPTRANSACTION for each table",
+   "E": "MAXTRANSOPS 1 in the Replicat parameter file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 'DBOPTIONS ENABLE_INSTANTIATION_FILTERING'이다. Replicat이 Data Pump import 때 기록된 테이블별 instantiation CSN을 확인해 그 이전 변경을 테이블 단위로 자동 필터링한다. ATCSN 0은 의미 있는 시작 위치가 아니고, ASSUMETARGETDEFS는 정의 관련이며, SKIPTRANSACTION은 테이블 단위가 아니라 시작 위치의 트랜잭션 하나만 건너뛰고, MAXTRANSOPS는 트랜잭션 분할 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INITLOAD-CSN"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In an active-active setup the policy is: if an UPDATE arrives and the target row does not exist, apply it as an insert; if a DELETE arrives and the target row does not exist, do nothing. Which RESOLVECONFLICT settings implement this policy?",
+  "options": {
+   "A": "RESOLVECONFLICT (UPDATEROWMISSING, (DEFAULT, OVERWRITE)), RESOLVECONFLICT (DELETEROWMISSING, (DEFAULT, IGNORE))",
+   "B": "RESOLVECONFLICT (UPDATEROWMISSING, (DEFAULT, IGNORE)), RESOLVECONFLICT (DELETEROWMISSING, (DEFAULT, OVERWRITE))",
+   "C": "RESOLVECONFLICT (UPDATEROWEXISTS, (DEFAULT, OVERWRITE)), RESOLVECONFLICT (DELETEROWEXISTS, (DEFAULT, IGNORE))",
+   "D": "RESOLVECONFLICT (INSERTROWEXISTS, (DEFAULT, USEMAX)), RESOLVECONFLICT (DELETEROWMISSING, (DEFAULT, DISCARD))",
+   "E": "RESOLVECONFLICT (UPDATEROWMISSING, (DEFAULT, DISCARD)), RESOLVECONFLICT (DELETEROWMISSING, (DEFAULT, DISCARD))"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 'UPDATEROWMISSING에 OVERWRITE, DELETEROWMISSING에 IGNORE'이다. UPDATEROWMISSING의 OVERWRITE는 update를 insert로 바꿔 적용하고(전체 열 이미지 필요), DELETEROWMISSING의 IGNORE는 아무것도 하지 않는다. 두 해결 방식을 뒤바꾼 구성, 행이 '존재하는' 충돌 유형(UPDATEROWEXISTS, DELETEROWEXISTS)을 쓴 구성, INSERTROWEXISTS와 DISCARD를 쓴 구성, 둘 다 DISCARD로 버리는 구성은 정책과 다르다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR-MISSING"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For which conflict types can the USEMAX resolution be used?",
+  "options": {
+   "A": "Only DELETEROWMISSING",
+   "B": "UPDATEROWMISSING and DELETEROWMISSING",
+   "C": "Only DELETEROWEXISTS",
+   "D": "INSERTROWEXISTS and UPDATEROWEXISTS",
+   "E": "All conflict types, including deletes"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 INSERTROWEXISTS와 UPDATEROWEXISTS이다. USEMAX는 기존 행과 들어온 행의 해결 열 값을 비교해야 하므로 타겟 행이 존재하는 insert/update 충돌에만 쓴다. 행이 없는 MISSING 유형이나 delete 충돌에는 비교 대상이 없어 사용할 수 없으므로 나머지 보기는 모두 틀렸다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Coordinated Replicat (MAXTHREADS 8) applies one very busy table SALES.ORDERS (primary key ORDER_ID) and many lightly used tables. You want the ORDERS rows spread across threads 1 to 6 by key, and all other tables applied by thread 7. Which configuration is correct?",
+  "options": {
+   "A": "MAP SALES.ORDERS, TARGET SALES.ORDERS, THREAD(1-6); MAP SALES.*, TARGET SALES.*, THREAD(7);",
+   "B": "MAP SALES.ORDERS, TARGET SALES.ORDERS, THREADRANGE(1-6, ORDER_ID); and THREAD(7) on the MAP statements for the other tables",
+   "C": "MAP SALES.ORDERS, TARGET SALES.ORDERS, MAXTHREADS 6; and MAXTHREADS 1 for the other tables",
+   "D": "MAP SALES.ORDERS, TARGET SALES.ORDERS, FILTER (@RANGE (1, 6)); and THREAD(7) for the other tables",
+   "E": "ADD REPLICAT rep1, COORDINATED THREADRANGE(1-6) and THREAD(7) in GLOBALS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 ORDERS에 THREADRANGE(1-6, ORDER_ID), 나머지 테이블 MAP에 THREAD(7)을 지정하는 구성이다. THREADRANGE는 키 값 해시로 행을 스레드 1~6에 분산한다. THREAD는 단일 스레드 번호만 받으므로 THREAD(1-6)은 틀렸고, MAXTHREADS는 MAP 옵션이 아니며, FILTER (@RANGE (1, 6))은 전체 중 일부 행만 통과시키는 필터일 뿐 스레드 분배가 아니고, ADD REPLICAT/GLOBALS에 그런 구문은 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-COORD"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Coordinated Replicat, which operations are processed as barrier transactions that require all threads to synchronize? (Choose two.)",
+  "options": {
+   "A": "DDL operations",
+   "B": "Every INSERT operation",
+   "C": "Updates to primary key columns",
+   "D": "Every transaction with fewer than ten operations",
+   "E": "Operations on tables mapped with THREAD(1)"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "정답은 DDL과 기본 키 열 갱신이다. Coordinated Replicat은 스레드 간 순서 의존성이 생길 수 있는 이 작업들을 barrier 트랜잭션으로 처리해 모든 스레드를 동기화한다. 일반 INSERT, 연산 수가 적은 트랜잭션, THREAD(1)로 매핑된 테이블의 연산은 barrier 대상이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-COORD-BARRIER"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Parallel Replicat parameter causes large transactions to be split into pieces of a specified number of records so that they can be applied in parallel?",
+  "options": {
+   "A": "MAP_PARALLELISM",
+   "B": "SPLIT_TRANS_RECS",
+   "C": "MIN_APPLY_PARALLELISM",
+   "D": "PARALLEL_SPLIT_SIZE",
+   "E": "APPLY_PARALLELISM"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 SPLIT_TRANS_RECS이다. 큰 트랜잭션을 지정 레코드 수 단위로 나누어 병렬 적용할 수 있게 한다. MAP_PARALLELISM은 mapper 수, MIN_APPLY_PARALLELISM과 APPLY_PARALLELISM은 applier 수를 정하는 파라미터이며, PARALLEL_SPLIT_SIZE는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-PARALLEL-PARAMS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "For an Oracle target you want automatic dependency calculation and parallel mapping by Parallel Replicat, while the actual apply is performed through the database inbound server. Which GGSCI command creates this Replicat?",
+  "options": {
+   "A": "ADD REPLICAT rep1, INTEGRATED, MAXTHREADS 8, EXTTRAIL ./dirdat/rt",
+   "B": "ADD REPLICAT rep1, COORDINATED MAXTHREADS 8, EXTTRAIL ./dirdat/rt",
+   "C": "ADD REPLICAT rep1, PARALLEL, NODBCHECKPOINT, EXTTRAIL ./dirdat/rt",
+   "D": "ADD REPLICAT rep1, PARALLEL INTEGRATED, EXTTRAIL ./dirdat/rt, CHECKPOINTTABLE ggadmin.ggs_ckpt",
+   "E": "ADD INTEGRATED PARALLEL REPLICAT rep1, EXTTRAIL ./dirdat/rt"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 'ADD REPLICAT rep1, PARALLEL INTEGRATED, EXTTRAIL ..., CHECKPOINTTABLE ...'이다. integrated 모드 Parallel Replicat은 OGG가 매핑·의존성 계산을 하고 실제 적용은 inbound server가 담당한다. Integrated Replicat에는 MAXTHREADS 옵션이 없고, COORDINATED는 Coordinated Replicat을 만들며, PARALLEL만 지정한 구성은 inbound server를 사용하지 않는 nonintegrated 방식인 데다 체크포인트 테이블을 쓰지 않도록 되어 있고, 'ADD INTEGRATED PARALLEL REPLICAT'은 존재하지 않는 구문이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-ADD-PARALLEL"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Before you run DELETE REPLICAT for an Integrated Replicat, what should you do so that the associated inbound server is also removed from the target database?",
+  "options": {
+   "A": "Run DBLOGIN to the target database",
+   "B": "Stop the Manager process",
+   "C": "Delete the trail files",
+   "D": "Run UNREGISTER EXTRACT",
+   "E": "Drop the checkpoint table"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "정답은 '타겟 DB에 DBLOGIN'이다. 로그인한 상태에서 DELETE REPLICAT을 해야 DB 쪽 inbound server까지 함께 제거된다. Manager 정지나 trail 파일 삭제는 필요 없고, UNREGISTER EXTRACT는 Integrated Extract용이며, Integrated Replicat은 체크포인트 테이블을 사용하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-DBLOGIN-DELETE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Why is it risky to leave HANDLECOLLISIONS enabled permanently in a production Replicat? (Choose two.)",
+  "options": {
+   "A": "Genuine out-of-sync conditions between source and target can be masked instead of being reported as errors",
+   "B": "Replicat can no longer use a checkpoint table",
+   "C": "Deletes for rows that are missing on the target are silently ignored, so data loss or drift may go unnoticed",
+   "D": "It forces Replicat to run in single-threaded mode",
+   "E": "It prevents Replicat from reading the trail"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "정답은 '실제 불일치가 오류로 보고되지 않고 가려질 수 있다'와 '타겟에 없는 행에 대한 delete가 조용히 무시되어 데이터 차이를 알아채기 어렵다'이다. HANDLECOLLISIONS는 체크포인트 테이블 사용, 단일 스레드 강제, trail 읽기와는 관계가 없다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-HANDLECOLL-RISK"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat occasionally abends with ORA-00060 (deadlock) because an application is updating the same target rows. You want Replicat to roll back and retry the whole transaction up to 5 times, waiting 10 seconds between attempts. Which parameter is correct?",
+  "options": {
+   "A": "REPERROR (60, RETRYOP, MAXRETRIES 5)",
+   "B": "REPERROR (60, IGNORE)",
+   "C": "REPERROR (60, DISCARD, DELAYSECS 10)",
+   "D": "REPERROR (60, ABEND, MAXRETRIES 5)",
+   "E": "REPERROR (60, TRANSABORT, MAXRETRIES 5, DELAYSECS 10)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "정답은 'REPERROR (60, TRANSABORT, MAXRETRIES 5, DELAYSECS 10)'이다. TRANSABORT는 트랜잭션 전체를 롤백하고 처음부터 재시도하며, 횟수와 간격을 지정할 수 있다. RETRYOP는 실패한 연산만 재시도하고 대기 간격 요구도 충족하지 않으며, IGNORE와 DISCARD는 데이터를 무시하거나 버리고, ABEND는 재시도하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-REPERROR-TRANSABORT"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which settings can result in a source transaction NOT being reflected on the target exactly as one complete transaction? (Choose two.)",
+  "options": {
+   "A": "MAXTRANSOPS set lower than the number of operations in the source transaction",
+   "B": "GROUPTRANSOPS",
+   "C": "REPERROR (DEFAULT, DISCARD), when one operation in the transaction fails",
+   "D": "Using a checkpoint table",
+   "E": "Specifying ASSUMETARGETDEFS"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "정답은 '소스 트랜잭션보다 작게 설정한 MAXTRANSOPS'와 '한 연산이 실패했을 때의 REPERROR (DEFAULT, DISCARD)'이다. 전자는 트랜잭션을 여러 번에 나누어 커밋하고, 후자는 실패한 연산만 빼고 나머지를 적용한다. GROUPTRANSOPS는 소스 트랜잭션을 쪼개지 않고 통째로 묶으며, 체크포인트 테이블은 오히려 정확한 복구를 돕고, ASSUMETARGETDEFS는 정의 관련 설정이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-TXN-INTEGRITY"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Classic Replicat created with NODBCHECKPOINT fails after the target commit of a transaction but before its checkpoint file is updated. What can happen when Replicat restarts?",
+  "options": {
+   "A": "Replicat automatically skips the transaction because the database remembers it",
+   "B": "Replicat may apply the same transaction again, which can cause duplicate-row or missing-row errors",
+   "C": "Replicat cannot restart until the trail is regenerated",
+   "D": "Replicat starts from the beginning of the first trail file",
+   "E": "Nothing, because checkpoint files are written before the commit"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정답은 '같은 트랜잭션을 다시 적용해 중복 행/누락 행 오류가 날 수 있다'이다. 체크포인트 테이블이 없으면 타겟 커밋과 체크포인트 기록이 원자적이지 않기 때문이다(체크포인트 테이블을 쓰면 같은 트랜잭션으로 커밋되어 방지된다). DB가 자동으로 기억해 건너뛰는 장치는 없고, trail 재생성이나 첫 trail 처음부터의 재시작이 필요하지 않으며, 체크포인트 파일은 커밋 전에 확정되는 구조가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CKPTTABLE-PURPOSE"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Integrated Replicat applies transactions in parallel through multiple apply servers. How does it preserve data consistency?",
+  "options": {
+   "A": "It applies each table in a separate thread and ignores relationships between tables",
+   "B": "It requires THREADRANGE clauses to define dependencies manually",
+   "C": "The inbound server computes dependencies between transactions, for example based on primary key, unique key, and foreign key constraints, and orders dependent transactions accordingly",
+   "D": "It commits all transactions in random order and relies on HANDLECOLLISIONS",
+   "E": "It applies only one transaction at a time despite having multiple apply servers"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'inbound server가 기본 키·고유 키·외래 키 등을 바탕으로 트랜잭션 간 의존성을 계산해 순서를 지킨다'이다. 테이블 간 관계를 무시하거나 임의 순서로 커밋하면 일관성을 보장할 수 없고, THREADRANGE는 Coordinated Replicat 옵션이며, 여러 apply server로 실제 병렬 적용하므로 한 번에 하나만 적용한다는 설명도 틀렸다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "REP-INTEGRATED-HOW"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A MAP statement contains COMPARECOLS (ON UPDATE KEYINCLUDING (BALANCE)). When an update is applied, which columns are compared with the current target row to detect an update conflict?",
+  "options": {
+   "A": "All columns of the table",
+   "B": "Only the BALANCE column",
+   "C": "All columns except BALANCE",
+   "D": "The primary key columns plus the BALANCE column",
+   "E": "No columns; KEYINCLUDING disables conflict detection"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정답은 '기본 키 열과 BALANCE 열'이다. KEYINCLUDING (열 목록)은 키 열에 지정 열을 더해 비교한다. 전체 열 비교는 ALL, 지정 열을 제외한 비교는 ALLEXCLUDING에 해당하고, BALANCE만 비교하는 것은 키 열을 빠뜨린 설명이며, KEYINCLUDING은 충돌 감지를 끄지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-CDR-COMPARECOLS"
+ },
+ {
+  "domain": "REPLICAT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat abended and was repaired. Your analysis shows that the transaction with CSN 7788123 was NOT applied to the target and must be the first transaction applied when Replicat resumes. Which command should you use?",
+  "options": {
+   "A": "START REPLICAT rep1, AFTERCSN 7788123",
+   "B": "START REPLICAT rep1 SKIPTRANSACTION",
+   "C": "START REPLICAT rep1, ATCSN 7788123",
+   "D": "ALTER REPLICAT rep1, BEGIN NOW",
+   "E": "ALTER REPLICAT rep1, EXTSEQNO 0, EXTRBA 0, then START REPLICAT rep1"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정답은 'START REPLICAT rep1, ATCSN 7788123'이다. 해당 CSN의 트랜잭션부터 적용해야 하기 때문이다. AFTERCSN은 바로 그 트랜잭션을 건너뛰고, SKIPTRANSACTION은 시작 위치의 트랜잭션을 건너뛰어 의도와 반대가 될 수 있으며, BEGIN NOW는 현재 시점부터 시작해 데이터가 누락되고, EXTSEQNO 0, EXTRBA 0은 trail 처음부터 이미 적용된 트랜잭션까지 다시 적용한다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "REP-START-CSN"
+ }
+]

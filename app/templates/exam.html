@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}시험 응시{% endblock %}
+{% block body_class %}exam-mode{% endblock %}
+{% block topbar %}
+  <div class="exam-bar">
+    <span class="timer" id="timer" data-remaining="{{ remaining }}" aria-live="off">--:--</span>
+    <form id="submit-form" method="post" action="/exam/{{ attempt.id }}/submit" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="primary" type="submit">최종 제출</button>
+    </form>
+  </div>
+{% endblock %}
+{% block content %}
+  {% include "_panel.html" %}
+
+  {# 최종 제출 확인 팝업: 브라우저 기본 confirm 은 위치를 바꿀 수 없어 화면 가운데에 뜨는 <dialog> 로 대체 #}
+  <dialog id="submit-dialog" class="modal" aria-labelledby="submit-dialog-title">
+    <form method="dialog">
+      <h2 id="submit-dialog-title">최종 제출</h2>
+      <p id="submit-dialog-unanswered" class="modal-warn" hidden></p>
+      <p id="submit-dialog-flagged" class="modal-note" hidden></p>
+      <p>최종 제출하면 답안을 수정할 수 없습니다. 제출할까요?</p>
+      <div class="modal-actions">
+        <button type="submit" value="cancel" autofocus>취소</button>
+        <button type="submit" value="confirm" class="primary">제출</button>
+      </div>
+    </form>
+  </dialog>
+{% endblock %}

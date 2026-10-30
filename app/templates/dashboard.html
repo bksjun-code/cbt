@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}내 시험{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>{{ user.name }}님, 안녕하세요</h1>
+  {% if active %}
+    <p>진행 중인 시험이 있습니다. (시작 {{ active.started_at|kst }} KST)</p>
+    <a class="button primary" href="/exam/{{ active.id }}">이어서 응시</a>
+  {% else %}
+    <p>시험은 한 번에 한 건만 진행할 수 있으며, 시작하면 제한시간이 바로 흐릅니다.</p>
+    <form method="post" action="/exam/start" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="primary" type="submit">시험 시작</button>
+    </form>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>응시 이력</h2>
+  {% if attempts %}
+  <table>
+    <thead><tr><th>회차</th><th>시작</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
+    <tbody>
+    {% for a in attempts %}
+      <tr>
+        <td>#{{ a.id }}</td>
+        <td>{{ a.started_at|kst }}</td>
+        <td>{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</td>
+        <td>{% if a.total_score is not none %}{{ '%.1f'|format(a.total_score) }}{% else %}-{% endif %}</td>
+        <td>{% if a.passed is not none %}<span class="badge {{ 'pass' if a.passed else 'fail' }}">{{ '합격' if a.passed else '불합격' }}</span>{% else %}-{% endif %}</td>
+        <td class="actions">{% if a.status.value == 'IN_PROGRESS' %}<a href="/exam/{{ a.id }}">응시</a>{% else %}<a href="/exam/{{ a.id }}/result">결과</a>{% endif %}
+          {% if a.passed %}<a class="button primary small" href="/exam/{{ a.id }}/certificate.pdf">합격증 PDF</a>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">아직 응시 이력이 없습니다.</p>{% endif %}
+</section>
+{% endblock %}

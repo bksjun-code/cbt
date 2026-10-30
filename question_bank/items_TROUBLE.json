@@ -1,0 +1,1493 @@
+[
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, in which subdirectory of the GoldenGate home are process report files written by default?",
+  "options": {
+   "A": "dirprm",
+   "B": "dirchk",
+   "C": "dirrpt",
+   "D": "dirdat",
+   "E": "dirtmp"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "'dirrpt' 는 Extract/Replicat 등 프로세스의 리포트 파일(.rpt)이 기본으로 기록되는 디렉터리입니다. 'dirprm' 은 파라미터 파일, 'dirchk' 는 체크포인트 파일, 'dirdat' 는 트레일 파일, 'dirtmp' 는 대용량 트랜잭션 임시 캐시 등에 쓰이는 디렉터리이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPORT-DIR"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command displays the report file of the Replicat group rep1?",
+  "options": {
+   "A": "SHOW REPORT rep1",
+   "B": "INFO REPLICAT rep1, REPORT",
+   "C": "STATS REPLICAT rep1",
+   "D": "VIEW REPORT rep1",
+   "E": "SEND REPLICAT rep1, REPORTFILE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "'VIEW REPORT rep1' 은 GGSCI 에서 해당 그룹의 리포트 파일 내용을 표시하는 명령입니다. 'STATS REPLICAT' 은 처리 건수 통계만 보여 주며, 'SHOW REPORT', 'INFO REPLICAT ..., REPORT', 'SEND REPLICAT ..., REPORTFILE' 은 리포트 파일을 보여 주는 올바른 GGSCI 구문이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-VIEW-REPORT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the status ABENDED indicate for a GoldenGate process?",
+  "options": {
+   "A": "The process was stopped normally by an administrator",
+   "B": "The process terminated abnormally, for example because of an unhandled error",
+   "C": "The process is running but has no data to process",
+   "D": "The process has been created but never started",
+   "E": "The process is waiting for Manager to assign a port"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ABENDED 는 'abnormal end' 의 의미로, 처리되지 않은 오류 등으로 프로세스가 비정상 종료된 상태입니다. 관리자가 정상 중지한 경우는 STOPPED 이고, 처리할 데이터가 없어도 프로세스는 RUNNING 상태를 유지합니다. 생성 후 시작하지 않은 경우도 STOPPED 로 표시되며, 포트 할당 대기는 ABENDED 의 의미가 아닙니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ABENDED-STATUS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A Replicat reports ORA-01031 when it applies an operation. What does this Oracle error mean?",
+  "options": {
+   "A": "The target table does not exist",
+   "B": "A unique constraint was violated",
+   "C": "The database user lacks the privilege required for the operation",
+   "D": "A NOT NULL column received a NULL value",
+   "E": "The row to update was not found"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ORA-01031 은 'insufficient privileges' 로, Replicat 접속 사용자에게 해당 작업에 필요한 권한이 없음을 뜻합니다. 테이블 부재는 ORA-00942, 유일 제약 위반은 ORA-00001, NOT NULL 컬럼에 NULL 입력은 ORA-01400, 행을 찾지 못함은 ORA-01403 이므로 나머지는 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-ORA1031"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat abends with ORA-00942. What does this Oracle error mean?",
+  "options": {
+   "A": "Table or view does not exist (or is not visible to the user)",
+   "B": "Deadlock detected while waiting for a resource",
+   "C": "Cannot insert NULL into a column",
+   "D": "Unique constraint violated",
+   "E": "No data found"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-00942 는 'table or view does not exist' 로, 대상 객체가 없거나 접속 사용자가 그 객체를 볼 권한이 없을 때 발생합니다. 교착 상태는 ORA-00060, NULL 입력은 ORA-01400, 유일 제약 위반은 ORA-00001, 데이터 없음은 ORA-01403 이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-ORA942"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat abends with ORA-01400 during an INSERT. What does this Oracle error mean?",
+  "options": {
+   "A": "The target tablespace is full",
+   "B": "The insert tried to put a NULL value into a NOT NULL column",
+   "C": "The table has no primary key",
+   "D": "The session lost its connection to the database",
+   "E": "The user has no INSERT privilege"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ORA-01400 은 'cannot insert NULL into (column)' 으로, NOT NULL 컬럼에 NULL 값을 넣으려 할 때 발생합니다. 테이블스페이스 부족, 기본 키 부재, 세션 연결 끊김은 다른 증상/오류이며, INSERT 권한 부족은 ORA-01031 계열이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-ORA1400"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the main purpose of the discard file specified with the DISCARDFILE parameter?",
+  "options": {
+   "A": "To store the checkpoint positions of the process",
+   "B": "To store captured change data for the next process",
+   "C": "To store the process startup parameters",
+   "D": "To store the GoldenGate event log of all processes",
+   "E": "To record operations that could not be processed, together with error information, for later analysis"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "디스카드 파일은 처리에 실패한(또는 REPERROR DISCARD 로 버려진) 레코드와 관련 오류 정보를 기록해 나중에 분석/재처리할 수 있게 합니다. 체크포인트는 체크포인트 파일/테이블, 변경 데이터는 트레일, 시작 파라미터는 파라미터 파일, 전체 이벤트 로그는 ggserr.log 에 저장되므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-DISCARD-FILE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the Logdump utility primarily used for?",
+  "options": {
+   "A": "Viewing and searching the records stored in GoldenGate trail files",
+   "B": "Dumping the Oracle redo logs into a trail",
+   "C": "Exporting table data for an initial load",
+   "D": "Compressing old trail files",
+   "E": "Generating source definitions files"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Logdump 는 트레일 파일을 열어 레코드 헤더와 데이터를 보고 검색·집계하는 진단 도구입니다. 리두 캡처는 Extract, 초기 적재용 export 는 Data Pump(expdp) 등의 몫이고, 트레일 압축 기능이 아니며, 정의 파일 생성은 DEFGEN 이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Logdump, which command displays the next record in the open trail file?",
+  "options": {
+   "A": "SKIP",
+   "B": "NEXT (or N)",
+   "C": "FORWARD",
+   "D": "READ ON",
+   "E": "GO +1"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Logdump 에서 NEXT(축약 N)는 현재 위치의 다음 레코드를 읽어 표시합니다. 'SKIP', 'FORWARD', 'READ ON', 'GO +1' 은 이 용도의 Logdump 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-NEXT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Logdump, which command do you use first to start examining the trail file ./dirdat/rt000000012?",
+  "options": {
+   "A": "ATTACH ./dirdat/rt000000012",
+   "B": "LOAD ./dirdat/rt000000012",
+   "C": "MOUNT ./dirdat/rt000000012",
+   "D": "OPEN ./dirdat/rt000000012",
+   "E": "ADD EXTTRAIL ./dirdat/rt000000012"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Logdump 에서는 OPEN <파일명> 으로 트레일 파일을 연 뒤 NEXT, POS 등으로 레코드를 탐색합니다. 'ATTACH', 'LOAD', 'MOUNT' 는 Logdump 의 파일 열기 명령이 아니며, 'ADD EXTTRAIL' 은 Extract 에 트레일을 연결하는 GGSCI 명령이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-OPEN"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Oracle product is designed to compare source and target data to identify rows that are out of sync in a GoldenGate replication environment?",
+  "options": {
+   "A": "Oracle Data Guard Broker",
+   "B": "Oracle GoldenGate Veridata",
+   "C": "Oracle SQL*Loader",
+   "D": "Oracle Enterprise Manager Cloud Control Data Masking",
+   "E": "Oracle Recovery Manager (RMAN)"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Oracle GoldenGate Veridata 는 소스와 타깃 데이터를 비교해 불일치 행을 찾아내고(필요 시 복구까지 지원) 동기화 상태를 검증하는 제품입니다. Data Guard Broker 는 스탠바이 관리, SQL*Loader 는 데이터 적재, Data Masking 은 민감 데이터 마스킹, RMAN 은 백업/복구 도구이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-VERIDATA"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command displays the contents of the GoldenGate error log (ggserr.log)?",
+  "options": {
+   "A": "VIEW GGSEVT",
+   "B": "INFO ERRLOG",
+   "C": "SHOW GGSERR",
+   "D": "VIEW PARAMS ggserr",
+   "E": "STATS MGR"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "GGSCI 에서 'VIEW GGSEVT' 는 GoldenGate 이벤트/오류 로그(ggserr.log)를 표시합니다. 'INFO ERRLOG', 'SHOW GGSERR' 는 해당 기능의 GGSCI 명령이 아니고, 'VIEW PARAMS' 는 파라미터 파일을 보는 명령이며, 'STATS MGR' 은 유효한 로그 조회 방법이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-VIEW-GGSEVT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An error message reports a problem at a trail sequence number and an RBA. What does RBA identify?",
+  "options": {
+   "A": "The redo block address in the Oracle online redo log",
+   "B": "The row ID of the failing row in the target table",
+   "C": "The relative byte address, the byte offset of the record within the trail file",
+   "D": "The replication batch number assigned by Replicat",
+   "E": "The remote buffer allocation size of the TCP connection"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "트레일 위치는 시퀀스 번호와 RBA(Relative Byte Address)로 표현되며, RBA 는 해당 트레일 파일 안에서 레코드가 시작하는 바이트 오프셋입니다. 이 값은 Logdump 의 POS 명령이나 ALTER REPLICAT 의 EXTRBA 에 그대로 사용할 수 있습니다. 리두 블록 주소, 타깃 ROWID, 배치 번호, TCP 버퍼 크기는 RBA 의 의미가 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-RBA"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What is the main risk of starting a Replicat with START REPLICAT rep1, SKIPTRANSACTION?",
+  "options": {
+   "A": "The Replicat checkpoint file is deleted",
+   "B": "All transactions in the current trail file are skipped",
+   "C": "Extract stops capturing new changes",
+   "D": "The changes in the skipped transaction are never applied, so the target can become out of sync",
+   "E": "The Replicat is converted to integrated mode"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SKIPTRANSACTION 은 체크포인트 위치의 첫 번째 트랜잭션을 통째로 건너뛰므로, 그 트랜잭션의 변경이 타깃에 적용되지 않아 데이터 불일치가 생길 수 있습니다. 체크포인트 파일 삭제, 트레일 파일 전체 건너뛰기, Extract 캡처 중단, 통합 모드 전환은 이 옵션의 동작이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-SKIPTRANS-RISK"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, which Data Pump parameter specifies the target host and the port of the target Manager?",
+  "options": {
+   "A": "RMTHOST",
+   "B": "EXTTRAIL",
+   "C": "TARGETDB",
+   "D": "MGRHOST",
+   "E": "USERIDALIAS"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "RMTHOST 는 원격(타깃) 호스트 이름과 MGRPORT(타깃 Manager 포트) 등 네트워크 연결 정보를 지정하는 파라미터입니다. EXTTRAIL 은 로컬 트레일 지정, TARGETDB 는 DB 연결용 파라미터, MGRHOST 는 존재하지 않는 파라미터, USERIDALIAS 는 자격 증명 별칭 지정이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-RMTHOST"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which command checks whether supplemental logging is enabled for the source table HR.EMP?",
+  "options": {
+   "A": "INFO EXTRACT HR.EMP",
+   "B": "INFO TRANDATA HR.EMP",
+   "C": "VIEW TRANDATA HR.EMP",
+   "D": "STATS TRANDATA HR.EMP",
+   "E": "SHOW LOGGING HR.EMP"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "INFO TRANDATA 는 지정한 테이블에 GoldenGate 용 보조 로깅(supplemental logging)이 설정되어 있는지와 로깅되는 컬럼을 보여 줍니다(DBLOGIN 필요). 'INFO EXTRACT' 는 프로세스 정보 조회이며, 'VIEW TRANDATA', 'STATS TRANDATA', 'SHOW LOGGING' 은 유효한 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-INFO-TRANDATA"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "At 08:00 an operator finds that Replicat rep1 has been ABENDED since 02:00 and wants to start it again immediately. What should be done before restarting it?",
+  "options": {
+   "A": "Delete the checkpoint file so that Replicat starts cleanly",
+   "B": "Purge the trail files that were already written",
+   "C": "Review the report file and ggserr.log to identify the error that caused the abend",
+   "D": "Re-create the Replicat group with the same name",
+   "E": "Restart Manager on the source system"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "원인을 모른 채 재시작하면 같은 오류로 다시 중단되거나 잘못된 조치로 데이터가 어긋날 수 있으므로, 먼저 리포트 파일과 ggserr.log 에서 중단 원인을 확인해야 합니다. 체크포인트 파일 삭제, 트레일 삭제, 그룹 재생성은 위치 정보·데이터를 잃게 하는 위험한 조치이며, 소스 Manager 재시작은 Replicat 오류 원인과 관계가 없으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPORT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Data Pump abends immediately after start with a TCP/IP 'connection refused' error for the target host and port given in RMTHOST MGRPORT. The network route to the host is otherwise working. What is the most likely cause?",
+  "options": {
+   "A": "The source database is not in ARCHIVELOG mode",
+   "B": "The Replicat on the target has too large a GROUPTRANSOPS value",
+   "C": "Supplemental logging is not enabled on the source table",
+   "D": "The source local trail is full",
+   "E": "The target Manager is not running or is not listening on the port specified by MGRPORT"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "'connection refused' 는 해당 호스트의 지정 포트에서 수신 대기하는 프로세스가 없을 때 나타나므로, 타깃 Manager 가 기동되지 않았거나 MGRPORT 와 타깃 Manager 의 PORT 설정이 다른 경우가 가장 유력합니다. ARCHIVELOG 모드와 보조 로깅은 캡처와 관련된 설정이고, Replicat 의 GROUPTRANSOPS 는 네트워크 연결과 무관하며, 로컬 트레일 공간 문제는 연결 거부 오류를 일으키지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-NET-CONNREFUSED"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which sources of information help you determine why a Replicat abended? (Choose all that apply.)",
+  "options": {
+   "A": "The Replicat report file",
+   "B": "The ggserr.log error log",
+   "C": "The database listener.ora file",
+   "D": "The discard file of the Replicat",
+   "E": "The Oracle password file (orapw)"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "'Replicat 리포트 파일' 에는 실행 파라미터와 중단 직전 오류가, 'ggserr.log' 에는 프로세스 시작/중지 및 오류 이벤트가, '디스카드 파일' 에는 실패한 레코드의 컬럼 값과 오류가 기록되어 원인 분석에 사용됩니다. 'listener.ora' 는 리스너 설정 파일이고 'Oracle password file' 은 SYSDBA 인증용 파일이라 Replicat 중단 원인을 알려 주지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-DIAG-FILES"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which two Logdump commands control how much information is displayed for each trail record? (Choose two.)",
+  "options": {
+   "A": "GHDR ON",
+   "B": "SHOW CHECKPOINT",
+   "C": "DETAIL ON",
+   "D": "PURGE HEADER",
+   "E": "START RECORD"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "'GHDR ON' 은 각 레코드의 헤더(작업 유형, 트랜잭션 표시, 테이블 이름, 타임스탬프 등)를 표시하고, 'DETAIL ON' 은 컬럼 번호·길이 등 레코드 데이터 세부 정보를 표시하도록 합니다. 'SHOW CHECKPOINT', 'PURGE HEADER', 'START RECORD' 는 Logdump 의 표시 제어 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-DISPLAY"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "The Replicat report shows an error at trail sequence 25, RBA 48213. After opening that trail file in Logdump, which command moves directly to that record?",
+  "options": {
+   "A": "POS 48213",
+   "B": "SEEK SEQ 25",
+   "C": "NEXT 48213",
+   "D": "GOTO RECORD 25",
+   "E": "FIND RBA=48213"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Logdump 의 POS <rba> 는 열린 트레일 파일에서 지정한 RBA 위치로 이동하며, 이어서 NEXT 로 해당 레코드를 표시합니다. 시퀀스 번호는 OPEN 할 파일 이름으로 정해지므로 'SEEK SEQ' 같은 명령이 필요 없고, 'NEXT 48213' 은 RBA 이동이 아니며, 'GOTO RECORD', 'FIND RBA=' 는 Logdump 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-POS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Logdump, what does the COUNT command report for the open trail file?",
+  "options": {
+   "A": "The number of trail files in the dirdat directory",
+   "B": "The number of Replicat threads reading the file",
+   "C": "The number of committed transactions in the source database",
+   "D": "The number of records in the file, with statistics such as counts by table and operation type",
+   "E": "The number of bytes remaining before the trail file rolls over"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "COUNT 는 열린 트레일 파일의 전체 레코드 수와 평균 크기, 그리고 테이블별·작업 유형별 건수 등을 집계해 보여 줍니다. 디렉터리의 파일 개수, Replicat 스레드 수, 소스 DB 의 커밋 수, 롤오버까지 남은 바이트는 COUNT 의 출력이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-COUNT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You want Logdump to display and count only the records for the table HR.EMP. Which command do you use before NEXT or COUNT?",
+  "options": {
+   "A": "MAP HR.EMP",
+   "B": "TABLE HR.EMP, ONLY",
+   "C": "FILTER INCLUDE FILENAME HR.EMP",
+   "D": "SELECT * FROM HR.EMP",
+   "E": "WILDCARD HR.EMP"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Logdump 의 FILTER INCLUDE FILENAME <테이블명> 을 설정하면 이후 NEXT, COUNT 등에서 해당 테이블의 레코드만 대상으로 합니다. 'MAP', 'TABLE' 은 Replicat/Extract 파라미터 문법이고, SQL SELECT 는 트레일에 사용할 수 없으며, 'WILDCARD' 는 Logdump 필터 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-FILTER"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "With GHDR ON, Logdump shows a TransInd field for each record. What does a TransInd value of 0x03 indicate?",
+  "options": {
+   "A": "The record is the first record of a multi-record transaction",
+   "B": "The record is the only record in its transaction",
+   "C": "The record is a middle record of a transaction",
+   "D": "The record belongs to a rolled-back transaction",
+   "E": "The record is a DDL operation"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "TransInd 는 레코드가 트랜잭션 안에서 차지하는 위치를 나타내며, 0x00 은 첫 레코드, 0x01 은 중간, 0x02 는 마지막, 0x03 은 트랜잭션에 레코드가 하나뿐임을 뜻합니다. 따라서 첫 레코드나 중간 레코드는 다른 값이고, 롤백 여부나 DDL 여부는 TransInd 가 표현하는 정보가 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-TRANSIND"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "After analysis, you must reposition the stopped Replicat rep1 to the beginning of trail sequence 15. Which command does this?",
+  "options": {
+   "A": "START REPLICAT rep1, SEQNO 15",
+   "B": "ALTER REPLICAT rep1, EXTSEQNO 15, EXTRBA 0",
+   "C": "SEND REPLICAT rep1, POS 15 0",
+   "D": "ADD REPLICAT rep1, EXTSEQNO 15",
+   "E": "ALTER REPLICAT rep1, ETROLLOVER"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "정지된 Replicat 의 읽기 위치는 'ALTER REPLICAT 그룹, EXTSEQNO n, EXTRBA m' 으로 변경합니다. 'START REPLICAT ..., SEQNO' 와 'SEND REPLICAT ..., POS' 는 유효한 재배치 구문이 아니고, 'ADD REPLICAT' 은 이미 존재하는 그룹을 새로 만드는 명령이며, ETROLLOVER 는 Extract 의 출력 트레일 시퀀스를 올리는 옵션이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPOSITION"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "You ran ALTER EXTRACT ext1, ETROLLOVER on the primary Extract, which writes the local trail read by the Data Pump pump1. What must you do so that pump1 continues reading the new trail file?",
+  "options": {
+   "A": "Nothing; the Data Pump never needs repositioning",
+   "B": "Re-register ext1 with the database",
+   "C": "Delete and re-create the remote trail on the target",
+   "D": "Restart the target Manager",
+   "E": "Reposition pump1 to the new sequence number with EXTSEQNO and EXTRBA 0"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ETROLLOVER 로 Extract 가 새 시퀀스 번호의 트레일 파일에 쓰기 시작하면, 그 트레일을 읽는 Data Pump 는 'ALTER EXTRACT pump1, EXTSEQNO <새 번호>, EXTRBA 0' 으로 새 파일의 시작 위치를 읽도록 재배치해야 합니다. 아무 조치가 필요 없다는 설명은 틀리며, Extract 재등록·원격 트레일 재생성·타깃 Manager 재시작은 이 문제와 관련 없는 조치이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ETROLLOVER"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Supplemental logging was never enabled for a source table that is being replicated. Which symptom is most likely on the target?",
+  "options": {
+   "A": "INSERT operations fail with ORA-01031",
+   "B": "Replicat cannot locate rows for UPDATE or DELETE operations because the key column values are missing from the trail, causing errors such as ORA-01403",
+   "C": "The Data Pump cannot connect to the target",
+   "D": "Replicat lag drops to zero permanently",
+   "E": "Logdump cannot open the trail file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "보조 로깅이 없으면 UPDATE/DELETE 의 리두에 변경되지 않은 키 컬럼 값이 들어 있지 않아, 트레일에 행을 식별할 키가 빠지고 Replicat 이 타깃 행을 찾지 못해 ORA-01403 등이 발생합니다. 권한 오류(ORA-01031), 네트워크 연결, 지연 감소, Logdump 파일 열기는 보조 로깅 누락과 관계없으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-SUPPLOG-MISSING"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Triggers on the target tables are firing for changes applied by a Classic Replicat and creating extra rows, because the same changes are already replicated from the source. Which Replicat parameter suppresses trigger firing for the Replicat session on an Oracle target?",
+  "options": {
+   "A": "DBOPTIONS SUPPRESSTRIGGERS",
+   "B": "TRIGGEROPTIONS DISABLEALL",
+   "C": "IGNORETRIGGERS ON",
+   "D": "SQLEXEC 'ALTER TRIGGER ALL DISABLE'",
+   "E": "NOTRIGGERS"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DBOPTIONS SUPPRESSTRIGGERS 를 사용하면 Replicat 세션이 적용하는 변경에 대해 타깃 트리거가 발동하지 않습니다. 소스에서 트리거가 만든 변경도 이미 캡처되어 복제되므로, 타깃에서 다시 트리거가 동작하면 중복이나 불일치가 생깁니다. 'TRIGGEROPTIONS DISABLEALL', 'IGNORETRIGGERS', 'NOTRIGGERS' 는 존재하지 않는 파라미터이고, SQLEXEC 로 모든 트리거를 끄는 것은 다른 애플리케이션에도 영향을 주는 올바르지 않은 방법이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-TARGET-TRIGGERS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A replicated table has no primary key or unique key, so GoldenGate uses all columns to identify rows, and UPDATE performance on the target is poor. A column set is known to be unique in practice. What is the recommended fix?",
+  "options": {
+   "A": "Add REPERROR (DEFAULT, IGNORE) to the Replicat",
+   "B": "Specify KEYCOLS with those columns in both the Extract TABLE and the Replicat MAP statements",
+   "C": "Use HANDLECOLLISIONS permanently",
+   "D": "Set the Replicat to SKIPTRANSACTION for each update",
+   "E": "Increase the size of the trail files"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "키가 없는 테이블에는 실제로 유일한 컬럼 조합을 KEYCOLS 로 지정하되, 소스 Extract 의 TABLE 과 타깃 Replicat 의 MAP 에 동일하게 지정해야 행 식별이 일관됩니다(해당 컬럼의 보조 로깅도 필요). 오류 무시나 HANDLECOLLISIONS 상시 사용은 불일치를 숨길 뿐이며, SKIPTRANSACTION 은 데이터를 버리고, 트레일 크기는 행 식별과 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-KEYCOLS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, a firewall sits between the source Data Pump and the target system. Which target ports must the firewall allow for the Data Pump to deliver trail data?",
+  "options": {
+   "A": "Only the Oracle listener port of the target database",
+   "B": "Only port 22 for SSH",
+   "C": "The target Manager port and the ports defined in the target Manager DYNAMICPORTLIST",
+   "D": "The source Manager port only",
+   "E": "Any ephemeral port; no configuration is needed"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Classic 에서 Data Pump 는 먼저 타깃 Manager 포트로 접속하고, Manager 가 DYNAMICPORTLIST 범위에서 할당한 포트로 Collector(Server Collector)와 통신합니다. 따라서 타깃 Manager 포트와 DYNAMICPORTLIST 포트를 모두 허용해야 합니다. DB 리스너 포트나 SSH 포트는 트레일 전송에 쓰이지 않고, 소스 Manager 포트만으로는 부족하며, 포트 설정이 필요 없다는 설명은 틀렸으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-NET-FIREWALL"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, a Distribution Path cannot reach the target deployment through a firewall. Which target port must be opened for the path to deliver trail data?",
+  "options": {
+   "A": "The port of the target Receiver Server",
+   "B": "The port of the target Performance Metrics Server",
+   "C": "The Oracle listener port of the target database",
+   "D": "The port of the source Administration Server",
+   "E": "The port of the target Manager DYNAMICPORTLIST"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MA 에서 Distribution Path 는 소스 Distribution Server 에서 타깃 deployment 의 Receiver Server 로 트레일 데이터를 보내므로 Receiver Server 포트가 열려 있어야 합니다. Performance Metrics Server 는 모니터링용, DB 리스너는 DB 접속용, 소스 Administration Server 는 프로세스 관리용이며, Manager DYNAMICPORTLIST 는 Classic 구성 요소이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "TR-NET-FIREWALL"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "If no REPERROR parameter is specified, how does Replicat respond by default when the target database returns an error for an operation?",
+  "options": {
+   "A": "It discards the record and continues",
+   "B": "It ignores the error silently",
+   "C": "It retries the operation forever",
+   "D": "It abends",
+   "E": "It converts the operation to an INSERT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "REPERROR 를 지정하지 않으면 기본 응답은 ABEND 로, Replicat 은 오류 발생 시 트랜잭션을 롤백하고 비정상 종료해 관리자가 원인을 확인하도록 합니다. 디스카드 후 계속, 오류 무시, 무한 재시도, INSERT 변환은 기본 동작이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPERROR-DEFAULT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "During troubleshooting you configure REPERROR with the EXCEPTION response and an exceptions MAP (with EXCEPTIONSONLY) to an exceptions table. What does this achieve?",
+  "options": {
+   "A": "Failed operations are written to the exceptions table with their data for later analysis, while Replicat continues",
+   "B": "Replicat automatically repairs the target row and applies the operation again",
+   "C": "Extract stops capturing changes for the failing table",
+   "D": "The failing transaction is removed from the trail file",
+   "E": "All errors are converted to warnings in ggserr.log only"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "REPERROR 의 EXCEPTION 응답과 EXCEPTIONSONLY 를 지정한 예외 MAP 을 함께 쓰면, 오류가 난 작업을 예외 테이블에 (필요하면 오류 정보 등과 함께) 기록하고 Replicat 은 계속 진행합니다. 자동 행 복구, Extract 캡처 중지, 트레일에서 삭제, 경고로만 기록은 이 구성의 동작이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-EXCEPTION-MAP"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which dynamic performance view shows the state and statistics of the individual apply server processes used by an Integrated Replicat?",
+  "options": {
+   "A": "V$GOLDENGATE_CAPTURE",
+   "B": "V$GG_APPLY_SERVER",
+   "C": "V$ARCHIVED_LOG",
+   "D": "V$LOGMNR_CONTENTS",
+   "E": "V$SESSION_LONGOPS_GG"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "V$GG_APPLY_SERVER 는 Integrated Replicat 의 개별 apply server 상태와 처리 통계를 보여 줍니다. V$GOLDENGATE_CAPTURE 는 Integrated Extract(캡처) 쪽 뷰, V$ARCHIVED_LOG 는 아카이브 로그 정보, V$LOGMNR_CONTENTS 는 LogMiner 결과 조회용이고, V$SESSION_LONGOPS_GG 는 존재하지 않는 뷰이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-VAPPLY"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which data dictionary view shows whether the capture process behind an Integrated Extract is ENABLED, DISABLED, or ABORTED, together with any error message?",
+  "options": {
+   "A": "DBA_CAPTURE",
+   "B": "DBA_LOG_GROUPS",
+   "C": "DBA_TABLES",
+   "D": "DBA_GG_EXTRACT_STATUS",
+   "E": "DBA_DATA_FILES"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Integrated Extract 는 DB 내부 capture 프로세스를 사용하며, DBA_CAPTURE 의 STATUS, ERROR_MESSAGE 등 컬럼으로 상태와 오류를 확인할 수 있습니다. DBA_LOG_GROUPS 는 보조 로그 그룹, DBA_TABLES 는 테이블, DBA_DATA_FILES 는 데이터 파일 정보이고, DBA_GG_EXTRACT_STATUS 는 존재하지 않는 뷰이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-DBA-CAPTURE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which Extract parameter writes a warning to the error log when a transaction stays open longer than a specified time, helping you detect transactions that could slow recovery?",
+  "options": {
+   "A": "LONGTXNALERT",
+   "B": "WARNLONGTRANS",
+   "C": "MAXTRANSOPS",
+   "D": "LAGINFO",
+   "E": "CHECKPOINTSECS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WARNLONGTRANS 는 지정 시간보다 오래 열려 있는 트랜잭션이 있으면 ggserr.log 에 경고를 남깁니다(CHECKINTERVAL 로 확인 주기 지정). 'LONGTXNALERT' 는 존재하지 않는 파라미터이고, MAXTRANSOPS 는 Replicat 트랜잭션 분할, LAGINFO 는 지연 정보 보고, CHECKPOINTSECS 는 체크포인트 주기 관련이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-WARNLONGTRANS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Why does Oracle recommend enabling FORCE LOGGING on a source database used by GoldenGate?",
+  "options": {
+   "A": "It makes Replicat apply changes in parallel",
+   "B": "It enables minimal supplemental logging automatically",
+   "C": "It ensures that changes made with NOLOGGING operations are still written to redo, so Extract can capture them",
+   "D": "It prevents archive logs from being deleted by RMAN",
+   "E": "It compresses redo to reduce Extract lag"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "NOLOGGING 작업(예: NOLOGGING 직접 경로 적재)은 리두를 남기지 않아 Extract 가 캡처할 수 없고 타깃과 불일치가 생깁니다. FORCE LOGGING 은 이런 작업도 리두에 기록되도록 강제합니다. 병렬 적용, 최소 보조 로깅 활성화, RMAN 삭제 방지, 리두 압축은 FORCE LOGGING 의 효과가 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-NOLOGGING"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Registering an Integrated Extract or starting an Integrated Replicat fails with ORA-01031. What is the most appropriate fix on the Oracle database?",
+  "options": {
+   "A": "Grant the GoldenGate user the required privileges, for example with DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE",
+   "B": "Enable FORCE LOGGING",
+   "C": "Add a primary key to every replicated table",
+   "D": "Increase the size of the online redo logs",
+   "E": "Restart the database listener"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-01031 은 권한 부족이므로, GoldenGate 사용자에게 필요한 권한을 부여해야 하며 Oracle 에서는 DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE 로 통합 캡처/적용에 필요한 권한을 부여합니다. FORCE LOGGING, 기본 키 추가, 리두 로그 크기, 리스너 재시작은 권한 오류를 해결하지 못하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-ORA1031"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You want built-in end-to-end lag information for each replication path, visible through views such as GG_LAG in the GoldenGate schema. What should you configure?",
+  "options": {
+   "A": "The heartbeat table, created with ADD HEARTBEATTABLE",
+   "B": "A checkpoint table, created with ADD CHECKPOINTTABLE",
+   "C": "The LAGCRITICAL parameter in Replicat only",
+   "D": "A trace file with the TRACE parameter",
+   "E": "A Logdump filter on the remote trail"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADD HEARTBEATTABLE 로 하트비트 테이블을 만들면 주기적인 하트비트 레코드가 복제 경로를 따라 전달되어 GG_LAG 등 뷰에서 경로별 종단 간 지연을 확인할 수 있습니다. 체크포인트 테이블은 Replicat 위치 저장용이고, LAGCRITICAL 은 Manager 임계값 경고, TRACE 는 상세 추적, Logdump 필터는 트레일 조회용이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-HEARTBEAT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Extract was started before an initial load. The load finished, and Replicat was then started from the beginning of the trail without any collision handling. Replicat abends with ORA-00001 on an INSERT. What is the most likely cause?",
+  "options": {
+   "A": "Supplemental logging is missing on the source table",
+   "B": "The Replicat user lacks INSERT privilege",
+   "C": "The target table does not exist",
+   "D": "The trail contains changes that were already included in the initially loaded data, so the same rows are inserted again",
+   "E": "The network between source and target was interrupted"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "초기 적재와 캡처 구간이 겹치면, 적재 데이터에 이미 포함된 행에 대한 INSERT 가 트레일에서 다시 적용되어 유일 제약 위반(ORA-00001)이 납니다. 보조 로깅 누락은 주로 UPDATE/DELETE 에서 행을 못 찾는 문제를, 권한 부족은 ORA-01031 을, 테이블 부재는 ORA-00942 를 일으키며, 네트워크 중단은 중복 키 오류의 원인이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ORA1"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A new table HR.PROJECTS was created on the source and added to the Extract wildcard. DDL replication is not configured. Shortly after, Replicat abends with ORA-00942 for HR.PROJECTS. What is the most likely cause?",
+  "options": {
+   "A": "The table was never created on the target (or the Replicat user cannot see it)",
+   "B": "The source redo log is corrupted",
+   "C": "The Replicat checkpoint table is full",
+   "D": "Supplemental logging is enabled for too many columns",
+   "E": "The trail file format is too new for Replicat"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-00942 는 대상 테이블이 없거나 보이지 않을 때 발생합니다. DDL 복제가 없으면 소스에서 만든 새 테이블은 타깃에 자동으로 생기지 않으므로 타깃에 테이블을 만들거나 권한을 부여해야 합니다. 리두 손상, 체크포인트 테이블, 보조 로깅 컬럼 수, 트레일 형식은 ORA-00942 와 맞지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ORA942"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A target table has an extra column AUDIT_USER defined as NOT NULL with no default value. The Replicat MAP uses COLMAP (USEDEFAULTS) and the source table has no such column. Inserts fail with ORA-01400. What is the most appropriate fix?",
+  "options": {
+   "A": "Add REPERROR (1400, IGNORE) permanently",
+   "B": "Disable supplemental logging on the source",
+   "C": "Populate AUDIT_USER in the COLMAP (for example with a constant or token) or give the column a default value on the target",
+   "D": "Restart the Data Pump with a larger TCP buffer",
+   "E": "Start Replicat with SKIPTRANSACTION each time it abends"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "USEDEFAULTS 는 이름이 같은 컬럼만 매핑하므로 소스에 없는 AUDIT_USER 에는 값이 들어가지 않아 NOT NULL 위반(ORA-01400)이 납니다. COLMAP 에서 상수·토큰 등으로 값을 채우거나 타깃 컬럼에 기본값을 주는 것이 올바른 해결입니다. 오류 무시나 SKIPTRANSACTION 은 데이터를 잃게 하고, 보조 로깅 해제와 TCP 버퍼 조정은 원인과 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ORA1400"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Extract lag is a few seconds. Local trail files on the source keep accumulating, the remote trail on the target has not grown for an hour, and Replicat reports that it is at the end of its trail. Where is the bottleneck most likely located?",
+  "options": {
+   "A": "In the Integrated Extract logmining server",
+   "B": "In the Data Pump or the network between the source and the target",
+   "C": "In the target database apply performance",
+   "D": "In the source database redo generation",
+   "E": "In the Replicat checkpoint table"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Extract 지연이 작고 로컬 트레일은 쌓이는데 원격 트레일이 늘지 않으며 Replicat 은 읽을 데이터가 없는(EOF) 상태라면, 로컬 트레일을 원격으로 보내는 Data Pump 나 네트워크 구간이 병목입니다. 캡처는 정상이므로 logmining 서버나 리두 생성 쪽 문제는 아니며, Replicat 이 데이터를 기다리고 있으므로 타깃 적용 성능이나 체크포인트 테이블 문제도 아니어서 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LAG-STAGE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Replicat lag keeps increasing during a batch window of UPDATE and DELETE operations on a large table. Database monitoring on the target shows full table scans for the statements issued by Replicat. What is the most likely cause?",
+  "options": {
+   "A": "The source Extract is reading archive logs instead of online logs",
+   "B": "The Data Pump uses PASSTHRU",
+   "C": "The discard file is too small",
+   "D": "The trail files are stored on a different file system",
+   "E": "The target table has no index on the key columns that Replicat uses in its WHERE clause"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Replicat 은 UPDATE/DELETE 시 키 컬럼으로 WHERE 절을 만들기 때문에, 타깃에 해당 키의 인덱스가 없으면 행마다 전체 테이블 스캔이 일어나 지연이 급증합니다. 아카이브 로그 읽기는 Extract 쪽, PASSTHRU 는 Data Pump 처리 방식, 디스카드 파일 크기와 트레일 파일 위치는 타깃 SQL 의 전체 스캔과 관계가 없으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REP-LAG"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "On the target, the foreign key from ORDER_ITEMS to ORDERS is defined with ON DELETE CASCADE. When an order is deleted on the source, Replicat applies the parent delete and then abends with error 1403 (no data found) on a DELETE for ORDER_ITEMS. What is the cause?",
+  "options": {
+   "A": "The child rows were already removed on the target by the cascade delete, so the replicated child deletes find no rows",
+   "B": "The source table ORDER_ITEMS has no supplemental logging for LOB columns",
+   "C": "Replicat has insufficient privileges on ORDER_ITEMS",
+   "D": "The trail file is corrupted at that RBA",
+   "E": "The Data Pump filtered out the ORDER_ITEMS records"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "소스에서 발생한 자식 행 삭제도 캡처되어 복제되는데, 타깃의 ON DELETE CASCADE 가 부모 삭제 시점에 자식 행을 먼저 지워 버려 이후 복제된 자식 DELETE 가 행을 찾지 못합니다(1403). 그래서 타깃의 cascade 제약을 비활성화하는 등의 조치가 필요합니다. LOB 보조 로깅, 권한 부족(ORA-01031), 트레일 손상, Data Pump 필터링은 이 증상과 맞지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-CASCADE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Classic Replicat repeatedly abends on the same transaction, and the business owner approves skipping it with START REPLICAT rep1, SKIPTRANSACTION. What should you do before issuing the command?",
+  "options": {
+   "A": "Delete the trail file containing the transaction",
+   "B": "Purge the discard file so the skipped data is not recorded",
+   "C": "Re-create the source Extract",
+   "D": "Record the details of the transaction (for example its operations and data, inspected with Logdump) so the skipped changes can be reconciled on the target later",
+   "E": "Switch the Replicat to integrated mode"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SKIPTRANSACTION 은 해당 트랜잭션의 모든 변경을 버리므로, 실행 전에 Logdump 등으로 트랜잭션 내용을 확인·기록해 두어야 나중에 타깃 데이터를 수작업이나 Veridata 등으로 맞출 수 있습니다. 트레일 파일 삭제는 다른 트랜잭션까지 잃게 하고, 디스카드 파일 정리는 진단 근거를 없애며, Extract 재생성이나 통합 모드 전환은 이 문제의 해결책이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-SKIPTRANS-RISK"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Classic Extract abends because it cannot find an archived log it needs. You discover that a housekeeping script moved older archived logs to another directory, where they are still intact. What is the appropriate way to let Extract continue?",
+  "options": {
+   "A": "Reposition Extract to the current time with ALTER EXTRACT ... BEGIN NOW",
+   "B": "Make the logs available again, for example by copying them back or by pointing Extract to the other location with TRANLOGOPTIONS ALTARCHIVELOGDEST, then restart Extract",
+   "C": "Start Extract with SKIPTRANSACTION",
+   "D": "Delete the Extract checkpoint file and restart Extract",
+   "E": "Re-run ADD TRANDATA for all tables"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "필요한 아카이브 로그가 온전히 존재하므로, 원래 위치로 복사하거나 TRANLOGOPTIONS ALTARCHIVELOGDEST 로 대체 위치를 지정해 Extract 가 읽을 수 있게 한 뒤 재시작하면 누락 없이 이어서 캡처할 수 있습니다. BEGIN NOW 재배치는 그 사이 변경을 잃게 하고, SKIPTRANSACTION 은 Replicat 옵션이며, 체크포인트 파일 삭제는 위치 정보를 잃게 하고, ADD TRANDATA 는 로그 누락과 관계없으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-ARCHLOG-MISSING"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A network outage between source and target lasted two hours. The Data Pump abended during the outage, while the primary Extract kept running. Trail purging uses PURGEOLDEXTRACTS with USECHECKPOINTS. After the network is restored, what is the correct action?",
+  "options": {
+   "A": "Reposition the Data Pump to the end of the local trail to skip the backlog",
+   "B": "Re-create the remote trail and the Replicat",
+   "C": "Start Replicat with SKIPTRANSACTION",
+   "D": "Restart the Data Pump; it resumes from its checkpoint in the local trail and sends the backlog without data loss",
+   "E": "Re-run the initial load for all tables"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Data Pump 는 로컬 트레일에서의 읽기 체크포인트를 유지하고, USECHECKPOINTS 덕분에 아직 읽지 않은 로컬 트레일은 삭제되지 않으므로, 네트워크 복구 후 재시작하면 체크포인트부터 밀린 데이터를 보내 손실이 없습니다. 끝으로 재배치하면 밀린 데이터를 잃고, 원격 트레일·Replicat 재생성, SKIPTRANSACTION, 초기 적재 재수행은 불필요하거나 위험한 조치이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-NET-OUTAGE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In a Microservices Architecture deployment, a Replicat shows as ABENDED in the web interface. Where do you look first to see the error that stopped it?",
+  "options": {
+   "A": "The Service Manager's deployment list only",
+   "B": "The Receiver Server's path statistics",
+   "C": "The Replicat's report, viewed from its details page in the Administration Server",
+   "D": "The Oracle Universal Installer inventory",
+   "E": "The Distribution Server's target URI settings"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MA 에서는 Administration Server 웹 UI 의 해당 Replicat 상세 화면에서 리포트를 열어 중단 원인 오류를 확인하는 것이 첫 단계입니다(deployment 의 ggserr.log 도 함께 참고). Service Manager 의 deployment 목록, Receiver Server 경로 통계, 설치 인벤토리, Distribution Server 대상 URI 는 Replicat 의 오류 내용을 보여 주지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "TR-MA-DIAG"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which situations can cause Replicat to receive ORA-00001 (unique constraint violated)? (Choose all that apply.)",
+  "options": {
+   "A": "Overlap between initially loaded data and replicated changes without collision handling",
+   "B": "Supplemental logging of all columns on the source",
+   "C": "A trigger on the target inserting rows that are also replicated from the source",
+   "D": "Replicat repositioned to an earlier trail position, so already applied inserts are applied again",
+   "E": "Increasing Extract lag"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "'초기 적재와 복제 변경의 중복', '타깃 트리거가 소스에서도 복제되는 행을 삽입', 'Replicat 을 이전 위치로 재배치해 이미 적용된 INSERT 를 재적용' 하는 경우 모두 같은 키의 행이 두 번 들어가 ORA-00001 이 발생할 수 있습니다. '모든 컬럼 보조 로깅' 은 트레일 내용만 늘릴 뿐 중복을 만들지 않고, 'Extract 지연 증가' 는 처리 속도 문제일 뿐이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-ORA1-CAUSES"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which situations can cause Replicat to fail with error 1403 (no data found) on UPDATE or DELETE operations? (Choose all that apply.)",
+  "options": {
+   "A": "Users or jobs on the target deleted the row directly",
+   "B": "The target table has too many indexes",
+   "C": "Supplemental logging was missing, so the key values needed to find the row are not in the trail",
+   "D": "The row was never loaded because the initial load missed it",
+   "E": "The Data Pump uses compression on RMTHOST"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "'타깃에서 행을 직접 삭제', '보조 로깅 누락으로 행을 찾을 키 값 부재', '초기 적재 누락으로 행이 애초에 없음' 은 모두 UPDATE/DELETE 대상 행을 찾지 못하게 해 1403 을 일으킵니다. '인덱스가 많음' 은 성능에만 영향을 주고, 'RMTHOST 압축' 은 전송 방식이므로 행 존재 여부와 무관하여 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-1403-CAUSES"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid responses that can be specified with the REPERROR parameter? (Choose all that apply.)",
+  "options": {
+   "A": "DISCARD",
+   "B": "REPAIRROW",
+   "C": "IGNORE",
+   "D": "ABEND",
+   "E": "AUTOFIX"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "REPERROR 응답에는 'ABEND'(중단), 'DISCARD'(디스카드 파일에 기록 후 계속), 'IGNORE'(무시하고 계속) 외에 EXCEPTION, RETRYOP, TRANSABORT 등이 있습니다. 'REPAIRROW' 와 'AUTOFIX' 는 존재하지 않는 응답이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPERROR-OPTIONS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A trail record at a known RBA appears damaged. Which two Logdump commands are most directly useful to go to that point and then find the next valid record header after it? (Choose two.)",
+  "options": {
+   "A": "POS",
+   "B": "SCANFORHEADER",
+   "C": "ETROLLOVER",
+   "D": "PURGEOLDEXTRACTS",
+   "E": "SKIPTRANSACTION"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "'POS' 로 문제의 RBA 로 이동한 뒤 'SCANFORHEADER'(SFH)로 그 이후의 다음 유효한 레코드 헤더를 찾아 손상 범위를 파악할 수 있습니다. 'ETROLLOVER' 는 Extract 트레일 롤오버 옵션, 'PURGEOLDEXTRACTS' 는 Manager 의 트레일 정리 파라미터, 'SKIPTRANSACTION' 은 Replicat 시작 옵션으로 Logdump 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-SFH"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, a Data Pump cannot connect to the target system. Which checks are appropriate? (Choose all that apply.)",
+  "options": {
+   "A": "Verify that the host and MGRPORT in RMTHOST match the target host and the PORT of the target Manager",
+   "B": "Increase BATCHSQL buffers in the target Replicat",
+   "C": "Verify that the target Manager is running",
+   "D": "Verify that the firewall allows the target Manager port and the DYNAMICPORTLIST ports",
+   "E": "Re-register the source Extract with the database"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "Data Pump 연결 실패 시에는 'RMTHOST 의 호스트·MGRPORT 가 타깃 Manager PORT 와 일치하는지', '타깃 Manager 가 실행 중인지', '방화벽이 Manager 포트와 DYNAMICPORTLIST 포트를 허용하는지' 를 확인해야 합니다. Replicat 의 BATCHSQL 조정은 적용 성능 문제이고, Extract 재등록은 캡처 측 작업이라 네트워크 연결 문제와 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-NET-CHECKS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which situations commonly cause source and target data to become out of sync in a one-way GoldenGate configuration? (Choose all that apply.)",
+  "options": {
+   "A": "Users or applications modifying the target tables directly",
+   "B": "NOLOGGING operations on the source that are not written to redo",
+   "C": "The Data Pump running in PASSTHRU mode",
+   "D": "Triggers or cascade deletes on the target changing data that is also replicated",
+   "E": "Report files being aged out by Manager"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "'타깃 테이블 직접 변경', '리두에 남지 않는 소스 NOLOGGING 작업', '타깃의 트리거·cascade delete 가 복제되는 데이터를 변경' 하는 경우는 모두 소스와 타깃을 어긋나게 하는 대표적 원인입니다. 'PASSTHRU' 는 Data Pump 가 매핑 없이 그대로 전달하는 정상 모드이고, '리포트 파일 정리' 는 데이터에 영향을 주지 않으므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-OUTOFSYNC-CAUSES"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which DBA_CAPTURE column indicates the lowest SCN for which redo must remain available so that the Integrated Extract capture process can restart?",
+  "options": {
+   "A": "REQUIRED_CHECKPOINT_SCN",
+   "B": "CAPTURED_SCN",
+   "C": "APPLIED_SCN",
+   "D": "LAST_ENQUEUED_SCN",
+   "E": "FIRST_CHANGE_SCN"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DBA_CAPTURE 의 REQUIRED_CHECKPOINT_SCN 은 캡처 프로세스 재시작에 필요한 가장 오래된 SCN 으로, 이 SCN 이후의 아카이브 로그는 보존되어야 합니다. CAPTURED_SCN 은 마지막으로 마이닝한 SCN, APPLIED_SCN 은 적용이 확인된 SCN, LAST_ENQUEUED_SCN 은 마지막으로 큐에 넣은 SCN 이며, FIRST_CHANGE_SCN 은 DBA_CAPTURE 의 컬럼이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-DBA-CAPTURE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "What problem does the Bounded Recovery feature (BR parameter) of Extract address?",
+  "options": {
+   "A": "It limits how far back in the logs Extract must reread at restart when long-running transactions are open, by persisting their state to disk at intervals",
+   "B": "It limits the maximum size of a trail file",
+   "C": "It bounds the number of Replicat retries for a failed operation",
+   "D": "It restricts which tables Extract can capture",
+   "E": "It caps the network bandwidth used by the Data Pump"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Extract 의 복구 체크포인트는 가장 오래 열린 트랜잭션의 시작 위치이므로, 장기 트랜잭션이 있으면 재시작 시 오래된 로그부터 다시 읽어야 합니다. Bounded Recovery 는 주기적으로 장기 트랜잭션 상태를 디스크에 저장해 재시작 시 다시 읽어야 할 범위를 제한합니다. 트레일 크기, Replicat 재시도, 캡처 대상 테이블, 네트워크 대역폭 제한은 BR 의 기능이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-BOUNDED-RECOVERY"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the difference between START REPLICAT rep1, ATCSN 5000 and START REPLICAT rep1, AFTERCSN 5000?",
+  "options": {
+   "A": "ATCSN starts with the transaction whose CSN is 5000; AFTERCSN skips that transaction and starts with the next one",
+   "B": "ATCSN applies only DDL; AFTERCSN applies only DML",
+   "C": "ATCSN refers to the source SCN; AFTERCSN refers to the target SCN",
+   "D": "There is no difference; they are synonyms",
+   "E": "ATCSN is for Extract; AFTERCSN is for Replicat"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ATCSN 은 지정 CSN 을 가진 트랜잭션부터 적용을 시작하고, AFTERCSN 은 그 CSN 의 트랜잭션까지는 건너뛰고 다음 트랜잭션부터 적용합니다. DDL/DML 구분, 소스/타깃 SCN 구분, 동의어라는 설명은 틀렸고, 두 옵션 모두 START REPLICAT 의 옵션이므로 Extract 용이라는 설명도 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-AFTERCSN"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A new 19c source writes a remote trail that an older Oracle GoldenGate release on the target cannot read, and the target Replicat abends while reading the trail. Which source-side setting resolves this?",
+  "options": {
+   "A": "Add HANDLECOLLISIONS to the target Replicat",
+   "B": "Add FORMAT RELEASE with the target's release to the RMTTRAIL (or EXTTRAIL) specification",
+   "C": "Set REPERROR (DEFAULT, DISCARD) in the Replicat",
+   "D": "Use SKIPTRANSACTION when starting Replicat",
+   "E": "Disable supplemental logging on the source"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "EXTTRAIL/RMTTRAIL 의 FORMAT RELEASE 옵션으로 트레일을 하위 버전 형식으로 기록하면 이전 릴리스의 Replicat 이 읽을 수 있습니다(변경 후 새 트레일 파일부터 적용되도록 롤오버 필요). HANDLECOLLISIONS, REPERROR DISCARD, SKIPTRANSACTION 은 트레일 형식 비호환을 해결하지 못하고, 보조 로깅 해제는 오히려 데이터 문제를 만들므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-TRAIL-FORMAT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Extract adds user tokens to trail records with the TOKENS clause. While investigating a Replicat mapping problem, which Logdump command makes those user tokens visible when records are displayed?",
+  "options": {
+   "A": "SHOWTOKENS ALL",
+   "B": "TOKENS INCLUDE",
+   "C": "USERTOKEN ON",
+   "D": "DETAIL TOKENS",
+   "E": "FILTER TOKEN"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Logdump 에서 USERTOKEN ON(또는 USERTOKEN DETAIL)을 설정하면 레코드 표시 시 TOKENS 절로 추가된 사용자 토큰이 함께 출력됩니다. 'SHOWTOKENS ALL', 'TOKENS INCLUDE', 'DETAIL TOKENS', 'FILTER TOKEN' 은 사용자 토큰 표시용 Logdump 명령이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Logdump Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-LOGDUMP-TOKENS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "After a server crash, a Classic Extract takes hours to catch up after restart. INFO EXTRACT ext1, SHOWCH shows a recovery checkpoint located in a log from several days ago, while the current checkpoint is recent. What is the most likely explanation?",
+  "options": {
+   "A": "The trail files on the target were purged",
+   "B": "A long-running transaction was still open, so Extract had to reread the logs from the start of that transaction to rebuild it",
+   "C": "The Replicat checkpoint table was dropped",
+   "D": "Supplemental logging was disabled during the crash",
+   "E": "The Data Pump was configured with PASSTHRU"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "복구 체크포인트는 아직 커밋되지 않은 가장 오래된 트랜잭션의 시작 위치이므로, 며칠 전부터 열린 장기 트랜잭션이 있으면 재시작 시 그 지점부터 로그를 다시 읽어야 해 오래 걸립니다(Bounded Recovery 와 장기 트랜잭션 관리가 대책). 타깃 트레일 삭제, Replicat 체크포인트 테이블, 보조 로깅, PASSTHRU 는 Extract 의 복구 체크포인트 위치와 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-BOUNDED-RECOVERY"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "The target database was restored to a point in time six hours earlier because of a storage failure. The source and its trails are intact, and the trails cover the last two days. What is the most appropriate way to bring the target back in sync?",
+  "options": {
+   "A": "Start Replicat normally; it automatically detects the restore and rewinds itself in every configuration",
+   "B": "Re-register the source Extract and start it from the current time",
+   "C": "Determine the point to which the target was restored, reposition Replicat to the matching trail position, handle overlap carefully (for example with temporary collision handling), and then verify the data, for example with Veridata",
+   "D": "Delete all trail files and start every process from now",
+   "E": "Run SKIPTRANSACTION repeatedly until Replicat stops abending"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "타깃이 과거 시점으로 복원되면 복원 시점 이후의 변경이 사라지므로, 복원 시점을 확인해 해당 트레일 위치로 Replicat 을 재배치하고 중복 구간은 일시적 충돌 처리 등으로 주의해 다룬 뒤 Veridata 등으로 검증하는 것이 적절합니다. 모든 구성에서 자동으로 되감긴다는 가정은 틀렸고, Extract 재등록·트레일 삭제는 6시간분 변경을 잃게 하며, SKIPTRANSACTION 반복은 데이터를 버리는 조치이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-TARGET-RESTORE"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Replicat abends on an invalid record in remote trail sequence 40. Logdump shows unreadable data from a certain RBA to the end of that file, and the next remote trail file has not been written. Using Logdump, you confirm that the corresponding source local trail is intact. What is the most appropriate recovery approach?",
+  "options": {
+   "A": "Delete remote trail 40 and restart Replicat; it will skip to the next file automatically",
+   "B": "Start Replicat with SKIPTRANSACTION until it passes the damaged area",
+   "C": "Re-run the initial load for all tables because trail corruption cannot be recovered",
+   "D": "Locate in the local trail the record matching the last good record in the remote trail, roll the Data Pump output to a new remote trail file with ETROLLOVER, reposition the pump to that local trail point, and reposition Replicat to the start of the new remote trail file",
+   "E": "Unregister and re-register the source Extract"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "소스 로컬 트레일이 온전하므로, 원격 트레일의 마지막 정상 레코드에 대응하는 로컬 트레일 위치를 Logdump 로 찾아 Data Pump 를 그 위치로 재배치하고(ETROLLOVER 로 새 원격 트레일 파일 생성), Replicat 을 새 원격 트레일의 시작으로 재배치하면 손상 구간을 다시 생성할 수 있습니다. 파일 삭제 후 자동 이동이나 SKIPTRANSACTION 반복은 데이터를 잃게 하고, 전체 초기 적재는 불필요하게 과도하며, Extract 재등록은 원격 트레일 손상과 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-TRAIL-CORRUPT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A cascading configuration replicates from database A to B and then from B to C. Users on C report delays of several minutes, and you need to determine which hop introduces the lag. Heartbeat tables are configured in all three databases. What is the best way to identify the slow hop?",
+  "options": {
+   "A": "Query the heartbeat lag views (such as GG_LAG) on database C, which show lag for each incoming path and stage",
+   "B": "Compare the sizes of the report files on each system",
+   "C": "Run Logdump COUNT on the trail files of each system",
+   "D": "Check DBA_TABLES.LAST_ANALYZED on database C",
+   "E": "Restart all processes and see whether the lag disappears"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "하트비트 테이블을 구성하면 하트비트 레코드가 각 경로를 따라 전달되면서 단계별 타임스탬프를 남기므로, C 의 GG_LAG 등 하트비트 뷰로 경로·단계별 지연을 비교해 느린 구간을 찾을 수 있습니다. 리포트 파일 크기, Logdump 레코드 수, 통계 수집 시각은 구간별 지연을 알려 주지 않으며, 일괄 재시작은 원인 파악이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-HEARTBEAT"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A source table has no primary key or unique key. On the target, an identical table has a unique index on ORDER_ID, which is also unique in the source data. Replicat updates are slow and occasionally fail to find rows because some non-key columns differ slightly between systems. What is the best fix?",
+  "options": {
+   "A": "Use REPERROR (1403, IGNORE) for the table",
+   "B": "Enable supplemental logging for ORDER_ID on the source and specify KEYCOLS (ORDER_ID) in both the Extract TABLE and the Replicat MAP",
+   "C": "Drop the unique index on the target",
+   "D": "Use HANDLECOLLISIONS permanently for the table",
+   "E": "Exclude the table from replication and refresh it weekly"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "키가 없는 테이블은 기본적으로 모든 컬럼을 키처럼 사용하므로 일부 컬럼 값 차이로 행을 찾지 못하거나 성능이 떨어집니다. 실제 유일한 ORDER_ID 의 보조 로깅을 설정하고 Extract TABLE 과 Replicat MAP 양쪽에 KEYCOLS (ORDER_ID) 를 지정하는 것이 근본 해결입니다. 오류 무시나 HANDLECOLLISIONS 상시 사용은 불일치를 숨기고, 타깃 인덱스 삭제는 성능을 더 악화시키며, 복제 제외는 요구 사항을 포기하는 것이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-KEYCOLS"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For instantiation, Extract was started first, then the source schema was exported with Data Pump using FLASHBACK_SCN=812345 and imported into the target. How should Replicat be started so that it applies only changes that are not already in the imported data?",
+  "options": {
+   "A": "START REPLICAT rep1, AFTERCSN 812345",
+   "B": "START REPLICAT rep1, SKIPTRANSACTION",
+   "C": "START REPLICAT rep1 with HANDLECOLLISIONS left on permanently",
+   "D": "ALTER REPLICAT rep1, BEGIN NOW and then start it",
+   "E": "START REPLICAT rep1, ATCSN 1"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "export 는 FLASHBACK_SCN 시점의 일관된 데이터이므로, Replicat 을 AFTERCSN 812345 로 시작하면 그 SCN 이후에 커밋된 트랜잭션만 적용해 중복이나 누락 없이 동기화됩니다. SKIPTRANSACTION 은 한 트랜잭션만 건너뛸 뿐이고, HANDLECOLLISIONS 상시 사용은 불일치를 숨기며, BEGIN NOW 는 export 이후 변경을 잃을 수 있고, ATCSN 1 은 이미 적재된 변경까지 다시 적용하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-AFTERCSN"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You are preparing diagnostic information for an Oracle Support service request about a Replicat that abends intermittently. Which items are appropriate to collect and upload? (Choose all that apply.)",
+  "options": {
+   "A": "The report files of the affected process, including older aged reports",
+   "B": "The credential store or wallet files that contain the database passwords",
+   "C": "The ggserr.log file",
+   "D": "The parameter files of the affected processes",
+   "E": "A full copy of the production database datafiles"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "'영향받은 프로세스의 리포트 파일(이전 리포트 포함)', 'ggserr.log', '관련 프로세스의 파라미터 파일' 은 오류 시점과 설정을 분석하는 기본 진단 자료입니다. 반면 '비밀번호가 담긴 credential store/wallet' 은 보안상 외부로 반출하면 안 되고, '운영 DB 데이터 파일 전체' 는 불필요하며 데이터 유출 위험이 크므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-SUPPORT-DIAG"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which dynamic performance views are used to diagnose the components of an Integrated Replicat inside the target database? (Choose all that apply.)",
+  "options": {
+   "A": "V$GG_APPLY_COORDINATOR",
+   "B": "V$GG_TRAIL_READER_STATS",
+   "C": "V$GG_APPLY_SERVER",
+   "D": "V$GG_APPLY_READER",
+   "E": "V$GG_REPLICAT_DISCARDS"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "Integrated Replicat 의 내부 구성 요소는 'V$GG_APPLY_COORDINATOR'(코디네이터), 'V$GG_APPLY_SERVER'(apply server), 'V$GG_APPLY_READER'(reader) 뷰로 상태와 통계를 확인합니다. 'V$GG_TRAIL_READER_STATS' 와 'V$GG_REPLICAT_DISCARDS' 는 존재하지 않는 뷰이므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-VAPPLY"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "You plan to reposition a Classic Replicat with ALTER REPLICAT ... EXTSEQNO ..., EXTRBA ... after a failure. Which two statements are correct? (Choose two.)",
+  "options": {
+   "A": "The Replicat must be stopped when you issue the ALTER REPLICAT command",
+   "B": "You must delete the Replicat checkpoint file before altering the position",
+   "C": "You should confirm the correct position (for example, the last applied transaction, using Logdump) to avoid skipping or reapplying data",
+   "D": "All trail files after the new position must be purged first",
+   "E": "The source Extract must be re-registered before Replicat can be repositioned"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "'ALTER REPLICAT 은 Replicat 이 중지된 상태에서 실행' 해야 하며, 잘못된 위치를 지정하면 데이터 누락이나 중복 적용이 생기므로 '마지막 적용 트랜잭션 등을 Logdump 로 확인해 정확한 위치를 지정' 해야 합니다. 체크포인트 파일 삭제는 불필요하고 위험하며, 새 위치 이후 트레일을 삭제하면 적용할 데이터가 사라지고, Extract 재등록은 Replicat 재배치와 무관하므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "TR-REPOSITION"
+ },
+ {
+  "domain": "TROUBLE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which conditions can cause an Integrated Extract to fall behind (growing capture lag) on an Oracle source? (Choose all that apply.)",
+  "options": {
+   "A": "A very high volume of redo generated by batch jobs",
+   "B": "A missing index on a target table",
+   "C": "Insufficient memory for the Streams pool used by the logmining server",
+   "D": "A Replicat GROUPTRANSOPS value that is too large",
+   "E": "Slow I/O when reading redo and archived logs"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "'배치 작업으로 인한 대량 리두', 'logmining 서버가 사용하는 Streams pool 메모리 부족', '리두/아카이브 로그 읽기 I/O 지연' 은 모두 캡처 속도를 떨어뜨려 Extract 지연을 키웁니다. '타깃 테이블 인덱스 누락' 과 'Replicat GROUPTRANSOPS' 는 타깃 적용 측 요인이라 Extract 캡처 지연의 원인이 아니므로 오답입니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "TR-EXTRACT-LAG"
+ }
+]

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}가입 신청{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>가입 신청</h1>
+  <p class="muted">이메일과 이름을 입력하면 관리자 승인 후 로그인 비밀번호가 이메일로 발송됩니다.</p>
+  {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+  <form method="post" action="/register" autocomplete="on">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <label>이메일
+      <input class="field" type="email" name="email" value="{{ form.email or '' }}" maxlength="254" required autofocus autocomplete="email"></label>
+    <label>이름
+      <input class="field" type="text" name="name" value="{{ form.name or '' }}" maxlength="100" required autocomplete="name"></label>
+    <button class="primary" type="submit">가입 신청</button>
+  </form>
+  <p class="muted"><a href="/login">로그인 화면으로</a></p>
+</section>
+{% endblock %}

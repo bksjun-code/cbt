@@ -1,0 +1,1490 @@
+[
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which parameter must appear first in an Extract parameter file to identify the Extract group that the file belongs to?",
+  "options": {
+   "A": "GROUP",
+   "B": "EXTRACT",
+   "C": "PROCESS",
+   "D": "SOURCEDB",
+   "E": "REPLICAT"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Extract 파라미터 파일은 'EXTRACT <그룹명>' 으로 시작하여 이 파일이 어느 Extract 그룹의 것인지 지정한다. REPLICAT은 Replicat 파라미터 파일의 첫 항목이며, GROUP·PROCESS는 존재하지 않는 파라미터이다. SOURCEDB는 일부 비Oracle DB의 데이터 소스 지정용이며 그룹 식별과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PARAM-FIRST"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Extract must log in to the source database without a clear-text password in its parameter file. Which parameter references a credential stored in the credential store?",
+  "options": {
+   "A": "WALLETUSER",
+   "B": "PASSWORDFILE",
+   "C": "LOGINKEY",
+   "D": "DBCREDENTIAL",
+   "E": "USERIDALIAS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "USERIDALIAS <별칭> [DOMAIN <도메인>] 은 credential store에 저장된 사용자/암호를 별칭으로 참조하므로 파라미터 파일에 암호가 노출되지 않는다. PASSWORDFILE, LOGINKEY, DBCREDENTIAL, WALLETUSER는 GoldenGate에 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-USERIDALIAS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, a primary Extract sends captured data directly over the network to the target system without a local trail. Which parameter names the trail on the target system?",
+  "options": {
+   "A": "TARGETTRAIL",
+   "B": "NETTRAIL",
+   "C": "EXTFILE",
+   "D": "RMTTRAIL",
+   "E": "EXTTRAIL"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "RMTTRAIL은 원격 시스템(타깃)에 쓰는 trail을 지정하며 반드시 RMTHOST 뒤에 와야 한다. EXTTRAIL은 로컬 시스템의 trail이다. TARGETTRAIL, NETTRAIL은 존재하지 않는다. EXTFILE은 체크포인트 없는 로컬 추출 파일로 원격 trail이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-RMTTRAIL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture Data Pump parameter file, which parameter must precede RMTTRAIL to identify the target host and the Manager port?",
+  "options": {
+   "A": "TARGETHOST",
+   "B": "RMTHOST",
+   "C": "MGRHOST",
+   "D": "COLLECTOR",
+   "E": "REMOTEDB"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "RMTHOST <호스트>, MGRPORT <포트> 로 원격 시스템과 원격 Manager 포트를 지정하며, RMTTRAIL/RMTFILE보다 앞에 위치해야 한다. TARGETHOST, MGRHOST, COLLECTOR(파라미터로서), REMOTEDB는 Extract의 원격 대상 지정 파라미터가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-RMTHOST"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the statement TABLE hr.*; in an Extract parameter file do?",
+  "options": {
+   "A": "Captures DDL only for the HR schema",
+   "B": "Excludes all tables in the HR schema from capture",
+   "C": "Captures only tables in the HR schema whose names start with an asterisk",
+   "D": "Captures changes for all tables in the HR schema that are supported for capture",
+   "E": "Captures changes for the HR schema's tables and all other schemas"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "TABLE 문에서 * 는 와일드카드로, hr.* 는 HR 스키마의 (캡처가 지원되는) 모든 테이블을 의미한다. 이름에 별표가 들어간 테이블을 뜻하지 않으며, 다른 스키마로 확장되지 않는다. DDL 캡처는 DDL 파라미터로 설정하고, 제외는 TABLEEXCLUDE로 한다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-WILDCARD"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Extract uses TABLE sales.*; but must not capture the table SALES.AUDIT_LOG. Which parameter excludes that table from the wildcard specification?",
+  "options": {
+   "A": "TABLE sales.audit_log, SKIP;",
+   "B": "NOTABLE sales.audit_log;",
+   "C": "TABLEEXCLUDE sales.audit_log;",
+   "D": "MAPEXCLUDE sales.audit_log;",
+   "E": "IGNORETABLE sales.audit_log;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "TABLEEXCLUDE는 와일드카드 TABLE 지정 결과에서 특정 테이블을 제외한다. MAPEXCLUDE는 Replicat의 MAP 와일드카드 제외용이다. IGNORETABLE, NOTABLE, TABLE ... SKIP 옵션은 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-TABLEEXCLUDE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a multitenant source, an Extract parameter file contains many TABLE statements for the same pluggable database. Which parameter sets a default container so that subsequent TABLE statements can use two-part (schema.table) names?",
+  "options": {
+   "A": "PDBNAME",
+   "B": "SOURCECATALOG",
+   "C": "DEFAULTPDB",
+   "D": "USECONTAINER",
+   "E": "SETCATALOG"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SOURCECATALOG <PDB명> 을 지정하면 그 뒤의 TABLE 문은 schema.table 의 두 부분 이름만 써도 해당 PDB로 해석된다. 지정하지 않으면 pdb.schema.table 의 세 부분 이름을 써야 한다. DEFAULTPDB, USECONTAINER, SETCATALOG, PDBNAME은 존재하지 않는 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-SOURCECATALOG"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the BEGIN NOW option of ADD EXTRACT specify?",
+  "options": {
+   "A": "Extract begins capturing changes from the time the Extract group is created",
+   "B": "Extract performs an initial load of all tables now",
+   "C": "Extract skips all currently open transactions permanently",
+   "D": "Extract starts immediately after the command completes, without START EXTRACT",
+   "E": "Extract begins capturing from the oldest available archive log"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "BEGIN NOW는 캡처 시작 지점을 Extract 그룹이 생성(ADD)된 시점으로 지정한다. 프로세스를 자동 기동하지는 않으며 START EXTRACT가 별도로 필요하다. 가장 오래된 아카이브 로그부터 읽는 것이 아니고, 초기 적재(SOURCEISTABLE)와도 무관하다. 열린 트랜잭션을 영구 스킵하는 옵션도 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-BEGIN-NOW"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In a Classic Architecture deployment, the network between the source and target data centers is frequently interrupted. You want the primary Extract to keep capturing even when the network is down. What is the recommended configuration?",
+  "options": {
+   "A": "Have the primary Extract write to a local trail and add a Data Pump that reads that trail and sends it to the target",
+   "B": "Have the primary Extract write directly to a remote trail with RMTTRAIL",
+   "C": "Run Replicat on the source system and connect it to the target database",
+   "D": "Increase the Manager PURGEOLDEXTRACTS retention on the target",
+   "E": "Configure the primary Extract with SOURCEISTABLE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Primary Extract가 로컬 trail(EXTTRAIL)에 쓰고 Data Pump가 이를 읽어 원격 trail로 전송하면, 네트워크 장애 시에도 Primary Extract는 로컬 trail에 계속 기록하고 Pump만 재전송하면 된다. RMTTRAIL로 직접 보내면 네트워크 장애 시 Extract도 영향을 받는다. 원격 Replicat 구성은 이 문제를 해결하는 권장 방식이 아니며, PURGEOLDEXTRACTS는 trail 정리, SOURCEISTABLE은 초기 적재용이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PUMP-PURPOSE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which ADD EXTRACT option creates a Data Pump that reads from a local trail?",
+  "options": {
+   "A": "EXTTRAILSOURCE",
+   "B": "RMTTRAILSOURCE",
+   "C": "TRANLOG",
+   "D": "SOURCEISTABLE",
+   "E": "INTEGRATED TRANLOG"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADD EXTRACT pump, EXTTRAILSOURCE ./dirdat/lt 처럼 EXTTRAILSOURCE로 읽을 로컬 trail을 지정하면 Data Pump가 된다. TRANLOG/INTEGRATED TRANLOG는 트랜잭션 로그(redo)를 읽는 Primary Extract, SOURCEISTABLE은 초기 적재용이다. RMTTRAILSOURCE라는 옵션은 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-EXTTRAILSOURCE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which GGSCI command associates a remote trail with the Data Pump group named pump1?",
+  "options": {
+   "A": "ADD EXTTRAIL ./dirdat/rt, REPLICAT pump1",
+   "B": "ADD REMOTETRAIL pump1 ./dirdat/rt",
+   "C": "ALTER EXTRACT pump1, RMTTRAIL ./dirdat/rt",
+   "D": "ADD TRAIL ./dirdat/rt, PUMP pump1",
+   "E": "ADD RMTTRAIL ./dirdat/rt, EXTRACT pump1"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ADD RMTTRAIL <trail>, EXTRACT <그룹> 으로 원격 trail을 생성하고 해당 Extract(Data Pump)에 연결한다. ADD EXTTRAIL은 로컬 trail용이며 REPLICAT 옵션은 없다. ADD REMOTETRAIL, ADD TRAIL ... PUMP 명령은 존재하지 않고, ALTER EXTRACT에는 trail을 추가하는 RMTTRAIL 옵션이 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-ADDRMTTRAIL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In Oracle GoldenGate 19c, how is a trail file name composed by default?",
+  "options": {
+   "A": "A random identifier generated at each rollover",
+   "B": "A two-character prefix followed by a 9-digit sequence number (for example, aa000000001)",
+   "C": "The Extract group name followed by the current date",
+   "D": "An eight-character prefix followed by a 2-digit sequence number",
+   "E": "The database SID followed by the log sequence number"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "trail 이름은 두 글자 접두사와 순번으로 구성되며, 19c(12.2 이후)에서는 기본적으로 9자리 순번을 사용한다(예: aa000000001). 그룹명+날짜, 8글자 접두사, DB SID+로그 순번, 무작위 ID 방식은 사용하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-TRAIL-NAMING"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the SOURCEISTABLE option of ADD EXTRACT indicate?",
+  "options": {
+   "A": "Extract reads the data directly from the source tables, as for an initial load",
+   "B": "Extract reads from a remote trail",
+   "C": "Extract reads from the database archive log destination only",
+   "D": "Extract reads change data from the redo logs",
+   "E": "Extract reads from a local trail"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SOURCEISTABLE은 트랜잭션 로그가 아니라 소스 테이블에서 직접 데이터를 읽는 초기 적재(initial load)용 Extract 작업을 만든다. redo 읽기는 TRANLOG, 로컬 trail 읽기는 EXTTRAILSOURCE이다. 원격 trail이나 아카이브 로그 전용 읽기 옵션이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-INITLOAD"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "You need to change the start position of an existing Extract with ALTER EXTRACT. What must be true before you issue the command?",
+  "options": {
+   "A": "The Extract must be running",
+   "B": "The Manager must be stopped",
+   "C": "The Extract must be stopped",
+   "D": "The trail files must be deleted",
+   "E": "Replicat must be deleted"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ALTER EXTRACT로 위치를 변경하려면 Extract가 정지된 상태여야 한다(실행 중인 Extract에는 적용 불가). Manager를 정지하거나, trail을 삭제하거나, Replicat을 삭제할 필요는 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-ALTER-STOPPED"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which command-line client is used to issue commands such as ADD EXTRACT and REGISTER EXTRACT against a deployment?",
+  "options": {
+   "A": "Logdump",
+   "B": "oggca.sh",
+   "C": "Admin Client (adminclient)",
+   "D": "SQL*Plus",
+   "E": "Server Collector"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Microservices Architecture에서는 Admin Client로 배포(deployment)에 CONNECT한 뒤 DBLOGIN, ADD EXTRACT, REGISTER EXTRACT 등을 실행한다. SQL*Plus는 DB 클라이언트, Server Collector는 Classic의 trail 수신 프로세스, Logdump는 trail 분석 도구, oggca.sh는 배포 생성용 구성 도우미이다.",
+  "reference": "Oracle GoldenGate 19c - Using the Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "EXT-MA-ADMINCLIENT"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, where does an Extract normally write the change data it captures?",
+  "options": {
+   "A": "To a local trail specified with EXTTRAIL; a Distribution Path then sends it to the target",
+   "B": "To a remote trail specified with RMTHOST and RMTTRAIL",
+   "C": "To the Receiver Service on the source deployment through RMTFILE",
+   "D": "To the Service Manager's log directory",
+   "E": "Directly into the target database"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MA에서 Extract는 EXTTRAIL로 로컬 trail에 기록하고, Distribution Service의 Distribution Path가 이를 타깃의 Receiver Service로 전송한다(Classic의 Data Pump 역할). RMTHOST/RMTTRAIL로 원격 전송하는 구성은 Classic 방식이다. Extract가 타깃 DB에 직접 쓰지 않으며, Service Manager 로그 디렉터리는 trail 위치가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using the Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "EXT-MA-TRAIL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid start-position options when you create an Integrated Extract with ADD EXTRACT ... INTEGRATED TRANLOG? (Choose all that apply.)",
+  "options": {
+   "A": "AT LASTCOMMIT",
+   "B": "BEGIN NOW",
+   "C": "BEGIN AUTOMATIC",
+   "D": "BEGIN 2024-05-01 08:00",
+   "E": "SCN 4567890"
+  },
+  "correct_keys": [
+   "B",
+   "D",
+   "E"
+  ],
+  "explanation": "Integrated Extract의 시작 위치는 BEGIN NOW, BEGIN <타임스탬프>, SCN <번호> 로 지정할 수 있다. BEGIN AUTOMATIC과 AT LASTCOMMIT은 존재하지 않는 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-BEGIN-OPTIONS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which statements about EXTTRAIL and RMTTRAIL in a Classic Architecture Extract parameter file are correct? (Choose two.)",
+  "options": {
+   "A": "EXTTRAIL requires an RMTHOST statement",
+   "B": "RMTTRAIL is used by Replicat to read the trail",
+   "C": "An Extract parameter file cannot contain any TABLE statements when RMTTRAIL is used",
+   "D": "EXTTRAIL specifies a trail on the local system where Extract runs",
+   "E": "RMTTRAIL must be preceded by an RMTHOST statement"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "EXTTRAIL은 Extract가 실행되는 로컬 시스템의 trail이고, RMTTRAIL은 원격 시스템의 trail이며 RMTHOST가 앞서 지정되어야 한다. EXTTRAIL에는 RMTHOST가 필요 없다. Replicat은 파라미터가 아니라 ADD REPLICAT ... EXTTRAIL로 읽을 trail을 지정한다. RMTTRAIL을 사용해도 TABLE 문은 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-TRAIL-TYPES"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A source schema is being replicated with Extract. The team wants DDL changes to be captured only for the objects that are already selected by the Extract TABLE statements, and not for other objects in the database. Which Extract parameter setting meets this requirement?",
+  "options": {
+   "A": "DDL INCLUDE ALL",
+   "B": "DDL EXCLUDE MAPPED",
+   "C": "DDL INCLUDE MAPPED",
+   "D": "GETTRUNCATES",
+   "E": "DDLONLY TABLE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DDL INCLUDE MAPPED는 TABLE(및 MAP) 문으로 매핑된 객체의 DDL만 캡처한다. DDL INCLUDE ALL은 매핑 여부와 무관하게 모든 DDL을 포함하고, DDL EXCLUDE MAPPED는 반대로 매핑된 객체를 제외한다. GETTRUNCATES는 TRUNCATE 캡처용이며, DDLONLY TABLE은 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-DDL-MAPPED"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An administrator ran DBLOGIN and ADD EXTRACT ext1, INTEGRATED TRANLOG, BEGIN NOW, but START EXTRACT ext1 fails because the Extract has no log mining server in the database. Which step was omitted?",
+  "options": {
+   "A": "SEND EXTRACT ext1, LOGEND",
+   "B": "ADD CHECKPOINTTABLE",
+   "C": "ADD EXTTRAIL with the MEGABYTES option",
+   "D": "REGISTER EXTRACT ext1 DATABASE",
+   "E": "ALTER EXTRACT ext1, ETROLLOVER"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Integrated Extract는 DBLOGIN 후 REGISTER EXTRACT <그룹> DATABASE로 데이터베이스에 등록해야 로그마이닝 서버(capture)가 생성된다. MEGABYTES는 trail 크기 옵션, ETROLLOVER는 trail 전환, LOGEND는 로그 처리 완료 확인, ADD CHECKPOINTTABLE은 Replicat용 체크포인트 테이블 생성이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-REGISTER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A classic (non-integrated) Extract must capture from a three-node Oracle RAC database where each instance has its own redo thread. Which command creates it correctly?",
+  "options": {
+   "A": "ADD EXTRACT ext1, TRANLOG, THREADS 3, BEGIN NOW",
+   "B": "ADD EXTRACT ext1, TRANLOG, INSTANCES 3, BEGIN NOW",
+   "C": "ADD EXTRACT ext1, TRANLOG, PARALLEL 3, BEGIN NOW",
+   "D": "ADD EXTRACT ext1, EXTTRAILSOURCE, THREADS 3",
+   "E": "ADD EXTRACT ext1, TRANLOG, NODES 3, BEGIN NOW"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Classic Extract는 RAC에서 THREADS <n> 으로 redo 스레드 수를 지정해야 각 스레드의 로그를 읽는다. NODES, INSTANCES, PARALLEL은 ADD EXTRACT 옵션이 아니다. EXTTRAILSOURCE는 trail을 읽는 Data Pump용이므로 redo 스레드와 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-THREADS-RAC"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "How does an Integrated Extract handle the redo threads of an Oracle RAC source?",
+  "options": {
+   "A": "Integrated Extract requires the RAC database to run with a single redo thread",
+   "B": "You must create one Integrated Extract per RAC instance",
+   "C": "You must specify THREADS in ADD EXTRACT for each redo thread",
+   "D": "The log mining server reads all redo threads, so no THREADS option is needed",
+   "E": "Integrated Extract can capture only from the instance it connects to"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Integrated Extract는 DB 내부의 로그마이닝 서버가 RAC의 모든 redo 스레드를 처리하므로 THREADS 지정이 필요 없고 인스턴스마다 Extract를 둘 필요도 없다. THREADS는 Classic Extract용 옵션이다. 접속한 인스턴스만 캡처하거나 단일 스레드를 요구한다는 설명은 틀리다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-INTEGRATED-RAC"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "A CDB contains the pluggable databases SALES, HR, and TEST. An Integrated Extract named ext1 must capture changes only from SALES and HR. After DBLOGIN to the root container as a common user, which command registers the Extract correctly?",
+  "options": {
+   "A": "REGISTER EXTRACT ext1 PDB sales, hr",
+   "B": "REGISTER EXTRACT ext1 DATABASE SCHEMA (sales, hr)",
+   "C": "ADD EXTRACT ext1, CONTAINER (sales, hr)",
+   "D": "REGISTER EXTRACT ext1 DATABASE",
+   "E": "REGISTER EXTRACT ext1 DATABASE CONTAINER (sales, hr)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "멀티테넌트 환경에서는 REGISTER EXTRACT <그룹> DATABASE CONTAINER (pdb1, pdb2) 로 캡처할 PDB를 지정해 등록한다. CONTAINER 절이 없는 DATABASE 등록은 PDB를 지정하지 않으므로 요구 사항에 맞지 않는다. PDB, SCHEMA 절이나 ADD EXTRACT ... CONTAINER 구문은 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-REGISTER-CONTAINER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Integrated Extract connected to the root of a CDB must capture the table EMP in schema HR of pluggable database PDB1, and no SOURCECATALOG is used. Which TABLE statement is correct?",
+  "options": {
+   "A": "TABLE hr.emp@pdb1;",
+   "B": "TABLE pdb1/hr/emp;",
+   "C": "TABLE pdb1.hr.emp;",
+   "D": "TABLE hr.pdb1.emp;",
+   "E": "TABLE CONTAINER=pdb1 hr.emp;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "CDB 소스에서 SOURCECATALOG를 쓰지 않으면 TABLE 문에 container.schema.object 형식의 세 부분 이름(pdb1.hr.emp)을 사용한다. @, / 표기, 순서가 뒤바뀐 hr.pdb1.emp, CONTAINER= 표기는 올바른 구문이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-CDB-TABLE-NAME"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract parameter statement limits the memory used by the log mining server of an Integrated Extract to 1 GB?",
+  "options": {
+   "A": "INTEGRATEDOPTIONS SGA 1024",
+   "B": "BR BRINTERVAL 1G",
+   "C": "TRANLOGOPTIONS INTEGRATEDPARAMS (max_sga_size 1024)",
+   "D": "CACHEMGR CACHESIZE 1G",
+   "E": "TRANLOGOPTIONS MAXMEMORY 1G"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Integrated Extract의 로그마이닝 서버 파라미터는 TRANLOGOPTIONS INTEGRATEDPARAMS로 전달하며, max_sga_size는 MB 단위이다. CACHEMGR CACHESIZE는 Extract 프로세스 자체의 트랜잭션 캐시 메모리로 로그마이닝 서버와 별개이다. TRANLOGOPTIONS MAXMEMORY, INTEGRATEDOPTIONS는 존재하지 않으며, BRINTERVAL은 시간 간격 옵션이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-INTEGRATEDPARAMS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "From which Oracle Database memory area is the memory for an Integrated Extract's log mining server (max_sga_size) allocated, and therefore which initialization parameter must be sized for it?",
+  "options": {
+   "A": "SHARED_POOL_RESERVED_SIZE",
+   "B": "LARGE_POOL_SIZE",
+   "C": "STREAMS_POOL_SIZE",
+   "D": "DB_KEEP_CACHE_SIZE",
+   "E": "PGA_AGGREGATE_TARGET"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Integrated Extract의 로그마이닝 서버 메모리는 Streams pool에서 할당되므로, 모든 Integrated Extract의 max_sga_size 합계를 수용할 수 있도록 STREAMS_POOL_SIZE를 설정해야 한다. PGA, shared pool 예약 영역, large pool, keep 버퍼 캐시는 해당 메모리 영역이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-STREAMS-POOL"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the parallelism option of TRANLOGOPTIONS INTEGRATEDPARAMS control for an Integrated Extract?",
+  "options": {
+   "A": "The number of RAC instances Extract may connect to",
+   "B": "The number of trail files written at the same time",
+   "C": "The number of Replicat apply threads on the target",
+   "D": "The number of LogMiner preparer processes used by the log mining server",
+   "E": "The number of Data Pumps that may read the trail"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "INTEGRATEDPARAMS의 parallelism은 로그마이닝 서버가 사용하는 LogMiner preparer 프로세스 수를 지정한다. trail 동시 기록 수, 타깃 Replicat 스레드 수, Data Pump 수, RAC 인스턴스 접속 수와는 관련이 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PARALLELISM"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "The DBA runs an RMAN job that deletes archived logs after they are backed up. The GoldenGate team is concerned that logs still needed by a registered Integrated Extract could be deleted. Which statement describes the protection that registration provides?",
+  "options": {
+   "A": "Registration disables RMAN backups of archived logs",
+   "B": "Registration makes Extract read only online redo logs, so archived logs are never needed",
+   "C": "Registration forces the database into NOARCHIVELOG mode",
+   "D": "Registration copies all archived logs into the GoldenGate dirdat directory",
+   "E": "Registration enables log retention, so RMAN does not delete archived logs that the Extract still needs when it applies its deletion policy"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "REGISTER EXTRACT ... DATABASE로 등록하면 로그 보존(log retention)이 적용되어 RMAN이 삭제 정책 수행 시 Extract가 아직 필요로 하는 아카이브 로그를 삭제하지 않는다. 등록이 로그를 dirdat로 복사하거나 RMAN 백업을 막지 않으며, 아카이브 로그가 불필요해지지도 않는다. GoldenGate 캡처에는 ARCHIVELOG 모드가 필요하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-LOGRETENTION"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A classic (non-integrated) Extract reads archived logs, and you want RMAN to retain the logs it still needs. Which command enables this?",
+  "options": {
+   "A": "REGISTER EXTRACT ext1 LOGRETENTION",
+   "B": "ADD EXTRACT ext1, LOGRETENTION",
+   "C": "SEND EXTRACT ext1, RETAINLOGS",
+   "D": "ALTER EXTRACT ext1, KEEPLOGS",
+   "E": "TRANLOGOPTIONS ARCHIVEKEEP"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Classic Extract는 DBLOGIN 후 REGISTER EXTRACT <그룹> LOGRETENTION 으로 등록하여 RMAN이 필요한 아카이브 로그를 보존하도록 할 수 있다(Integrated Extract는 DATABASE 등록 시 자동 적용). ADD EXTRACT ... LOGRETENTION, SEND ... RETAINLOGS, ALTER ... KEEPLOGS, TRANLOGOPTIONS ARCHIVEKEEP은 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-LOGRETENTION"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the purpose of the Bounded Recovery (BR) feature of Extract?",
+  "options": {
+   "A": "It bounds the number of tables that one Extract can capture",
+   "B": "It automatically skips transactions that remain open longer than BRINTERVAL",
+   "C": "It limits the size of each trail file",
+   "D": "It periodically persists the state and data of long-running open transactions to disk so that Extract does not have to reread logs back to the start of the oldest open transaction after a restart",
+   "E": "It limits how far back Replicat can be repositioned"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Bounded Recovery는 BRINTERVAL 주기로 오래 열린 트랜잭션의 상태와 데이터를 디스크(BR 디렉터리)에 저장하여, 재시작 시 가장 오래된 열린 트랜잭션의 시작 로그까지 거슬러 읽지 않고 복구 시간을 제한한다. trail 크기는 MEGABYTES로 정하며, Replicat 위치나 테이블 수 제한과 무관하다. 트랜잭션을 자동으로 건너뛰지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-BR"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the Extract CACHEMGR parameter control?",
+  "options": {
+   "A": "The size of the database buffer cache",
+   "B": "The Replicat SQL statement cache",
+   "C": "The cache of trail files on the target system",
+   "D": "The number of archived logs cached in the GoldenGate home",
+   "E": "The memory cache that Extract uses to hold data of open transactions until they commit, including the disk location used when memory is exceeded"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "CACHEMGR는 커밋 전 트랜잭션 데이터를 보관하는 Extract의 메모리 캐시(CACHESIZE 등)와, 메모리를 초과할 때 데이터를 내려 쓰는 디스크 위치(CACHEDIRECTORY)를 관리한다. DB 버퍼 캐시, Replicat 문장 캐시, 타깃 trail 캐시, 아카이브 로그 보관과는 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-CACHEMGR"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Operations wants Extract to write a warning to the GoldenGate error log whenever a source transaction remains open for more than one hour, checking every ten minutes. Which Extract parameter setting meets this requirement?",
+  "options": {
+   "A": "LONGTRANSALERT 60",
+   "B": "LAGINFOMINUTES 60",
+   "C": "WARNLONGTRANS 1H, CHECKINTERVAL 10M",
+   "D": "BR BRINTERVAL 1H",
+   "E": "REPORTCOUNT EVERY 10 MINUTES"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WARNLONGTRANS <기간>, CHECKINTERVAL <주기> 는 지정 시간보다 오래 열린 트랜잭션이 있을 때 경고를 기록한다. LAGINFOMINUTES는 Manager의 지연(lag) 보고용, BRINTERVAL은 Bounded Recovery 주기, REPORTCOUNT는 처리 건수 보고용이다. LONGTRANSALERT는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-WARNLONGTRANS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "SEND EXTRACT ext1, SHOWTRANS shows an open transaction whose commit record Extract will never see, but the business has confirmed that its changes are valid and must be written to the trail. Which SEND EXTRACT option writes that transaction to the trail as if it had been committed?",
+  "options": {
+   "A": "ROLLOVER",
+   "B": "LOGEND",
+   "C": "FORCESTOP",
+   "D": "SKIPTRANS",
+   "E": "FORCETRANS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "FORCETRANS <트랜잭션ID> 는 지정한 열린 트랜잭션을 커밋된 것처럼 trail에 기록한다. SKIPTRANS는 해당 트랜잭션을 버리므로 데이터가 기록되지 않는다. ROLLOVER는 trail 파일 전환, LOGEND는 로그 끝까지 처리 여부 확인, FORCESTOP은 프로세스 강제 종료로 트랜잭션 기록과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-FORCETRANS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "Which statement about a Data Pump configured with the PASSTHRU parameter is correct?",
+  "options": {
+   "A": "It performs column mapping and data conversion faster than NOPASSTHRU",
+   "B": "It reads the transaction log directly instead of a trail",
+   "C": "It does not look up table definitions and passes the data through without filtering or transformation",
+   "D": "It can be used only by a primary Extract",
+   "E": "It requires a SOURCEDEFS file for every table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PASSTHRU 모드의 Data Pump는 테이블 정의를 조회하지 않고 데이터를 변형·필터링 없이 그대로 전달하므로, 모든 테이블이 PASSTHRU인 경우 DB 접속도 필요하지 않다. 컬럼 매핑·변환은 NOPASSTHRU에서 수행한다. PASSTHRU는 Data Pump 전용이며 trail을 읽는다. 정의 파일도 필요 없다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PASSTHRU"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Data Pump must forward only the rows where REGION = 'EU' and must map columns before sending the data to the target. Which mode must the Data Pump use?",
+  "options": {
+   "A": "SPECIALRUN",
+   "B": "ETROLLOVER",
+   "C": "PASSTHRU",
+   "D": "NOPASSTHRU",
+   "E": "SOURCEISTABLE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "행 필터링과 컬럼 매핑 같은 데이터 처리를 하려면 Data Pump는 NOPASSTHRU(기본) 모드여야 한다. PASSTHRU는 변환·필터링 없이 그대로 전달한다. SOURCEISTABLE은 초기 적재 Extract, SPECIALRUN은 일회성 Replicat 실행, ETROLLOVER는 trail 파일 전환으로 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PASSTHRU"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does MEGABYTES 500 mean in ADD EXTTRAIL ./dirdat/lt, EXTRACT ext1, MEGABYTES 500?",
+  "options": {
+   "A": "The total size of all trail files is limited to 500 MB",
+   "B": "Extract reserves 500 MB of memory for the trail",
+   "C": "Trail files older than 500 MB of processed data are purged",
+   "D": "The network buffer for the trail is 500 MB",
+   "E": "Each trail file can grow to 500 MB before Extract rolls over to the next file"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "MEGABYTES는 trail 파일 하나의 최대 크기를 지정하며, 이 크기에 도달하면 다음 순번의 파일로 전환된다. 전체 trail 용량 제한, 메모리 예약, 자동 삭제(Manager PURGEOLDEXTRACTS가 담당), 네트워크 버퍼와는 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-MEGABYTES"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which command causes Extract to start writing to a new trail file (the next sequence number) when it is next started?",
+  "options": {
+   "A": "START EXTRACT ext1, NEWTRAIL",
+   "B": "ALTER EXTRACT ext1, ETROLLOVER",
+   "C": "ALTER EXTRACT ext1, NEWFILE",
+   "D": "ADD EXTTRAIL ext1, RESET",
+   "E": "DELETE EXTTRAIL ext1"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ALTER EXTRACT <그룹>, ETROLLOVER 는 Extract가 다음 기동 시 새 trail 파일(다음 순번)로 기록을 시작하게 한다. NEWFILE, ADD EXTTRAIL ... RESET, START ... NEWTRAIL은 존재하지 않으며, DELETE EXTTRAIL은 trail 연결을 삭제하는 명령이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-ETROLLOVER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Before a planned switchover, you need to confirm that Extract has processed all records currently in the transaction log. Which command do you use?",
+  "options": {
+   "A": "LAG EXTRACT ext1",
+   "B": "SEND EXTRACT ext1, ROLLOVER",
+   "C": "VIEW REPORT ext1",
+   "D": "INFO EXTRACT ext1, DETAIL",
+   "E": "SEND EXTRACT ext1, LOGEND"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SEND EXTRACT <그룹>, LOGEND 는 Extract가 트랜잭션 로그의 마지막 레코드까지 처리했는지(YES/NO)를 알려 준다. INFO ... DETAIL은 상세 정보, LAG는 지연 시간, ROLLOVER는 trail 전환, VIEW REPORT는 리포트 파일 조회로 로그 끝 처리 여부를 직접 확인하는 명령이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-LOGEND"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract parameter causes the before images of updated rows to be written to the trail?",
+  "options": {
+   "A": "GETUPDATEAFTERS",
+   "B": "GETUPDATEBEFORES",
+   "C": "NOCOMPRESSDELETES",
+   "D": "GETTRUNCATES",
+   "E": "BEFOREIMAGEONLY"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "GETUPDATEBEFORES는 UPDATE의 변경 전 이미지(before image)를 trail에 기록하게 한다. 충돌 감지·해결이나 BEFORE 함수 사용 시 필요하다. GETUPDATEAFTERS는 after image(기본), NOCOMPRESSDELETES는 DELETE의 전체 컬럼, GETTRUNCATES는 TRUNCATE 캡처이다. BEFOREIMAGEONLY는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-GETUPDATEBEFORES"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When Extract captures before images of updates, what is the effect of UPDATERECORDFORMAT COMPACT compared with UPDATERECORDFORMAT FULL?",
+  "options": {
+   "A": "COMPACT stops Extract from capturing updates",
+   "B": "COMPACT writes updates as delete and insert pairs",
+   "C": "COMPACT writes only the primary key and drops the after image",
+   "D": "COMPACT combines the before image and after image of an update into a single trail record, while FULL writes them as separate records",
+   "E": "COMPACT compresses the trail file with a compression algorithm"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "UPDATERECORDFORMAT COMPACT는 UPDATE의 before/after 이미지를 하나의 trail 레코드로 결합하고, FULL은 별도의 두 레코드로 기록한다. after image를 버리거나, 파일 압축 알고리즘을 적용하거나, UPDATE 캡처를 중지하거나, DELETE+INSERT로 변환하는 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-UPDATERECORDFORMAT"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does the Extract parameter LOGALLSUPCOLS do?",
+  "options": {
+   "A": "It writes all supplementally logged columns (such as key and scheduling columns) to the trail, in addition to changed columns",
+   "B": "It writes the full redo log to the trail",
+   "C": "It logs every Extract parameter to the report file",
+   "D": "It disables supplemental logging requirements for Integrated Extract",
+   "E": "It enables supplemental logging for all columns in the database"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "LOGALLSUPCOLS는 redo에 보조 로깅된 모든 컬럼(키, 스케줄링 컬럼, ALLCOLS 등)을 trail에 기록하게 한다. 보조 로깅 자체를 DB에 활성화하지는 않으며(ADD TRANDATA/SCHEMATRANDATA가 담당), redo 전체를 기록하거나 파라미터를 리포트에 남기는 기능도 아니고, 보조 로깅 요구 사항을 없애지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-LOGALLSUPCOLS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "By default, what column data does Extract write to the trail for a DELETE operation, and which parameter changes this so that all available columns are written?",
+  "options": {
+   "A": "Only the ROWID by default; LOGALLSUPCOLS writes the key",
+   "B": "All columns by default; COMPRESSDELETES writes only the key",
+   "C": "Only the key columns by default; NOCOMPRESSDELETES writes all columns available in the log",
+   "D": "No columns by default; GETDELETES writes the key",
+   "E": "Only changed columns by default; FULLDELETES writes all columns"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "기본값 COMPRESSDELETES에서는 DELETE에 대해 키 컬럼만 기록하며, NOCOMPRESSDELETES를 지정하면 로그에 있는 모든 컬럼을 기록한다. GETDELETES는 DELETE 캡처 여부를 제어할 뿐 컬럼 범위와 무관하고, FULLDELETES는 존재하지 않는다. ROWID만 기록한다는 설명도 틀리다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-COMPRESSDELETES"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "When Extract must fetch column values from the source database, what does the default FETCHOPTIONS USESNAPSHOT behavior do?",
+  "options": {
+   "A": "Reads the value from the trail file",
+   "B": "Creates a database snapshot (materialized view) for each table",
+   "C": "Takes an RMAN snapshot backup before fetching",
+   "D": "Fetches the current committed value from the table, ignoring the log time",
+   "E": "Uses a Flashback Query to fetch the value as of the point in time of the captured operation"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "FETCHOPTIONS USESNAPSHOT(기본)는 Flashback Query를 사용하여 캡처된 작업 시점의 값(읽기 일관성 있는 이미지)을 가져온다. 현재 값을 가져오는 것은 NOUSESNAPSHOT 방식이다. trail에서 읽거나, 구체화 뷰를 만들거나, RMAN 백업을 수행하는 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-FETCHOPTIONS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In an active-active configuration, the Integrated Replicat on each site tags its redo with the default tag. On each site, Extract keeps recapturing the rows applied by the local Replicat and sends them back, causing a loop. Which Extract setting stops this by using the tag?",
+  "options": {
+   "A": "TRANLOGOPTIONS EXCLUDETAG with the tag set by Replicat",
+   "B": "GETUPDATEBEFORES",
+   "C": "UPDATERECORDFORMAT FULL",
+   "D": "PASSTHRU",
+   "E": "LOGALLSUPCOLS"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "TRANLOGOPTIONS EXCLUDETAG <tag> 를 지정하면 Replicat이 redo에 남긴 태그가 붙은 트랜잭션을 Extract가 캡처하지 않으므로 루프백이 방지된다. GETUPDATEBEFORES, UPDATERECORDFORMAT, LOGALLSUPCOLS는 trail에 기록되는 컬럼/이미지에 관한 것이고, PASSTHRU는 Data Pump 처리 모드로 루프 방지와 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-EXCLUDEUSER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Integrated Extract ext1 is stopped, and you must reposition it to begin capturing at SCN 98765432. Which command does this?",
+  "options": {
+   "A": "SEND EXTRACT ext1, GOTO SCN 98765432",
+   "B": "ALTER EXTRACT ext1, EXTRBA 98765432",
+   "C": "ALTER EXTRACT ext1, SCN 98765432",
+   "D": "START EXTRACT ext1, SCN 98765432 NOW",
+   "E": "ADD EXTRACT ext1, REPOSITION 98765432"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "정지된 Integrated Extract는 ALTER EXTRACT <그룹>, SCN <번호> 로 캡처 시작 위치를 변경한다(SCN은 등록 시 확정된 시작 SCN 이후여야 함). START ... SCN NOW, ADD ... REPOSITION, SEND ... GOTO 구문은 존재하지 않는다. EXTRBA는 trail/로그 파일 내 상대 바이트 주소로 SCN이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-ALTER-POSITION"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Data Pump named pump1 must be repositioned to reprocess the local trail from the beginning of trail file sequence 12. The pump is stopped. Which command do you run before restarting it?",
+  "options": {
+   "A": "ALTER EXTRACT pump1, SCN 12",
+   "B": "ALTER EXTRACT pump1, ETROLLOVER 12",
+   "C": "ALTER EXTRACT pump1, THREAD 12, BEGIN NOW",
+   "D": "SEND EXTRACT pump1, SEQNO 12",
+   "E": "ALTER EXTRACT pump1, EXTSEQNO 12, EXTRBA 0"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "trail을 읽는 Data Pump는 ALTER EXTRACT <그룹>, EXTSEQNO <순번>, EXTRBA <바이트 주소> 로 읽기 위치를 재설정한다. SCN은 redo 위치 지정 방식이므로 trail 순번 지정에 맞지 않는다. ETROLLOVER는 쓰기 trail을 다음 파일로 넘기는 옵션이고, THREAD는 RAC redo 스레드 지정이다. SEND ... SEQNO는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-ALTER-POSITION"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which command converts an existing classic Extract to Integrated capture mode (after the required preparation steps)?",
+  "options": {
+   "A": "ALTER EXTRACT ext1, MODE INTEGRATED",
+   "B": "ALTER EXTRACT ext1, UPGRADE INTEGRATED TRANLOG",
+   "C": "CONVERT EXTRACT ext1 TO INTEGRATED",
+   "D": "ADD EXTRACT ext1, INTEGRATED TRANLOG, REPLACE",
+   "E": "SEND EXTRACT ext1, INTEGRATED ON"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Classic Extract를 Integrated로 전환하는 명령은 ALTER EXTRACT <그룹>, UPGRADE INTEGRATED TRANLOG 이다(반대는 DOWNGRADE INTEGRATED TRANLOG). CONVERT EXTRACT, ADD ... REPLACE, SEND ... INTEGRATED ON, ALTER ... MODE INTEGRATED는 존재하지 않는 구문이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-UPGRADE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "By default, does Extract capture TRUNCATE TABLE operations as DML-like operations, and which parameter changes this?",
+  "options": {
+   "A": "Yes; NOTRUNCATES turns it off",
+   "B": "No; DDL INCLUDE MAPPED is the only way to capture them",
+   "C": "No; truncates can never be replicated",
+   "D": "Yes; IGNORETRUNCATES turns it off",
+   "E": "No; GETTRUNCATES enables capture of truncates"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "기본값은 IGNORETRUNCATES로 TRUNCATE를 캡처하지 않으며, GETTRUNCATES를 지정하면 TRUNCATE를 캡처하여 trail에 기록한다. NOTRUNCATES는 존재하지 않는다. DDL 지원을 통해서도 처리할 수 있으나 '유일한 방법'이 아니며, TRUNCATE를 복제할 수 없다는 설명도 틀리다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-GETTRUNCATES"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Extract uses TABLE app.*; with the default WILDCARDRESOLVE setting. A new table APP.ORDERS_2025 is created after Extract starts. What happens?",
+  "options": {
+   "A": "Extract abends because the table was not present at startup",
+   "B": "The new table is resolved dynamically when Extract encounters it, and its changes are captured",
+   "C": "The new table is ignored until the Extract parameter file is edited to name it explicitly",
+   "D": "The new table is captured only after the Extract is deleted and re-added",
+   "E": "Only DDL for the new table is captured, never its DML"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "19c의 기본값 WILDCARDRESOLVE DYNAMIC에서는 와일드카드에 해당하는 새 테이블을 Extract가 처음 만날 때 동적으로 해석하여 캡처한다. 시작 시 존재하지 않았다고 abend하지 않으며, 명시적 지정이나 Extract 재생성이 필요하지 않다. DML도 정상 캡처된다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-WILDCARDRESOLVE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "A Classic Architecture Data Pump reads a local trail and must deliver the data to a trail on the target system. Which two parameters are required in its parameter file to send the data to the target? (Choose two.)",
+  "options": {
+   "A": "TRANLOGOPTIONS INTEGRATEDPARAMS",
+   "B": "MAP",
+   "C": "RMTHOST",
+   "D": "SOURCEISTABLE",
+   "E": "RMTTRAIL"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "원격 전송을 위해 Data Pump 파라미터 파일에는 대상 호스트를 지정하는 RMTHOST와 원격 trail을 지정하는 RMTTRAIL이 필요하다. SOURCEISTABLE은 ADD EXTRACT의 초기 적재 옵션, INTEGRATEDPARAMS는 Integrated Extract의 로그마이닝 서버 설정, MAP은 Replicat 파라미터이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-PUMP-PARAMS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements describe advantages of Integrated Extract over classic Extract for an Oracle 19c source? (Choose all that apply.)",
+  "options": {
+   "A": "It does not require THREADS configuration for Oracle RAC",
+   "B": "It supports capture from tables that use OLTP or Hybrid Columnar Compression",
+   "C": "It does not need any database connection",
+   "D": "It reads changes from trail files instead of redo",
+   "E": "It supports capture from a multitenant container database"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "E"
+  ],
+  "explanation": "Integrated Extract는 멀티테넌트 CDB 캡처를 지원하고(Classic은 미지원), RAC의 모든 스레드를 로그마이닝 서버가 처리하므로 THREADS가 필요 없으며, OLTP/HCC 압축 테이블도 캡처할 수 있다. 로그마이닝 서버와 통신하므로 DB 접속이 반드시 필요하고, trail이 아닌 redo 기반 변경을 받는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-INTEGRATED-VS-CLASSIC"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which of the following are valid SEND EXTRACT options for investigating or handling long-running open transactions? (Choose all that apply.)",
+  "options": {
+   "A": "COMMITNOW",
+   "B": "SHOWTRANS",
+   "C": "PURGETRANS",
+   "D": "SKIPTRANS",
+   "E": "FORCETRANS"
+  },
+  "correct_keys": [
+   "B",
+   "D",
+   "E"
+  ],
+  "explanation": "SEND EXTRACT의 SHOWTRANS는 열린 트랜잭션 조회, SKIPTRANS는 지정 트랜잭션 폐기, FORCETRANS는 커밋된 것처럼 trail에 기록하는 옵션이다. PURGETRANS와 COMMITNOW는 존재하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-LONGTXN"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about REGISTER EXTRACT ... DATABASE for an Integrated Extract are correct? (Choose two.)",
+  "options": {
+   "A": "It is required for every classic Data Pump",
+   "B": "It must be issued while the Extract is running",
+   "C": "It replaces the need for supplemental logging",
+   "D": "You must log in to the database with DBLOGIN before issuing it",
+   "E": "It creates the database-side log mining server (capture) used by the Extract"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "REGISTER EXTRACT ... DATABASE는 DBLOGIN(또는 MA의 접속 자격 증명) 후 실행해야 하며, DB 내부에 Extract가 사용할 로그마이닝 서버(capture)를 생성한다. trail을 읽는 Data Pump에는 필요 없고, 실행 중일 때 하는 작업이 아니며, 보조 로깅을 대체하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-REGISTER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which Extract parameters affect how UPDATE operations are represented in the trail? (Choose all that apply.)",
+  "options": {
+   "A": "GETUPDATEBEFORES",
+   "B": "UPDATERECORDFORMAT",
+   "C": "NOCOMPRESSUPDATES",
+   "D": "ETROLLOVER",
+   "E": "BRINTERVAL"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "GETUPDATEBEFORES(before image 기록), UPDATERECORDFORMAT(before/after 이미지의 레코드 구성), NOCOMPRESSUPDATES(변경 컬럼뿐 아니라 로그에 있는 전체 컬럼 기록)는 모두 UPDATE 레코드의 표현에 영향을 준다. ETROLLOVER는 trail 파일 전환, BRINTERVAL은 Bounded Recovery 주기로 UPDATE 레코드 형식과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-UPDATE-CONTENT"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "MA",
+  "stem": "In the Microservices Architecture, which interfaces can an administrator use to create an Integrated Extract? (Choose two.)",
+  "options": {
+   "A": "The Performance Metrics Service web interface",
+   "B": "The Logdump utility",
+   "C": "The Admin Client, using ADD EXTRACT",
+   "D": "The Administration Service web interface",
+   "E": "The Receiver Service web interface"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "MA에서 Extract는 Admin Client(ADD EXTRACT 등)나 Administration Service 웹 UI(또는 그 REST API)로 생성한다. Receiver Service는 trail 수신, Performance Metrics Service는 성능 모니터링을 담당하며, Logdump는 trail 분석 도구이다.",
+  "reference": "Oracle GoldenGate 19c - Using the Oracle GoldenGate Microservices Architecture (검수 필요)",
+  "variant_group": "EXT-MA-CREATE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Without Bounded Recovery, why can an Extract restart take a long time when a very old transaction is still open?",
+  "options": {
+   "A": "Because Extract must reread the transaction log from the start of the oldest open transaction to rebuild its cached data",
+   "B": "Because Replicat must first reapply every trail file from the beginning",
+   "C": "Because the trail must be rolled over at every restart",
+   "D": "Because Extract waits for the open transaction to commit before reading any log",
+   "E": "Because Extract must re-register with the database at every restart"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Extract는 커밋된 트랜잭션만 trail에 쓰므로, 재시작 시 열린 트랜잭션 데이터를 재구성하려면 가장 오래된 열린 트랜잭션 시작 위치(복구 체크포인트)부터 로그를 다시 읽어야 한다. Bounded Recovery는 이 데이터를 주기적으로 디스크에 저장해 재읽기 범위를 제한한다. 재등록, Replicat 재적용, trail 전환은 재시작마다 필요하지 않으며, 커밋을 기다리며 읽기를 멈추지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-BR"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "In the Classic Architecture, a Data Pump uses RMTHOST and RMTTRAIL. Which process on the target system receives the data and writes it to the remote trail?",
+  "options": {
+   "A": "The Distribution Service",
+   "B": "Replicat",
+   "C": "The target Manager itself",
+   "D": "A Server Collector process started by the target Manager",
+   "E": "The Receiver Service"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Classic에서 RMTHOST로 연결하면 타깃 Manager가 Server Collector 프로세스를 (기본적으로 동적으로) 기동하고, Collector가 데이터를 받아 원격 trail에 기록한다. Replicat은 trail을 읽기만 하고, Manager 자체가 trail을 쓰지는 않는다. Receiver/Distribution Service는 Microservices Architecture의 구성 요소이다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-COLLECTOR"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "After REGISTER EXTRACT ext1 DATABASE completes, which statement about the SCN positions at which ext1 can subsequently begin capturing is correct?",
+  "options": {
+   "A": "The start position must be lower than the registration SCN",
+   "B": "Only BEGIN NOW can be used after registration",
+   "C": "The SCN must be equal to the current SCN of the target database",
+   "D": "Any SCN in the database history can be used, because LogMiner reads the data dictionary from the current state",
+   "E": "The start position must be at or after the first SCN established by the registration"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "등록 시 로그마이닝 서버의 시작 SCN(first SCN)이 확정되며, 이후 ADD/ALTER EXTRACT로 지정하는 시작 위치는 그 SCN 이상이어야 한다(그 이전은 딕셔너리 정보가 없어 불가). 과거 임의 SCN이나 등록 SCN 이전은 사용할 수 없고, BEGIN NOW만 허용되는 것도 아니며, 타깃 DB의 SCN과는 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-REGISTER-SCN"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which data dictionary view in the source database lists the capture process created when an Integrated Extract is registered?",
+  "options": {
+   "A": "DBA_CAPTURE",
+   "B": "DBA_OGG_EXTRACTS",
+   "C": "V$LOGMNR_EXTRACT_GROUPS",
+   "D": "DBA_TRAIL_FILES",
+   "E": "V$ARCHIVE_DEST"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "REGISTER EXTRACT로 생성된 로그마이닝 서버는 capture 프로세스로서 DBA_CAPTURE 뷰에서 확인할 수 있다(이름은 OGG$CAP_ 접두사 형태). DBA_OGG_EXTRACTS, V$LOGMNR_EXTRACT_GROUPS, DBA_TRAIL_FILES는 존재하지 않는 뷰이고, V$ARCHIVE_DEST는 아카이브 로그 목적지 정보이다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-DBA-CAPTURE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What is the consequence of using SEND EXTRACT ext1, SKIPTRANS for an open transaction?",
+  "options": {
+   "A": "The transaction is moved to the discard file and replayed automatically later",
+   "B": "Extract stops and must be repositioned manually",
+   "C": "The transaction is written to the trail immediately as committed",
+   "D": "The transaction is discarded by Extract and its changes are never written to the trail, so the target can become out of sync",
+   "E": "The transaction is rolled back in the source database"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SKIPTRANS는 Extract가 해당 트랜잭션을 버리게 하므로 그 변경은 trail에 기록되지 않고, 실제로 커밋된 데이터라면 타깃과 불일치가 생길 수 있다. 커밋된 것처럼 기록하는 것은 FORCETRANS이다. 소스 DB에서 롤백하지 않으며, discard 파일로 옮겨 자동 재처리하지도 않고, Extract를 정지시키지도 않는다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-SKIPTRANS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "What does TABLE hr.emp, FETCHCOLS (salary); instruct Extract to do?",
+  "options": {
+   "A": "Fetch the SALARY column value from the database when it is not present in the log record",
+   "B": "Fetch SALARY only on the target from Replicat",
+   "C": "Encrypt the SALARY column in the trail",
+   "D": "Write SALARY to a separate trail file",
+   "E": "Exclude the SALARY column from the trail"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "FETCHCOLS는 지정 컬럼의 값이 로그 레코드에 없을 때 DB에서 조회(fetch)하여 trail에 포함시키도록 한다. 컬럼 제외는 COLSEXCEPT, 암호화는 ENCRYPTTRAIL 등으로 처리한다. Replicat 측 조회나 별도 trail 기록 기능이 아니다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-FETCHCOLS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An initial-load Extract created with ADD EXTRACT initext, SOURCEISTABLE fails halfway through. Which statement about restarting it is correct?",
+  "options": {
+   "A": "It cannot be restarted and the source tables must be exported with RMAN",
+   "B": "It resumes from its last checkpoint automatically",
+   "C": "It does not maintain checkpoints, so the load must be restarted from the beginning (after cleaning up the partially loaded target data as needed)",
+   "D": "It resumes from the last SCN recorded by REGISTER EXTRACT",
+   "E": "It continues from the last trail RBA written by the change-capture Extract"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SOURCEISTABLE 초기 적재 작업은 체크포인트를 유지하지 않으므로 실패 시 처음부터 다시 수행해야 하며, 필요하면 타깃의 부분 적재 데이터를 정리한다. 체크포인트 재개, REGISTER SCN 재개, 변경 캡처 Extract의 RBA 기준 재개는 해당되지 않으며, RMAN은 테이블 내보내기 도구가 아니다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-INITLOAD"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "For an Integrated Extract capturing from an Oracle 19c database, how is DDL capture implemented?",
+  "options": {
+   "A": "DDL is captured by periodically comparing data dictionary snapshots",
+   "B": "DDL is captured from the database audit trail",
+   "C": "Integrated Extract cannot capture DDL; only classic Extract can",
+   "D": "DDL is captured natively from the redo by the log mining server, so the GoldenGate DDL trigger and marker tables are not required",
+   "E": "A GoldenGate DDL trigger must be installed in every schema"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Oracle 11.2.0.4 이상(19c 포함)의 DB에서 Integrated Extract는 로그마이닝 서버를 통해 DDL을 네이티브로 캡처하므로 GoldenGate DDL 트리거와 마커 테이블 설치가 필요 없다. 딕셔너리 스냅샷 비교나 감사 로그 기반 방식이 아니며, Integrated Extract도 DDL 캡처를 지원한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-DDL-NATIVE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which are valid reasons to configure LOGALLSUPCOLS in an Extract that feeds an Oracle target? (Choose two.)",
+  "options": {
+   "A": "To make before images of supplementally logged columns available for conflict detection and resolution on the target",
+   "B": "To provide the columns that Integrated Replicat needs to compute transaction dependencies for parallel apply",
+   "C": "To reduce the size of the trail by removing key columns",
+   "D": "To enable DDL capture for mapped objects",
+   "E": "To encrypt the trail files"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "LOGALLSUPCOLS는 보조 로깅된 컬럼(키·스케줄링 컬럼 등)을 모두 trail에 기록하므로, 타깃의 충돌 감지·해결(CDR)과 Integrated Replicat의 병렬 적용 의존성 계산에 필요한 정보를 제공한다. 컬럼을 더 기록하므로 trail 크기를 줄이지 않으며, DDL 캡처(DDL 파라미터)나 trail 암호화(ENCRYPTTRAIL)와는 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-LOGALLSUPCOLS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about how Extract handles transaction data are correct? (Choose all that apply.)",
+  "options": {
+   "A": "Extract writes every operation to the trail immediately, before the transaction commits",
+   "B": "Bounded Recovery requires a checkpoint table in the source database",
+   "C": "Extract writes a transaction to the trail only after it sees the commit",
+   "D": "When the memory cache managed by CACHEMGR is exhausted, Extract writes cached transaction data to disk in the cache directory",
+   "E": "Bounded Recovery persists long-running open transactions at intervals defined by BRINTERVAL"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "Extract는 커밋을 확인한 트랜잭션만 trail에 쓰며, 그 전까지는 CACHEMGR가 관리하는 캐시에 보관하고 메모리 부족 시 캐시 디렉터리로 내려 쓴다. Bounded Recovery는 BRINTERVAL 주기로 오래 열린 트랜잭션을 디스크에 저장한다. 커밋 전에 trail에 쓰지 않으며, BR은 소스 DB의 체크포인트 테이블(Replicat용 개념)을 필요로 하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Administering Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-CACHEMGR"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "In a bidirectional Oracle-to-Oracle configuration, which Extract settings can prevent Extract from recapturing changes that the local Replicat applied? (Choose two.)",
+  "options": {
+   "A": "TRANLOGOPTIONS EXCLUDETAG specifying the redo tag set by Replicat",
+   "B": "GETUPDATEBEFORES",
+   "C": "LOGALLSUPCOLS",
+   "D": "UPDATERECORDFORMAT COMPACT",
+   "E": "TRANLOGOPTIONS EXCLUDEUSER specifying the Replicat database user"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "양방향 구성에서 루프백을 막으려면 TRANLOGOPTIONS EXCLUDEUSER로 Replicat의 DB 사용자를 제외하거나, EXCLUDETAG로 Replicat이 redo에 남긴 태그를 제외한다. GETUPDATEBEFORES, LOGALLSUPCOLS, UPDATERECORDFORMAT은 충돌 감지에 필요한 이미지/컬럼 기록과 관련된 설정일 뿐 Replicat 트랜잭션을 제외하지 않는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-EXCLUDEUSER"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "Which statements about capturing from an Oracle 19c multitenant container database are correct? (Choose all that apply.)",
+  "options": {
+   "A": "The Extract must connect to the CDB as a local PDB user without common privileges",
+   "B": "Integrated Extract must be used, because classic Extract does not support capture from a CDB",
+   "C": "The Extract is registered with REGISTER EXTRACT ... DATABASE CONTAINER (...) to specify the PDBs to capture",
+   "D": "TABLE statements use three-part names, or two-part names after a SOURCECATALOG statement",
+   "E": "A separate Extract must be created and connected locally in each PDB"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "CDB 캡처는 Integrated Extract만 지원하며, CONTAINER 절로 캡처할 PDB를 지정해 등록하고, TABLE 문은 세 부분 이름 또는 SOURCECATALOG 이후 두 부분 이름을 사용한다. 하나의 Extract로 여러 PDB를 캡처할 수 있으므로 PDB별 Extract가 필수가 아니며, Extract는 루트 컨테이너에 공통(common) 사용자로 접속한다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-CDB-CAPTURE"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "An Integrated Extract shows growing lag during a heavy batch window. Analysis indicates that the log mining server does not have enough memory, and the Extract currently runs with TRANLOGOPTIONS INTEGRATEDPARAMS (max_sga_size 512). What is the most appropriate change?",
+  "options": {
+   "A": "Add THREADS to the ADD EXTRACT command",
+   "B": "Change the Data Pump to PASSTHRU mode",
+   "C": "Set UPDATERECORDFORMAT FULL",
+   "D": "Increase CACHEMGR CACHESIZE only, because it controls the log mining server memory",
+   "E": "Increase max_sga_size in TRANLOGOPTIONS INTEGRATEDPARAMS and make sure STREAMS_POOL_SIZE is large enough to accommodate it, then restart the Extract"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "로그마이닝 서버 메모리는 INTEGRATEDPARAMS의 max_sga_size로 지정하며 Streams pool에서 할당되므로, 값을 늘리면서 STREAMS_POOL_SIZE도 충분히 확보한 뒤 Extract를 재시작해야 한다. CACHEMGR는 Extract 프로세스 측 캐시로 로그마이닝 서버 메모리가 아니다. THREADS는 Classic RAC용, PASSTHRU는 Data Pump 처리 모드, UPDATERECORDFORMAT은 trail 레코드 형식으로 원인 해결과 무관하다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-INTEGRATEDPARAMS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "BOTH",
+  "stem": "SEND EXTRACT ext1, SHOWTRANS shows a transaction that has been open for three days. The Extract recovery checkpoint cannot advance, and the DBA has confirmed that the transaction contains no changes that need to be replicated. What is the appropriate action?",
+  "options": {
+   "A": "Use SEND EXTRACT ext1, FORCETRANS for the transaction ID",
+   "B": "Use SEND EXTRACT ext1, SKIPTRANS for the transaction ID after confirming with the DBA",
+   "C": "Run ALTER EXTRACT ext1, ETROLLOVER",
+   "D": "Delete and re-add the Extract with BEGIN NOW every time this occurs",
+   "E": "Increase MEGABYTES on the trail"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "복제가 필요 없는 것으로 확인된 장기 열린 트랜잭션은 SEND EXTRACT ... SKIPTRANS <트랜잭션ID> 로 버려 복구 체크포인트가 진행되게 한다. FORCETRANS는 해당 트랜잭션을 커밋된 것처럼 trail에 기록하므로 요구 사항과 반대이다. ETROLLOVER와 MEGABYTES는 trail 파일 관련으로 무관하며, Extract 재생성은 데이터 유실 위험이 있는 과도한 조치이다.",
+  "reference": "Oracle GoldenGate 19c - Reference for Oracle GoldenGate (검수 필요)",
+  "variant_group": "EXT-SKIPTRANS"
+ },
+ {
+  "domain": "EXTRACT",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "ogg_version": "19c",
+  "architecture": "CLASSIC",
+  "stem": "You are migrating a running classic Extract ext1 to Integrated capture mode. You have stopped the Extract and logged in with DBLOGIN. Which step must be completed before you issue ALTER EXTRACT ext1, UPGRADE INTEGRATED TRANLOG?",
+  "options": {
+   "A": "ADD EXTRACT ext1, INTEGRATED TRANLOG, BEGIN NOW",
+   "B": "ALTER EXTRACT ext1, ETROLLOVER",
+   "C": "REGISTER EXTRACT ext1 DATABASE",
+   "D": "DELETE EXTTRAIL for the Extract's trail",
+   "E": "SEND EXTRACT ext1, FORCETRANS for all open transactions"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Classic Extract를 Integrated로 업그레이드하려면 먼저 REGISTER EXTRACT <그룹> DATABASE로 등록한 뒤(필요 시 INFO EXTRACT ... UPGRADE로 준비 상태 확인) ALTER EXTRACT ... UPGRADE INTEGRATED TRANLOG를 실행한다. trail 삭제나 ETROLLOVER는 필요 없고, FORCETRANS를 모든 트랜잭션에 적용하면 데이터가 왜곡된다. ADD EXTRACT로 다시 만들면 기존 그룹의 체크포인트를 잃는다.",
+  "reference": "Oracle GoldenGate 19c - Using Oracle GoldenGate for Oracle Database (검수 필요)",
+  "variant_group": "EXT-UPGRADE"
+ }
+]

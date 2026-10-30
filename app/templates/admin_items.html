@@ -1,0 +1,63 @@
+{% extends "admin_base.html" %}
+{% set nav = 'items' %}
+{% block title %}문항 관리{% endblock %}
+{% block content %}
+<section class="card">
+  <div class="actions between">
+    <h1>문항 관리 <span class="muted">({{ total }}건)</span></h1>
+    <span class="actions"><a class="button primary" href="/admin/items/new">문항 등록</a> <a class="button" href="/admin/items/upload">일괄 업로드</a></span>
+  </div>
+  <div class="chips">
+    {% for s in statuses %}
+      <a class="chip" href="/admin/items?status={{ s }}"><span class="st {{ s }}">{{ s }}</span><b>{{ counts[s] }}</b></a>
+    {% endfor %}
+  </div>
+  <form method="get" action="/admin/items" class="filters">
+    <label>영역
+      <select name="domain"><option value="">전체</option>
+        {% for d in domains %}<option value="{{ d.code }}" {{ 'selected' if filters.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+      </select></label>
+    <label>난이도
+      <select name="difficulty"><option value="">전체</option>
+        {% for v in difficulties %}<option {{ 'selected' if filters.difficulty == v }}>{{ v }}</option>{% endfor %}
+      </select></label>
+    <label>상태
+      <select name="status"><option value="">전체</option>
+        {% for v in statuses %}<option {{ 'selected' if filters.status == v }}>{{ v }}</option>{% endfor %}
+      </select></label>
+    <label>유형
+      <select name="item_type"><option value="">전체</option>
+        {% for v in types %}<option {{ 'selected' if filters.item_type == v }}>{{ v }}</option>{% endfor %}
+      </select></label>
+    <label>검색(지문/그룹)
+      <input name="q" value="{{ filters.q }}" maxlength="100"></label>
+    <button class="primary" type="submit">조회</button>
+    <a href="/admin/items">초기화</a>
+  </form>
+
+  <table>
+    <thead><tr><th>#</th><th>영역</th><th>난이도</th><th>유형</th><th>지문</th><th>variant group</th><th>상태</th><th>v</th></tr></thead>
+    <tbody>
+    {% for it in items %}
+      <tr>
+        <td><a href="/admin/items/{{ it.id }}">{{ it.id }}</a></td>
+        <td>{{ it.domain.code }}</td><td>{{ it.difficulty.value }}</td><td>{{ it.item_type.value }}</td>
+        <td class="stemcell">{{ it.stem|truncate(70) }}</td>
+        <td class="muted">{{ it.variant_group }}</td>
+        <td><span class="st {{ it.status.value }}">{{ it.status.value }}</span></td>
+        <td>{{ it.version }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="8" class="muted">조건에 맞는 문항이 없습니다.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% if pages > 1 %}
+  <div class="pagination">
+    {% if page > 1 %}<a href="/admin/items?{{ qs }}&page={{ page - 1 }}">← 이전</a>{% endif %}
+    <span class="muted">{{ page }} / {{ pages }}</span>
+    {% if page < pages %}<a href="/admin/items?{{ qs }}&page={{ page + 1 }}">다음 →</a>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

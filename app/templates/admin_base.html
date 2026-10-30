@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block topbar %}
+  <nav class="adminnav" aria-label="관리자 메뉴">
+    <a href="/admin" class="{{ 'on' if nav == 'home' }}">대시보드</a>
+    <a href="/admin/items" class="{{ 'on' if nav == 'items' }}">문항</a>
+    <a href="/admin/items/upload" class="{{ 'on' if nav == 'upload' }}">문항 업로드</a>
+    <a href="/admin/blueprints" class="{{ 'on' if nav == 'blueprints' }}">Blueprint</a>
+    <a href="/admin/results" class="{{ 'on' if nav == 'results' }}">결과</a>
+    <a href="/admin/analytics" class="{{ 'on' if nav == 'analytics' }}">문항 분석</a>
+    <a href="/admin/users" class="{{ 'on' if nav == 'users' }}">응시자</a>
+    <a href="/admin/settings" class="{{ 'on' if nav == 'settings' }}">설정</a>
+    <a href="/admin/audit" class="{{ 'on' if nav == 'audit' }}">감사 로그</a>
+  </nav>
+  <span class="topbar-right">
+    <a href="/account/password">비밀번호 변경</a>
+    <form method="post" action="/logout" class="inline">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button class="link" type="submit">로그아웃 ({{ user.name }})</button>
+    </form>
+  </span>
+{% endblock %}

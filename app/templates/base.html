@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}OGG 자격시험{% endblock %} · OGG-CBT</title>
+  <meta name="htmx-config" content='{"includeIndicatorStyles": false}'>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="/static/vendor/htmx.min.js" defer></script>
+  <script src="/static/js/app.js" defer></script>
+  {% block head %}{% endblock %}
+</head>
+<body hx-headers='{{ {"X-CSRF-Token": csrf_token}|tojson }}' class="{% block body_class %}{% endblock %}">
+  <header class="topbar">
+    <a class="brand" href="/">OGG-CBT</a>
+    {% block topbar %}
+      {% if user %}
+      <span class="topbar-right">
+        <a href="/account/password">비밀번호 변경</a>
+        <form method="post" action="/logout" class="inline">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <button class="link" type="submit">로그아웃</button>
+        </form>
+      </span>
+      {% endif %}
+    {% endblock %}
+  </header>
+  <main class="container">
+    {% if flash %}<p class="{{ 'alert' if flash.kind == 'error' else 'notice' }}" role="status">{{ flash.text }}</p>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "admin_base.html" %}
+{% set nav = 'analytics' %}
+{% block title %}문항 #{{ s.item.id }} 분석{% endblock %}
+{% block content %}
+<section class="card">
+  <p><a href="/admin/analytics">← 문항 분석 목록</a> · <a href="/admin/items/{{ s.item.id }}">문항 상세</a></p>
+  <h1>문항 #{{ s.item.id }} 분석
+    <span class="st {{ s.item.status.value }}">{{ s.item.status.value }}</span>
+    {% if s.override %}<span class="badge">채점 보정: {{ '전원 정답 인정' if s.override.value == 'CREDIT_ALL' else '채점 제외' }}</span>{% endif %}
+  </h1>
+  <p class="stem">{{ s.item.stem }}</p>
+  <p class="muted">{{ s.item.domain.code }} · {{ s.item.difficulty.value }} · {{ s.item.item_type.value }} · variant group {{ s.item.variant_group }}</p>
+
+  {% if not s.enough %}
+    <p class="warnbox"><b>표본 부족</b> — 응시 {{ s.n }}건(기준 {{ min_sample }}건 미만). 아래 값은 참고용이며 변별도 경고는 표시하지 않습니다.</p>
+  {% endif %}
+  {% if s.override %}
+    <p class="warnbox">이 문항에는 채점 보정이 적용되어 있습니다. 아래 분석은 보정과 무관하게 <b>실제 선택한 보기</b> 기준입니다.</p>
+  {% endif %}
+
+  <div class="kpis">
+    <div class="kpi">응시 수<b>{{ s.n }}</b></div>
+    <div class="kpi">정답률 p<b>{{ '%.2f'|format(s.p) }}</b> <span class="muted">{{ s.p_label }}</span></div>
+    <div class="kpi">무응답<b>{{ s.blank }} <span class="muted">({{ '%.0f'|format(s.blank / s.n * 100) }}%)</span></b></div>
+    <div class="kpi">상위 {{ s.group_n }}건 정답률<b>{{ '%.2f'|format(s.p_upper) }}</b></div>
+    <div class="kpi">하위 {{ s.group_n }}건 정답률<b>{{ '%.2f'|format(s.p_lower) }}</b></div>
+    <div class="kpi">변별도 D<b class="{{ 'bad' if s.warn else ('good' if s.enough else '') }}">{{ '%.2f'|format(s.d) }}</b></div>
+  </div>
+  {% if s.negative %}
+    <p class="alert">변별도가 <b>음수</b>입니다. 상위 집단이 하위 집단보다 더 많이 틀렸습니다. 정답 키 오류나 문항 모호성을 우선 의심하세요.</p>
+  {% elif s.warn %}
+    <p class="alert">변별도가 {{ d_warn }} 미만입니다. 문항 수정(신규 버전) 또는 폐기를 검토하세요.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>보기별 선택 분포</h2>
+  <p class="muted">{{ 'MULTI 문항은 한 응시가 여러 보기를 고를 수 있어 비율의 합이 100%를 넘을 수 있습니다. ' if s.item.item_type.value == 'MULTI' }}막대는 전체 응시 대비 선택 비율입니다.</p>
+  <table>
+    <thead><tr><th>보기</th><th>내용</th><th>선택 비율</th><th>선택 수</th><th>상위</th><th>하위</th><th>진단</th></tr></thead>
+    <tbody>
+    {% for o in s.options %}
+      <tr>
+        <td><b>{{ o.key }}</b>{% if o.is_correct %} <span class="badge pass">정답</span>{% endif %}</td>
+        <td class="stemcell">{{ o.text|truncate(50) }}</td>
+        <td>
+          <svg role="img" aria-label="보기 {{ o.key }} 선택 비율 {{ '%.0f'|format(o.pct * 100) }}%" width="180" height="16" viewBox="0 0 180 16">
+            <rect x="0" y="2" width="120" height="12" rx="3" fill="#eef2f8"/>
+            <rect x="0" y="2" width="{{ (120 * (o.pct if o.pct <= 1 else 1))|round(1) }}" height="12" rx="3" fill="{{ '#1a7f4b' if o.is_correct else '#1f5fbf' }}"/>
+            <text x="126" y="13" font-size="12">{{ '%.0f'|format(o.pct * 100) }}%</text>
+          </svg>
+        </td>
+        <td>{{ o.count }}</td><td>{{ o.upper }}</td><td>{{ o.lower }}</td>
+        <td>
+          {% if o.non_functional %}<span class="badge">기능 부족 (&lt;{{ '%.0f'|format(low_pick * 100) }}%)</span>{% endif %}
+          {% if o.inverted %}<span class="badge fail">상위 집단이 더 많이 선택</span>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+      <tr><td><b>무응답</b></td><td class="muted">선택하지 않음</td>
+        <td><svg role="img" aria-label="무응답 비율 {{ '%.0f'|format(s.blank / s.n * 100) }}%" width="180" height="16" viewBox="0 0 180 16">
+          <rect x="0" y="2" width="120" height="12" rx="3" fill="#eef2f8"/>
+          <rect x="0" y="2" width="{{ (120 * s.blank / s.n)|round(1) }}" height="12" rx="3" fill="#8a94a6"/>
+          <text x="126" y="13" font-size="12">{{ '%.0f'|format(s.blank / s.n * 100) }}%</text></svg></td>
+        <td>{{ s.blank }}</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="muted">상위/하위 열은 각각 총점 상위·하위 {{ s.group_n }}건(27%) 안에서의 선택 수입니다. 오답 보기를 상위 집단이 더 많이 고르면 정답 키 또는 보기 표현을 점검하세요.</p>
+</section>
+{% endblock %}

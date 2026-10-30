@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+.env
+.coverage
+htmlcov/
+.pytest_cache/
+.playwright-mcp/
+*.png
+*.db
+*.db-wal
+*.db-shm
+*.sqlite3
+mutation_report.json
+.hypothesis/
+
+# personal file, not part of the app
+eCertificate*.pdf

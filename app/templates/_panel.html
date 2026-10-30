@@ -1,0 +1,46 @@
+<div id="panel" class="layout">
+  <section class="card question exam-body">
+    <div class="q-head">
+      <h2>문제 {{ q.seq }} / {{ total }}
+        <span class="badge">{{ {'SINGLE': '단일 선택', 'MULTI': '복수 선택 (모두 고르시오)', 'SCENARIO': '시나리오'}[q.item_type] }}</span>
+      </h2>
+      {% include "_flag_button.html" %}
+    </div>
+
+    <p class="stem">{{ q.stem }}</p>
+
+    <form id="answer-form"
+          hx-put="/exam/{{ attempt.id }}/q/{{ q.seq }}/answer" hx-trigger="change, every 30s"
+          hx-target="#save-status" hx-swap="outerHTML">
+      {% set multi = q.item_type == 'MULTI' %}
+      {% for o in q.options %}
+      <label class="opt">
+        <input type="{{ 'checkbox' if multi else 'radio' }}" name="selected" value="{{ o.key }}"
+               {% if o.key in q.selected_keys %}checked{% endif %}>
+        <span class="no">{{ loop.index }}</span><span class="txt">{{ o.text }}</span>
+      </label>
+      {% endfor %}
+      <div class="row">
+        <button type="button" class="link" data-clear>선택 해제</button>
+        <span id="save-status" class="muted" data-remaining="{{ remaining }}">변경 시 자동 저장됩니다 (30초마다 재저장)</span>
+      </div>
+    </form>
+
+    <div class="pager">
+      {% if prev_seq %}
+      <a class="button" href="/exam/{{ attempt.id }}?q={{ prev_seq }}"
+         hx-get="/exam/{{ attempt.id }}/q/{{ prev_seq }}" hx-target="#panel" hx-swap="outerHTML"
+         hx-push-url="/exam/{{ attempt.id }}?q={{ prev_seq }}">← 이전</a>
+      {% else %}<span></span>{% endif %}
+      {% if next_seq %}
+      <a class="button primary" href="/exam/{{ attempt.id }}?q={{ next_seq }}"
+         hx-get="/exam/{{ attempt.id }}/q/{{ next_seq }}" hx-target="#panel" hx-swap="outerHTML"
+         hx-push-url="/exam/{{ attempt.id }}?q={{ next_seq }}">다음 →</a>
+      {% endif %}
+    </div>
+  </section>
+  <aside class="card side">
+    <h3>문항 목록</h3>
+    {% include "_navigator.html" %}
+  </aside>
+</div>

@@ -1,0 +1,26 @@
+{% extends "admin_base.html" %}
+{% set nav = 'users' %}
+{% block title %}계정 삭제{% endblock %}
+{% block content %}
+<section class="card narrow">
+  <h1>계정 삭제</h1>
+  <table>
+    <tr><th>아이디</th><td>{{ target.login_id }}</td></tr>
+    <tr><th>이름</th><td>{{ target.name }}</td></tr>
+    <tr><th>함께 삭제될 응시 기록</th><td><b>{{ attempts }}건</b></td></tr>
+  </table>
+  {% if target.role.value != 'CANDIDATE' %}
+    <p class="alert">관리자 계정은 삭제할 수 없습니다(CLI 로 관리).</p>
+    <p><a class="button" href="/admin/users">돌아가기</a></p>
+  {% else %}
+    <p class="alert">계정과 응시 기록(답안 포함)이 <b>완전히 삭제되며 되돌릴 수 없습니다.</b> 결과 목록·합격률·문항 분석에서도 빠집니다.</p>
+    <p class="actions">
+      <form method="post" action="/admin/users/{{ target.id }}/delete" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit" class="danger">삭제합니다</button>
+      </form>
+      <a class="button" href="/admin/users">취소</a>
+    </p>
+  {% endif %}
+</section>
+{% endblock %}
