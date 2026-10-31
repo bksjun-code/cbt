@@ -3,7 +3,8 @@
   --brand: #1f5fbf; --brand-ink: #fff; --ok: #1a7f4b; --bad: #c0352b; --warn: #b7791f;
 }
 * { box-sizing: border-box; }
-body { margin: 0; font: 16px/1.6 "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+body { margin: 0; font: 16px/1.6 "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif; background: var(--bg) url("/static/image/background.png") center / cover no-repeat fixed; color: var(--ink); }
+body.exam-mode { background: var(--bg); }
 .topbar { display: flex; justify-content: space-between; align-items: center; padding: .6rem 1.2rem; background: #fff; border-bottom: 1px solid var(--line); }
 .brand { font-weight: 700; color: var(--brand); text-decoration: none; }
 .container { max-width: 1040px; margin: 1.5rem auto; padding: 0 1rem; }
