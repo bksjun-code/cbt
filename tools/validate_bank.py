@@ -5,6 +5,7 @@
   - 질문·선택지에 한글이 없는지(영어 표기 규칙)
   - 파일 안 / 기존 샘플(question_bank/_existing_samples.json) 과의 지문 중복(같은 영역, 공백·대소문자 무시)
   - variant_group 이름 규칙(영역 접두사, 대문자), 그룹 쏠림, 난이도·유형 분포
+  - 정답 1개 문항에서 정답이 혼자 가장 긴 보기인 비율(내용을 몰라도 길이로 맞힐 수 있는 단서)
 오류가 있으면 종료 코드 1.
 """
 import json
@@ -21,8 +22,14 @@ from pydantic import ValidationError  # noqa: E402
 from app.schemas.item import ItemIn  # noqa: E402
 
 PREFIX = {"ARCH": "ARCH-", "INSTALL": "INST-", "EXTRACT": "EXT-", "REPLICAT": "REP-", "MAPPING": "MAP-", "OPS": "OPS-", "TROUBLE": "TR-"}
+
+
+def group_prefix(domain: str) -> str:
+    """OGG 는 위 표, 다른 제품은 영역 코드의 _ 를 - 로 바꾼 접두사(예: DB_ARCH → DB-ARCH-)."""
+    return PREFIX.get(domain) or domain.replace("_", "-") + "-"
 HANGUL = re.compile(r"[가-힣]")
 GROUP_RE = re.compile(r"^[A-Z][A-Z0-9-]{2,99}$")
+LONGEST_WARN = 0.35  # 보기 5개면 우연 수준이 20% 이므로 이보다 크게 넘으면 경고
 LETTER_REF = re.compile(r"(?:\b(?:option|options|보기|선택지)\s*[A-E]\b)|(?:\([A-E]\))|(?:(?<![A-Za-z0-9$@_.])[A-E](?:\)|는|은|이|가|도|와|과|를|을|의|,\s*[A-E]\b))")
 
 
@@ -53,6 +60,7 @@ def main() -> int:
     by_cell = defaultdict(list)
     groups = Counter()
     types = Counter()
+    single = longest = 0
     for no, raw in enumerate(data, start=1):
         tag = f"#{no}"
         if not isinstance(raw, dict):
@@ -70,8 +78,8 @@ def main() -> int:
             errors.append(f"{tag}: 질문/선택지에 한글이 있습니다(영어로 작성)")
         if not it.explanation.strip() or not HANGUL.search(it.explanation):
             warns.append(f"{tag}: 해설은 한국어로 작성합니다")
-        if not GROUP_RE.match(it.variant_group) or not it.variant_group.startswith(PREFIX[it.domain]):
-            errors.append(f"{tag}: variant_group 은 대문자이고 '{PREFIX[it.domain]}' 로 시작해야 합니다")
+        if not GROUP_RE.match(it.variant_group) or not it.variant_group.startswith(group_prefix(it.domain)):
+            errors.append(f"{tag}: variant_group 은 대문자이고 '{group_prefix(it.domain)}' 로 시작해야 합니다")
         if len(it.options) < 4:
             errors.append(f"{tag}: 보기는 4~5개로 작성합니다")
         if it.item_type.value == "MULTI" and "choose" not in it.stem.lower():
@@ -91,6 +99,12 @@ def main() -> int:
             errors.append(f"{tag}: 해설에서 보기를 문자(A~E)로 가리키지 말고 보기 내용으로 언급하세요")
         if any(re.search(r"\b(all|none) of the above\b", v, re.I) for v in it.options.values()):
             errors.append(f"{tag}: 'all/none of the above' 보기는 순서가 섞이면 의미가 없습니다")
+        if len(it.correct_keys) == 1:
+            single += 1
+            lens = {k: len(v) for k, v in it.options.items()}
+            top = max(lens.values())
+            if lens[it.correct_keys[0]] == top and list(lens.values()).count(top) == 1:
+                longest += 1
         by_cell[(it.domain, it.difficulty.value)].append(it.variant_group)
         groups[it.variant_group] += 1
         types[it.item_type.value] += 1
@@ -98,7 +112,12 @@ def main() -> int:
     for g, n in groups.items():
         if n > 3:
             warns.append(f"variant_group {g}: {n}문항 — 같은 개념이 너무 많습니다(최대 3 권장)")
+    if single and longest / single > LONGEST_WARN:
+        warns.append(f"정답 1개 문항 {single}건 중 {longest}건({longest * 100 // single}%)에서 정답이 가장 긴 보기입니다"
+                     f"(권장 {int(LONGEST_WARN * 100)}% 이하) — 오답 보기를 정답만큼 구체적으로 쓰세요")
     print(f"검사 {len(data)}문항 | 유형 {dict(types)}")
+    if single:
+        print(f"  정답이 가장 긴 보기: {longest}/{single} ({longest * 100 // single}%)")
     for cell, gs in sorted(by_cell.items()):
         print(f"  {cell[0]:9} {cell[1]:5} 문항 {len(gs):3}  서로 다른 그룹 {len(set(gs)):3}")
     for w in warns[:40]:
