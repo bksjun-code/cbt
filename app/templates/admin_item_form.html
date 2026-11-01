@@ -39,16 +39,18 @@
         <label>영역
           <select name="domain" required>
             <option value="">선택</option>
-            {% for d in domains %}<option value="{{ d.code }}" {{ 'selected' if form.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+            {% for p in products %}<optgroup label="{{ p.name }}">
+            {% for d in domains if d.product_id == p.id %}<option value="{{ d.code }}" {{ 'selected' if form.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+            </optgroup>{% endfor %}
           </select></label>
         <label>난이도
           <select name="difficulty">{% for v in difficulties %}<option {{ 'selected' if form.difficulty == v }}>{{ v }}</option>{% endfor %}</select></label>
         <label>유형
           <select name="item_type">{% for v in types %}<option {{ 'selected' if form.item_type == v }}>{{ v }}</option>{% endfor %}</select></label>
-        <label>아키텍처
+        <label>아키텍처 <span class="muted">(OGG 전용, 다른 시험은 BOTH)</span>
           <select name="architecture">{% for v in architectures %}<option {{ 'selected' if form.architecture == v }}>{{ v }}</option>{% endfor %}</select></label>
-        <label>OGG 버전
-          <input type="text" name="ogg_version" value="{{ form.ogg_version }}" maxlength="20"></label>
+        <label>제품 버전
+          <input type="text" name="product_version" value="{{ form.product_version }}" maxlength="20" placeholder="비우면 시험 기본 버전"></label>
         <label>variant group
           <input type="text" name="variant_group" value="{{ form.variant_group }}" list="vg" maxlength="100" required>
           <datalist id="vg">{% for g in groups %}<option value="{{ g }}">{% endfor %}</datalist></label>

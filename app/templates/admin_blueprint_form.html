@@ -4,7 +4,9 @@
 {% block content %}
 <section class="card">
   <h1>{% if bp %}{{ bp.name }} {% if bp.is_active %}<span class="st APPROVED">활성</span>{% else %}<span class="st DRAFT">비활성</span>{% endif %}
-      {% else %}새 Blueprint <span class="muted">(활성 Blueprint 를 복사해 시작)</span>{% endif %}</h1>
+      {% else %}새 Blueprint <span class="muted">(같은 시험의 활성 Blueprint 를 복사해 시작)</span>{% endif %}</h1>
+  <p class="muted">시험: <b>{{ product.name }}</b>{% if not bp %} · 다른 시험:
+    {% for p in products if p.id != product.id %}<a href="/admin/blueprints/new?product={{ p.code }}">{{ p.name }}</a>{{ ', ' if not loop.last }}{% endfor %}{% endif %}</p>
 
   {% if errors %}
     <div class="alert" role="alert">저장하지 못했습니다.
@@ -13,6 +15,7 @@
 
   <form method="post" action="{{ '/admin/blueprints/%d'|format(bp.id) if bp else '/admin/blueprints/new' }}" class="stack">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    {% if not bp %}<input type="hidden" name="product" value="{{ product.code }}">{% endif %}
     <div class="grid2">
       <label>이름 <input type="text" name="name" value="{{ form.name }}" maxlength="100" required></label>
       <label>제한시간(분) <input type="number" name="time_limit_min" value="{{ form.time_limit_min }}" min="1" max="600" required></label>

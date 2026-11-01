@@ -63,7 +63,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             if sched:
                 sched.shutdown(wait=False)
 
-    app = FastAPI(title="OGG-CBT", lifespan=lifespan, dependencies=[Depends(csrf_protect)],
+    app = FastAPI(title="Oracle CBT", lifespan=lifespan, dependencies=[Depends(csrf_protect)],
                   docs_url=None, redoc_url=None, openapi_url=None)
     app.state.settings = settings
     app.state.account_limiter = RateLimiter(limit=5, window_sec=600)  # 가입 신청·재설정 요청: IP 당 10분에 5회

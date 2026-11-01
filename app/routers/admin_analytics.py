@@ -8,7 +8,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models import Domain, User, utcnow
+from app.models import Domain, Product, User, utcnow
 from app.services import item_analysis as svc
 from app.services.audit import log_audit
 from app.services.results_admin import safe_cell
@@ -21,15 +21,15 @@ PER_PAGE = 30
 SORTS = {"d", "p", "n", "id"}
 
 
-def _filters(domain: str, difficulty: str, status: str, warn: str, sort: str) -> svc.Filters:
-    return svc.Filters(domain=domain, difficulty=difficulty, status=status, warn_only=warn == "1",
+def _filters(product: str, domain: str, difficulty: str, status: str, warn: str, sort: str) -> svc.Filters:
+    return svc.Filters(product=product, domain=domain, difficulty=difficulty, status=status, warn_only=warn == "1",
                        sort=sort if sort in SORTS else "d")
 
 
 @router.get("")
-def analytics(request: Request, domain: str = "", difficulty: str = "", status: str = "", warn: str = "",
+def analytics(request: Request, product: str = "", domain: str = "", difficulty: str = "", status: str = "", warn: str = "",
               sort: str = "d", page: int = 1, user: User = Depends(require_admin), db: Session = Depends(get_db)):
-    f = _filters(domain, difficulty, status, warn, sort)
+    f = _filters(product, domain, difficulty, status, warn, sort)
     stats = svc.list_stats(db, f)
     summ = svc.summary(stats)
     pages = max((len(stats) + PER_PAGE - 1) // PER_PAGE, 1)
@@ -37,13 +37,14 @@ def analytics(request: Request, domain: str = "", difficulty: str = "", status: 
     return render(request, "admin_analytics.html", user=user, rows=stats[(page - 1) * PER_PAGE: page * PER_PAGE],
                   total=len(stats), summary=summ, page=page, pages=pages, f=f, qs=f.as_query(),
                   domains=list(db.scalars(select(Domain).order_by(Domain.id))), min_sample=svc.MIN_SAMPLE,
+                  products=list(db.scalars(select(Product).order_by(Product.sort_order, Product.id))),
                   d_warn=svc.D_WARN)
 
 
 @router.get("/export.csv")
-def export_csv(domain: str = "", difficulty: str = "", status: str = "", warn: str = "", sort: str = "d",
+def export_csv(product: str = "", domain: str = "", difficulty: str = "", status: str = "", warn: str = "", sort: str = "d",
                user: User = Depends(require_admin), db: Session = Depends(get_db)):
-    f = _filters(domain, difficulty, status, warn, sort)
+    f = _filters(product, domain, difficulty, status, warn, sort)
     stats = svc.list_stats(db, f)
     buf = io.StringIO()
     w = csv.writer(buf)

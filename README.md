@@ -1,4 +1,7 @@
-# OGG-CBT — Oracle GoldenGate 사내 자격시험 온라인 시스템
+# Oracle CBT — Oracle 사내 자격시험 온라인 시스템
+
+시험 과목은 **Oracle GoldenGate(OGG)**, **Oracle Database(ORADB)**, **Oracle WebLogic Server(WLS)** 입니다.
+과목(제품)마다 출제 영역·Blueprint·문항이 따로 있고, 응시자는 대시보드에서 과목을 골라 시험을 시작합니다.
 
 Rockplace DI팀 내부용 CBT(Computer Based Test) 시스템입니다. 응시자가 접속할 때마다 **관리자가 검수·승인한 문항은행**에서
 **출제 기준표(Blueprint)** 에 맞춰 서로 다른 문제 세트를 출제합니다. 시험 중 AI가 문항을 만드는 일은 없습니다.
@@ -128,10 +131,13 @@ http://127.0.0.1:8000 에 접속합니다. 관리자는 로그인 후 `/admin`, 
 
 1. **관리자 계정 생성** ([4절](#4-관리자-계정-만들기))
 2. **문항 등록** — 관리자 화면 `문항` 또는 `문항 업로드`. 등록된 문항은 모두 **DRAFT** 입니다.
+   문항의 영역 코드가 과목을 정합니다(아래 [6절](#6-문항-업로드)의 영역 표).
 3. **검수·승인** — 문항 상세에서 `검수 요청(REVIEWED)` → `승인(APPROVED)`. 반려하면 사유가 기록됩니다.
    (작성자 본인 승인을 막으려면 `설정`에서 "작성자·승인자 분리"를 켭니다.)
 4. **Blueprint 가용 문항 확인** — `Blueprint` 화면의 영역×난이도 표에서 **빨간 셀(문항 부족)** 이 없는지 확인합니다.
-   기본 Blueprint 는 40문항(LOW 12 / MID 20 / HIGH 8, 배점 2.0 / 2.5 / 3.25 = 100점)이며, 영역 7개 × 난이도 3개 셀마다 문항 수가 정해져 있습니다.
+   기본 Blueprint 는 OGG 용 40문항(LOW 12 / MID 20 / HIGH 8, 배점 2.0 / 2.5 / 3.25 = 100점)이며, 영역 7개 × 난이도 3개 셀마다 문항 수가 정해져 있습니다.
+   **활성 Blueprint 는 과목마다 1개**입니다. Oracle Database·WebLogic 은 기본 Blueprint 가 없으므로, 문항을 승인한 뒤
+   `Blueprint` 화면의 `새 Oracle Database Blueprint` 등으로 만들고 활성화해야 응시자 화면에서 '준비 중'이 시험 시작 버튼으로 바뀝니다.
    같은 `variant group` 문항은 한 시험에 1개만 나오므로, **셀별 서로 다른 variant group 수**가 필요 문항 수 이상이어야 합니다.
 5. **응시자 등록** ([5절](#5-응시자-등록))
 6. 응시자에게 시험 접속 주소와 초기 비밀번호를 안전하게 전달합니다.
@@ -143,7 +149,8 @@ http://127.0.0.1:8000 에 접속합니다. 관리자는 로그인 후 `/admin`, 
 * 합격: **총점 70점 이상 그리고 모든 영역 득점률 40% 이상**(과락). 값은 Blueprint 에서 바꿉니다.
 * MULTI(복수 정답)는 완전 일치만 정답입니다(Blueprint 옵션으로 부분 점수 허용 가능).
 * 최근 2회 시험에 나온 문항은 우선 제외하되, 후보가 부족하면 완화하고 감사 로그(`EXAM_SELECTION_RELAXED`)에 남깁니다.
-* 동시 응시는 1건뿐이고, 새로고침·재접속하면 진행 중인 시험을 이어서 봅니다.
+* 동시 응시는 과목과 관계없이 1건뿐이고, 새로고침·재접속하면 진행 중인 시험을 이어서 봅니다.
+* 최근 출제 제외는 같은 과목의 시험만 셉니다.
 * **한 계정은 한 곳에서만 로그인됩니다.** 다른 PC 에서 같은 아이디로 로그인하면 이전 PC 는 다음 동작 때 로그인 화면으로 이동하며
   '다른 곳에서 같은 아이디로 로그인하여 로그아웃되었습니다'를 보여 줍니다(감사 로그 `SESSION_REPLACED`). 시험은 새 PC 에서 이어서 봅니다.
   이전 PC 에서 마지막 자동 저장 이후 고른 답은 저장되지 않습니다. 로그아웃·비밀번호 변경·관리자 비밀번호 재설정도 다른 곳의 로그인을 끊습니다.
@@ -151,10 +158,11 @@ http://127.0.0.1:8000 에 접속합니다. 관리자는 로그인 후 `/admin`, 
 
 ### 합격증
 * 합격한 응시자는 **응시 이력**과 **결과 화면**에서 '합격증 PDF'를 내려받습니다. 관리자는 결과 상세에서 내려받을 수 있습니다.
-* 처음 내려받을 때 인증번호(`RP-OGG-합격일-무작위6자리`)가 발급되고, 합격증의 QR 코드나 **`/verify`** 에서 누구나 진위를 확인할 수 있습니다
+* 처음 내려받을 때 인증번호(`RP-과목코드-합격일-무작위6자리`, 예: `RP-OGG-…`, `RP-ORADB-…`, `RP-WLS-…`)가 발급되고, 합격증의 QR 코드나 **`/verify`** 에서 누구나 진위를 확인할 수 있습니다
   (성명·자격·합격일만 표시, 아이디·점수는 표시하지 않음).
 * 채점 보정으로 불합격이 되거나 계정이 삭제되면 그 합격증은 진위 확인에서 '확인되지 않음'으로 나옵니다.
-* 발급 기관과 자격명은 `.env` 의 `CERTIFICATE_ISSUER`(기본 `Rockplace DI팀`), `CERTIFICATE_TITLE`(기본 `Oracle GoldenGate 사내 자격시험`)로 바꿀 수 있습니다.
+* 자격명은 과목 이름으로 정해집니다(`Oracle GoldenGate 사내 자격시험`, `Oracle Database 사내 자격시험`, `Oracle WebLogic Server 사내 자격시험`).
+  발급 기관은 `.env` 의 `CERTIFICATE_ISSUER`(기본 `Rockplace DI팀`)로 바꿀 수 있습니다.
   사내 자격 인증이므로 Oracle 로고·서명은 쓰지 않으며, 공식 자격증이 아니라는 안내 문구가 들어갑니다.
 * 한글 글꼴은 나눔 글꼴(SIL OFL 1.1, `app/assets/fonts/OFL.txt`)을 함께 배포합니다.
 
@@ -210,7 +218,7 @@ sudo -u cbt /opt/ogg-cbt/app/deploy/cbt-cli.sh reset-password <login_id>   # 로
     "domain": "EXTRACT",
     "difficulty": "MID",
     "item_type": "SINGLE",
-    "ogg_version": "19c",
+    "product_version": "19c",
     "architecture": "MA",
     "stem": "Integrated Extract 사용 시 소스 DB에서 반드시 선행되어야 하는 설정은?",
     "options": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
@@ -222,16 +230,21 @@ sudo -u cbt /opt/ogg-cbt/app/deploy/cbt-cli.sh reset-password <login_id>   # 로
 ]
 ```
 
-**CSV** (열: `domain,difficulty,item_type,stem,option_A,option_B,[option_C..E],correct_keys,explanation,variant_group,[ogg_version,architecture,reference]`,
+**CSV** (열: `domain,difficulty,item_type,stem,option_A,option_B,[option_C..E],correct_keys,explanation,variant_group,[product_version,architecture,reference]`,
 복수 정답은 `A|C`)
 
 | 필드 | 허용 값 |
 |---|---|
-| domain | `ARCH` `INSTALL` `EXTRACT` `REPLICAT` `MAPPING` `OPS` `TROUBLE` |
+| domain (OGG) | `ARCH` `INSTALL` `EXTRACT` `REPLICAT` `MAPPING` `OPS` `TROUBLE` |
+| domain (Oracle Database) | `DB_ARCH` `DB_INSTALL` `DB_STORAGE` `DB_SQL` `DB_SEC` `DB_BACKUP` `DB_PERF` `DB_HA` |
+| domain (WebLogic) | `WLS_ARCH` `WLS_INSTALL` `WLS_DEPLOY` `WLS_JDBC` `WLS_CLUSTER` `WLS_SEC` `WLS_OPS` `WLS_TROUBLE` |
 | difficulty | `LOW` `MID` `HIGH` |
 | item_type | `SINGLE`(정답 1개) `MULTI`(정답 2개 이상) `SCENARIO`(정답 1개) |
-| architecture | `CLASSIC` `MA` `BOTH`(기본) |
+| product_version | 비우면 과목 기본 버전(OGG·DB `19c`, WebLogic `14c`). 예전 이름 `ogg_version` 도 받습니다 |
+| architecture | OGG 전용. `CLASSIC` `MA` `BOTH`(기본). 다른 과목은 비워 둡니다 |
 | options | 키 `A`~`E` 중 2~5개, 보기 내용 중복 불가 |
+
+영역·과목 목록은 `app/catalog.py` 에 있습니다. 한 파일에 여러 과목 문항을 섞어 올려도 됩니다.
 
 `variant_group` 은 **같은 개념을 묻는 유사 문항의 묶음 이름**입니다. 같은 그룹 문항은 한 시험에 1개만 출제됩니다.
 

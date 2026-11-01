@@ -11,7 +11,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app.models import (
     AttemptStatus, Blueprint, Difficulty, Domain, ExamAttempt, Item, ItemStatus,
-    Role, User, utcnow,
+    Product, Role, User, utcnow,
 )
 from app.schemas.item import ItemIn
 from app.seed import DEFAULT_BLUEPRINT_NAME, run_seed
@@ -23,10 +23,14 @@ ROOT = Path(__file__).resolve().parent.parent
 
 # ---------- seed ----------
 def test_seed_domains_and_blueprint(seeded):
-    assert {d.code for d in seeded.scalars(select(Domain))} == {
-        "ARCH", "INSTALL", "EXTRACT", "REPLICAT", "MAPPING", "OPS", "TROUBLE"
-    }
+    by_product = {}
+    for d in seeded.scalars(select(Domain)):
+        by_product.setdefault(d.product.code, set()).add(d.code)
+    assert by_product["OGG"] == {"ARCH", "INSTALL", "EXTRACT", "REPLICAT", "MAPPING", "OPS", "TROUBLE"}
+    assert len(by_product["ORADB"]) == 8 and all(c.startswith("DB_") for c in by_product["ORADB"])
+    assert len(by_product["WLS"]) == 8 and all(c.startswith("WLS_") for c in by_product["WLS"])
     bp = seeded.scalar(select(Blueprint).where(Blueprint.name == DEFAULT_BLUEPRINT_NAME))
+    assert bp.product.code == "OGG"  # 기본 Blueprint 는 OGG 만. 다른 제품은 문항이 쌓인 뒤 관리자가 만든다
     assert bp.is_active and bp.total_items == 40 and bp.time_limit_min == 60
     assert bp.pass_score == 70 and bp.domain_min_ratio == 0.4
     validate_blueprint(bp)  # 문항 수 40, 배점 합계 100
@@ -65,7 +69,8 @@ def test_seed_is_idempotent(seeded):
     before = seeded.query(Item).count()
     out = run_seed(seeded, samples=True)
     assert out["sample_items_added"] == 0 and seeded.query(Item).count() == before
-    assert seeded.query(Domain).count() == 7 and seeded.query(Blueprint).count() == 1
+    assert seeded.query(Product).count() == 3
+    assert seeded.query(Domain).count() == 23 and seeded.query(Blueprint).count() == 1
 
 
 def test_seed_without_samples_adds_no_items(db):

@@ -15,7 +15,7 @@ from openpyxl import Workbook
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.models import AttemptStatus, Blueprint, Domain, ExamAttempt, User
+from app.models import AttemptStatus, Blueprint, Domain, ExamAttempt, Product, User
 from app.services.timeutil import fmt_kst, kst_day_start_utc
 
 PER_PAGE = 30
@@ -32,6 +32,7 @@ def safe_cell(v):
 
 @dataclass
 class Filters:
+    product: str = ""       # 제품 코드
     status: str = ""
     passed: str = ""        # "", "1"(합격), "0"(불합격)
     q: str = ""             # login_id / 이름 부분 일치
@@ -39,7 +40,7 @@ class Filters:
     date_to: date | None = None    # KST 기준 종료일(포함)
 
     def as_query(self) -> str:
-        parts = {"status": self.status, "passed": self.passed, "q": self.q,
+        parts = {"product": self.product, "status": self.status, "passed": self.passed, "q": self.q,
                  "date_from": self.date_from.isoformat() if self.date_from else "",
                  "date_to": self.date_to.isoformat() if self.date_to else ""}
         from urllib.parse import urlencode
@@ -54,6 +55,8 @@ def _like(term: str) -> str:
 def _stmt(f: Filters):
     stmt = select(ExamAttempt, User, Blueprint.name).join(User, User.id == ExamAttempt.user_id) \
         .join(Blueprint, Blueprint.id == ExamAttempt.blueprint_id)
+    if f.product:
+        stmt = stmt.join(Product, Product.id == Blueprint.product_id).where(Product.code == f.product)
     if f.status in {s.value for s in AttemptStatus}:
         stmt = stmt.where(ExamAttempt.status == f.status)
     if f.passed in ("0", "1"):
@@ -87,16 +90,20 @@ def summary(db: Session, f: Filters) -> dict:
 
 
 # ---------- 내보내기 ----------
-def _domain_codes(db: Session) -> list[str]:
-    return [d.code for d in db.scalars(select(Domain).order_by(Domain.id))]
+def _domain_codes(db: Session, product: str = "") -> list[str]:
+    """내보내기 영역 열. 시험 필터가 있으면 그 시험의 영역만."""
+    q = select(Domain.code).order_by(Domain.id)
+    if product:
+        q = q.join(Product, Product.id == Domain.product_id).where(Product.code == product)
+    return list(db.scalars(q))
 
 
 STATUS_KO = {"IN_PROGRESS": "진행 중", "SUBMITTED": "제출", "EXPIRED": "시간 만료"}
 
 
 def export_table(db: Session, f: Filters) -> tuple[list[str], list[list]]:
-    codes = _domain_codes(db)
-    header = ["회차", "로그인 ID", "이름", "Blueprint", "시작(KST)", "제출(KST)", "소요(분)", "상태", "총점", "합격"] + \
+    codes = _domain_codes(db, f.product)
+    header = ["회차", "로그인 ID", "이름", "시험", "Blueprint", "시작(KST)", "제출(KST)", "소요(분)", "상태", "총점", "합격"] + \
              [f"{c} 득점률(%)" for c in codes]
     rows = []
     for a, u, bp_name in db.execute(_stmt(f).order_by(ExamAttempt.id).limit(EXPORT_LIMIT)):
@@ -104,7 +111,7 @@ def export_table(db: Session, f: Filters) -> tuple[list[str], list[list]]:
         scores = a.domain_scores or {}
         ratios = [round(scores[c]["ratio"] * 100, 1) if c in scores else "" for c in codes]
         passed = "" if a.passed is None else ("합격" if a.passed else "불합격")
-        rows.append([a.id, u.login_id, u.name, bp_name, fmt_kst(a.started_at, "%Y-%m-%d %H:%M:%S"),
+        rows.append([a.id, u.login_id, u.name, a.blueprint.product.name, bp_name, fmt_kst(a.started_at, "%Y-%m-%d %H:%M:%S"),
                      fmt_kst(a.submitted_at, "%Y-%m-%d %H:%M:%S") if a.submitted_at else "", mins,
                      STATUS_KO[a.status.value], a.total_score if a.total_score is not None else "", passed, *ratios])
     return header, rows

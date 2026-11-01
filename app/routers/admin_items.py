@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models import Architecture, Difficulty, Domain, Item, ItemStatus, ItemType, OverrideMode, User
+from app.models import Architecture, Difficulty, Domain, Item, ItemStatus, ItemType, OverrideMode, Product, User
 from app.schemas.item import OPTION_KEYS, ItemIn
 from app.services import grade_overrides as ovr
 from app.services import item_admin as svc
@@ -28,10 +28,10 @@ def _get_item(db: Session, item_id: int) -> Item:
 
 def _form_defaults(item: Item | None = None) -> dict:
     if item is None:
-        return {"domain": "", "difficulty": "MID", "item_type": "SINGLE", "architecture": "BOTH", "ogg_version": "19c",
+        return {"domain": "", "difficulty": "MID", "item_type": "SINGLE", "architecture": "BOTH", "product_version": "",
                 "stem": "", "options": {}, "correct_keys": [], "explanation": "", "reference": "", "variant_group": ""}
     return {"domain": item.domain.code, "difficulty": item.difficulty.value, "item_type": item.item_type.value,
-            "architecture": item.architecture.value, "ogg_version": item.ogg_version, "stem": item.stem,
+            "architecture": item.architecture.value, "product_version": item.product_version, "stem": item.stem,
             "options": dict(item.options), "correct_keys": list(item.correct_keys), "explanation": item.explanation,
             "reference": item.reference or "", "variant_group": item.variant_group}
 
@@ -40,7 +40,7 @@ def _form_from_request(form) -> dict:
     options = {k: (form.get(f"option_{k}") or "").strip() for k in OPTION_KEYS}
     return {
         "domain": form.get("domain", ""), "difficulty": form.get("difficulty", ""), "item_type": form.get("item_type", ""),
-        "architecture": form.get("architecture", "BOTH"), "ogg_version": (form.get("ogg_version") or "19c").strip(),
+        "architecture": form.get("architecture", "BOTH"), "product_version": (form.get("product_version") or "").strip(),
         "stem": (form.get("stem") or "").strip(), "options": {k: v for k, v in options.items() if v},
         "correct_keys": [k for k in form.getlist("correct_keys") if k in OPTION_KEYS],
         "explanation": (form.get("explanation") or "").strip(), "reference": (form.get("reference") or "").strip() or None,
@@ -48,9 +48,15 @@ def _form_from_request(form) -> dict:
     }
 
 
+def _catalog(db: Session) -> dict:
+    """제품별 영역 선택지(필터·등록 폼·업로드 안내 공용)."""
+    return {"domains": list(db.scalars(select(Domain).order_by(Domain.id))),
+            "products": list(db.scalars(select(Product).order_by(Product.sort_order, Product.id)))}
+
+
 def _form_ctx(db: Session, user: User, **extra) -> dict:
     return {
-        "user": user, "domains": list(db.scalars(select(Domain).order_by(Domain.id))),
+        "user": user, **_catalog(db),
         "difficulties": [d.value for d in Difficulty], "types": [t.value for t in ItemType],
         "architectures": [a.value for a in Architecture], "keys": OPTION_KEYS,
         "groups": svc.variant_groups(db), **extra,
@@ -62,13 +68,13 @@ def _errors(e: ValidationError) -> list[str]:
 
 
 @router.get("")
-def item_list(request: Request, domain: str = "", difficulty: str = "", status: str = "", item_type: str = "",
+def item_list(request: Request, product: str = "", domain: str = "", difficulty: str = "", status: str = "", item_type: str = "",
               q: str = "", page: int = 1, user: User = Depends(require_admin), db: Session = Depends(get_db)):
     page = min(max(page, 1), 100_000)  # 비정상적으로 큰 값은 OFFSET 오버플로 방지를 위해 제한
-    items, total = svc.list_items(db, domain_code=domain or None, difficulty=difficulty or None, status=status or None,
+    items, total = svc.list_items(db, product_code=product or None, domain_code=domain or None, difficulty=difficulty or None, status=status or None,
                                   item_type=item_type or None, q=q or None, page=page)
     pages = max((total + svc.PER_PAGE - 1) // svc.PER_PAGE, 1)
-    filters = {"domain": domain, "difficulty": difficulty, "status": status, "item_type": item_type, "q": q}
+    filters = {"product": product, "domain": domain, "difficulty": difficulty, "status": status, "item_type": item_type, "q": q}
     return render(request, "admin_items.html", **_form_ctx(db, user), items=items, total=total, page=page, pages=pages,
                   filters=filters, statuses=[s.value for s in ItemStatus], counts=svc.status_counts(db),
                   qs="&".join(f"{k}={v}" for k, v in filters.items() if v and k != "q") + (f"&q={q}" if q else ""))
@@ -98,8 +104,9 @@ async def create(request: Request, user: User = Depends(require_admin), db: Sess
 
 
 @router.get("/upload")
-def upload_form(request: Request, user: User = Depends(require_admin)):
-    return render(request, "admin_upload.html", user=user, result=None, error=None, max_mb=MAX_BYTES // 1024 // 1024)
+def upload_form(request: Request, user: User = Depends(require_admin), db: Session = Depends(get_db)):
+    return render(request, "admin_upload.html", user=user, result=None, error=None, max_mb=MAX_BYTES // 1024 // 1024,
+                  **_catalog(db))
 
 
 @router.post("/upload")
@@ -109,12 +116,12 @@ async def upload(request: Request, file: UploadFile, user: User = Depends(requir
         result = import_items(db, file.filename or "", raw, user)
     except ImportFormatError as e:
         return render(request, "admin_upload.html", status_code=400, user=user, result=None, error=str(e),
-                      max_mb=MAX_BYTES // 1024 // 1024)
+                      max_mb=MAX_BYTES // 1024 // 1024, **_catalog(db))
     if result.ok:
         flash(request, f"{result.created}개 문항을 DRAFT 로 등록했습니다.")
         return RedirectResponse("/admin/items?status=DRAFT", status_code=303)
     return render(request, "admin_upload.html", status_code=422, user=user, result=result, error=None,
-                  max_mb=MAX_BYTES // 1024 // 1024)
+                  max_mb=MAX_BYTES // 1024 // 1024, **_catalog(db))
 
 
 def _detail_ctx(db: Session, user: User, item: Item, **extra) -> dict:

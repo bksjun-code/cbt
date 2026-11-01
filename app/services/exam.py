@@ -10,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models import (
-    AttemptItem, AttemptStatus, Blueprint, ExamAttempt, ItemType, User, utcnow,
+    AttemptItem, AttemptStatus, Blueprint, ExamAttempt, ItemType, Product, User, utcnow,
 )
 from app.services.audit import log_audit
 from app.services.grading import apply_grade
@@ -35,11 +35,23 @@ def is_expired(attempt: ExamAttempt, now: datetime) -> bool:
     return now > attempt.expires_at + GRACE
 
 
-def get_active_blueprint(db: Session) -> Blueprint:
-    bp = db.scalar(select(Blueprint).where(Blueprint.is_active.is_(True)).order_by(Blueprint.id.desc()))
+def get_active_blueprint(db: Session, product_id: int | None = None) -> Blueprint:
+    """제품의 활성 Blueprint. product_id 를 생략하면 활성 Blueprint 가 있는 첫 제품(정렬 순서)."""
+    q = (select(Blueprint).join(Product, Product.id == Blueprint.product_id)
+         .where(Blueprint.is_active.is_(True)).order_by(Product.sort_order, Blueprint.id.desc()))
+    if product_id is not None:
+        q = q.where(Blueprint.product_id == product_id)
+    bp = db.scalar(q)
     if bp is None:
         raise NoActiveBlueprint("활성 Blueprint 가 없습니다")
     return bp
+
+
+def product_choices(db: Session) -> list[tuple[Product, Blueprint | None]]:
+    """대시보드용: 모든 제품과 그 활성 Blueprint(없으면 None = 준비 중)."""
+    active = {bp.product_id: bp for bp in db.scalars(
+        select(Blueprint).where(Blueprint.is_active.is_(True)).order_by(Blueprint.id))}
+    return [(p, active.get(p.id)) for p in db.scalars(select(Product).order_by(Product.sort_order, Product.id))]
 
 
 def _in_progress(db: Session, user_id: int) -> ExamAttempt | None:
@@ -58,8 +70,12 @@ def finalize_attempt(db: Session, attempt: ExamAttempt, status: AttemptStatus, n
     return attempt
 
 
-def start_attempt(db: Session, user: User, now: datetime | None = None) -> tuple[ExamAttempt, bool]:
-    """진행 중 시험이 있으면 이어서(created=False), 없으면 새로 출제(created=True)."""
+def start_attempt(db: Session, user: User, now: datetime | None = None, *,
+                  product_id: int | None = None) -> tuple[ExamAttempt, bool]:
+    """진행 중 시험이 있으면 이어서(created=False), 없으면 새로 출제(created=True).
+
+    진행 중 시험은 제품과 관계없이 1인 1건이라, 다른 제품의 시험이 진행 중이어도 그 시험을 돌려준다.
+    """
     now = now or utcnow()
     active = _in_progress(db, user.id)
     if active is not None:
@@ -67,8 +83,8 @@ def start_attempt(db: Session, user: User, now: datetime | None = None) -> tuple
             return active, False
         finalize_attempt(db, active, AttemptStatus.EXPIRED, active.expires_at)
 
-    bp = get_active_blueprint(db)
-    excluded = recent_item_ids(db, user.id, bp.recent_exclude_n)
+    bp = get_active_blueprint(db, product_id)
+    excluded = recent_item_ids(db, user.id, bp.recent_exclude_n, product_id=bp.product_id)
     seed = secrets.token_hex(16)
     try:
         plan = build_plan(db, bp, excluded, seed)

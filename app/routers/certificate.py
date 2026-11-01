@@ -24,7 +24,7 @@ def _verify(request: Request, db: Session, number: str):
     holder = db.get(User, attempt.user_id) if valid else None
     return render(request, "verify.html", number=number.strip().upper(), checked=True, valid=valid and holder is not None,
                   holder=holder, attempt=attempt, issuer=request.app.state.settings.certificate_issuer,
-                  title=request.app.state.settings.certificate_title,
+                  title=attempt.blueprint.product.certificate_title if valid else None,
                   passed_on=certificates.passed_on(attempt) if valid else None)
 
 

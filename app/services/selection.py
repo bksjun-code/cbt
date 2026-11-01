@@ -117,13 +117,16 @@ def cell_statuses(db: Session, bp: Blueprint) -> list[CellStatus]:
     return out
 
 
-def recent_item_ids(db: Session, user_id: int, n: int, before_attempt_id: int | None = None) -> set[int]:
-    """사용자의 최근 n회(종료된) 시험에서 출제된 문항 id."""
+def recent_item_ids(db: Session, user_id: int, n: int, before_attempt_id: int | None = None,
+                    product_id: int | None = None) -> set[int]:
+    """사용자의 최근 n회(종료된) 시험에서 출제된 문항 id. product_id 를 주면 그 제품 시험만 센다."""
     if n <= 0:
         return set()
     q = select(ExamAttempt.id).where(
         ExamAttempt.user_id == user_id, ExamAttempt.status != AttemptStatus.IN_PROGRESS
     )
+    if product_id is not None:
+        q = q.join(Blueprint, Blueprint.id == ExamAttempt.blueprint_id).where(Blueprint.product_id == product_id)
     if before_attempt_id is not None:
         q = q.where(ExamAttempt.id < before_attempt_id)
     attempt_ids = list(db.scalars(q.order_by(ExamAttempt.id.desc()).limit(n)))

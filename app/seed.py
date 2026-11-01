@@ -5,21 +5,12 @@ from pathlib import Path
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.catalog import DOMAINS, PRODUCTS
 from app.models import (
-    AppSetting, Blueprint, BlueprintRule, Difficulty, Domain, Item, ItemStatus,
+    AppSetting, Blueprint, BlueprintRule, Difficulty, Domain, Item, ItemStatus, Product,
 )
 from app.schemas.item import ItemIn
 from app.services.blueprint_validation import validate_blueprint
-
-DOMAINS = [
-    ("ARCH", "아키텍처", "GoldenGate 구성요소, Classic/Microservices 아키텍처"),
-    ("INSTALL", "설치·환경", "설치, DB 사전 설정, 보충 로깅, 자격증명"),
-    ("EXTRACT", "Extract", "Extract/Integrated Extract/Data Pump"),
-    ("REPLICAT", "Replicat", "Replicat 유형, 적용 옵션, 충돌 처리"),
-    ("MAPPING", "매핑·변환", "MAP/TABLE, COLMAP, 변환 함수, DEFGEN"),
-    ("OPS", "운영·모니터링", "상태/지연 모니터링, Manager 운영 파라미터"),
-    ("TROUBLE", "트러블슈팅", "오류 분석, 장애 대응"),
-]
 
 DEFAULT_BLUEPRINT_NAME = "기본 40문항"
 # 영역별 (LOW, MID, HIGH) 문항 수 — 합계 12/20/8 = 40문항 (LOW30%/MID50%/HIGH20%)
@@ -37,13 +28,26 @@ DEFAULT_POINTS = {Difficulty.LOW: 2.0, Difficulty.MID: 2.5, Difficulty.HIGH: 3.2
 DEFAULT_SETTINGS = {"show_explanations": True}
 
 
-def seed_domains(db: Session) -> dict[str, Domain]:
-    existing = {d.code: d for d in db.scalars(select(Domain))}
-    for code, name, desc in DOMAINS:
+def seed_products(db: Session) -> dict[str, Product]:
+    existing = {p.code: p for p in db.scalars(select(Product))}
+    for code, name, version, order in PRODUCTS:
         if code not in existing:
-            d = Domain(code=code, name=name, description=desc)
-            db.add(d)
-            existing[code] = d
+            p = Product(code=code, name=name, default_version=version, sort_order=order)
+            db.add(p)
+            existing[code] = p
+    db.flush()
+    return existing
+
+
+def seed_domains(db: Session) -> dict[str, Domain]:
+    products = seed_products(db)
+    existing = {d.code: d for d in db.scalars(select(Domain))}
+    for product_code, domains in DOMAINS.items():
+        for code, name, desc in domains:
+            if code not in existing:
+                d = Domain(product_id=products[product_code].id, code=code, name=name, description=desc)
+                db.add(d)
+                existing[code] = d
     db.flush()
     return existing
 
@@ -53,6 +57,7 @@ def seed_blueprint(db: Session, domains: dict[str, Domain]) -> Blueprint:
     if bp:
         return bp
     bp = Blueprint(
+        product_id=domains["ARCH"].product_id,  # 기본 Blueprint 는 OGG
         name=DEFAULT_BLUEPRINT_NAME, total_items=40, time_limit_min=60,
         pass_score=70.0, domain_min_ratio=0.4, is_active=True,
     )
@@ -93,7 +98,8 @@ def seed_sample_items(db: Session, domains: dict[str, Domain]) -> int:
                 domain_id=domains[data.domain].id, difficulty=data.difficulty,
                 item_type=data.item_type, stem=data.stem, options=data.options,
                 correct_keys=data.correct_keys, explanation=data.explanation,
-                reference=data.reference, ogg_version=data.ogg_version,
+                reference=data.reference,
+                product_version=data.product_version or domains[data.domain].product.default_version,
                 architecture=data.architecture, status=ItemStatus.APPROVED,
                 variant_group=data.variant_group, is_sample=True,
             )

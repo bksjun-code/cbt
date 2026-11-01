@@ -8,7 +8,7 @@
     {% if a.passed is not none %}<span class="badge {{ 'pass' if a.passed else 'fail' }}">{{ '합격' if a.passed else '불합격' }}</span>{% endif %}
     <span class="badge">{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</span>
   </h1>
-  <p>{{ cand.name }} <span class="muted">({{ cand.login_id }})</span> · {{ bp.name }} · seed <code>{{ a.seed }}</code></p>
+  <p>{{ cand.name }} <span class="muted">({{ cand.login_id }})</span> · {{ bp.product.name }} · {{ bp.name }} · seed <code>{{ a.seed }}</code></p>
   <p class="muted">시작 {{ a.started_at|kst }} · 제출 {{ a.submitted_at|kst if a.submitted_at else '-' }} (KST)
     {% if a.pass_score is not none %}· 합격선 {{ '%g'|format(a.pass_score) }}점 · 영역 최소 {{ '%g'|format(a.domain_min_ratio * 100) }}%{% endif %}</p>
   {% if a.passed %}<p><a class="button" href="/admin/results/{{ a.id }}/certificate.pdf">합격증 PDF</a>

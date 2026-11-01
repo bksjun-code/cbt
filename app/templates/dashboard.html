@@ -4,26 +4,43 @@
 <section class="card">
   <h1>{{ user.name }}님, 안녕하세요</h1>
   {% if active %}
-    <p>진행 중인 시험이 있습니다. (시작 {{ active.started_at|kst }} KST)</p>
+    <p>진행 중인 <b>{{ active.blueprint.product.name }}</b> 시험이 있습니다. (시작 {{ active.started_at|kst }} KST)</p>
     <a class="button primary" href="/exam/{{ active.id }}">이어서 응시</a>
   {% else %}
     <p>시험은 한 번에 한 건만 진행할 수 있으며, 시작하면 제한시간이 바로 흐릅니다.</p>
-    <form method="post" action="/exam/start" class="inline">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button class="primary" type="submit">시험 시작</button>
-    </form>
   {% endif %}
 </section>
+
+{% if not active %}
+<div class="exam-choices">
+  {% for p, bp in choices %}
+  <section class="card exam-choice">
+    <h2>{{ p.name }}</h2>
+    {% if bp %}
+      <p class="muted">{{ bp.total_items }}문항 · {{ bp.time_limit_min }}분 · {{ '%g'|format(bp.pass_score) }}점 이상 합격</p>
+      <form method="post" action="/exam/start" class="inline">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <input type="hidden" name="product" value="{{ p.code }}">
+        <button class="primary" type="submit">시험 시작</button>
+      </form>
+    {% else %}
+      <p class="muted">준비 중입니다.</p>
+    {% endif %}
+  </section>
+  {% endfor %}
+</div>
+{% endif %}
 
 <section class="card">
   <h2>응시 이력</h2>
   {% if attempts %}
   <table>
-    <thead><tr><th>회차</th><th>시작</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
+    <thead><tr><th>회차</th><th>시험</th><th>시작</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
     <tbody>
     {% for a in attempts %}
       <tr>
         <td>#{{ a.id }}</td>
+        <td>{{ a.blueprint.product.name }}</td>
         <td>{{ a.started_at|kst }}</td>
         <td>{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</td>
         <td>{% if a.total_score is not none %}{{ '%.1f'|format(a.total_score) }}{% else %}-{% endif %}</td>

@@ -92,6 +92,11 @@ def test_upgrade_from_v1_with_data_preserves_everything(populated_v1):
         # 새 컬럼/테이블: 기존 행은 NULL, 신규 테이블은 비어 있음
         assert q("select earned_points from attempt_items") == [(None,)]
         assert q("select count(*) from item_overrides") == [(0,)]
+        # 0007: 제품 추가. 기존 영역·Blueprint 는 OGG 에 연결, 문항 버전 컬럼 이름 변경(값 유지)
+        assert q("select code from products order by sort_order") == [("OGG",), ("ORADB",), ("WLS",)]
+        assert q("select p.code from domains d join products p on p.id = d.product_id") == [("OGG",)]
+        assert q("select p.code from blueprints b join products p on p.id = b.product_id") == [("OGG",)]
+        assert q("select product_version from items") == [("x",)]
         version = q("select version_num from alembic_version")
     from alembic.script import ScriptDirectory
 

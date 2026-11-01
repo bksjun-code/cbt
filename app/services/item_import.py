@@ -5,7 +5,7 @@
   - 오류 메시지에는 입력값을 되돌려 싣지 않는다(위치와 사유만)
 
 CSV 열: domain, difficulty, item_type, stem, option_A, option_B, [option_C..E], correct_keys,
-        explanation, variant_group, [ogg_version, architecture, reference]
+        explanation, variant_group, [product_version(또는 예전 이름 ogg_version), architecture, reference]
         correct_keys 는 'A' 또는 'A|C' ('|' ',' ';' 공백 구분)
 JSON:   문항 객체 배열 또는 {"items": [...]} (docs/문항 JSON 스키마와 동일)
 """
@@ -91,7 +91,7 @@ def _parse_csv(text: str) -> list[tuple[int, object]]:
             "correct_keys": [k.upper() for k in re.split(r"[|,;\s]+", row["correct_keys"]) if k],
             "explanation": row["explanation"], "variant_group": row["variant_group"],
         }
-        for opt in ("ogg_version", "architecture", "reference"):
+        for opt in ("product_version", "ogg_version", "architecture", "reference"):  # ogg_version: 예전 열 이름
             if row.get(opt):
                 data[opt] = row[opt].upper() if opt == "architecture" else row[opt]
         out.append((lineno, data))

@@ -1,9 +1,9 @@
 """문항 JSON 스키마 (seed / 일괄 업로드 / LLM 초안 공통 검증)."""
-from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator, model_validator
 
+from app.catalog import DOMAIN_CODES
 from app.models import Architecture, Difficulty, ItemType
 
-DOMAIN_CODES = {"ARCH", "INSTALL", "EXTRACT", "REPLICAT", "MAPPING", "OPS", "TROUBLE"}
 OPTION_KEYS = ("A", "B", "C", "D", "E")
 
 
@@ -11,7 +11,10 @@ class ItemIn(BaseModel):
     domain: str
     difficulty: Difficulty
     item_type: ItemType
-    ogg_version: str = Field(default="19c", max_length=20)
+    # 비우면 저장 시 제품 기본 버전. 예전 업로드 파일의 ogg_version 키도 받는다
+    product_version: str | None = Field(
+        default=None, max_length=20, validation_alias=AliasChoices("product_version", "ogg_version")
+    )
     architecture: Architecture = Architecture.BOTH
     stem: str = Field(max_length=4000)
     options: dict[str, str]
@@ -26,6 +29,11 @@ class ItemIn(BaseModel):
         if v not in DOMAIN_CODES:
             raise ValueError(f"알 수 없는 영역: {v}")
         return v
+
+    @field_validator("product_version")
+    @classmethod
+    def _version(cls, v: str | None) -> str | None:
+        return (v or "").strip() or None
 
     @field_validator("stem", "explanation", "variant_group")
     @classmethod

@@ -122,13 +122,32 @@ class User(Base):
     locked_until: Mapped[datetime | None] = mapped_column(UtcDateTime)
 
 
+class Product(Base):
+    """시험 과목(제품). 영역·Blueprint 가 제품에 속하고, 활성 Blueprint 는 제품마다 1개."""
+
+    __tablename__ = "products"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    code: Mapped[str] = mapped_column(String(20), unique=True)  # 합격증 번호 접두사(RP-{code})에도 쓰임
+    name: Mapped[str] = mapped_column(String(100))
+    default_version: Mapped[str] = mapped_column(String(20))
+    sort_order: Mapped[int] = mapped_column(Integer, default=0)
+
+    @property
+    def certificate_title(self) -> str:
+        return f"{self.name} 사내 자격시험"
+
+
 class Domain(Base):
     __tablename__ = "domains"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    code: Mapped[str] = mapped_column(String(20), unique=True)
+    product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), index=True)
+    code: Mapped[str] = mapped_column(String(20), unique=True)  # 제품 간에도 유일(새 제품은 DB_/WLS_ 접두사)
     name: Mapped[str] = mapped_column(String(100))
     description: Mapped[str | None] = mapped_column(Text)
+
+    product: Mapped[Product] = relationship()
 
 
 class Item(Base):
@@ -147,7 +166,7 @@ class Item(Base):
     correct_keys: Mapped[list] = mapped_column(JSON)  # ["B"]
     explanation: Mapped[str] = mapped_column(Text)
     reference: Mapped[str | None] = mapped_column(String(300))
-    ogg_version: Mapped[str] = mapped_column(String(20), default="19c")
+    product_version: Mapped[str] = mapped_column(String(20), default="19c")
     architecture: Mapped[Architecture] = mapped_column(_enum(Architecture), default=Architecture.BOTH)
     status: Mapped[ItemStatus] = mapped_column(_enum(ItemStatus), default=ItemStatus.DRAFT)
     variant_group: Mapped[str] = mapped_column(String(100))
@@ -182,6 +201,7 @@ class Blueprint(Base):
     __tablename__ = "blueprints"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), index=True)
     name: Mapped[str] = mapped_column(String(100), unique=True)
     total_items: Mapped[int] = mapped_column(Integer)
     time_limit_min: Mapped[int] = mapped_column(Integer)
@@ -193,6 +213,7 @@ class Blueprint(Base):
     sort_by_difficulty: Mapped[bool] = mapped_column(Boolean, default=True)
     multi_partial_credit: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    product: Mapped[Product] = relationship()
     rules: Mapped[list["BlueprintRule"]] = relationship(
         back_populates="blueprint", cascade="all, delete-orphan"
     )
@@ -243,6 +264,7 @@ class ExamAttempt(Base):
     # 합격증 인증번호(처음 내려받을 때 발급). 진위 확인 페이지에서 이 번호로 조회한다
     certificate_no: Mapped[str | None] = mapped_column(String(40))
 
+    blueprint: Mapped[Blueprint] = relationship()
     items: Mapped[list["AttemptItem"]] = relationship(
         back_populates="attempt", cascade="all, delete-orphan", order_by="AttemptItem.seq"
     )

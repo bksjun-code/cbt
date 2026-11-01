@@ -36,6 +36,8 @@ def make_item(db, domain: Domain, diff=Difficulty.MID, group=None, status=ItemSt
 def make_blueprint(db, cells: dict, name="BP", **kw) -> Blueprint:
     """cells: {(domain_code, Difficulty): (count, points)}"""
     domains = seed_domains(db)
+    first = next(iter(cells), ("ARCH", None))[0]  # 규칙 영역의 제품(규칙이 없으면 OGG)
+    kw.setdefault("product_id", domains[first].product_id)
     bp = Blueprint(name=name, total_items=sum(c for c, _ in cells.values()), time_limit_min=kw.pop("time_limit_min", 60),
                    is_active=kw.pop("is_active", True), **kw)
     for (code, diff), (count, pts) in cells.items():

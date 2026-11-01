@@ -13,9 +13,15 @@
     {% endfor %}
   </div>
   <form method="get" action="/admin/items" class="filters">
+    <label>시험
+      <select name="product"><option value="">전체</option>
+        {% for p in products %}<option value="{{ p.code }}" {{ 'selected' if filters.product == p.code }}>{{ p.name }}</option>{% endfor %}
+      </select></label>
     <label>영역
       <select name="domain"><option value="">전체</option>
-        {% for d in domains %}<option value="{{ d.code }}" {{ 'selected' if filters.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+        {% for p in products %}<optgroup label="{{ p.name }}">
+        {% for d in domains if d.product_id == p.id %}<option value="{{ d.code }}" {{ 'selected' if filters.domain == d.code }}>{{ d.code }} · {{ d.name }}</option>{% endfor %}
+        </optgroup>{% endfor %}
       </select></label>
     <label>난이도
       <select name="difficulty"><option value="">전체</option>

@@ -10,7 +10,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models import AttemptStatus, Domain, ExamAttempt, Role, User, utcnow
+from app.models import AttemptStatus, Domain, ExamAttempt, Product, Role, User, utcnow
 from app.schemas.exam import attempt_view, question_view
 from app.services import exam as exam_svc
 from app.services.exam import AttemptClosed, InvalidAnswer, NoActiveBlueprint
@@ -72,13 +72,18 @@ def dashboard(request: Request, user: User = Depends(current_user), db: Session 
             exam_svc.finalize_attempt(db, a, AttemptStatus.EXPIRED, a.expires_at)
     active = next((a for a in attempts if a.status == AttemptStatus.IN_PROGRESS), None)
     return render(request, "dashboard.html", user=user, attempts=attempts, active=active,
-                  error=request.query_params.get("error"))
+                  choices=exam_svc.product_choices(db), error=request.query_params.get("error"))
 
 
 @router.post("/exam/start")
-def start(request: Request, user: User = Depends(require_candidate), db: Session = Depends(get_db)):
+def start(request: Request, product: str = Form(""), user: User = Depends(require_candidate),
+          db: Session = Depends(get_db)):
+    # product 가 비어 있으면 시험이 열린 첫 제품. 화면에 없는 값(직접 조작 등)은 시작 불가 안내와 같게 처리
+    chosen = db.scalar(select(Product).where(Product.code == product)) if product else None
     try:
-        attempt, _ = exam_svc.start_attempt(db, user)
+        if product and chosen is None:
+            raise NoActiveBlueprint(f"알 수 없는 시험: {product[:20]}")
+        attempt, _ = exam_svc.start_attempt(db, user, product_id=chosen.id if chosen else None)
     except (InsufficientItemsError, NoActiveBlueprint):
         # 부족 셀 상세는 관리자 전용 정보(audit_logs/대시보드). 응시자에게는 일반 안내만.
         return render(request, "error.html", status_code=503, user=user,
@@ -155,7 +160,7 @@ def result(attempt_id: int, request: Request, user: User = Depends(require_candi
     names = {d.code: d.name for d in db.scalars(select(Domain))}
     chart = radar([names.get(d.code, d.code) for d in view.domains], [d.ratio for d in view.domains],
                   view.domain_min_ratio)
-    return render(request, "result.html", user=user, r=view, chart=chart)
+    return render(request, "result.html", user=user, r=view, chart=chart, product=attempt.blueprint.product)
 
 
 @router.get("/exam/{attempt_id}/certificate.pdf")

@@ -33,8 +33,8 @@ def test_empty_blueprint_never_creates_a_zero_question_exam(db):
     """규칙이 하나도 없는 Blueprint 가 활성이어도(DB 직접 수정 등) 문항 0개짜리 시험을 만들지 않는다."""
     from app.seed import seed_domains
 
-    seed_domains(db)
-    db.add(Blueprint(name="빈 기준표", total_items=0, time_limit_min=60, is_active=True))
+    domains = seed_domains(db)
+    db.add(Blueprint(product_id=domains["ARCH"].product_id, name="빈 기준표", total_items=0, time_limit_min=60, is_active=True))
     db.flush()
     u = make_user(db)
     with pytest.raises(NoActiveBlueprint, match="출제 규칙이 없습니다"):

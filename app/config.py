@@ -34,7 +34,6 @@ class Settings(BaseSettings):
 
     # 합격증
     certificate_issuer: str = "Rockplace DI팀"
-    certificate_title: str = "Oracle GoldenGate 사내 자격시험"   # 같은 계정으로 1시간에 보낼 수 있는 재설정 메일 수(메일 폭탄 방지)
 
 
 @lru_cache

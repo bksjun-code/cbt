@@ -2,7 +2,7 @@
 {% block title %}시험 결과{% endblock %}
 {% block content %}
 <section class="card">
-  <h1>시험 결과 #{{ r.attempt_id }}
+  <h1>{{ product.name }} 시험 결과 #{{ r.attempt_id }}
     <span class="badge {{ 'pass' if r.passed else 'fail' }}">{{ '합격' if r.passed else '불합격' }}</span>
     {% if r.status == 'EXPIRED' %}<span class="badge">시간 만료로 자동 제출</span>{% endif %}
   </h1>

@@ -44,7 +44,7 @@ def build_world(spec, sort_by_difficulty):
     Base.metadata.create_all(engine)
     db = sessionmaker(bind=engine, expire_on_commit=False)()
     domains = seed_domains(db)
-    bp = Blueprint(name="p", total_items=sum(n for _, _, n in spec), time_limit_min=60, sort_by_difficulty=sort_by_difficulty)
+    bp = Blueprint(product_id=domains["ARCH"].product_id, name="p", total_items=sum(n for _, _, n in spec), time_limit_min=60, sort_by_difficulty=sort_by_difficulty)
     all_items = []
     for (code, diff), items, need in spec:
         if need:

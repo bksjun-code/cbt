@@ -3,7 +3,7 @@ from dataclasses import replace
 import pytest
 from sqlalchemy import select
 
-from app.models import AuditLog, Blueprint, Difficulty, Domain, Item, ItemStatus, Role
+from app.models import AuditLog, Blueprint, Difficulty, Domain, Item, ItemStatus, Product, Role
 from app.services import blueprint_admin as svc
 from app.services.blueprint_validation import BlueprintError, validate_blueprint
 from tests.helpers import make_user
@@ -14,8 +14,13 @@ def admin(db):
     return make_user(db, role=Role.ADMIN)
 
 
+def ogg(db) -> Product:
+    return db.scalar(select(Product).where(Product.code == "OGG"))
+
+
 def domains(db):
-    return list(db.scalars(select(Domain).order_by(Domain.id)))
+    """기본 Blueprint 제품(OGG)의 영역."""
+    return list(db.scalars(select(Domain).where(Domain.product_id == ogg(db).id).order_by(Domain.id)))
 
 
 def as_form(f: svc.BlueprintForm) -> dict:
@@ -115,7 +120,7 @@ def test_create_computes_total_items_inactive_and_audits(db, admin):
     from app.seed import seed_domains
 
     seed_domains(db)
-    bp = svc.create_blueprint(db, valid_form(), admin, domains(db))
+    bp = svc.create_blueprint(db, valid_form(), admin, domains(db), ogg(db))
     assert bp.total_items == 34 and bp.is_active is False and bp.domain_min_ratio == 0.4
     assert {(r.domain.code, r.difficulty, r.item_count) for r in bp.rules} == {
         ("ARCH", Difficulty.LOW, 10), ("ARCH", Difficulty.MID, 16), ("OPS", Difficulty.HIGH, 8)}
@@ -127,7 +132,7 @@ def test_create_computes_total_items_inactive_and_audits(db, admin):
 def test_create_duplicate_name_rejected(seeded, admin):
     f = valid_form(name="기본 40문항")
     with pytest.raises(BlueprintError, match="같은 이름"):
-        svc.create_blueprint(seeded, f, admin, domains(seeded))
+        svc.create_blueprint(seeded, f, admin, domains(seeded), ogg(seeded))
 
 
 def test_update_replaces_rules_keeping_total_points_100(seeded, admin):
@@ -180,7 +185,7 @@ def test_update_drops_cells_set_to_zero(seeded, admin):
 
 
 def test_update_name_collision(seeded, admin):
-    other = svc.create_blueprint(seeded, valid_form("다른 기준표"), admin, domains(seeded))
+    other = svc.create_blueprint(seeded, valid_form("다른 기준표"), admin, domains(seeded), ogg(seeded))
     f = svc.form_from_blueprint(other, domains(seeded))
     f.name = "기본 40문항"
     with pytest.raises(BlueprintError, match="같은 이름"):
@@ -221,7 +226,7 @@ def test_cells_not_in_rules_never_count_as_shortage(db):
 def test_activate_switches_single_active_blueprint(seeded, admin):
     first = seeded.scalar(select(Blueprint))
     bp2 = svc.create_blueprint(seeded, replace(svc.form_from_blueprint(first, domains(seeded)), name="복제본"),
-                               admin, domains(seeded))
+                               admin, domains(seeded), ogg(seeded))
     seeded.commit()
     svc.activate(seeded, bp2, admin, domains(seeded))
     seeded.commit()
@@ -236,7 +241,7 @@ def test_activate_blocked_when_cell_short(seeded, admin):
     first = seeded.scalar(select(Blueprint))
     f = svc.form_from_blueprint(first, domains(seeded))
     f.name = "문항 부족"
-    bp2 = svc.create_blueprint(seeded, f, admin, domains(seeded))
+    bp2 = svc.create_blueprint(seeded, f, admin, domains(seeded), ogg(seeded))
     arch = seeded.scalar(select(Domain).where(Domain.code == "ARCH"))
     for it in seeded.scalars(select(Item).where(Item.domain_id == arch.id, Item.difficulty == Difficulty.HIGH)):
         it.status = ItemStatus.RETIRED
@@ -250,7 +255,7 @@ def test_activate_blocked_when_invalid(seeded, admin):
     first = seeded.scalar(select(Blueprint))
     f = svc.form_from_blueprint(first, domains(seeded))
     f.name = "깨진 기준표"
-    bp2 = svc.create_blueprint(seeded, f, admin, domains(seeded))
+    bp2 = svc.create_blueprint(seeded, f, admin, domains(seeded), ogg(seeded))
     bp2.rules[0].points_per_item += 1  # 정합성 훼손(예: 수동 DB 수정)
     with pytest.raises(BlueprintError, match="배점 합계"):
         svc.activate(seeded, bp2, admin, domains(seeded))
@@ -258,6 +263,6 @@ def test_activate_blocked_when_invalid(seeded, admin):
 
 
 def test_list_blueprints_active_first(seeded, admin):
-    svc.create_blueprint(seeded, valid_form("뒤에 만든 것"), admin, domains(seeded))
+    svc.create_blueprint(seeded, valid_form("뒤에 만든 것"), admin, domains(seeded), ogg(seeded))
     names = [b.name for b in svc.list_blueprints(seeded)]
     assert names[0] == "기본 40문항" and names[1] == "뒤에 만든 것"

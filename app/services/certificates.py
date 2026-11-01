@@ -1,6 +1,7 @@
 """합격증: 인증번호 발급, 유효성 판정, PDF 생성.
 
-  - 인증번호는 처음 내려받을 때 발급해 응시 기록에 저장한다(RP-OGG-YYYYMMDD-XXXXXX, 뒤 6자리는 무작위).
+  - 인증번호는 처음 내려받을 때 발급해 응시 기록에 저장한다(RP-{제품코드}-YYYYMMDD-XXXXXX, 뒤 6자리는 무작위).
+  - 자격명은 시험 제품에서 가져온다("{제품명} 사내 자격시험"). 제품이 달라도 양식은 같다.
   - 유효성은 발급 시점이 아니라 '지금' 판정한다. 채점 보정으로 불합격이 되거나 계정·기록이 삭제되면 무효가 된다.
   - 사내 자격 인증임을 명시하고, Oracle 의 로고·서명·문구는 쓰지 않는다(공식 자격증과의 혼동 방지).
   - 한글 글꼴은 나눔 글꼴(OFL)을 함께 배포한다(app/assets/fonts).
@@ -29,7 +30,7 @@ from app.services.audit import log_audit
 from app.services.timeutil import to_kst
 
 FONT_DIR = Path(__file__).resolve().parent.parent / "assets" / "fonts"
-PREFIX = "RP-OGG"
+PREFIX = "RP-"  # 뒤에 제품 코드가 붙는다(예: RP-OGG, RP-ORADB)
 RED, GRAY = HexColor("#c74634"), HexColor("#6b7280")
 FRAME_COLORS = [HexColor(x) for x in ("#e07b39", "#c9622b", "#2f5d62", "#24484c", "#8b2f25", "#a33a2c", "#d9c7a8", "#ef9a4b")]
 _fonts_ready = False
@@ -65,7 +66,7 @@ def ensure_number(db: Session, attempt: ExamAttempt, actor_id: int | None) -> st
         return attempt.certificate_no
     day = passed_on(attempt).strftime("%Y%m%d")
     while True:
-        number = f"{PREFIX}-{day}-{secrets.token_hex(3).upper()}"
+        number = f"{PREFIX}{attempt.blueprint.product.code}-{day}-{secrets.token_hex(3).upper()}"
         if db.scalar(select(ExamAttempt.id).where(ExamAttempt.certificate_no == number)) is None:
             break
     attempt.certificate_no = number
@@ -179,7 +180,8 @@ def render_pdf(attempt: ExamAttempt, user: User, settings: Settings) -> bytes:
     c = canvas.Canvas(buf, pagesize=(w, h))
     c.setTitle(f"합격증 {attempt.certificate_no}")
     c.setAuthor(settings.certificate_issuer)
-    c.setSubject(settings.certificate_title)
+    title = attempt.blueprint.product.certificate_title
+    c.setSubject(title)
     seed = int.from_bytes(attempt.certificate_no.encode(), "big") % (2**32)
 
     c.setFillColor(HexColor("#fafafa"))
@@ -208,10 +210,10 @@ def render_pdf(attempt: ExamAttempt, user: User, settings: Settings) -> bytes:
     c.setFont("Gothic", 12.5)
     c.drawString(left + 2, py + ph - 202, user.name)
     c.setFont("Gothic", 12)
-    c.drawString(left + 2, py + ph - 232, f"{settings.certificate_title} 합격")
+    c.drawString(left + 2, py + ph - 232, f"{title} 합격")
     c.setFillColor(HexColor("#2b2b2b"))
     c.setFont("Gothic", 12.5)
-    c.drawString(left, py + ph - 274, f"위 사람은 {settings.certificate_issuer}이 주관한 {settings.certificate_title}에 합격하였음을 증명합니다.")
+    c.drawString(left, py + ph - 274, f"위 사람은 {settings.certificate_issuer}이 주관한 {title}에 합격하였음을 증명합니다.")
 
     d = passed_on(attempt)
     base = py + 92                                                           # 아래: 합격일(왼쪽) · 발급 기관(오른쪽)

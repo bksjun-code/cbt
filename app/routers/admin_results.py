@@ -5,7 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db import get_db
-from app.models import Blueprint, Domain, ExamAttempt, User, utcnow
+from app.models import Blueprint, Domain, ExamAttempt, Product, User, utcnow
 from app.services import results_admin as svc
 from app.services.audit import log_audit
 from app.services.grading import load_overrides
@@ -18,19 +18,21 @@ router = APIRouter(prefix="/admin/results", dependencies=[Depends(require_admin)
 XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 
 
-def _filters(status: str = "", passed: str = "", q: str = "", date_from: str = "", date_to: str = "") -> svc.Filters:
-    return svc.Filters(status=status, passed=passed, q=q[:100], date_from=parse_date(date_from), date_to=parse_date(date_to))
+def _filters(product: str = "", status: str = "", passed: str = "", q: str = "", date_from: str = "",
+             date_to: str = "") -> svc.Filters:
+    return svc.Filters(product=product, status=status, passed=passed, q=q[:100], date_from=parse_date(date_from), date_to=parse_date(date_to))
 
 
 @router.get("")
-def result_list(request: Request, status: str = "", passed: str = "", q: str = "", date_from: str = "",
+def result_list(request: Request, product: str = "", status: str = "", passed: str = "", q: str = "", date_from: str = "",
                 date_to: str = "", page: int = 1, user: User = Depends(require_admin), db: Session = Depends(get_db)):
-    f = _filters(status, passed, q, date_from, date_to)
+    f = _filters(product, status, passed, q, date_from, date_to)
     page = min(max(page, 1), 100_000)  # 비정상적으로 큰 값은 OFFSET 오버플로 방지를 위해 제한
     rows, total = svc.list_attempts(db, f, page)
     pages = max((total + svc.PER_PAGE - 1) // svc.PER_PAGE, 1)
     return render(request, "admin_results.html", user=user, rows=rows, total=total, page=page, pages=pages, f=f,
                   qs=f.as_query(), summary=svc.summary(db, f),
+                  products=list(db.scalars(select(Product).order_by(Product.sort_order, Product.id))),
                   raw={"date_from": date_from if f.date_from else "", "date_to": date_to if f.date_to else ""})
 
 
@@ -47,15 +49,15 @@ def _export(db: Session, user: User, fmt: str, f: svc.Filters) -> Response:
 
 
 @router.get("/export.csv")
-def export_csv(status: str = "", passed: str = "", q: str = "", date_from: str = "", date_to: str = "",
+def export_csv(product: str = "", status: str = "", passed: str = "", q: str = "", date_from: str = "", date_to: str = "",
                user: User = Depends(require_admin), db: Session = Depends(get_db)):
-    return _export(db, user, "csv", _filters(status, passed, q, date_from, date_to))
+    return _export(db, user, "csv", _filters(product, status, passed, q, date_from, date_to))
 
 
 @router.get("/export.xlsx")
-def export_xlsx(status: str = "", passed: str = "", q: str = "", date_from: str = "", date_to: str = "",
+def export_xlsx(product: str = "", status: str = "", passed: str = "", q: str = "", date_from: str = "", date_to: str = "",
                 user: User = Depends(require_admin), db: Session = Depends(get_db)):
-    return _export(db, user, "xlsx", _filters(status, passed, q, date_from, date_to))
+    return _export(db, user, "xlsx", _filters(product, status, passed, q, date_from, date_to))
 
 
 @router.get("/{attempt_id:int}")

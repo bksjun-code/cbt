@@ -76,8 +76,8 @@ def approve(db: Session, settings: Settings, user: User, actor: User) -> None:
     user.failed_login_count, user.locked_until = 0, None
     db.flush()
     try:
-        mailer.send_mail(settings, user.login_id, "[OGG 자격시험] 가입이 승인되었습니다",
-                         f"{user.name}님, OGG 자격시험 가입이 승인되었습니다.\n\n"
+        mailer.send_mail(settings, user.login_id, "[Oracle 자격시험] 가입이 승인되었습니다",
+                         f"{user.name}님, Oracle 사내 자격시험 가입이 승인되었습니다.\n\n"
                          f"접속 주소: {mailer.base_url(settings)}/login\n"
                          f"아이디: {user.login_id}\n"
                          f"비밀번호: {pw}\n\n"
@@ -132,7 +132,7 @@ def request_password_reset(db: Session, settings: Settings, raw_email: str) -> N
                               expires_at=now + timedelta(minutes=settings.password_reset_minutes)))
     db.flush()
     try:
-        mailer.send_mail(settings, user.login_id, "[OGG 자격시험] 비밀번호 재설정 안내",
+        mailer.send_mail(settings, user.login_id, "[Oracle 자격시험] 비밀번호 재설정 안내",
                          f"{user.name}님, 비밀번호 재설정을 요청하셨습니다.\n\n"
                          f"아래 링크를 열고 '새 비밀번호 받기' 버튼을 누르면 새 비밀번호가 메일로 발송됩니다.\n"
                          f"{mailer.base_url(settings)}/password/reset/{token}\n\n"
@@ -172,7 +172,7 @@ def complete_password_reset(db: Session, settings: Settings, token: str) -> bool
     t.used_at = utcnow()
     db.flush()
     try:
-        mailer.send_mail(settings, user.login_id, "[OGG 자격시험] 새 비밀번호 안내",
+        mailer.send_mail(settings, user.login_id, "[Oracle 자격시험] 새 비밀번호 안내",
                          f"{user.name}님, 새 비밀번호를 안내해 드립니다.\n\n"
                          f"접속 주소: {mailer.base_url(settings)}/login\n"
                          f"아이디: {user.login_id}\n"

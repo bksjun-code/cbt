@@ -5,14 +5,15 @@
 <section class="card">
   <div class="actions between">
     <h1>Blueprint (출제 기준표)</h1>
-    <a class="button primary" href="/admin/blueprints/new">새 Blueprint</a>
+    <span class="actions">{% for p in products %}<a class="button primary" href="/admin/blueprints/new?product={{ p.code }}">새 {{ p.name }} Blueprint</a>{% endfor %}</span>
   </div>
-  <p class="muted">활성 Blueprint 는 항상 1개이며, 응시자가 시험을 시작할 때 이 기준으로 출제됩니다.</p>
+  <p class="muted">활성 Blueprint 는 시험(제품)마다 1개이며, 응시자가 그 시험을 시작할 때 이 기준으로 출제됩니다. 활성 Blueprint 가 없는 시험은 응시자 화면에 '준비 중'으로 표시됩니다.</p>
   <table>
-    <thead><tr><th>이름</th><th>상태</th><th>문항</th><th>시간</th><th>합격</th><th>영역 최소</th><th>가용 문항</th></tr></thead>
+    <thead><tr><th>시험</th><th>이름</th><th>상태</th><th>문항</th><th>시간</th><th>합격</th><th>영역 최소</th><th>가용 문항</th></tr></thead>
     <tbody>
     {% for r in rows %}
       <tr>
+        <td>{{ r.bp.product.name }}</td>
         <td><a href="/admin/blueprints/{{ r.bp.id }}">{{ r.bp.name }}</a></td>
         <td>{% if r.bp.is_active %}<span class="st APPROVED">활성</span>{% else %}<span class="st DRAFT">비활성</span>{% endif %}</td>
         <td>{{ r.bp.total_items }}</td><td>{{ r.bp.time_limit_min }}분</td>
@@ -20,7 +21,7 @@
         <td>{% if r.short %}<span class="bad">부족 {{ r.short|length }}개 셀</span>{% else %}<span class="good">충분</span>{% endif %}</td>
       </tr>
     {% else %}
-      <tr><td colspan="7" class="muted">Blueprint 가 없습니다.</td></tr>
+      <tr><td colspan="8" class="muted">Blueprint 가 없습니다.</td></tr>
     {% endfor %}
     </tbody>
   </table>

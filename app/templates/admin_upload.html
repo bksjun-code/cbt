@@ -32,16 +32,21 @@
 <pre class="code">[
   {
     "domain": "EXTRACT", "difficulty": "MID", "item_type": "SINGLE",
-    "ogg_version": "19c", "architecture": "MA",
+    "product_version": "19c", "architecture": "MA",
     "stem": "지문", "options": {"A": "...", "B": "...", "C": "...", "D": "...", "E": "..."},
     "correct_keys": ["B"], "explanation": "해설", "reference": "참고",
     "variant_group": "EXT-INTEGRATED-PREREQ"
   }
 ]</pre>
   <h3>CSV (UTF-8 또는 Excel 한글 CP949)</h3>
-<pre class="code">domain,difficulty,item_type,stem,option_A,option_B,option_C,option_D,option_E,correct_keys,explanation,variant_group,ogg_version,architecture,reference
+<pre class="code">domain,difficulty,item_type,stem,option_A,option_B,option_C,option_D,option_E,correct_keys,explanation,variant_group,product_version,architecture,reference
 EXTRACT,MID,SINGLE,"지문","보기1","보기2","보기3","보기4","보기5",B,"해설",EXT-GROUP-1,19c,BOTH,"참고"</pre>
-  <p class="muted">영역: ARCH, INSTALL, EXTRACT, REPLICAT, MAPPING, OPS, TROUBLE · 난이도: LOW/MID/HIGH · 유형: SINGLE/MULTI/SCENARIO ·
-    복수 정답은 <code>A|C</code> 형식 · 같은 영역에 지문이 같은 문항이 이미 있으면 거부됩니다.</p>
+  <p class="muted">영역 코드가 시험을 정합니다(한 파일에 여러 시험 문항을 섞어도 됩니다).</p>
+  <ul class="muted">
+    {% for p in products %}<li><b>{{ p.name }}</b>: {% for d in domains if d.product_id == p.id %}{{ d.code }}{{ ', ' if not loop.last }}{% endfor %}</li>{% endfor %}
+  </ul>
+  <p class="muted">난이도: LOW/MID/HIGH · 유형: SINGLE/MULTI/SCENARIO · 복수 정답은 <code>A|C</code> 형식 ·
+    product_version 을 비우면 시험 기본 버전(예전 열 이름 ogg_version 도 받음) · architecture 는 OGG 전용(그 외 BOTH) ·
+    같은 영역에 지문이 같은 문항이 이미 있으면 거부됩니다.</p>
 </section>
 {% endblock %}

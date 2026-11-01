@@ -12,6 +12,10 @@
   </div>
 
   <form method="get" action="/admin/results" class="filters">
+    <label>시험
+      <select name="product"><option value="">전체</option>
+        {% for p in products %}<option value="{{ p.code }}" {{ 'selected' if f.product == p.code }}>{{ p.name }}</option>{% endfor %}
+      </select></label>
     <label>상태
       <select name="status"><option value="">전체</option>
         {% for v, t in [('IN_PROGRESS','진행 중'),('SUBMITTED','제출'),('EXPIRED','시간 만료')] %}<option value="{{ v }}" {{ 'selected' if f.status == v }}>{{ t }}</option>{% endfor %}
@@ -34,11 +38,12 @@
   </div>
 
   <table>
-    <thead><tr><th>회차</th><th>응시자</th><th>시작(KST)</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
+    <thead><tr><th>회차</th><th>시험</th><th>응시자</th><th>시작(KST)</th><th>상태</th><th>점수</th><th>결과</th><th></th></tr></thead>
     <tbody>
     {% for a, u, bpname in rows %}
       <tr>
         <td>#{{ a.id }}</td>
+        <td>{{ a.blueprint.product.name }}</td>
         <td>{{ u.name }} <span class="muted">({{ u.login_id }})</span></td>
         <td>{{ a.started_at|kst }}</td>
         <td>{{ {'IN_PROGRESS': '진행 중', 'SUBMITTED': '제출', 'EXPIRED': '시간 만료'}[a.status.value] }}</td>
@@ -47,7 +52,7 @@
         <td><a href="/admin/results/{{ a.id }}">상세</a></td>
       </tr>
     {% else %}
-      <tr><td colspan="7" class="muted">조건에 맞는 결과가 없습니다.</td></tr>
+      <tr><td colspan="8" class="muted">조건에 맞는 결과가 없습니다.</td></tr>
     {% endfor %}
     </tbody>
   </table>

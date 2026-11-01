@@ -127,12 +127,13 @@ def test_summary(results):
 def test_export_table_content_and_order(results):
     db, a = results
     header, rows = ra.export_table(db, ra.Filters())
-    assert header[:10] == ["회차", "로그인 ID", "이름", "Blueprint", "시작(KST)", "제출(KST)", "소요(분)", "상태", "총점", "합격"]
-    assert any("ARCH" in h for h in header[10:])
+    assert header[:11] == ["회차", "로그인 ID", "이름", "시험", "Blueprint", "시작(KST)", "제출(KST)", "소요(분)", "상태", "총점", "합격"]
+    assert any("ARCH" in h for h in header[11:])
     assert [r[0] for r in rows] == sorted(r[0] for r in rows)
     good = next(r for r in rows if r[1] == "good.user")
-    assert good[7] == "제출" and good[8] == 100 and good[9] == "합격" and good[6] == 10.0
-    assert good[4] == "2026-10-30 09:00:00"  # UTC 00:00 → KST 09:00
+    assert good[3] == "Oracle GoldenGate"
+    assert good[8] == "제출" and good[9] == 100 and good[10] == "합격" and good[7] == 10.0
+    assert good[5] == "2026-10-30 09:00:00"  # UTC 00:00 → KST 09:00
 
 
 def test_csv_export_has_bom_and_is_formula_safe(results):

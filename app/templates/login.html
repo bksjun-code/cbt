@@ -2,7 +2,7 @@
 {% block title %}로그인{% endblock %}
 {% block content %}
 <section class="card narrow">
-  <h1>Oracle GoldenGate 자격시험</h1>
+  <h1>Oracle 사내 자격시험</h1>
   {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
   <form method="post" action="/login" autocomplete="off">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">

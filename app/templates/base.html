@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}OGG 자격시험{% endblock %} · OGG-CBT</title>
+  <title>{% block title %}Oracle 사내 자격시험{% endblock %} · Oracle CBT</title>
   <meta name="htmx-config" content='{"includeIndicatorStyles": false}'>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/static/css/app.css">
@@ -13,7 +13,7 @@
 </head>
 <body hx-headers='{{ {"X-CSRF-Token": csrf_token}|tojson }}' class="{% block body_class %}{% endblock %}">
   <header class="topbar">
-    <a class="brand" href="/">OGG-CBT</a>
+    <a class="brand" href="/">Oracle CBT</a>
     {% block topbar %}
       {% if user %}
       <span class="topbar-right">

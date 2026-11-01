@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.models import AttemptItem, AttemptStatus, Domain, ExamAttempt, Item, ItemOverride, OverrideMode
+from app.models import AttemptItem, AttemptStatus, Domain, ExamAttempt, Item, ItemOverride, OverrideMode, Product
 
 MIN_SAMPLE = 30
 GROUP_RATIO = 0.27
@@ -127,6 +127,7 @@ def analyze(db: Session, *, min_sample: int = MIN_SAMPLE, item_ids: list[int] | 
 
 @dataclass
 class Filters:
+    product: str = ""  # 제품 코드
     domain: str = ""
     difficulty: str = ""
     status: str = ""
@@ -136,13 +137,17 @@ class Filters:
     def as_query(self) -> str:
         from urllib.parse import urlencode
 
-        return urlencode({k: v for k, v in {"domain": self.domain, "difficulty": self.difficulty, "status": self.status,
+        return urlencode({k: v for k, v in {"product": self.product, "domain": self.domain, "difficulty": self.difficulty, "status": self.status,
                                             "warn": "1" if self.warn_only else "", "sort": self.sort if self.sort != "d" else ""}.items() if v})
 
 
 def list_stats(db: Session, f: Filters, *, min_sample: int = MIN_SAMPLE) -> list[ItemStat]:
     stats = list(analyze(db, min_sample=min_sample).values())
     domains = {d.id: d.code for d in db.scalars(select(Domain))}
+    if f.product:
+        product_domains = set(db.scalars(select(Domain.id).join(Product, Product.id == Domain.product_id)
+                                         .where(Product.code == f.product)))
+        stats = [s for s in stats if s.item.domain_id in product_domains]
     if f.domain:
         stats = [s for s in stats if domains.get(s.item.domain_id) == f.domain]
     if f.difficulty:

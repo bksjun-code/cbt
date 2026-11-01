@@ -3,7 +3,7 @@
   - total_items 는 규칙의 문항 수 합계로 자동 계산한다(불일치 원천 차단)
   - 배점 합계는 정확히 100점이어야 저장된다
   - 활성화는 (1) 검증 통과 (2) 부족 셀 없음 일 때만 가능하다 → 응시자가 시험 시작 시 거부당하는 일을 막는다
-  - 활성 Blueprint 는 항상 최대 1개
+  - 활성 Blueprint 는 제품마다 최대 1개(영역 목록 domains 는 그 Blueprint 제품의 영역)
 """
 from dataclasses import dataclass, field
 
@@ -11,7 +11,7 @@ from sqlalchemy import func, select, update
 from sqlalchemy.orm import Session
 
 from app.models import (
-    Blueprint, BlueprintRule, Difficulty, Domain, Item, ItemStatus, User,
+    Blueprint, BlueprintRule, Difficulty, Domain, Item, ItemStatus, Product, User,
 )
 from app.services.audit import log_audit
 from app.services.blueprint_validation import TOTAL_POINTS, BlueprintError, validate_blueprint
@@ -129,14 +129,14 @@ def _summary(f: BlueprintForm) -> dict:
     }
 
 
-def create_blueprint(db: Session, f: BlueprintForm, actor: User, domains: list[Domain]) -> Blueprint:
+def create_blueprint(db: Session, f: BlueprintForm, actor: User, domains: list[Domain], product: Product) -> Blueprint:
     if _name_taken(db, f.name, None):
         raise BlueprintError("같은 이름의 Blueprint 가 이미 있습니다")
-    bp = Blueprint(name=f.name, total_items=0, time_limit_min=f.time_limit_min, is_active=False)
+    bp = Blueprint(product_id=product.id, name=f.name, total_items=0, time_limit_min=f.time_limit_min, is_active=False)
     db.add(bp)
     db.flush()
     _apply(db, bp, f, domains)
-    log_audit(db, actor.id, "BLUEPRINT_CREATE", f"blueprint:{bp.id}", {"after": _summary(f)})
+    log_audit(db, actor.id, "BLUEPRINT_CREATE", f"blueprint:{bp.id}", {"product": product.code, "after": _summary(f)})
     db.flush()
     return bp
 
@@ -203,12 +203,17 @@ def activate(db: Session, bp: Blueprint, actor: User, domains: list[Domain]) -> 
     short = shortages(db, form_from_blueprint(bp, domains), domains)
     if short:
         raise BlueprintError("문항이 부족한 셀이 있어 활성화할 수 없습니다 — " + "; ".join(short))
-    previous = [b.id for b in db.scalars(select(Blueprint).where(Blueprint.is_active.is_(True), Blueprint.id != bp.id))]
-    db.execute(update(Blueprint).where(Blueprint.id != bp.id).values(is_active=False))
+    same_product = (Blueprint.product_id == bp.product_id, Blueprint.id != bp.id)
+    previous = [b.id for b in db.scalars(select(Blueprint).where(Blueprint.is_active.is_(True), *same_product))]
+    db.execute(update(Blueprint).where(*same_product).values(is_active=False))
     bp.is_active = True
     log_audit(db, actor.id, "BLUEPRINT_ACTIVATE", f"blueprint:{bp.id}", {"deactivated": previous})
     db.flush()
 
 
-def list_blueprints(db: Session) -> list[Blueprint]:
-    return list(db.scalars(select(Blueprint).order_by(Blueprint.is_active.desc(), Blueprint.id.desc())))
+def list_blueprints(db: Session, product_id: int | None = None) -> list[Blueprint]:
+    q = (select(Blueprint).join(Product, Product.id == Blueprint.product_id)
+         .order_by(Product.sort_order, Blueprint.is_active.desc(), Blueprint.id.desc()))
+    if product_id is not None:
+        q = q.where(Blueprint.product_id == product_id)
+    return list(db.scalars(q))

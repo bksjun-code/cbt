@@ -15,7 +15,7 @@ from sqlalchemy import exists, func, select
 from sqlalchemy.orm import Session
 
 from app.models import (
-    AttemptItem, Difficulty, Domain, Item, ItemReview, ItemStatus, ItemType, ReviewAction, User, utcnow,
+    AttemptItem, Difficulty, Domain, Item, ItemReview, ItemStatus, ItemType, Product, ReviewAction, User, utcnow,
 )
 from app.schemas.item import ItemIn
 from app.services.app_settings import get_setting
@@ -69,6 +69,10 @@ def is_editable(db: Session, item: Item) -> bool:
     return item.status != S.RETIRED and not has_history(db, item.id)
 
 
+def _version(data: ItemIn, domain: Domain) -> str:
+    return data.product_version or domain.product.default_version
+
+
 def _fill(item: Item, data: ItemIn, domain: Domain) -> None:
     item.domain_id = domain.id
     item.difficulty = data.difficulty
@@ -78,7 +82,7 @@ def _fill(item: Item, data: ItemIn, domain: Domain) -> None:
     item.correct_keys = sorted(data.correct_keys)
     item.explanation = data.explanation
     item.reference = data.reference
-    item.ogg_version = data.ogg_version
+    item.product_version = _version(data, domain)
     item.architecture = data.architecture
     item.variant_group = data.variant_group.strip()
 
@@ -103,7 +107,7 @@ def _changed_fields(item: Item, data: ItemIn, domain: Domain) -> list[str]:
         "item_type": (item.item_type, data.item_type), "stem": (item.stem, data.stem),
         "options": (item.options, data.options), "correct_keys": (sorted(item.correct_keys), sorted(data.correct_keys)),
         "explanation": (item.explanation, data.explanation), "reference": (item.reference, data.reference),
-        "ogg_version": (item.ogg_version, data.ogg_version), "architecture": (item.architecture, data.architecture),
+        "product_version": (item.product_version, _version(data, domain)), "architecture": (item.architecture, data.architecture),
         "variant_group": (item.variant_group, data.variant_group.strip()),
     }
     return [k for k, (a, b) in cmp.items() if a != b]
@@ -165,7 +169,7 @@ def new_version(db: Session, item: Item, actor: User) -> Item:
     new = Item(
         domain_id=item.domain_id, difficulty=item.difficulty, item_type=item.item_type, stem=item.stem,
         options=dict(item.options), correct_keys=list(item.correct_keys), explanation=item.explanation,
-        reference=item.reference, ogg_version=item.ogg_version, architecture=item.architecture,
+        reference=item.reference, product_version=item.product_version, architecture=item.architecture,
         variant_group=item.variant_group, status=S.DRAFT, created_by=actor.id,
         version=item.version + 1, previous_version_id=item.id,
     )
@@ -183,10 +187,12 @@ def _like(term: str) -> str:
     return "%" + term.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
 
 
-def list_items(db: Session, *, domain_code: str | None = None, difficulty: str | None = None,
+def list_items(db: Session, *, product_code: str | None = None, domain_code: str | None = None, difficulty: str | None = None,
                status: str | None = None, item_type: str | None = None, q: str | None = None,
                page: int = 1, per_page: int = PER_PAGE) -> tuple[list[Item], int]:
     stmt = select(Item).join(Domain, Domain.id == Item.domain_id)
+    if product_code:
+        stmt = stmt.join(Product, Product.id == Domain.product_id).where(Product.code == product_code)
     if domain_code:
         stmt = stmt.where(Domain.code == domain_code)
     # enum 에 없는 값(주소창 직접 입력 등)은 무시한다. 그대로 비교하면 SQLAlchemy 가 LookupError 를 내 500 이 된다
