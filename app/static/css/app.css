@@ -52,6 +52,8 @@ button.flag.on { background: #fff7e0; border-color: var(--warn); color: var(--wa
 .score { font-size: 2.4rem; font-weight: 800; }
 .charts { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
 .explain { border-top: 1px solid var(--line); padding: .8rem 0; }
+/* 긴 식별자(파라미터·클래스 이름)가 좁은 화면에서 가로 스크롤을 만들지 않게 필요할 때만 끊는다 */
+.stem, .explain, .opt .txt { overflow-wrap: anywhere; }
 .explain .ok { color: var(--ok); font-weight: 700; } .explain .no { color: var(--bad); font-weight: 700; }
 svg text { font-family: inherit; fill: var(--ink); }
 

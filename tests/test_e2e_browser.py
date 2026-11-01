@@ -342,6 +342,9 @@ def test_exam_layout_fits_a_phone_screen_without_horizontal_scroll(browser, serv
         else:
             submit_via_modal(pg)
             pg.wait_for_url(re.compile(r"/result$"))
+        # 출제 문항에 따라 달라지지 않게, 끊을 곳 없는 긴 식별자를 지문·보기에 항상 넣어 본다
+        pg.evaluate("""for (const el of document.querySelectorAll('.stem, .opt .txt, .explain li'))
+                         el.textContent += ' DBOPTIONS_ENABLE_INSTANTIATION_FILTERING_VERY_LONG_NAME'""")
         overflow = pg.evaluate("document.documentElement.scrollWidth - window.innerWidth")
         assert overflow <= 1, (step, overflow)
     assert pg.errors == [], pg.errors
