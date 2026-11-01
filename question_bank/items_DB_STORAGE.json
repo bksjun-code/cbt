@@ -1,0 +1,1418 @@
+[
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, what is the finest level of granularity at which the database stores data and performs logical I/O?",
+  "options": {
+   "A": "Data block",
+   "B": "Extent",
+   "C": "Segment",
+   "D": "Tablespace",
+   "E": "Operating system file"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "데이터 블록(data block)은 Oracle이 데이터를 저장하고 I/O를 수행하는 가장 작은 논리 단위이며 크기는 DB_BLOCK_SIZE 등으로 정해진다. 익스텐트는 연속된 블록의 묶음, 세그먼트는 익스텐트의 집합, 테이블스페이스는 세그먼트를 담는 논리 컨테이너로 모두 블록보다 큰 단위다. 운영체제 파일(데이터 파일)은 물리 구조로, 데이터베이스가 저장 단위로 다루는 가장 작은 논리 단위가 아니다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-BLOCK-UNIT"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement correctly describes an extent?",
+  "options": {
+   "A": "A set of one or more data files that together form a logical storage container for schema objects",
+   "B": "A single row piece stored in one data block",
+   "C": "A specific number of logically contiguous data blocks obtained in a single allocation",
+   "D": "A group of online redo log members written in parallel",
+   "E": "The collection of all blocks belonging to one schema"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "익스텐트는 한 번의 할당으로 세그먼트에 주어지는 논리적으로 연속된 데이터 블록의 묶음이다. 데이터 파일의 집합이 이루는 논리 컨테이너는 테이블스페이스이고, 행 조각은 블록 안의 데이터일 뿐이다. 병렬로 기록되는 redo 멤버의 묶음은 redo 로그 그룹이며, 스키마 단위로 블록을 묶는 저장 구조는 없다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-EXTENT-DEF"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about the relationship between data files and tablespaces is true?",
+  "options": {
+   "A": "A data file can be shared by several tablespaces of the same database",
+   "B": "A tablespace can contain at most one data file in all cases",
+   "C": "Data files are assigned to schemas rather than to tablespaces",
+   "D": "A data file can belong to tablespaces of two different databases",
+   "E": "Each data file belongs to exactly one tablespace"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "데이터 파일은 정확히 하나의 테이블스페이스(그리고 하나의 데이터베이스)에만 속한다. 여러 테이블스페이스나 다른 데이터베이스가 같은 데이터 파일을 공유할 수 없다. 데이터 파일이 하나뿐인 것은 bigfile 테이블스페이스의 특징이며 일반(smallfile) 테이블스페이스는 여러 파일을 가질 수 있다. 데이터 파일은 스키마가 아니라 테이블스페이스에 속한다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-DATAFILE-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which tablespace contains the data dictionary tables for the database?",
+  "options": {
+   "A": "SYSAUX",
+   "B": "SYSTEM",
+   "C": "USERS",
+   "D": "TEMP",
+   "E": "UNDOTBS1"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "데이터 딕셔너리의 기본 테이블은 SYSTEM 테이블스페이스에 저장되며, 데이터베이스가 열려 있는 동안 항상 온라인이어야 한다. SYSAUX는 AWR 등 부가 구성요소를 담는 보조 테이블스페이스다. USERS는 일반 사용자 객체용, TEMP는 정렬 등 임시 작업용, UNDOTBS1은 undo 데이터용이다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-SYSTEM-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the main role of the SYSAUX tablespace?",
+  "options": {
+   "A": "It holds undo data when the undo tablespace is full",
+   "B": "It stores sort data that does not fit in the PGA",
+   "C": "It stores archived redo log files",
+   "D": "It is an auxiliary to SYSTEM that holds data for components such as the Automatic Workload Repository",
+   "E": "It replaces the SYSTEM tablespace in each pluggable database so that PDBs need no SYSTEM tablespace of their own"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SYSAUX는 SYSTEM의 보조 테이블스페이스로 AWR 등 여러 구성요소의 메타데이터를 담아 SYSTEM의 부담을 줄인다. undo 데이터는 undo 테이블스페이스, PGA에 들어가지 않는 정렬 데이터는 임시 테이블스페이스에 저장된다. 아카이브 로그는 테이블스페이스가 아닌 파일 시스템, ASM, 빠른 복구 영역에 저장되며, PDB에도 별도의 SYSTEM 테이블스페이스가 있다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-SYSAUX"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A large ORDER BY query cannot complete its sort in memory. Where does the database write the intermediate sort data?",
+  "options": {
+   "A": "To a temporary tablespace",
+   "B": "To the undo tablespace",
+   "C": "To the online redo log files",
+   "D": "To the SYSTEM tablespace data files",
+   "E": "To the control file"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "PGA 메모리에서 끝나지 않는 정렬·해시 작업의 중간 데이터는 사용자의 임시 테이블스페이스에 있는 임시 세그먼트에 기록된다. undo 테이블스페이스는 변경 전 이미지를, redo 로그는 변경 내역을 기록한다. SYSTEM 테이블스페이스는 딕셔너리용이고, 컨트롤 파일은 데이터베이스 구조 정보를 담는다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-TEMP-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which is a primary purpose of undo data?",
+  "options": {
+   "A": "Rolling forward committed changes after a media failure",
+   "B": "Storing intermediate results of disk sorts",
+   "C": "Providing read-consistent views of data to queries",
+   "D": "Recording the physical structure of the database",
+   "E": "Holding copies of filled online redo log groups"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "undo 데이터는 트랜잭션 롤백, 읽기 일관성 제공, Flashback Query 등에 쓰이며 쿼리가 시작 시점 기준의 일관된 데이터를 보게 해 준다. 커밋된 변경을 다시 적용(roll forward)하는 것은 redo의 역할이다. 디스크 정렬은 임시 테이블스페이스, 데이터베이스 물리 구조 기록은 컨트롤 파일, 가득 찬 redo 그룹의 사본은 아카이브 로그의 역할이다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-PURPOSE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the minimum number of online redo log groups that an Oracle database must have?",
+  "options": {
+   "A": "One",
+   "B": "Three",
+   "C": "Four",
+   "D": "One per data file",
+   "E": "Two"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LGWR는 redo 로그 그룹을 순환하며 사용하므로 하나가 아카이브되거나 체크포인트를 기다리는 동안 다른 그룹에 기록할 수 있도록 최소 2개의 그룹이 필요하다. 그룹이 1개뿐이면 순환이 불가능하다. 3개 이상은 권장될 수 있으나 최소 요구 사항은 아니며, 데이터 파일 수와 redo 그룹 수는 관계가 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-REDO-MIN-GROUPS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does multiplexing the online redo log mean?",
+  "options": {
+   "A": "Writing redo for different tablespaces into different log groups so that each tablespace has its own redo stream",
+   "B": "Maintaining two or more identical members in each redo log group, preferably on different disks",
+   "C": "Compressing redo records before they are written to disk",
+   "D": "Splitting one redo log file across several data files",
+   "E": "Archiving each redo log group to several tape devices only"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "redo 로그 다중화는 각 그룹에 동일한 내용의 멤버를 2개 이상 두고 서로 다른 디스크에 배치해, 한 멤버가 손상되어도 다른 멤버로 계속 운영하게 하는 방법이다. redo는 테이블스페이스별로 그룹을 나누지 않으며, 압축이나 데이터 파일 분할과도 무관하다. 여러 위치로 아카이브하는 것은 아카이브 대상 설정의 문제이지 온라인 redo 다중화가 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-REDO-MEMBERS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In ARCHIVELOG mode, which background process copies filled online redo log groups to the archive destinations?",
+  "options": {
+   "A": "LGWR",
+   "B": "DBWn",
+   "C": "CKPT",
+   "D": "ARCn",
+   "E": "SMON"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "ARCHIVELOG 모드에서는 아카이버 프로세스(ARCn)가 로그 스위치로 가득 찬 온라인 redo 그룹을 아카이브 대상에 복사한다. LGWR는 redo 로그 버퍼를 온라인 redo 로그에 기록하고, DBWn은 더티 버퍼를 데이터 파일에 기록한다. CKPT는 체크포인트 정보를 갱신하고, SMON은 인스턴스 복구 등을 담당한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ARCHIVELOG-MODE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In which state must a single-instance database be when you issue ALTER DATABASE ARCHIVELOG?",
+  "options": {
+   "A": "MOUNT",
+   "B": "NOMOUNT",
+   "C": "OPEN READ WRITE",
+   "D": "OPEN READ ONLY",
+   "E": "OPEN RESTRICTED"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "아카이브 모드 변경은 컨트롤 파일에 기록되므로 컨트롤 파일이 열린 MOUNT 상태에서 실행해야 한다(정상 종료 후 STARTUP MOUNT). NOMOUNT 상태에서는 컨트롤 파일을 읽지 않아 변경할 수 없다. 데이터베이스가 OPEN된 상태(읽기/쓰기, 읽기 전용, 제한 모드 포함)에서는 이 명령을 실행할 수 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ENABLE-ARCHIVELOG"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the defining characteristic of a bigfile tablespace?",
+  "options": {
+   "A": "It can only store LOB segments",
+   "B": "It must use dictionary-managed extents",
+   "C": "It consists of a single, potentially very large, data file",
+   "D": "It can be used only as a temporary tablespace, never for permanent data",
+   "E": "It automatically spans several databases"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "bigfile 테이블스페이스는 매우 큰 데이터 파일 하나로만 구성되는 테이블스페이스다. 저장 객체 종류에 제한은 없으며, 로컬 관리 익스텐트를 사용해야 한다. 영구·undo·임시 테이블스페이스 모두 bigfile로 만들 수 있고, 여러 데이터베이스에 걸치는 테이블스페이스는 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-BIGFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, how are extents of a new permanent tablespace managed when the EXTENT MANAGEMENT clause is omitted?",
+  "options": {
+   "A": "By the data dictionary in the SYSTEM tablespace",
+   "B": "By free lists stored in the control file",
+   "C": "By the undo tablespace",
+   "D": "By the ASM instance regardless of where the files reside",
+   "E": "Locally, by using bitmaps in the tablespace's data files"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "19c에서 새 영구 테이블스페이스의 기본 익스텐트 관리는 로컬 관리(locally managed)로, 데이터 파일 안의 비트맵으로 익스텐트 사용 여부를 추적한다. 딕셔너리 관리는 과거 방식이며 기본값이 아니다. 컨트롤 파일이나 undo 테이블스페이스는 익스텐트 할당을 관리하지 않고, ASM은 파일의 물리 배치를 관리할 뿐 세그먼트 익스텐트 관리와는 별개다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-LMT"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle ASM disk group redundancy type provides no ASM mirroring and relies on the storage system for data protection?",
+  "options": {
+   "A": "NORMAL",
+   "B": "EXTERNAL",
+   "C": "HIGH",
+   "D": "MIRROR",
+   "E": "PARITY"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "EXTERNAL 중복성은 ASM이 미러링을 하지 않으며 RAID 등 스토리지 장비의 보호에 의존한다. NORMAL은 기본적으로 2중, HIGH는 3중 미러링을 ASM이 수행한다. MIRROR와 PARITY는 ASM 디스크 그룹의 중복성 유형 이름이 아니다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-REDUNDANCY"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which initialization parameter specifies the default location where Oracle Managed Files creates data files and temp files?",
+  "options": {
+   "A": "DB_FILE_NAME_CONVERT",
+   "B": "CONTROL_FILES",
+   "C": "DB_FILES",
+   "D": "DB_CREATE_FILE_DEST",
+   "E": "LOG_ARCHIVE_FORMAT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DB_CREATE_FILE_DEST를 설정하면 파일 이름을 지정하지 않은 CREATE TABLESPACE 등에서 OMF가 해당 위치에 데이터 파일과 임시 파일을 자동 생성한다. DB_FILE_NAME_CONVERT는 standby·복제 시 파일 이름 변환 규칙, CONTROL_FILES는 컨트롤 파일 위치, DB_FILES는 열 수 있는 데이터 파일 최대 개수 설정이다. LOG_ARCHIVE_FORMAT은 아카이브 로그 파일 이름 형식이다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-OMF-PARAM"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which data dictionary view lists each permanent data file together with its tablespace name, size, and whether it is autoextensible?",
+  "options": {
+   "A": "DBA_DATA_FILES",
+   "B": "DBA_TEMP_FILES",
+   "C": "DBA_SEGMENTS",
+   "D": "DBA_USERS",
+   "E": "V$LOG"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DBA_DATA_FILES는 영구 데이터 파일마다 파일 이름, 테이블스페이스 이름, 크기, AUTOEXTENSIBLE 여부 등을 보여 준다. DBA_TEMP_FILES는 임시 파일(tempfile)만 다루고, DBA_SEGMENTS는 세그먼트 단위 정보다. DBA_USERS는 사용자 정보, V$LOG는 온라인 redo 로그 그룹 정보를 보여 준다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-DICT-VIEWS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which of the following schema objects never has a segment of its own?",
+  "options": {
+   "A": "A heap-organized table",
+   "B": "A B-tree index",
+   "C": "A view",
+   "D": "A materialized view",
+   "E": "A partition of a partitioned table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "뷰는 저장된 쿼리 정의일 뿐 데이터를 저장하지 않으므로 세그먼트가 없다. 힙 테이블과 B-tree 인덱스는 각각 테이블·인덱스 세그먼트를 가지며, 구체화된 뷰는 결과를 저장하는 컨테이너 테이블 세그먼트를 가진다. 분할 테이블은 파티션마다 별도의 세그먼트를 가진다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-SEGMENT-DEF"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which of the following are valid redundancy types that you can specify for an Oracle ASM disk group in a CREATE DISKGROUP statement? (Choose all that apply.)",
+  "options": {
+   "A": "EXTERNAL",
+   "B": "DOUBLE",
+   "C": "NORMAL",
+   "D": "STRIPED",
+   "E": "HIGH"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "CREATE DISKGROUP의 중복성 유형에는 EXTERNAL(ASM 미러링 없음), NORMAL(2중), HIGH(3중)가 있으며 19c에서는 FLEX, EXTENDED도 있다. DOUBLE과 STRIPED는 ASM 중복성 키워드가 아니다. ASM은 모든 디스크 그룹에서 데이터를 스트라이핑하지만 이는 중복성 유형이 아니다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-REDUNDANCY"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two tablespaces are always created by the CREATE DATABASE statement and are required in every Oracle Database 19c database? (Choose two.)",
+  "options": {
+   "A": "USERS",
+   "B": "SYSTEM",
+   "C": "EXAMPLE",
+   "D": "SYSAUX",
+   "E": "TOOLS"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "SYSTEM과 SYSAUX는 모든 19c 데이터베이스에 필수로 생성되는 테이블스페이스다. USERS는 DBCA가 일반적으로 만들어 주지만 필수는 아니며, EXAMPLE은 샘플 스키마용, TOOLS는 과거 관습적으로 쓰던 이름일 뿐 필수 테이블스페이스가 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-MANDATORY-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which of the following are logical storage structures rather than physical files? (Choose all that apply.)",
+  "options": {
+   "A": "Data file",
+   "B": "Online redo log file",
+   "C": "Tablespace",
+   "D": "Segment",
+   "E": "Extent"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "테이블스페이스, 세그먼트, 익스텐트(그리고 데이터 블록)는 Oracle이 정의하는 논리 저장 구조다. 데이터 파일과 온라인 redo 로그 파일은 운영체제나 ASM에 실제로 존재하는 물리 파일이다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-LOGICAL-PHYSICAL"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How does Automatic Segment Space Management (SEGMENT SPACE MANAGEMENT AUTO) track free space within segments?",
+  "options": {
+   "A": "By using free lists that must be tuned with FREELISTS and PCTUSED",
+   "B": "By scanning the whole segment at each insert",
+   "C": "By storing free space information for each segment in the undo tablespace",
+   "D": "By recording free blocks in the control file",
+   "E": "By using bitmaps that record how full each block in the segment is"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ASSM은 세그먼트 안의 비트맵 블록으로 각 블록의 사용률 구간을 기록해 삽입할 블록을 찾는다. FREELISTS·PCTUSED로 프리 리스트를 튜닝하는 방식은 수동 세그먼트 공간 관리(MSSM)이며, ASSM에서는 PCTUSED가 무시된다. 매 삽입마다 세그먼트를 스캔하지 않으며, undo 테이블스페이스나 컨트롤 파일은 블록 여유 공간을 기록하지 않는다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-ASSM"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of setting PCTFREE 20 on a table?",
+  "options": {
+   "A": "Inserts stop when the table is 20 percent full",
+   "B": "20 percent of each block is reserved for future updates to rows already in that block",
+   "C": "20 percent of the table's extents are kept unallocated",
+   "D": "A block returns to the free list for new inserts when its used space falls to 20 percent",
+   "E": "The table is compressed by 20 percent"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "PCTFREE는 블록에 기존 행이 업데이트로 커질 때를 대비해 남겨 두는 여유 공간의 비율로, 이 값만큼 남으면 그 블록에는 더 이상 새 행을 삽입하지 않는다. 테이블 전체 사용률이나 익스텐트 할당과는 무관하다. 사용률이 일정 수준 아래로 내려가면 다시 삽입 대상이 되는 기준은 PCTUSED(MSSM 전용)이며, 압축률과도 관계가 없다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-PCTFREE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An UPDATE makes a row too large to fit in the free space of its current block, although the row would fit in an empty block. What does Oracle do?",
+  "options": {
+   "A": "It rejects the update with an error",
+   "B": "It splits the row across the redo log and the data block",
+   "C": "It moves the row to the undo tablespace",
+   "D": "It moves the whole row to a new block and leaves a pointer in the original block",
+   "E": "It automatically increases the block size of the tablespace so that the larger row fits"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "기존 블록에 공간이 부족하지만 새 블록에는 들어갈 수 있는 경우 행 전체를 새 블록으로 옮기고 원래 블록에 포인터를 남기는데 이를 행 이주(row migration)라 한다. 따라서 ROWID는 바뀌지 않는다. 업데이트가 오류로 실패하지 않으며, redo나 undo 테이블스페이스에 행을 저장하지도 않는다. 블록 크기는 테이블스페이스 생성 시 고정되어 자동으로 바뀌지 않는다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-ROW-CHAIN-MIGRATE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A table row is larger than the database block size, for example because it contains several long VARCHAR2 columns. How is this row stored?",
+  "options": {
+   "A": "As a chain of row pieces stored in more than one data block (row chaining)",
+   "B": "In a single block of a larger nonstandard block size chosen automatically",
+   "C": "Only in the undo tablespace until it is committed",
+   "D": "It cannot be stored and the insert fails",
+   "E": "As a migrated row with a pointer in an index"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "한 블록에 들어갈 수 없을 만큼 큰 행은 여러 블록에 행 조각으로 나뉘어 연결되어 저장되며 이를 행 체이닝(row chaining)이라 한다. Oracle이 자동으로 더 큰 블록 크기를 골라 주지 않으며, 삽입이 실패하지도 않는다. undo에는 변경 전 이미지만 저장되고, 행 이주는 업데이트로 블록 공간이 부족해질 때의 현상으로 인덱스 포인터와 무관하다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-ROW-CHAIN-MIGRATE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After a DELETE removes 90 percent of the rows of a large table, full table scans of the table take almost as long as before. What is the most likely reason?",
+  "options": {
+   "A": "DELETE moved the deleted rows to the SYSAUX tablespace, and full scans still read them there",
+   "B": "The table's extents were converted to uniform size",
+   "C": "The high water mark was not lowered, so full scans still read all blocks below it",
+   "D": "The undo tablespace is scanned together with the table",
+   "E": "DELETE always increases the block size of the table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DELETE는 행을 지워도 세그먼트의 고수위 표시(HWM)를 낮추지 않으므로 전체 테이블 스캔은 여전히 HWM 아래의 모든 블록을 읽는다. 공간을 회수하고 HWM을 낮추려면 SHRINK SPACE, MOVE 또는 TRUNCATE 등을 사용한다. 삭제된 행이 SYSAUX로 옮겨지지 않고, 익스텐트 유형이나 블록 크기도 바뀌지 않는다. 일관성 읽기에 undo를 참조할 수는 있지만 근본 원인은 HWM이다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-HWM"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of ALTER TABLE orders SHRINK SPACE COMPACT?",
+  "options": {
+   "A": "The high water mark is lowered and free space is returned to the tablespace immediately",
+   "B": "The table is moved to a new tablespace",
+   "C": "All indexes on the table become unusable and must be rebuilt",
+   "D": "The table's data blocks are compressed with Advanced Row Compression",
+   "E": "Rows are compacted, but the high water mark is not adjusted and no space is released"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SHRINK SPACE COMPACT는 행을 앞쪽 블록으로 모으는 압축 단계만 수행하고 HWM 조정과 공간 반환은 하지 않는다. 이후 COMPACT 없이 SHRINK SPACE를 실행하면 HWM을 낮추고 공간을 반환한다. 다른 테이블스페이스로 옮기는 것은 ALTER TABLE MOVE이고, SHRINK는 인덱스를 UNUSABLE로 만들지 않으며, 압축 기능과도 무관하다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-SHRINK"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the UNDO_RETENTION initialization parameter specify?",
+  "options": {
+   "A": "The maximum size, in megabytes, of the undo tablespace",
+   "B": "A low threshold, in seconds, for retaining committed undo, honored best-effort unless RETENTION GUARANTEE is set",
+   "C": "The number of undo segments created at startup",
+   "D": "The number of minutes after which idle uncommitted transactions are automatically rolled back to release their undo space",
+   "E": "How many days undo data is kept in the archived redo logs"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "UNDO_RETENTION은 커밋된 undo를 최소 얼마 동안(초 단위) 보존하려 하는지의 하한값이며, RETENTION GUARANTEE가 없으면 공간이 부족할 때 만료되지 않은 undo도 재사용될 수 있다. undo 테이블스페이스 크기나 undo 세그먼트 수를 지정하는 파라미터가 아니다. 미커밋 트랜잭션을 자동 롤백하는 기능이 아니며, undo 데이터는 아카이브 로그에 보관 기간을 두고 저장되지도 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-RETENTION"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of ALTER TABLESPACE undotbs1 RETENTION GUARANTEE?",
+  "options": {
+   "A": "Undo is written to two undo tablespaces simultaneously",
+   "B": "Queries are guaranteed never to receive any error",
+   "C": "The undo tablespace data files automatically extend without limit, ignoring their MAXSIZE setting",
+   "D": "Unexpired undo is never overwritten, even if DML then fails for lack of undo space",
+   "E": "Committed transactions can no longer be flashed back"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "RETENTION GUARANTEE는 UNDO_RETENTION 기간 안의 만료되지 않은 undo를 절대 덮어쓰지 않게 하므로, 공간이 부족하면 쿼리 대신 DML이 실패할 수 있다. undo를 두 테이블스페이스에 이중 기록하는 기능은 없고, 모든 쿼리 오류를 막아 주지도 않는다. 자동 확장 여부는 데이터 파일의 AUTOEXTEND 설정으로 결정되며, 오히려 Flashback 작업에 필요한 undo를 더 잘 보존한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-GUARANTEE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In V$LOG, what does the status ACTIVE indicate for an online redo log group?",
+  "options": {
+   "A": "The group is not current but is still needed for instance (crash) recovery",
+   "B": "The group is currently being written by LGWR",
+   "C": "The group has never been written to since it was added",
+   "D": "The group is no longer needed for instance recovery",
+   "E": "The group is being re-initialized by ALTER DATABASE CLEAR LOGFILE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ACTIVE는 현재 기록 중인 그룹은 아니지만 관련 체크포인트가 끝나지 않아 인스턴스 복구에 아직 필요한 상태다(아카이브 여부와는 별개). LGWR가 기록 중인 그룹은 CURRENT, 추가 후 한 번도 쓰이지 않은 그룹은 UNUSED, 인스턴스 복구에 더 이상 필요 없는 그룹은 INACTIVE다. CLEAR LOGFILE로 재초기화 중인 그룹은 CLEARING 상태로 표시된다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-VLOG-STATUS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database is placed in ARCHIVELOG mode. DB_RECOVERY_FILE_DEST and DB_RECOVERY_FILE_DEST_SIZE are set, and no LOG_ARCHIVE_DEST_n parameter is set. Where are archived redo log files written?",
+  "options": {
+   "A": "Nowhere; archiving fails until LOG_ARCHIVE_DEST_1 is set",
+   "B": "To the directory that contains the control files",
+   "C": "To the fast recovery area",
+   "D": "To the SYSAUX tablespace",
+   "E": "To the directory specified by DIAGNOSTIC_DEST"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "빠른 복구 영역이 설정되어 있고 로컬 아카이브 대상(LOG_ARCHIVE_DEST_n)을 하나도 지정하지 않으면 아카이브 로그는 암묵적으로 빠른 복구 영역에 기록된다. 따라서 아카이브가 실패하지 않는다. 컨트롤 파일 디렉터리나 DIAGNOSTIC_DEST(ADR 경로)는 아카이브 대상이 아니며, 아카이브 로그는 테이블스페이스 안에 저장되지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ARCH-DEST-FRA"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Tablespace APP_DATA is a smallfile tablespace with one data file. Which statement increases the size of that existing data file to 20 GB?",
+  "options": {
+   "A": "ALTER TABLESPACE app_data RESIZE 20G;",
+   "B": "ALTER SYSTEM SET DB_FILES = 20G;",
+   "C": "ALTER TABLESPACE app_data ADD DATAFILE SIZE 20G;",
+   "D": "ALTER DATABASE app_data EXTEND 20G;",
+   "E": "ALTER DATABASE DATAFILE '/u02/oradata/app_data01.dbf' RESIZE 20G;"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "기존 데이터 파일의 크기를 바꾸려면 ALTER DATABASE DATAFILE ... RESIZE를 사용한다. 테이블스페이스 수준의 RESIZE는 bigfile 테이블스페이스에서만 허용된다. ADD DATAFILE은 기존 파일을 키우는 것이 아니라 새 파일을 추가하며, DB_FILES는 데이터 파일 개수 한도 파라미터이다. EXTEND 구문은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-RESIZE-DATAFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, which statement relocates a data file to a new location while the data file remains online and accessible to users?",
+  "options": {
+   "A": "ALTER DATABASE RENAME FILE '/u01/oradata/users01.dbf' TO '/u03/oradata/users01.dbf'; while the tablespace is online",
+   "B": "ALTER DATABASE MOVE DATAFILE '/u01/oradata/users01.dbf' TO '/u03/oradata/users01.dbf';",
+   "C": "ALTER TABLESPACE users RELOCATE DATAFILE TO '/u03/oradata';",
+   "D": "ALTER SYSTEM MOVE DATAFILE 5 TO '/u03/oradata/users01.dbf';",
+   "E": "ALTER DATABASE DATAFILE 5 MIGRATE ONLINE TO '/u03/oradata';"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "12c부터 ALTER DATABASE MOVE DATAFILE로 데이터 파일을 온라인 상태 그대로 이동(이름 변경 포함)할 수 있다. RENAME FILE은 파일을 OS에서 미리 복사한 뒤 컨트롤 파일의 이름만 바꾸는 방식이라 대상 파일이 오프라인이거나 데이터베이스가 MOUNT 상태여야 한다. RELOCATE DATAFILE, ALTER SYSTEM MOVE DATAFILE, MIGRATE ONLINE은 존재하지 않는 구문이다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-MOVE-DATAFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about a tablespace placed in READ ONLY mode is true?",
+  "options": {
+   "A": "Tables in it cannot be dropped",
+   "B": "It must be taken offline before it can be queried",
+   "C": "The SYSTEM tablespace can be placed in this mode",
+   "D": "Its data files do not change, so one backup taken after it becomes read-only is sufficient",
+   "E": "Temporary tablespaces are commonly placed in this mode to reduce space usage and the redo generated by sorts"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "읽기 전용 테이블스페이스의 데이터 파일은 변경되지 않으므로 읽기 전용으로 바꾼 뒤 한 번 백업해 두면 상태가 유지되는 동안 반복 백업이 필요 없다. 테이블 삭제는 딕셔너리만 변경하므로 읽기 전용 테이블스페이스의 객체도 삭제할 수 있다. 조회를 위해 오프라인으로 만들 필요가 없고, SYSTEM과 임시 테이블스페이스는 읽기 전용으로 만들 수 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-READ-ONLY-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which of the following tablespaces cannot be taken offline while the database is open?",
+  "options": {
+   "A": "SYSTEM",
+   "B": "USERS",
+   "C": "An application tablespace named APP_DATA",
+   "D": "An application index tablespace named APP_IDX",
+   "E": "A read-only tablespace named HIST_DATA"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SYSTEM 테이블스페이스는 데이터 딕셔너리를 담고 있어 데이터베이스가 열린 동안 오프라인으로 만들 수 없다. USERS나 애플리케이션 데이터·인덱스 테이블스페이스, 읽기 전용 테이블스페이스는 ALTER TABLESPACE ... OFFLINE으로 오프라인 전환이 가능하다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-OFFLINE-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A user is created without a TEMPORARY TABLESPACE clause. Which temporary tablespace does the user's sort operations use?",
+  "options": {
+   "A": "The SYSTEM tablespace in all cases",
+   "B": "The user's default permanent tablespace",
+   "C": "The database default temporary tablespace",
+   "D": "The undo tablespace",
+   "E": "No temporary tablespace; disk sorts fail for that user"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "TEMPORARY TABLESPACE 절 없이 생성된 사용자는 ALTER DATABASE DEFAULT TEMPORARY TABLESPACE로 지정된 데이터베이스 기본 임시 테이블스페이스를 사용한다. 기본 임시 테이블스페이스가 지정되어 있으면 SYSTEM이 임시 저장소로 쓰이지 않는다. 영구 기본 테이블스페이스나 undo 테이블스페이스는 정렬 공간으로 쓰이지 않으며 디스크 정렬이 막히지도 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-DEFAULT-TEMP"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about tempfiles of a locally managed temporary tablespace is true?",
+  "options": {
+   "A": "They are listed in DBA_DATA_FILES together with permanent data files",
+   "B": "All changes to their blocks are protected by redo, so they are restored and recovered by RMAN",
+   "C": "They can be placed in READ ONLY mode",
+   "D": "They must belong to the SYSTEM tablespace",
+   "E": "RMAN does not back them up, and they can be re-created rather than restored"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "임시 파일(tempfile)은 영구 데이터를 담지 않으므로 RMAN 백업 대상이 아니며, 손상되면 복원하지 않고 다시 생성하면 된다. 임시 파일은 DBA_TEMP_FILES와 V$TEMPFILE에서 조회되며 DBA_DATA_FILES에는 나오지 않는다. 임시 블록 변경은 redo로 보호되지 않고, 임시 테이블스페이스는 읽기 전용으로 만들 수 없으며, 임시 파일은 SYSTEM이 아니라 임시 테이블스페이스에 속한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-TEMPFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "With DEFERRED_SEGMENT_CREATION set to its default value TRUE, when is the table segment allocated for a newly created non-partitioned heap table?",
+  "options": {
+   "A": "Immediately when the CREATE TABLE statement completes",
+   "B": "When the first row is inserted into the table",
+   "C": "When statistics are first gathered on the table",
+   "D": "At the next database restart",
+   "E": "When the first index is created on the table"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DEFERRED_SEGMENT_CREATION=TRUE(기본값)이면 테이블을 만들 때는 메타데이터만 생성하고, 첫 행이 삽입될 때 세그먼트를 할당한다. 즉시 할당은 SEGMENT CREATION IMMEDIATE를 지정하거나 파라미터를 FALSE로 둘 때의 동작이다. 통계 수집, 재시작, 인덱스 생성은 테이블 세그먼트 생성 시점과 관계가 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-DEFERRED-SEG"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which clause of CREATE TABLESPACE makes every extent in a locally managed tablespace the same size?",
+  "options": {
+   "A": "EXTENT MANAGEMENT LOCAL AUTOALLOCATE",
+   "B": "SEGMENT SPACE MANAGEMENT AUTO",
+   "C": "BLOCKSIZE 16K",
+   "D": "EXTENT MANAGEMENT LOCAL UNIFORM SIZE 1M",
+   "E": "DEFAULT STORAGE (PCTINCREASE 50)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "UNIFORM SIZE를 지정하면 로컬 관리 테이블스페이스의 모든 익스텐트가 같은 크기로 할당된다. AUTOALLOCATE는 시스템이 세그먼트 크기에 따라 익스텐트 크기를 자동으로 정한다. SEGMENT SPACE MANAGEMENT AUTO는 블록 여유 공간 관리 방식, BLOCKSIZE는 블록 크기 지정이며, PCTINCREASE는 익스텐트가 점점 커지게 하는 딕셔너리 관리 시절의 저장 옵션이다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-EXTENT-ALLOC"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement switches the instance to use a different undo tablespace named UNDOTBS2 without restarting?",
+  "options": {
+   "A": "ALTER SYSTEM SET UNDO_TABLESPACE = undotbs2;",
+   "B": "ALTER DATABASE DEFAULT UNDO TABLESPACE undotbs2;",
+   "C": "ALTER TABLESPACE undotbs2 MAKE DEFAULT UNDO;",
+   "D": "ALTER SYSTEM SET UNDO_MANAGEMENT = undotbs2;",
+   "E": "ALTER SESSION SET UNDO_TABLESPACE = undotbs2;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "undo 테이블스페이스 전환은 동적 파라미터 UNDO_TABLESPACE를 ALTER SYSTEM으로 변경해 수행한다. DEFAULT UNDO TABLESPACE나 MAKE DEFAULT UNDO 구문은 없다. UNDO_MANAGEMENT는 AUTO/MANUAL 방식을 정하는 파라미터이고, UNDO_TABLESPACE는 세션 수준에서 바꿀 수 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-SWITCH"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of ALTER DATABASE FORCE LOGGING?",
+  "options": {
+   "A": "All online redo log groups are multiplexed automatically",
+   "B": "The database is switched to ARCHIVELOG mode",
+   "C": "Redo is generated for all changes, even for objects or operations that specify NOLOGGING, except changes in temporary tablespaces and temporary segments",
+   "D": "Redo is written synchronously to every archive destination",
+   "E": "Direct-path loads are disabled for all users"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "FORCE LOGGING은 NOLOGGING 속성이나 옵션을 무시하고 모든 변경에 대해 redo를 생성하게 하며, 임시 테이블스페이스와 임시 세그먼트의 변경만 예외다. redo 멤버를 자동으로 다중화하거나 ARCHIVELOG 모드로 바꾸는 기능이 아니다. 아카이브 대상 기록 방식과도 무관하고, direct-path 적재 자체는 계속 사용할 수 있으며 다만 redo가 생성될 뿐이다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-FORCE-LOGGING"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What happens automatically when you add a disk to an Oracle ASM disk group?",
+  "options": {
+   "A": "Only new files are placed on the new disk; existing extents never move until a manual rebalance is run",
+   "B": "The disk group is dismounted until the DBA runs a manual copy",
+   "C": "The redundancy type of the disk group changes to HIGH",
+   "D": "All database instances using the disk group must be restarted",
+   "E": "ASM rebalances the disk group so that file extents are spread evenly across all disks"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "디스크를 추가·삭제하면 ASM은 자동으로 리밸런스를 수행해 기존 파일의 익스텐트를 모든 디스크에 고르게 재분배하며, 진행 속도는 ASM_POWER_LIMIT이나 POWER 절로 조절한다. 새 디스크에 새 파일만 배치되는 것이 아니며, 디스크 그룹을 마운트 해제하거나 인스턴스를 재시작할 필요도 없다. 디스크 추가로 중복성 유형이 바뀌지는 않는다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-REBALANCE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a NORMAL redundancy ASM disk group, how does ASM use failure groups?",
+  "options": {
+   "A": "It stores primary and mirror copies of each extent on the same disk to speed up writes",
+   "B": "It places each extent's mirror copy in a different failure group from the primary copy",
+   "C": "It uses failure groups only in EXTERNAL redundancy disk groups",
+   "D": "It assigns one failure group per database instance",
+   "E": "It stores parity information for each extent in a dedicated failure group, as in RAID 5"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "NORMAL·HIGH 중복성 디스크 그룹에서 ASM은 익스텐트의 미러 사본을 주 사본과 다른 실패 그룹에 배치해, 한 실패 그룹 전체가 손실되어도 데이터가 남도록 한다. 같은 디스크에 미러를 두면 보호 효과가 없다. EXTERNAL 중복성은 ASM 미러링을 하지 않으며, 실패 그룹은 인스턴스와 무관하고 ASM은 패리티 방식이 아니라 미러링을 사용한다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-FAILGROUP"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle ASM instance initialization parameter limits the set of paths that ASM searches when discovering candidate disks?",
+  "options": {
+   "A": "ASM_DISKGROUPS",
+   "B": "ASM_POWER_LIMIT",
+   "C": "DB_CREATE_FILE_DEST",
+   "D": "ASM_DISKSTRING",
+   "E": "INSTANCE_TYPE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "ASM_DISKSTRING은 ASM이 디스크 검색 시 사용할 경로 패턴을 지정한다. ASM_DISKGROUPS는 인스턴스 시작 시 자동 마운트할 디스크 그룹 목록, ASM_POWER_LIMIT은 기본 리밸런스 강도다. DB_CREATE_FILE_DEST는 데이터베이스 측 OMF 생성 위치, INSTANCE_TYPE은 인스턴스가 ASM인지 RDBMS인지를 나타낸다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-DISKSTRING"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about the relationship between segments and tablespaces is true?",
+  "options": {
+   "A": "A non-partitioned table's segment stays in one tablespace but may have extents in several of its data files",
+   "B": "A single segment can span several tablespaces",
+   "C": "Each extent can span several data files",
+   "D": "A tablespace can hold only one segment",
+   "E": "Segments are kept in the control file and are copied to the data files of their tablespace at every checkpoint"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "비분할 테이블의 세그먼트는 하나의 테이블스페이스에만 속하지만, 그 테이블스페이스의 여러 데이터 파일에 익스텐트가 흩어질 수 있다. 반면 하나의 익스텐트는 반드시 한 데이터 파일 안에 있다. 하나의 세그먼트가 여러 테이블스페이스에 걸칠 수는 없으며(분할 테이블은 파티션마다 별도 세그먼트), 테이블스페이스에는 여러 세그먼트가 들어간다. 세그먼트는 컨트롤 파일에 저장되지 않는다.",
+  "reference": "Oracle Database 19c - Concepts (검수 필요)",
+  "variant_group": "DB-STORAGE-SEGMENT-TS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A nightly report query runs for about three hours and intermittently fails with ORA-01555: snapshot too old. The undo tablespace has a fixed size and UNDO_RETENTION is low. Which action most directly addresses the problem?",
+  "options": {
+   "A": "Increase the size of the online redo log files so that the query can read older changes",
+   "B": "Add a tempfile to the default temporary tablespace so the query has more space for sorts",
+   "C": "Enlarge the undo tablespace and set UNDO_RETENTION to cover the query duration",
+   "D": "Switch the database to NOARCHIVELOG mode",
+   "E": "Increase PCTFREE of the tables used by the report"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ORA-01555는 장시간 쿼리가 읽기 일관성에 필요한 undo가 이미 덮어써져 발생하므로, undo 테이블스페이스를 충분히 키우고 UNDO_RETENTION을 쿼리 수행 시간 이상으로 맞추는 것이 직접적인 대책이다(필요 시 RETENTION GUARANTEE). redo 로그 크기, 임시 테이블스페이스, 아카이브 모드는 undo 보존 기간과 무관하다. PCTFREE는 블록 내 업데이트 여유 공간 설정이라 이 오류를 해결하지 못한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ORA-01555"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A database in ARCHIVELOG mode stops accepting new transactions. The alert log shows ORA-19809: limit exceeded for recovery files and ORA-00257: archiver error. Archived logs are written only to the fast recovery area. What should the DBA do?",
+  "options": {
+   "A": "Delete archived log files from the fast recovery area with operating system commands only, without informing RMAN",
+   "B": "Issue ALTER DATABASE NOARCHIVELOG while the database is open",
+   "C": "Drop the CURRENT online redo log group",
+   "D": "Increase the size of the undo tablespace",
+   "E": "Use RMAN to back up and delete archived logs no longer needed, or increase DB_RECOVERY_FILE_DEST_SIZE"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "빠른 복구 영역의 한도(DB_RECOVERY_FILE_DEST_SIZE)가 차서 아카이버가 멈춘 상황이므로, RMAN으로 아카이브 로그를 백업 후 삭제해 공간을 확보하거나 한도를 늘려야 한다. OS 명령으로만 지우면 데이터베이스의 공간 사용 기록이 갱신되지 않아 문제가 계속될 수 있다. NOARCHIVELOG 전환은 OPEN 상태에서 불가능하고 복구 능력을 잃게 하며, CURRENT 그룹은 삭제할 수 없다. undo 테이블스페이스는 이 오류와 무관하다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ARCHIVER-STUCK"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The alert log frequently shows 'Thread 1 cannot allocate new log' followed by 'Checkpoint not complete' during peak load, and sessions wait on log file switch events. Which change most directly reduces these waits?",
+  "options": {
+   "A": "Decrease the size of the redo log buffer",
+   "B": "Add more online redo log groups or increase the size of the redo log files",
+   "C": "Remove one member from each multiplexed redo log group",
+   "D": "Increase the size of the temporary tablespace",
+   "E": "Set UNDO_RETENTION to a smaller value"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "'Checkpoint not complete'는 LGWR가 다음 그룹을 재사용하려 할 때 해당 그룹의 체크포인트가 아직 끝나지 않아 대기하는 현상이다. redo 그룹을 늘리거나 파일 크기를 키우면 그룹 재사용까지의 여유가 생겨 대기가 줄어든다. 로그 버퍼 축소나 멤버 제거는 해결책이 아니며 멤버 제거는 보호 수준만 낮춘다. 임시 테이블스페이스와 UNDO_RETENTION은 로그 스위치와 무관하다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-CKPT-NOT-COMPLETE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A new disk has been presented to the server and is visible through ASM_DISKSTRING. The DBA wants to add it to disk group DATA and have the resulting rebalance run with a higher power than the default. Which statement achieves this?",
+  "options": {
+   "A": "ALTER DATABASE ADD DISK '/dev/mapper/asmdisk07' TO DISKGROUP data;",
+   "B": "CREATE DISKGROUP data ADD DISK '/dev/mapper/asmdisk07' POWER 8;",
+   "C": "ALTER SYSTEM REBALANCE DISKGROUP data DISK '/dev/mapper/asmdisk07';",
+   "D": "ALTER DISKGROUP data ADD DISK '/dev/mapper/asmdisk07' REBALANCE POWER 8;",
+   "E": "ALTER TABLESPACE data ADD DISK '/dev/mapper/asmdisk07';"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "기존 디스크 그룹에 디스크를 추가할 때는 ASM 인스턴스에서 ALTER DISKGROUP ... ADD DISK를 사용하며, REBALANCE POWER 절로 이번 리밸런스의 강도를 지정할 수 있다. ALTER DATABASE나 ALTER TABLESPACE에는 디스크를 추가하는 구문이 없다. CREATE DISKGROUP은 새 디스크 그룹을 만드는 문장이고, ALTER SYSTEM REBALANCE DISKGROUP 구문은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-REBALANCE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A month-end batch job that performs a large hash join fails with ORA-01652: unable to extend temp segment by 128 in tablespace TEMP. The TEMP tablespace has a single tempfile with AUTOEXTEND OFF. What is the most appropriate immediate action?",
+  "options": {
+   "A": "Add a tempfile to the TEMP tablespace or enlarge the existing tempfile",
+   "B": "Add a data file to the undo tablespace",
+   "C": "Increase UNDO_RETENTION",
+   "D": "Add a new online redo log group",
+   "E": "Make the TEMP tablespace read-only so that sorts no longer consume its space, and rerun the job"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-01652(TEMP)는 정렬·해시 작업에 필요한 임시 세그먼트를 더 이상 확장할 수 없다는 뜻이므로 임시 파일을 추가하거나 기존 임시 파일 크기를 늘리는 것이 즉각적인 조치다(필요하면 SQL 튜닝으로 사용량도 줄인다). undo 테이블스페이스, UNDO_RETENTION, redo 로그 그룹은 임시 공간 부족과 무관하다. 임시 테이블스페이스는 읽기 전용으로 만들 수 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ORA-01652"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements are true about locally managed tablespaces compared with dictionary-managed tablespaces? (Choose two.)",
+  "options": {
+   "A": "Every extent allocation and release updates the SYS.UET$ and SYS.FET$ dictionary tables",
+   "B": "Extent allocation is tracked with bitmaps stored in the tablespace's data files",
+   "C": "Recursive space-management operations on data dictionary tables are reduced",
+   "D": "Adjacent free extents must be coalesced manually",
+   "E": "The SYSTEM tablespace cannot be locally managed"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "로컬 관리 테이블스페이스는 데이터 파일 안의 비트맵으로 익스텐트를 추적하므로 딕셔너리 테이블에 대한 재귀적 공간 관리 작업이 줄어든다. UET$·FET$ 갱신은 딕셔너리 관리 방식의 특징이다. 비트맵 방식에서는 인접 여유 익스텐트를 수동으로 병합할 필요가 없으며, SYSTEM 테이블스페이스도 로컬 관리(기본값)로 만들 수 있다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-LMT"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two conditions must be met before you can run ALTER TABLE ... SHRINK SPACE on a heap table? (Choose two.)",
+  "options": {
+   "A": "Row movement must be enabled for the table",
+   "B": "The tablespace must be placed in READ ONLY mode",
+   "C": "The table must reside in a tablespace that uses Automatic Segment Space Management",
+   "D": "All indexes on the table must be dropped first",
+   "E": "The database must be in NOARCHIVELOG mode"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "SHRINK SPACE는 행을 다른 블록으로 옮기므로 ROW MOVEMENT가 활성화되어 있어야 하고, ASSM(SEGMENT SPACE MANAGEMENT AUTO) 테이블스페이스의 세그먼트여야 한다. 읽기 전용이면 행을 옮길 수 없어 오히려 불가능하다. 인덱스는 SHRINK 중 자동으로 유지되므로 삭제할 필요가 없고, 아카이브 모드와는 무관하다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-SHRINK"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which of the following use undo data? (Choose all that apply.)",
+  "options": {
+   "A": "Rolling forward committed changes from archived logs during media recovery",
+   "B": "Rolling back an uncommitted transaction",
+   "C": "Providing read consistency for a long-running query",
+   "D": "Flashback Query using AS OF TIMESTAMP",
+   "E": "Spilling a large sort to disk"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "undo 데이터는 트랜잭션 롤백, 읽기 일관성 제공, AS OF 절을 쓰는 Flashback Query에 사용된다. 미디어 복구에서 아카이브 로그로 커밋된 변경을 재적용하는 것은 redo의 역할이다. 메모리에 들어가지 않는 정렬은 임시 테이블스페이스를 사용한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-PURPOSE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements are true about members of a multiplexed online redo log group? (Choose two.)",
+  "options": {
+   "A": "All members of a group contain identical redo information",
+   "B": "Members of the same group may have different sizes",
+   "C": "LGWR writes to all available members of the current group concurrently",
+   "D": "Losing one member of a multiplexed group always terminates the instance",
+   "E": "Each member records redo for a different instance thread"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "다중화된 그룹의 멤버는 같은 내용을 담는 사본이며, LGWR는 현재 그룹의 사용 가능한 모든 멤버에 동시에 기록한다. 멤버들은 같은 크기여야 한다. 그룹에 접근 가능한 멤버가 하나라도 남아 있으면 LGWR는 오류를 기록하고 계속 동작하므로 멤버 하나의 손실로 인스턴스가 항상 종료되지는 않는다. 스레드 구분은 그룹 단위이며 멤버마다 다른 스레드를 기록하지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-REDO-MEMBERS"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two capabilities does running a database in ARCHIVELOG mode provide that NOARCHIVELOG mode does not? (Choose two.)",
+  "options": {
+   "A": "Complete recovery up to the point of failure after the loss of a data file",
+   "B": "Reduction of the amount of redo generated",
+   "C": "Taking usable online backups while the database remains open",
+   "D": "Elimination of the need for an undo tablespace",
+   "E": "Automatic recovery of objects loaded with NOLOGGING by applying the archived redo logs"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "ARCHIVELOG 모드에서는 아카이브 로그를 이용해 데이터 파일 손실 후 장애 직전까지 완전 복구할 수 있고, 데이터베이스를 연 상태에서 온라인 백업을 받아 복구에 사용할 수 있다. 아카이브 모드는 redo 생성량을 줄이지 않으며 undo 테이블스페이스의 필요성과도 무관하다. NOLOGGING으로 적재한 데이터는 redo가 없으므로 아카이브 모드여도 미디어 복구로 되살릴 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ARCHIVELOG-BENEFIT"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which of the following can be stored directly as Oracle ASM files in an ASM disk group, without using Oracle ACFS? (Choose all that apply.)",
+  "options": {
+   "A": "Data files",
+   "B": "Control files",
+   "C": "Oracle Database home binaries",
+   "D": "Alert log text files written by the ADR",
+   "E": "Archived redo log files"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "E"
+  ],
+  "explanation": "데이터 파일, 컨트롤 파일, 온라인·아카이브 redo 로그, SPFILE, RMAN 백업 등 데이터베이스 파일은 ASM 파일로 직접 저장할 수 있다. Oracle Home 바이너리나 ADR이 쓰는 alert 로그 같은 일반 파일은 ASM 파일로 직접 저장되지 않으며, 필요하면 ACFS 같은 파일 시스템을 사용해야 한다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-FILETYPES"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of setting TEMP_UNDO_ENABLED to TRUE in Oracle Database 19c?",
+  "options": {
+   "A": "Undo for all tables, including permanent tables, is written to the temporary tablespace instead of the undo tablespace",
+   "B": "Temporary tablespaces become protected by redo for media recovery",
+   "C": "Undo for changes to global temporary tables is stored in the temporary tablespace instead of the undo tablespace",
+   "D": "Sort operations write their intermediate data to the undo tablespace",
+   "E": "Global temporary tables become visible to all sessions"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "TEMP_UNDO_ENABLED=TRUE이면 전역 임시 테이블 변경에 대한 undo가 undo 테이블스페이스가 아닌 임시 테이블스페이스에 저장되어, undo 사용량과 그 undo에 대한 redo가 줄어든다. 영구 테이블의 undo는 영향을 받지 않고, 임시 테이블스페이스가 redo로 보호되지도 않는다. 정렬 데이터를 undo에 쓰는 기능이 아니며, 전역 임시 테이블 데이터는 여전히 세션(또는 트랜잭션) 전용이다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-TEMP-UNDO"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A smallfile tablespace in a database with an 8 KB block size has a data file with AUTOEXTEND ON MAXSIZE UNLIMITED. Approximately how large can that single data file grow?",
+  "options": {
+   "A": "Unlimited, as long as the file system has free space",
+   "B": "About 128 TB, the same as a bigfile tablespace with 32 KB blocks",
+   "C": "About 2 GB, because of the 32-bit file offset limit",
+   "D": "About 4 GB, because ROWIDs store a 32-bit byte offset",
+   "E": "About 32 GB, because a smallfile data file is limited to roughly 4 million blocks"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "smallfile 데이터 파일은 최대 약 4백만(2^22-1) 블록까지 가질 수 있으므로 8KB 블록에서는 약 32GB가 상한이며, MAXSIZE UNLIMITED도 이 한도를 넘지 못한다. 파일 시스템 여유 공간만큼 무제한으로 커지지 않는다. 128TB 수준은 32KB 블록 bigfile 테이블스페이스의 한도이며, 2GB나 4GB 한도는 Oracle 데이터 파일의 블록 수 제한과 맞지 않는다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-STORAGE-SMALLFILE-MAX"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database was created with DB_BLOCK_SIZE = 8192. The DBA needs to create a tablespace with a 16 KB block size for transporting data from another database. What must be done first?",
+  "options": {
+   "A": "Change DB_BLOCK_SIZE to 16384 and restart the instance",
+   "B": "Set DB_16K_CACHE_SIZE so that a buffer cache for 16 KB blocks exists",
+   "C": "Re-create the database with a 16 KB standard block size",
+   "D": "Set DB_FILE_MULTIBLOCK_READ_COUNT to 2",
+   "E": "Create the tablespace as a bigfile tablespace, which accepts any block size"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "비표준 블록 크기 테이블스페이스를 만들거나 연결하려면 해당 크기의 버퍼 캐시(DB_16K_CACHE_SIZE 등)를 먼저 구성해야 한다. DB_BLOCK_SIZE는 데이터베이스 생성 후 변경할 수 없으며, 데이터베이스를 재생성할 필요도 없다. DB_FILE_MULTIBLOCK_READ_COUNT는 멀티블록 읽기 크기 설정이고, bigfile 여부는 블록 크기 요구 사항을 바꾸지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-NONSTD-BLOCK"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In an ARCHIVELOG database without FORCE LOGGING, a DBA loads a table with INSERT /*+ APPEND */ while the table has the NOLOGGING attribute. Which statement is true?",
+  "options": {
+   "A": "The load fails because NOLOGGING is not allowed in ARCHIVELOG mode",
+   "B": "The rows are written only to the undo tablespace until the next checkpoint",
+   "C": "The load generates more redo than a conventional insert",
+   "D": "The loaded blocks are not protected by redo, so the affected data files should be backed up after the load",
+   "E": "The data can be fully recovered from archived logs after a media failure because ARCHIVELOG mode overrides NOLOGGING"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "NOLOGGING 테이블에 direct-path 삽입을 하면 데이터 블록 변경에 대한 redo가 최소화되어, 이후 미디어 복구로는 그 데이터를 재생할 수 없다. 따라서 적재 후 해당 데이터 파일을 다시 백업해야 한다. ARCHIVELOG 모드에서도 NOLOGGING은 허용되며, 행이 undo에만 기록되는 것이 아니다. 일반 삽입보다 redo가 적게 생성되고, ARCHIVELOG 모드가 NOLOGGING을 무효화하지 않으므로 아카이브 로그만으로는 완전히 복구되지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-NOLOGGING"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA wants to drop online redo log group 2 to replace it with larger groups. V$LOG shows group 2 with status CURRENT, and the database is in ARCHIVELOG mode with four groups. What is the correct approach?",
+  "options": {
+   "A": "Force a log switch, wait (or force a checkpoint) until group 2 is INACTIVE and archived, and then drop it",
+   "B": "Drop group 2 immediately because the database has more than two groups",
+   "C": "Shut down with ABORT and drop group 2 in NOMOUNT state",
+   "D": "Use ALTER DATABASE CLEAR LOGFILE GROUP 2 while it is CURRENT",
+   "E": "Rename the group 2 members at the operating system level, and the group is dropped automatically"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "CURRENT나 ACTIVE 상태의 그룹은 삭제할 수 없으므로 로그 스위치로 현재 그룹을 넘기고, 체크포인트가 끝나 INACTIVE가 되고 아카이브까지 완료된 뒤 삭제해야 한다. 그룹 수가 충분해도 CURRENT 그룹은 즉시 삭제할 수 없다. ABORT 종료 후 NOMOUNT에서는 redo 구성을 변경할 수 없고, CURRENT 그룹은 CLEAR LOGFILE 대상이 아니다. OS에서 파일 이름을 바꾸면 그룹이 삭제되는 것이 아니라 오류만 발생한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-DROP-LOG-GROUP"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "In an ARCHIVELOG database, all members of online redo log group 3 are lost due to a disk failure. V$LOG shows group 3 as INACTIVE and ARCHIVED = NO. The database is still open. What should the DBA do?",
+  "options": {
+   "A": "Perform incomplete recovery of the whole database to the last archived log, then open with RESETLOGS",
+   "B": "Restore group 3 from the most recent RMAN backup of online redo logs and then recover it",
+   "C": "Issue ALTER DATABASE CLEAR UNARCHIVED LOGFILE GROUP 3, then immediately take a full backup",
+   "D": "Issue ALTER DATABASE OPEN RESETLOGS while the database is open",
+   "E": "Do nothing, because INACTIVE groups are never reused"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "INACTIVE 그룹은 인스턴스 복구에 필요하지 않으므로 CLEAR LOGFILE로 재초기화할 수 있고, 아카이브되지 않았다면 UNARCHIVED 옵션이 필요하다. 이 경우 아카이브 로그 순서에 공백이 생기므로 즉시 전체 백업을 받아야 한다. 불완전 복구나 RESETLOGS는 불필요하며 OPEN 상태에서는 RESETLOGS를 할 수 없다. RMAN은 온라인 redo 로그를 백업하지 않고, INACTIVE 그룹도 순환하면서 다시 사용되므로 방치하면 안 된다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-LOST-INACTIVE-LOG"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The alert log reports that one member of online redo log group 1 cannot be opened, and V$LOGFILE shows that member with status INVALID. Group 1 has two members on different disks and is currently INACTIVE. The database continues to run. What is the most appropriate action?",
+  "options": {
+   "A": "Shut down the database immediately and restore all data files",
+   "B": "Perform point-in-time recovery to before the disk error",
+   "C": "Drop the whole group 1 and run the database with a single remaining redo log group until the disk is replaced",
+   "D": "Switch the database to NOARCHIVELOG mode to stop writing to group 1",
+   "E": "Drop the damaged member with ALTER DATABASE DROP LOGFILE MEMBER and add a new member on a healthy disk"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "다중화된 그룹에서 멤버 하나만 손상되면 LGWR는 남은 멤버로 계속 기록하므로, INACTIVE 상태일 때 손상된 멤버를 삭제하고 정상 디스크에 새 멤버를 추가해 다중화를 복구하면 된다. 데이터 파일 복원이나 시점 복구는 필요 없다. 그룹 하나로는 운영할 수 없으며(최소 2개), NOARCHIVELOG 전환은 문제 해결과 무관하고 복구 능력만 잃게 한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-LOST-LOG-MEMBER"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Batch DML jobs start failing with ORA-30036: unable to extend segment in undo tablespace UNDOTBS1. The undo tablespace has fixed-size data files and was recently altered with RETENTION GUARANTEE and a high UNDO_RETENTION to support long Flashback Queries. What is the most likely cause?",
+  "options": {
+   "A": "The temporary tablespace is too small for the sorts performed by the batch jobs, so their DML cannot complete",
+   "B": "Unexpired undo cannot be reused under the retention guarantee, so transactions cannot get undo space",
+   "C": "The online redo log groups are too small",
+   "D": "The database is not in ARCHIVELOG mode",
+   "E": "The DEFERRED_SEGMENT_CREATION parameter is set to TRUE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "RETENTION GUARANTEE가 설정되면 보존 기간 내의 만료되지 않은 undo를 재사용할 수 없으므로, 고정 크기 undo 테이블스페이스에서는 새 트랜잭션이 undo 공간을 얻지 못해 ORA-30036이 발생한다. undo 공간을 늘리거나 보존 요구를 조정해야 한다. 임시 테이블스페이스, redo 로그 크기, 아카이브 모드, 지연 세그먼트 생성은 undo 세그먼트 확장 실패의 원인이 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-GUARANTEE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "In a NORMAL redundancy ASM disk group, a disk goes offline because a storage cable was disconnected. The cable is reconnected 30 minutes later, well within the disk group's DISK_REPAIR_TIME. What should the DBA do to restore redundancy most efficiently?",
+  "options": {
+   "A": "Drop the disk with FORCE and add it back to the disk group, which triggers a full rebalance of all extents",
+   "B": "Re-create the disk group and restore all databases from backup",
+   "C": "Change the disk group to EXTERNAL redundancy",
+   "D": "Run ALTER DISKGROUP ... ONLINE DISK so that only extents changed while it was offline are resynchronized",
+   "E": "Restart the ASM instance so that the disk is automatically dropped"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DISK_REPAIR_TIME 안에 장애가 복구되면 ALTER DISKGROUP ... ONLINE DISK로 디스크를 온라인으로 돌리고, ASM은 오프라인 동안 변경된 익스텐트만 다시 동기화(fast mirror resync)한다. 디스크를 강제로 삭제 후 재추가하면 전체 리밸런스가 일어나 비효율적이다. 디스크 그룹 재생성이나 백업 복원은 불필요하고, EXTERNAL로 바꾸는 것은 보호를 없애는 것이며, 재시작은 해결책이 아니다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-FAST-RESYNC"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a media failure, a DBA restores a data file from last week's backup and recovers it with all archived logs. Queries against one table now fail with ORA-26040: Data block was loaded using the NOLOGGING option. What is the cause?",
+  "options": {
+   "A": "The table was loaded with a NOLOGGING direct-path operation after the backup, so redo for those blocks was not available during recovery",
+   "B": "An archived log is missing, so recovery stopped before the end",
+   "C": "The undo tablespace was too small during recovery",
+   "D": "The table's tablespace uses Automatic Segment Space Management",
+   "E": "The data file was restored to a different directory"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-26040은 백업 이후 NOLOGGING direct-path 작업으로 적재된 블록이라 복구 시 적용할 redo가 없어 해당 블록이 손상 표시된 것이다. 아카이브 로그가 누락되었다면 복구 자체가 완료되지 않고 다른 오류가 난다. undo 크기, ASSM 사용, 데이터 파일 경로 변경은 이 오류의 원인이 아니다. 예방하려면 FORCE LOGGING을 쓰거나 NOLOGGING 작업 직후 백업해야 한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-NOLOGGING"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A storage migration requires moving the data files of a heavily used 19c OLTP tablespace from an old file system to a new one. The business does not allow the tablespace to be taken offline. Which approach meets the requirement?",
+  "options": {
+   "A": "Take the tablespace offline, copy the files with OS commands, and use ALTER DATABASE RENAME FILE",
+   "B": "Shut down the database, copy the files, and start in MOUNT to rename them",
+   "C": "Run ALTER DATABASE MOVE DATAFILE for each data file while the database stays open",
+   "D": "Export the tablespace with Data Pump and import it into a new tablespace",
+   "E": "Change DB_CREATE_FILE_DEST to the new file system so existing files move automatically"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ALTER DATABASE MOVE DATAFILE은 데이터 파일을 온라인 상태로 유지한 채 복사·전환하므로 테이블스페이스를 오프라인으로 만들 수 없는 요구 사항을 충족한다. 오프라인 후 RENAME FILE이나 데이터베이스 종료 방식은 다운타임이 생긴다. Data Pump 이전은 작업량이 크고 그 동안 일관된 서비스가 어렵다. DB_CREATE_FILE_DEST 변경은 새로 생성되는 파일 위치에만 영향을 주고 기존 파일을 옮기지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-MOVE-DATAFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After running ALTER SYSTEM SET UNDO_TABLESPACE = undotbs2, the DBA tries to drop UNDOTBS1 and receives an error. DBA_TABLESPACES shows UNDOTBS1 still ONLINE, and V$ROLLSTAT shows some of its undo segments in PENDING OFFLINE status. What should the DBA do?",
+  "options": {
+   "A": "Drop UNDOTBS1 with INCLUDING CONTENTS to force out the active transactions",
+   "B": "Switch UNDO_MANAGEMENT to MANUAL and restart",
+   "C": "Take UNDOTBS2 offline so that UNDOTBS1 is released",
+   "D": "Add a data file to UNDOTBS1 so that the switch can complete",
+   "E": "Wait until the active transactions that use UNDOTBS1 complete, and then drop it"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "undo 테이블스페이스를 전환해도 기존 테이블스페이스를 쓰던 활성 트랜잭션이 끝날 때까지 해당 undo 세그먼트는 PENDING OFFLINE 상태로 남으므로, 트랜잭션 완료를 기다린 뒤 삭제해야 한다. INCLUDING CONTENTS로 활성 트랜잭션을 강제로 밀어낼 수는 없다. MANUAL 전환, 새 undo 테이블스페이스 오프라인, 기존 테이블스페이스에 파일 추가는 모두 문제와 무관하거나 상황을 악화시킨다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-UNDO-SWITCH"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements are true about bigfile tablespaces in Oracle Database 19c? (Choose two.)",
+  "options": {
+   "A": "The tablespace can be resized with ALTER TABLESPACE ... RESIZE because it has only one data file",
+   "B": "The tablespace must be locally managed",
+   "C": "The tablespace can contain up to 1022 data files",
+   "D": "The tablespace cannot be stored in Oracle ASM",
+   "E": "The tablespace must use a 32 KB block size"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "bigfile 테이블스페이스는 데이터 파일이 하나뿐이므로 ALTER TABLESPACE 수준에서 RESIZE·AUTOEXTEND를 지정할 수 있고, 로컬 관리 테이블스페이스여야 한다. 1022개 파일 한도는 smallfile 테이블스페이스 관련 수치다. ASM에도 저장할 수 있으며, 블록 크기 제약은 없고 블록 크기에 따라 최대 크기만 달라진다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-BIGFILE"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "A single-instance database is currently open in NOARCHIVELOG mode. Which two steps are part of the correct procedure to switch it to ARCHIVELOG mode? (Choose two.)",
+  "options": {
+   "A": "Open the database with RESETLOGS after enabling archiving",
+   "B": "Re-create the control file with the ARCHIVELOG clause",
+   "C": "Set LOG_ARCHIVE_START = TRUE in the SPFILE to start archiving",
+   "D": "Shut down the database cleanly and start the instance in MOUNT state",
+   "E": "Issue ALTER DATABASE ARCHIVELOG and then ALTER DATABASE OPEN"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "ARCHIVELOG 전환은 정상 종료 후 STARTUP MOUNT, ALTER DATABASE ARCHIVELOG, ALTER DATABASE OPEN 순서로 수행하고, 이후 전체 백업을 받는 것이 권장된다. RESETLOGS 열기나 컨트롤 파일 재생성은 필요 없다. LOG_ARCHIVE_START는 10g부터 폐기된 파라미터로 아카이버는 ARCHIVELOG 모드에서 자동 시작된다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ENABLE-ARCHIVELOG"
+ },
+ {
+  "domain": "DB_STORAGE",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements are true about Oracle ASM failure groups? (Choose two.)",
+  "options": {
+   "A": "Disks that share a common single point of failure, such as the same controller, should be placed in the same failure group",
+   "B": "A NORMAL redundancy disk group requires exactly one failure group",
+   "C": "EXTERNAL redundancy disk groups mirror extents across failure groups",
+   "D": "A HIGH redundancy disk group requires at least three failure groups",
+   "E": "Failure groups determine which database instance may write to each disk"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "같은 컨트롤러처럼 공통 장애 지점을 공유하는 디스크는 같은 실패 그룹에 두어, 미러 사본이 다른 실패 그룹에 놓이도록 해야 한다. HIGH 중복성은 3중 미러링이므로 최소 3개의 실패 그룹이 필요하고, NORMAL은 최소 2개가 필요하다. EXTERNAL 중복성은 ASM 미러링을 하지 않으며, 실패 그룹은 인스턴스의 쓰기 권한과 무관하다.",
+  "reference": "Oracle Database 19c - Automatic Storage Management Administrator's Guide (검수 필요)",
+  "variant_group": "DB-STORAGE-ASM-FAILGROUP"
+ }
+]

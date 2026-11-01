@@ -1,0 +1,1421 @@
+[
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "The WebLogic Scripting Tool (WLST) in Oracle WebLogic Server 14.1.1 is built on which scripting language?",
+  "options": {
+   "A": "Jython",
+   "B": "Bash shell script",
+   "C": "JavaScript (Nashorn)",
+   "D": "Perl",
+   "E": "Groovy"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "WLST는 Java 기반 Python 구현체인 Jython 위에서 동작하는 명령줄 스크립트 도구이다. Groovy, JavaScript(Nashorn), Bash, Perl은 WLST의 기반 언어가 아니며, WLST 스크립트는 Python(Jython) 문법으로 작성한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-LANG"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement correctly describes WLST offline mode?",
+  "options": {
+   "A": "It can only browse runtime MBeans of running Managed Servers",
+   "B": "It reads and modifies domain configuration files directly without connecting to a running server",
+   "C": "It is identical to online mode except that it uses HTTP instead of t3",
+   "D": "It connects exclusively to Node Manager and cannot open a domain",
+   "E": "It requires a connection to a running Administration Server through the t3 protocol"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WLST 오프라인 모드는 실행 중인 서버에 연결하지 않고 도메인 구성 파일(config.xml 등)을 직접 읽고 수정한다. Administration Server 연결이 필요한 것은 온라인 모드이며, 런타임 MBean 조회도 온라인에서만 가능하다. 오프라인은 Node Manager 전용 모드가 아니고, 프로토콜만 다른 온라인 모드도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-ONLINE-OFFLINE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST command connects a WLST session to a running Administration Server listening on adminhost port 7001?",
+  "options": {
+   "A": "nmConnect('weblogic', '<password>', 'adminhost', '7001')",
+   "B": "serverConfig('t3://adminhost:7001')",
+   "C": "connect('weblogic', '<password>', 't3://adminhost:7001')",
+   "D": "edit('t3://adminhost:7001')",
+   "E": "readDomain('t3://adminhost:7001')"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "실행 중인 Administration Server에 온라인으로 연결하는 명령은 connect(사용자, 비밀번호, URL)이다. readDomain은 오프라인에서 도메인 디렉터리를 여는 명령이고, nmConnect는 Admin Server가 아니라 Node Manager에 연결한다. edit와 serverConfig는 이미 연결된 상태에서 MBean 트리를 전환하는 명령이며 URL을 받아 연결하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-CONNECT"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WLST, what does the built-in variable cmo refer to?",
+  "options": {
+   "A": "The operating system process of the Managed Server that WLST is currently connected to",
+   "B": "The credentials of the currently connected administrator",
+   "C": "The configuration manager that owns the domain edit lock",
+   "D": "The MBean at the current location in the WLST MBean hierarchy",
+   "E": "The Administration Console session of the current user"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "cmo(Current Management Object)는 WLST에서 cd로 이동한 현재 위치의 MBean 객체를 가리키며, cmo.getXxx()/cmo.setXxx()처럼 속성에 접근할 때 쓴다. 접속 자격 증명, 편집 잠금 소유자, 콘솔 세션, 서버 OS 프로세스를 나타내는 변수가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-CMO"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which command runs the WLST script file myscript.py non-interactively (script mode)?",
+  "options": {
+   "A": "java weblogic.Deployer myscript.py",
+   "B": "startWebLogic.sh myscript.py",
+   "C": "java weblogic.Admin -script myscript.py",
+   "D": "java weblogic.Server myscript.py",
+   "E": "java weblogic.WLST myscript.py"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WLST 스크립트 모드는 java weblogic.WLST 뒤에 스크립트 파일을 지정해 실행한다(wlst.sh 스크립트도 같은 방식). weblogic.Deployer는 배포 도구, weblogic.Server는 서버 JVM을 기동하는 클래스, startWebLogic.sh는 서버 시작 스크립트이다. weblogic.Admin 유틸리티는 현재 버전에서 제공되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-SCRIPT-MODE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST online command displays the current lifecycle state (for example, RUNNING or SHUTDOWN) of the server ms1?",
+  "options": {
+   "A": "state('ms1', 'Server')",
+   "B": "lifecycle('ms1', 'Server')",
+   "C": "serverState('ms1')",
+   "D": "showState('ms1', 'Server')",
+   "E": "health('ms1')"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "state(이름, 유형) 명령은 서버나 클러스터의 현재 라이프사이클 상태를 보여 준다. health, lifecycle, serverState, showState라는 WLST 명령은 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-STATE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where is the WebLogic Server Administration Console accessed by default?",
+  "options": {
+   "A": "At the /wls-console context path on the first Managed Server of each cluster",
+   "B": "At the /console context path on the Administration Server",
+   "C": "At the /admin context path on the Node Manager listen port",
+   "D": "At the /console context path on any Managed Server in the domain",
+   "E": "At the /management context path on the Administration Server"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Administration Console은 Administration Server에만 배포되며 기본 경로는 http://<admin-host>:<port>/console이다. Managed Server에서는 콘솔이 실행되지 않고, Node Manager는 웹 콘솔을 제공하지 않는다. /management는 RESTful 관리 서비스 경로이며 콘솔 경로가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Oracle WebLogic Server Administration Console Online Help (검수 필요)",
+  "variant_group": "WLS-OPS-CONSOLE-URL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a production mode domain, what must an administrator do in the Administration Console before modifying the domain configuration?",
+  "options": {
+   "A": "Log in with a user in the Monitor role",
+   "B": "Stop all Managed Servers in the domain",
+   "C": "Click Lock & Edit in the Change Center to obtain the configuration edit lock",
+   "D": "Restart the Administration Server in development mode",
+   "E": "Nothing; changes are applied immediately as each field is edited"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "프로덕션 모드 도메인에서는 Change Center의 Lock & Edit를 눌러 편집 잠금을 얻은 뒤 변경하고 Activate Changes로 적용한다. 개발 모드로 재시작하거나 Managed Server를 모두 중지할 필요는 없다. Monitor 역할은 읽기 전용이라 구성을 바꿀 수 없으며, 필드를 고치는 즉시 적용되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Oracle WebLogic Server Administration Console Online Help (검수 필요)",
+  "variant_group": "WLS-OPS-CONSOLE-LOCK"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "By default, where is the server log file of a Managed Server named ms1 written?",
+  "options": {
+   "A": "WL_HOME/server/logs/servers/ms1/ms1.log",
+   "B": "ORACLE_HOME/logs/ms1.log",
+   "C": "DOMAIN_HOME/config/ms1.log",
+   "D": "DOMAIN_HOME/servers/ms1/logs/ms1.log",
+   "E": "DOMAIN_HOME/logs/ms1.log"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "서버 로그의 기본 위치는 도메인 홈 아래 servers/<서버명>/logs/<서버명>.log이다. 도메인 홈 바로 아래 logs나 config 디렉터리, 제품 설치 경로(WL_HOME, ORACLE_HOME)에는 서버 로그가 기본으로 생기지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-SERVERLOG-PATH"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which server instance maintains the domain-wide log file that aggregates messages forwarded from all servers in the domain?",
+  "options": {
+   "A": "Node Manager on each machine",
+   "B": "The server that hosts the domain's persistent store",
+   "C": "Every Managed Server keeps its own copy of the domain log",
+   "D": "The first Managed Server started in each cluster",
+   "E": "The Administration Server"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "도메인 로그는 Administration Server가 관리하며 각 서버가 전달(broadcast)한 메시지를 모아 기록한다. Managed Server는 자신의 서버 로그만 갖고, Node Manager는 자체 nodemanager.log를 쓴다. 클러스터의 첫 서버나 영구 저장소를 가진 서버가 도메인 로그를 관리하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-DOMAINLOG"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which list shows WebLogic Server log message severities in order from lowest to highest?",
+  "options": {
+   "A": "Debug, Info, Notice, Warning, Error, Critical, Alert, Emergency",
+   "B": "Info, Notice, Debug, Warning, Error, Critical, Alert, Emergency",
+   "C": "Info, Debug, Notice, Warning, Error, Alert, Critical, Emergency",
+   "D": "Debug, Notice, Info, Warning, Critical, Error, Alert, Emergency",
+   "E": "Debug, Info, Warning, Notice, Error, Critical, Emergency, Alert"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "WebLogic 로그 심각도는 낮은 것부터 Trace, Debug, Info, Notice, Warning, Error, Critical, Alert, Emergency 순이다. 나머지 목록들은 Info와 Debug, Notice와 Info, Warning과 Notice, Critical과 Error, Emergency와 Alert의 순서가 뒤바뀌어 있어 틀리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-SEVERITY-ORDER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application is deployed without any Work Manager assigned to it. How are its requests scheduled?",
+  "options": {
+   "A": "They are forwarded to the Administration Server for execution",
+   "B": "They are handled by the server's default Work Manager",
+   "C": "They are executed by Node Manager threads",
+   "D": "They are rejected until a Work Manager is assigned",
+   "E": "They run in a dedicated execute queue created for the application"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Work Manager를 지정하지 않은 애플리케이션의 요청은 서버의 기본 Work Manager(default)가 처리한다. 지정이 없다고 요청이 거부되지 않으며, 애플리케이션별 전용 실행 큐가 자동으로 만들어지지도 않는다. Administration Server나 Node Manager가 애플리케이션 요청을 대신 실행하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-DEFAULT"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does WebLogic Server 14.1.1 manage the threads used to execute requests by default?",
+  "options": {
+   "A": "Requests are executed in the JVM common ForkJoinPool",
+   "B": "Each application gets a fixed-size execute queue of 15 threads",
+   "C": "All Work Managers share a single self-tuning thread pool whose size the server adjusts automatically",
+   "D": "One thread is created per client connection and destroyed after the response",
+   "E": "Each Work Manager owns a separate fixed-size thread pool whose size must be set manually by the administrator"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WebLogic Server는 서버당 하나의 자기 조정(self-tuning) 스레드 풀을 두고 모든 Work Manager가 이를 공유하며, 처리량을 관찰해 스레드 수를 자동으로 조정한다. 애플리케이션별 고정 실행 큐는 예전(8.1 방식) 모델이고, 연결마다 스레드를 만들거나 Work Manager마다 별도 고정 풀을 두지 않는다. JVM의 ForkJoinPool은 요청 처리에 쓰이지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-THREADPOOL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST command disconnects the session from the running server but leaves the WLST shell open?",
+  "options": {
+   "A": "closeDomain()",
+   "B": "exit()",
+   "C": "shutdown()",
+   "D": "disconnect()",
+   "E": "cancelEdit()"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "disconnect()는 현재 서버 연결만 끊고 WLST 셸은 유지한다. exit()는 WLST 자체를 종료하고, shutdown()은 서버를 종료한다. closeDomain()은 오프라인에서 연 도메인을 닫는 명령이며, cancelEdit()는 편집 세션을 취소하는 명령이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-DISCONNECT"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST command lists the attributes and child MBeans at the current location in the MBean hierarchy?",
+  "options": {
+   "A": "describe()",
+   "B": "show()",
+   "C": "cd()",
+   "D": "pwd()",
+   "E": "ls()"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ls()는 현재 위치의 하위 MBean과 속성을 나열한다. pwd()는 현재 위치 경로만 출력하고, cd()는 위치를 이동한다. show()와 describe()는 MBean 목록을 보여 주는 WLST 명령이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-LS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which WLST commands switch the session to a different MBean hierarchy while connected online? (Choose all that apply.)",
+  "options": {
+   "A": "serverConfig()",
+   "B": "writeDomain()",
+   "C": "readTemplate()",
+   "D": "edit()",
+   "E": "domainRuntime()"
+  },
+  "correct_keys": [
+   "A",
+   "D",
+   "E"
+  ],
+  "explanation": "serverConfig(), domainRuntime(), edit()는 온라인 연결 상태에서 각각 구성(읽기 전용), 도메인 런타임, 편집 MBean 트리로 전환한다. readTemplate()과 writeDomain()은 오프라인에서 템플릿을 읽고 도메인을 쓰는 명령으로 MBean 트리 전환과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-TREES"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How is the WebLogic Server Monitoring Dashboard typically accessed?",
+  "options": {
+   "A": "Through the Administration Server at http://adminhost:7001/console/dashboard",
+   "B": "Through each Managed Server at http://msHost:7002/dashboard",
+   "C": "Through the /management/dashboard REST endpoint only",
+   "D": "Only by running the dashboard() command in WLST offline",
+   "E": "Through Node Manager on each machine, at its listen port with the /dashboard path"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Monitoring Dashboard는 Administration Server에서 /console/dashboard 경로로 열며, 콘솔의 홈 페이지 링크로도 들어갈 수 있다. Managed Server나 Node Manager가 대시보드를 제공하지 않고, REST 전용 엔드포인트나 WLST 오프라인 명령으로 여는 기능도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-DASHBOARD-URL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the WebLogic Diagnostics Framework (WLDF)?",
+  "options": {
+   "A": "A JDBC driver used to store diagnostic data in Oracle Database",
+   "B": "A framework for collecting, archiving, and accessing diagnostic data from servers and applications",
+   "C": "A security provider that audits administrator logins",
+   "D": "A software load balancer that distributes HTTP requests to servers",
+   "E": "A command-line tool for deploying applications and shared libraries to clusters and standalone servers"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WLDF는 서버와 애플리케이션의 진단 데이터(메트릭, 이벤트, 이미지 등)를 수집·보관·조회하고 정책에 따라 동작을 수행하는 진단 프레임워크이다. 배포 도구, 로드 밸런서, JDBC 드라이버, 보안 감사 제공자가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-DEF"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When HTTP access logging is enabled for a server with default settings, which file records HTTP requests?",
+  "options": {
+   "A": "request.log in the domain home directory",
+   "B": "http.log in the domain's config directory",
+   "C": "access.log in the server's logs directory",
+   "D": "the server's .out file written by Node Manager",
+   "E": "web.log in the WL_HOME/server/lib directory"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "HTTP 접근 로그는 기본적으로 servers/<서버명>/logs/access.log에 기록된다. .out 파일은 Node Manager로 기동한 서버의 표준 출력·오류이며 HTTP 요청 기록이 아니다. http.log, request.log, web.log라는 기본 접근 로그 파일은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-ACCESSLOG"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which of the following can be defined as components of a WebLogic Server Work Manager? (Choose all that apply.)",
+  "options": {
+   "A": "Connection reserve timeout",
+   "B": "Session replication group",
+   "C": "Capacity constraint",
+   "D": "Maximum threads constraint",
+   "E": "Fair share request class"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "Work Manager는 요청 클래스(fair share, response time, context)와 제약 조건(최소 스레드, 최대 스레드, 용량)으로 구성된다. 커넥션 예약 타임아웃은 JDBC 커넥션 풀 설정이고, 세션 복제 그룹은 클러스터 세션 복제 설정이므로 Work Manager 구성 요소가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-COMPONENTS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which sequence of WLST online commands correctly changes and applies a configuration attribute?",
+  "options": {
+   "A": "serverConfig(), change the attribute, save(), activate()",
+   "B": "edit(), change the attribute, activate(), startEdit(), save()",
+   "C": "startEdit(), activate(), change the attribute, save(), edit()",
+   "D": "edit(), startEdit(), change the attribute, save(), activate()",
+   "E": "edit(), startEdit(), activate(), change the attribute, save()"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "온라인 구성 변경은 edit()로 편집 트리로 이동하고, startEdit()로 편집 잠금을 얻은 뒤 속성을 바꾸고, save()로 저장한 다음 activate()로 서버에 적용한다. 활성화를 변경보다 먼저 하거나 잠금 없이 변경하는 순서는 틀리며, serverConfig 트리는 읽기 전용이라 변경할 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-EDIT-SEQ"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator connects WLST to the Administration Server, runs cd('Servers/ms1') immediately after connecting, and then calls set('ListenPort', 8002). The command fails. What is the most likely reason?",
+  "options": {
+   "A": "ms1 must be shut down before any WLST command can reach its MBean",
+   "B": "set() is not supported in WLST; only cmo methods can change attributes",
+   "C": "The ListenPort attribute can only be changed with WLST offline",
+   "D": "The administrator must first run domainRuntime() to switch to a tree that accepts configuration changes",
+   "E": "The default serverConfig tree is read-only; changes require edit() and startEdit() first"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "connect() 직후 기본 위치는 serverConfig 트리이며 이 트리는 읽기 전용이다. 구성을 바꾸려면 edit()로 편집 트리로 이동하고 startEdit()로 편집 세션을 시작해야 한다. ListenPort는 온라인에서도 바꿀 수 있고, 서버 중지가 필요한 것도 아니다. set()은 정상 WLST 명령이며, domainRuntime 트리는 런타임 정보 조회용이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-SERVERCONFIG-RO"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST hierarchy, available when connected to the Administration Server, lets you navigate the runtime MBeans of all running servers in the domain?",
+  "options": {
+   "A": "domainRuntime()",
+   "B": "edit()",
+   "C": "serverConfig()",
+   "D": "custom()",
+   "E": "serverRuntime()"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "domainRuntime()은 Administration Server의 Domain Runtime MBean Server를 통해 도메인 전체 서버의 런타임 MBean(ServerRuntimes)에 접근한다. serverRuntime()은 연결된 서버 하나의 런타임만 보여 주고, serverConfig()와 edit()는 구성 트리이다. custom()은 사용자 정의 MBean을 탐색하는 트리이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-DOMAINRUNTIME"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST offline sequence modifies the configuration of an existing domain on disk?",
+  "options": {
+   "A": "connect(), startEdit(), make the changes, activate()",
+   "B": "readDomain('/u01/domains/base_domain'), make the changes, updateDomain(), closeDomain()",
+   "C": "readDomain('/u01/domains/base_domain'), startEdit(), make the changes, save(), activate()",
+   "D": "edit(), make the changes, updateDomain(), disconnect()",
+   "E": "nmConnect(), make the changes, save(), nmDisconnect()"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "오프라인에서 기존 도메인을 수정할 때는 readDomain으로 도메인을 열고 변경한 뒤 updateDomain으로 저장하고 closeDomain으로 닫는다. connect/startEdit/activate는 온라인 명령이며 readDomain과 섞어 쓰지 않는다. edit()도 온라인 명령이고, Node Manager 연결로는 도메인 구성을 편집하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-OFFLINE-CMDS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the WLST storeUserConfig() command?",
+  "options": {
+   "A": "To add a new user to the embedded LDAP server",
+   "B": "To export all security realm users to a text file",
+   "C": "To create an encrypted user configuration file and key file so that connections need no clear-text password",
+   "D": "To back up config.xml before an edit session is activated",
+   "E": "To store the current edit session on disk so that it can be resumed later by the same administrator from another WLST session"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "storeUserConfig()는 현재 접속 자격 증명을 암호화한 사용자 구성 파일과 키 파일을 만들어, 이후 connect(userConfigFile=..., userKeyFile=...)로 평문 비밀번호 없이 접속하게 한다. config.xml 백업, 임베디드 LDAP 사용자 추가, 편집 세션 보관, 보안 영역 사용자 내보내기 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-STOREUSER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "The Administration Server is down, and Node Manager is running on its machine. Which WLST approach starts the Administration Server?",
+  "options": {
+   "A": "Run connect() to the Administration Server URL, then start('AdminServer')",
+   "B": "Run edit() and startEdit(), then activate() to boot the server",
+   "C": "Run domainRuntime() and invoke start() on the AdminServer runtime MBean",
+   "D": "Run nmConnect() to connect to Node Manager, then nmStart('AdminServer')",
+   "E": "Run readDomain(), then start('AdminServer') in offline mode"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Administration Server가 내려가 있으면 connect()할 대상이 없으므로 nmConnect()로 Node Manager에 연결한 뒤 nmStart()로 서버를 기동한다. start() 명령, 편집 세션, domainRuntime 트리는 모두 실행 중인 Administration Server 연결이 필요하다. readDomain 후 start()로 서버를 기동하는 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-NMSTART"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is required to start the Managed Server ms1 with the WLST command start('ms1', 'Server')?",
+  "options": {
+   "A": "ms1 must already be in the ADMIN state",
+   "B": "Only the startManagedWebLogic script must be in the PATH of the WLST host; Node Manager is not involved",
+   "C": "WLST must be in offline mode after running readDomain()",
+   "D": "The administrator must hold the configuration edit lock",
+   "E": "WLST must be connected to the Administration Server, and Node Manager must be running on ms1's machine"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "start() 명령은 Administration Server에 연결된 상태에서 실행되며, Administration Server가 대상 머신의 Node Manager를 통해 서버를 기동한다. 오프라인 모드에서는 사용할 수 없고, 시작 스크립트 경로나 편집 잠금과는 무관하다. 서버가 미리 ADMIN 상태일 필요도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-START-CMD"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the effect of running shutdown('ms1', 'Server', force='true') in WLST?",
+  "options": {
+   "A": "ms1 is shut down immediately without waiting for in-flight work to complete",
+   "B": "ms1 completes all in-flight requests and sessions before stopping, exactly as in a graceful shutdown",
+   "C": "The command is ignored unless the domain runs in development mode",
+   "D": "ms1 is restarted automatically by Node Manager after stopping",
+   "E": "ms1 is moved to the ADMIN state but keeps running"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "force='true'는 강제 종료로, 진행 중인 작업 완료를 기다리지 않고 즉시 서버를 종료한다. 진행 중 작업을 마치고 내려가는 것은 기본 동작인 graceful 종료이다. 강제 종료가 자동 재시작이나 ADMIN 상태 전환(suspend)을 뜻하지 않고, 개발 모드에서만 동작하는 것도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-SHUTDOWN"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Record feature of the WebLogic Server Administration Console do?",
+  "options": {
+   "A": "It starts a Java Flight Recorder recording on the Administration Server and saves it to a .jfr file",
+   "B": "It captures the configuration changes made in the console as a WLST script file",
+   "C": "It writes an audit trail of administrator logins to the domain log",
+   "D": "It records all HTTP requests sent to deployed applications",
+   "E": "It stores harvested metrics in the diagnostic archive"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "콘솔의 Record 기능은 관리자가 콘솔에서 수행한 구성 변경을 WLST 명령 스크립트(.py)로 기록해 같은 작업을 자동화할 수 있게 한다. HTTP 요청 기록은 접근 로그, JFR 기록이나 메트릭 수집은 WLDF, 로그인 감사는 보안 감사 기능의 영역이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Oracle WebLogic Server Administration Console Online Help (검수 필요)",
+  "variant_group": "WLS-OPS-CONSOLE-RECORD"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST command reports whether activated configuration changes require a server restart to take effect?",
+  "options": {
+   "A": "dumpStack()",
+   "B": "cancelEdit()",
+   "C": "isRestartRequired()",
+   "D": "save()",
+   "E": "undo()"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "isRestartRequired()는 활성화한 변경 중 서버 재시작이 있어야 반영되는 항목이 있는지 알려 준다. dumpStack()은 마지막 예외의 스택 트레이스를 보여 주고, cancelEdit()는 편집 세션을 취소하며, save()는 변경을 저장하고, undo()는 저장되지 않은 변경을 되돌린다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-ISRESTART"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "After activating changes, the Administration Console reports that some changes require a server restart. Which statement is true?",
+  "options": {
+   "A": "All activated changes, dynamic and non-dynamic, are discarded unless the servers are restarted within the session timeout",
+   "B": "Restarting only the Administration Server applies the changes to all Managed Servers",
+   "C": "The changes must be undone and reapplied with WLST offline",
+   "D": "Non-dynamic changes take effect only after the affected servers restart; dynamic changes already apply",
+   "E": "The activation failed and must be repeated after stopping the servers"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "동적 속성은 활성화 즉시 적용되고, 비동적 속성은 활성화되어 구성에 저장되지만 해당 서버를 재시작해야 반영된다. 재시작하지 않는다고 변경이 버려지지 않으며 활성화 자체가 실패한 것도 아니다. 오프라인 재적용은 필요 없고, Admin Server만 재시작해서는 Managed Server의 비동적 변경이 반영되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Oracle WebLogic Server Administration Console Online Help (검수 필요)",
+  "variant_group": "WLS-OPS-DYNAMIC-ATTR"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which MBean server exists only on the Administration Server and provides access to the runtime MBeans of all servers in the domain?",
+  "options": {
+   "A": "The Edit MBean Server",
+   "B": "The Runtime MBean Server of each Managed Server",
+   "C": "The Node Manager MBean Server",
+   "D": "The JVM platform MBean server",
+   "E": "The Domain Runtime MBean Server"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Domain Runtime MBean Server는 Administration Server에만 있으며 도메인 전체 서버의 런타임 MBean에 대한 단일 접근점을 제공한다. Runtime MBean Server는 모든 서버에 있으나 자기 서버의 MBean만 다룬다. Edit MBean Server도 Admin Server에만 있지만 구성 편집용이다. JVM 플랫폼 MBean 서버는 해당 JVM 정보만 다루며, Node Manager MBean Server라는 것은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Custom Management Utilities Using JMX for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-JMX-MBEANSERVERS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which MBean servers are hosted only on the Administration Server? (Choose two.)",
+  "options": {
+   "A": "The Domain Runtime MBean Server",
+   "B": "The Runtime MBean Server",
+   "C": "The JVM platform MBean server",
+   "D": "The Edit MBean Server",
+   "E": "The Managed Server configuration MBean server"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "Edit MBean Server와 Domain Runtime MBean Server는 Administration Server에만 존재한다. Runtime MBean Server는 모든 서버 인스턴스에 있고, JVM 플랫폼 MBean 서버도 모든 JVM에 있다. Managed Server 구성 MBean 서버라는 별도 서버는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Custom Management Utilities Using JMX for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-JMX-MBEANSERVERS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which runtime MBean exposes the current free heap size of a running server through attributes such as HeapFreeCurrent?",
+  "options": {
+   "A": "JVMRuntimeMBean",
+   "B": "ServerMBean",
+   "C": "ThreadPoolRuntimeMBean",
+   "D": "JDBCDataSourceRuntimeMBean",
+   "E": "LogRuntimeMBean"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "JVMRuntimeMBean은 HeapFreeCurrent, HeapSizeCurrent 같은 힙 관련 런타임 값을 제공한다. ThreadPoolRuntimeMBean은 스레드 풀 통계, ServerMBean은 서버 구성, JDBCDataSourceRuntimeMBean은 데이터 소스 통계, LogRuntimeMBean은 로그 런타임 정보를 다룬다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Monitoring Oracle WebLogic Server Runtime Statistics (검수 필요)",
+  "variant_group": "WLS-OPS-RUNTIME-JVM"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which attributes are exposed by ThreadPoolRuntimeMBean for monitoring the self-tuning thread pool? (Choose all that apply.)",
+  "options": {
+   "A": "ActiveConnectionsCurrentCount",
+   "B": "HeapFreeCurrent",
+   "C": "QueueLength",
+   "D": "HoggingThreadCount",
+   "E": "ExecuteThreadTotalCount"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "ThreadPoolRuntimeMBean은 전체 실행 스레드 수(ExecuteThreadTotalCount), 대기 요청 수(QueueLength), 장시간 점유 스레드 수(HoggingThreadCount) 등을 제공한다. HeapFreeCurrent는 JVMRuntimeMBean, ActiveConnectionsCurrentCount는 JDBC 데이터 소스 런타임 MBean의 속성이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Monitoring Oracle WebLogic Server Runtime Statistics (검수 필요)",
+  "variant_group": "WLS-OPS-RUNTIME-THREADPOOL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which of the following are components of the WebLogic Diagnostics Framework? (Choose all that apply.)",
+  "options": {
+   "A": "Diagnostic Image Capture",
+   "B": "Session Replication Manager",
+   "C": "Instrumentation",
+   "D": "Deployment Plan Generator",
+   "E": "Harvester"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "WLDF는 Harvester(메트릭 수집), Policies and Actions(이전의 Watches and Notifications), Diagnostic Image Capture, Instrumentation, Archive, Data Accessor 등으로 구성된다. Deployment Plan 생성기와 세션 복제 관리자는 WLDF 구성 요소가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-COMPONENTS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the role of the WLDF Harvester?",
+  "options": {
+   "A": "It merges session data from failed cluster members",
+   "B": "It periodically collects the values of selected MBean attributes for archiving and evaluation",
+   "C": "It removes old log files from the server's logs directory when the log rotation file count limit is reached",
+   "D": "It gathers unused JDBC connections and returns them to the pool",
+   "E": "It collects garbage objects from the heap on behalf of the JVM"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Harvester는 설정된 주기로 지정한 MBean 속성 값을 수집하여 아카이브에 저장하거나 정책 평가에 사용하게 한다. 로그 파일 정리, JVM 가비지 수집, JDBC 커넥션 회수, 세션 데이터 병합은 Harvester의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-HARVESTER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where can the WLDF Archive persist harvested metrics and events?",
+  "options": {
+   "A": "Only in the HTTP access log",
+   "B": "Only in server memory, so the data is lost at restart",
+   "C": "In a file-based diagnostic store or in a database accessed through a JDBC data source",
+   "D": "Only in config.xml as part of the domain configuration",
+   "E": "In the embedded LDAP server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WLDF Archive는 기본적으로 파일 기반 진단 저장소에 데이터를 보관하며, JDBC 데이터 소스를 통해 데이터베이스에 저장하도록 구성할 수도 있다. 메모리에만 두거나 config.xml, 접근 로그, 임베디드 LDAP에 저장하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-ARCHIVE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which actions can a WLDF policy trigger when its condition is met? (Choose all that apply.)",
+  "options": {
+   "A": "Recompile all JSP pages of deployed applications",
+   "B": "Send an SMTP e-mail",
+   "C": "Capture a diagnostic image",
+   "D": "Roll back the most recent configuration activation",
+   "E": "Send a JMS message"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "WLDF 정책(이전 Watch)의 조건이 충족되면 JMS 메시지, SMTP 메일, SNMP 트랩, JMX 알림, 진단 이미지 캡처 같은 액션을 실행할 수 있다. 최근 구성 활성화 롤백이나 JSP 재컴파일은 WLDF 액션으로 제공되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-ACTIONS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A server log entry contains the token BEA-000365. What does this token represent?",
+  "options": {
+   "A": "The ID of the execute thread that logged the message",
+   "B": "The process ID of the server JVM",
+   "C": "The JTA transaction ID associated with the message",
+   "D": "The unique message ID of the log message as defined in the message catalog",
+   "E": "The diagnostic context ID of the request"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "BEA-000365와 같은 값은 메시지 카탈로그에 정의된 고유 메시지 ID로, 메시지 종류를 식별하고 설명과 조치를 찾는 데 사용한다. 스레드 이름, 트랜잭션 ID, 진단 컨텍스트 ID는 로그 항목의 별도 필드이고, JVM 프로세스 ID를 나타내지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-MESSAGEID"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which rotation options can be configured for a WebLogic Server server log file?",
+  "options": {
+   "A": "Rotation by number of messages written",
+   "B": "Rotation only when the server is restarted, with no other option",
+   "C": "Rotation only by an operating system tool such as logrotate",
+   "D": "Rotation by message severity, with one file per severity",
+   "E": "Rotation by file size, rotation by time, or no rotation"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "서버 로그 회전 유형은 크기 기준(By Size), 시간 기준(By Time), 회전 없음(None) 중에서 고른다. 재시작 시 회전은 별도 옵션일 뿐 유일한 방법이 아니고, OS 도구에만 의존하지도 않는다. 메시지 수나 심각도별로 파일을 나누는 회전 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-ROTATION-TYPES"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "You want each Managed Server to forward only messages of Error severity and higher to the domain log. What should you configure?",
+  "options": {
+   "A": "The domain log broadcast severity (or a domain log filter) of each Managed Server",
+   "B": "The logging properties in nodemanager.properties",
+   "C": "The standard out severity of each Managed Server, which controls console output for that server",
+   "D": "The log file severity of the Administration Server's own server log",
+   "E": "The rotation type of the domain log file"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "도메인 로그로 전달되는 메시지는 각 서버 로깅 설정의 도메인 로그 브로드캐스트 심각도나 도메인 로그 필터로 제한한다. Admin Server 자신의 서버 로그 심각도나 표준 출력 심각도는 다른 출력 대상에 대한 설정이다. 회전 유형은 파일 관리 방식이고, nodemanager.properties는 Node Manager 설정 파일이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-DOMAINLOG-FILTER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When Node Manager starts the Managed Server ms1, where are the server's standard output and standard error written by default?",
+  "options": {
+   "A": "To access.log of ms1",
+   "B": "To ms1.out in the DOMAIN_HOME/servers/ms1/logs directory",
+   "C": "Nowhere; the output is discarded",
+   "D": "To ms1.log in the domain's config directory",
+   "E": "To the Administration Server's console window"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Node Manager로 기동한 서버의 표준 출력·오류는 servers/<서버명>/logs/<서버명>.out 파일에 기록된다. Admin Server 콘솔 창으로 가지 않으며, config 디렉터리의 로그나 HTTP 접근 로그에도 기록되지 않는다. 출력이 버려지지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-NM-OUT"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a WebLogic Server log filter used for?",
+  "options": {
+   "A": "To translate log messages into another language",
+   "B": "To delete old access log entries from the database archive",
+   "C": "To restrict which messages reach a log destination based on criteria such as severity or subsystem",
+   "D": "To compress rotated log files",
+   "E": "To encrypt sensitive values, such as passwords and keys, before they are written to the server log file"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "로그 필터는 심각도, 서브시스템, 메시지 ID 등의 조건으로 서버 로그 파일, 표준 출력, 도메인 로그 브로드캐스터 같은 출력 대상에 전달되는 메시지를 추가로 걸러 낸다. 암호화, 압축, 번역, 아카이브 삭제 기능은 로그 필터의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-FILTER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Two Work Managers use fair share request classes with values 80 and 20. Under sustained contention for threads, how does the server schedule their requests?",
+  "options": {
+   "A": "It limits the queue length of each Work Manager to 80 and 20 requests",
+   "B": "It always runs all requests of the first before any request of the second",
+   "C": "It ignores the values unless a capacity constraint or maximum threads constraint is also defined",
+   "D": "It allocates thread usage time to the two Work Managers in approximately an 80:20 ratio",
+   "E": "It creates exactly 80 threads for the first and 20 threads for the second"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "fair share 값은 경합 상황에서 각 요청 클래스가 받는 스레드 사용 시간의 상대 비율을 뜻하므로 대략 80:20으로 배분된다. 고정 스레드 수나 대기열 길이를 정하는 값이 아니고, 엄격한 우선순위로 한쪽을 먼저 다 처리하지도 않는다. 용량 제약이나 max threads constraint가 없어도 fair share는 동작한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-FAIRSHARE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does a response time request class define in a Work Manager?",
+  "options": {
+   "A": "The query timeout applied to JDBC statements",
+   "B": "The HTTP session timeout of the web application",
+   "C": "The maximum number of threads that can serve the Work Manager",
+   "D": "A hard timeout after which the server terminates running requests and returns an error to the client",
+   "E": "An average response time goal in milliseconds that the server uses when scheduling requests"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "response time 요청 클래스는 밀리초 단위 평균 응답 시간 목표를 정하며, 서버는 다른 요청 클래스와 비교해 스케줄링할 때 이를 참고한다. 실행 중 요청을 강제로 끊는 타임아웃, HTTP 세션 타임아웃, JDBC 쿼리 타임아웃이 아니다. 최대 스레드 수는 max threads constraint로 정한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-RESPONSETIME"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A maximum threads constraint is defined by referencing a JDBC data source instead of a fixed number. What is the effect?",
+  "options": {
+   "A": "Concurrent execution of the Work Manager's requests is limited to the data source's connection pool size",
+   "B": "The connection pool grows automatically beyond its maximum capacity to match the number of available threads",
+   "C": "Requests are rejected whenever the data source is suspended",
+   "D": "Each thread reserves a connection at startup and keeps it permanently",
+   "E": "The constraint is ignored because constraints accept only fixed numbers"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "max threads constraint는 고정 숫자 대신 데이터 소스(커넥션 풀)를 지정할 수 있으며, 이 경우 동시 실행 스레드 수가 커넥션 풀 크기로 제한되어 커넥션을 기다리며 스레드가 막히는 상황을 줄인다. 커넥션 풀을 자동으로 키우거나 데이터 소스 중지 시 요청을 거부하는 기능이 아니고, 스레드가 커넥션을 영구 예약하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-MAXTHREADS-POOL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the main purpose of a minimum threads constraint in a Work Manager?",
+  "options": {
+   "A": "To limit the maximum number of concurrent requests",
+   "B": "To guarantee threads for the Work Manager's requests even beyond its fair share, helping avoid deadlocks",
+   "C": "To reject requests when fewer threads are available",
+   "D": "To set the minimum size of the JDBC connection pool",
+   "E": "To keep at least that many idle threads permanently reserved for the Work Manager from the moment the server starts"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "min threads constraint는 해당 Work Manager의 요청에 최소한의 스레드를 보장하여, fair share를 넘더라도 처리되게 함으로써 서버 간 콜백 같은 상황의 교착을 방지한다. 기동 시 유휴 스레드를 영구 예약하는 설정이 아니며, 최대 동시 요청 제한은 max threads constraint, 커넥션 풀 최소 크기는 JDBC 설정이다. 스레드가 적다고 요청을 거부하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-MINTHREADS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What happens when the number of queued and executing requests for a Work Manager reaches its capacity constraint?",
+  "options": {
+   "A": "The excess requests are forwarded to the Administration Server",
+   "B": "The server shuts down the application that owns the Work Manager",
+   "C": "The server rejects further requests for that Work Manager, for example with HTTP 503",
+   "D": "The server adds threads beyond the self-tuning pool limit",
+   "E": "The constraint is converted into a maximum threads constraint"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "capacity constraint는 대기 중과 실행 중 요청을 합한 수의 상한이며, 이를 넘으면 서버가 추가 요청을 거부한다(웹 요청은 503 응답). 스레드를 한도 이상 추가하거나 Admin Server로 넘기거나 애플리케이션을 종료하는 동작은 없고, 다른 제약으로 바뀌지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-CAPACITY"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which element in weblogic.xml assigns a web application to a named Work Manager?",
+  "options": {
+   "A": "dispatch-policy",
+   "B": "thread-pool-name",
+   "C": "execute-queue",
+   "D": "wl-dispatch-policy",
+   "E": "work-manager-ref"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "웹 애플리케이션은 weblogic.xml의 wl-dispatch-policy 요소로 Work Manager를 지정한다. dispatch-policy는 EJB 배포 기술자(weblogic-ejb-jar.xml)에서 쓰는 요소이며, work-manager-ref, thread-pool-name, execute-queue는 weblogic.xml에서 Work Manager를 지정하는 요소가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-DISPATCH"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which deployment descriptor defines an application-scoped Work Manager that applies to all modules of an enterprise application?",
+  "options": {
+   "A": "application.xml",
+   "B": "plan.xml",
+   "C": "config.xml",
+   "D": "web.xml",
+   "E": "weblogic-application.xml"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "애플리케이션 범위 Work Manager는 EAR의 weblogic-application.xml에 정의한다. web.xml과 application.xml은 Java EE 표준 기술자로 Work Manager를 정의하지 않고, plan.xml은 배포 계획 파일이다. config.xml에 정의하는 것은 도메인 전역 Work Manager이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-SCOPE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "To which destinations can a WebLogic Server instance send its log messages? (Choose all that apply.)",
+  "options": {
+   "A": "The HTTP access log",
+   "B": "The Node Manager log file",
+   "C": "The domain log through the domain log broadcaster",
+   "D": "Standard out",
+   "E": "The server log file"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "서버 로그 메시지는 서버 로그 파일, 표준 출력, 도메인 로그 브로드캐스터(도메인 로그), 메모리 버퍼 등으로 보낼 수 있다. HTTP 접근 로그는 웹 요청만 기록하는 별도 로그이고, Node Manager 로그는 Node Manager 자신의 동작을 기록한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-DESTINATIONS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which WLST commands are used in offline mode to open and save an existing domain? (Choose two.)",
+  "options": {
+   "A": "startEdit()",
+   "B": "readDomain()",
+   "C": "updateDomain()",
+   "D": "showChanges()",
+   "E": "activate()"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "오프라인에서 기존 도메인을 열 때는 readDomain(), 변경을 저장할 때는 updateDomain()을 사용한다. startEdit(), activate(), showChanges()는 실행 중인 Admin Server와 연결해 편집 세션에서 쓰는 온라인 명령이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-OFFLINE-CMDS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which WLST online commands require an active edit session started with startEdit()? (Choose two.)",
+  "options": {
+   "A": "state('ms1', 'Server')",
+   "B": "ls()",
+   "C": "activate()",
+   "D": "connect()",
+   "E": "save()"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "save()와 activate()는 startEdit()로 시작한 편집 세션 안에서만 의미가 있다. ls()는 MBean 탐색, connect()는 서버 연결, state()는 상태 조회로 편집 세션이 필요 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-EDIT-SEQ"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which tools can show the current heap usage of a running Managed Server? (Choose all that apply.)",
+  "options": {
+   "A": "The Monitoring Dashboard",
+   "B": "The config.xml file of the domain",
+   "C": "WLST online, navigating the server's JVMRuntime MBean in the domainRuntime hierarchy",
+   "D": "The Administration Console monitoring pages for the server",
+   "E": "WLST offline after readDomain()"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "실행 중 서버의 힙 사용량은 런타임 정보이므로 콘솔의 서버 모니터링 화면, WLST 온라인의 domainRuntime 트리(JVMRuntime MBean), Monitoring Dashboard에서 볼 수 있다. WLST 오프라인과 config.xml은 구성 정보만 다루며 런타임 값을 제공하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Monitoring Oracle WebLogic Server Runtime Statistics (검수 필요)",
+  "variant_group": "WLS-OPS-MON-SOURCES"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator used WLST offline (readDomain and updateDomain) to change a data source setting while the Administration Server was running. Later, another administrator activated an unrelated change in the Administration Console, and the offline change disappeared. What is the most likely explanation?",
+  "options": {
+   "A": "Offline edits are not seen by the running servers and can be overwritten by later online changes",
+   "B": "Data source settings can only be changed while all servers are shut down",
+   "C": "updateDomain() must be followed by activate() to commit offline changes to the running Administration Server",
+   "D": "The Administration Console automatically rolls back changes made by WLST",
+   "E": "The second administrator's lock reverted all changes made in the last hour"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Oracle은 실행 중인 도메인을 WLST 오프라인으로 수정하지 말 것을 권장한다. 오프라인 변경은 실행 중인 서버가 인식하지 못하고, 이후 온라인(콘솔·WLST)에서 구성을 활성화하면 Admin Server가 가진 구성으로 덮어써질 수 있다. 오프라인에는 activate()가 없고, 콘솔이 WLST 변경을 자동 롤백하거나 잠금이 과거 변경을 되돌리지 않는다. 데이터 소스 설정도 온라인으로 변경할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-OFFLINE-ACTIVE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does Oracle recommend regarding the use of WLST offline on a domain whose Administration Server is running?",
+  "options": {
+   "A": "Use WLST offline only on Managed Server hosts, never on the Administration Server host",
+   "B": "Do not use WLST offline to change an active domain; use WLST online or the Administration Console",
+   "C": "Use WLST offline only in development mode domains, where the running servers apply offline changes automatically",
+   "D": "Use WLST offline for all configuration changes because it bypasses the edit lock safely",
+   "E": "Use WLST offline only after acquiring the edit lock with startEdit()"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "실행 중인 도메인에서 오프라인 변경은 서버에 반영되지 않고 온라인 변경으로 덮어써질 수 있으므로, 활성 도메인의 구성 변경은 WLST 온라인이나 콘솔로 해야 한다. 오프라인이 잠금을 안전하게 우회한다는 설명은 틀리며, startEdit()는 온라인 명령이다. 호스트 위치나 개발 모드 여부로 이 권고가 바뀌지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-OFFLINE-ACTIVE"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A WLST script fails at startEdit() with an error indicating that the edit lock is held by another user. The Administration Console shows that a colleague has an unactivated change in progress. What should be done?",
+  "options": {
+   "A": "Change the script to call activate() before startEdit()",
+   "B": "Rerun the script with WLST offline so the lock is not needed",
+   "C": "Have the lock owner activate or undo the pending changes to release the lock, then rerun the script",
+   "D": "Restart Node Manager on the Administration Server machine",
+   "E": "Delete the DOMAIN_HOME/pending directory while the Administration Server is running to clear the lock"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "도메인 편집 잠금은 한 번에 한 사용자만 가질 수 있으므로, 잠금 소유자가 변경을 활성화하거나 취소해 잠금을 풀어야 스크립트가 startEdit()에 성공한다. 실행 중에 pending 디렉터리를 지우는 것은 구성 불일치를 일으킬 수 있는 위험한 조치이다. Node Manager 재시작은 잠금과 무관하고, 오프라인 변경은 활성 도메인에서 권장되지 않는다. startEdit() 전에 activate()를 호출하면 편집 세션이 없어 실패한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-EDIT-LOCK-CONFLICT"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator enables the DebugJDBCSQL debug scope on ms1 to trace SQL statements, but no debug messages appear in ms1.log. Other messages are logged normally. What is the most likely cause?",
+  "options": {
+   "A": "Debug scopes take effect only after the Administration Server is restarted",
+   "B": "Debug output is written only to the HTTP access log",
+   "C": "Debug scopes are supported only in development mode domains",
+   "D": "The severity threshold of ms1's server log file is above Debug, so Debug messages are filtered out",
+   "E": "Debug messages are written only to the domain log on the Administration Server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "디버그 스코프를 켜면 메시지가 Debug 심각도로 생성되므로, 서버 로그 파일의 심각도 임계값이 Debug보다 높으면 걸러져 기록되지 않는다. 로그 파일 심각도를 Debug로 낮춰야 한다. 디버그 메시지는 도메인 로그 전용이 아니고, Admin Server 재시작이나 개발 모드가 필요한 것도 아니며, HTTP 접근 로그에 기록되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-DEBUG-SEVERITY"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Under heavy load, requests to application A hang. Each request to A calls back into a second service on the same server, and the callback requests wait for threads that are all busy serving A's original requests. Which Work Manager configuration best prevents this situation?",
+  "options": {
+   "A": "Disable the self-tuning thread pool and use a fixed execute queue",
+   "B": "Assign application A a capacity constraint equal to the current thread count",
+   "C": "Lower the fair share value of the callback service",
+   "D": "Set a response time request class of 1 millisecond on application A",
+   "E": "Assign the callback service its own Work Manager with a minimum threads constraint"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "콜백 요청이 스레드를 얻지 못해 원 요청이 끝나지 않는 교착 상황에는 콜백 서비스용 Work Manager에 min threads constraint를 두어 최소 스레드를 보장하는 것이 적절하다. 용량 제약은 요청을 거부할 뿐 교착을 풀지 못하고, 비현실적인 응답 시간 목표나 콜백 쪽 fair share 축소는 상황을 악화시킨다. 자기 조정 풀을 끄는 것은 권장되지 않는 구식 방식이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-MINTHREADS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application's connection pool has a maximum capacity of 20, but during peaks more than 100 execute threads run the application's requests, most of them blocked waiting for a connection. Which Work Manager change addresses this most directly?",
+  "options": {
+   "A": "Define a maximum threads constraint that references the application's data source",
+   "B": "Define a response time request class with a lower goal",
+   "C": "Increase the fair share value of the application's request class",
+   "D": "Define a minimum threads constraint of 100 so that the application always has enough threads",
+   "E": "Assign the application to the default Work Manager"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "커넥션 풀 크기보다 많은 스레드가 커넥션을 기다리며 막히는 경우, 데이터 소스를 참조하는 max threads constraint로 동시 실행 스레드 수를 풀 크기에 맞추는 것이 가장 직접적이다. 최소 스레드 보장이나 fair share 증가는 스레드를 더 늘려 대기를 키우며, 기본 Work Manager에는 제한이 없다. 응답 시간 목표는 동시 실행 수를 제한하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-MAXTHREADS-POOL"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "During a traffic burst, clients of one web application receive HTTP 503 responses while other applications on the same server respond normally. The application's Work Manager has a capacity constraint of 50. What is the most likely cause?",
+  "options": {
+   "A": "The server ran out of heap memory and was marked FAILED",
+   "B": "Queued plus executing requests for that Work Manager reached the capacity constraint, so new ones were rejected",
+   "C": "The application's max threads constraint forced the server into ADMIN state",
+   "D": "The Administration Server became unavailable, so the Managed Server stopped serving that application's requests",
+   "E": "The HTTP access log reached its maximum size"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "해당 애플리케이션만 503을 받고 다른 애플리케이션은 정상이라면, 그 Work Manager의 대기·실행 요청 합계가 capacity constraint(50)에 도달해 추가 요청을 거부한 것이다. 힙 부족으로 서버가 FAILED가 되었다면 다른 애플리케이션도 영향을 받는다. max threads constraint는 서버 상태를 바꾸지 않고, Admin Server 중단은 Managed Server의 요청 처리를 멈추지 않으며, 접근 로그 크기는 응답 코드와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-CAPACITY"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Notice and Warning messages from ms2 appear in ms2.log but never in the domain log, while Error messages from ms2 do appear there. Messages from other Managed Servers at Notice severity do reach the domain log. What is the most likely cause?",
+  "options": {
+   "A": "The Administration Server's log file severity is set to Error",
+   "B": "ms2 was started without Node Manager",
+   "C": "ms2's domain log broadcast severity (or its domain log filter) is set to Error",
+   "D": "The domain log rotation type is set to By Time",
+   "E": "ms2's standard out severity is set to Error"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ms2의 Error 메시지만 도메인 로그에 도달하고 다른 서버는 정상이므로, ms2의 도메인 로그 브로드캐스트 심각도나 도메인 로그 필터가 Error로 설정된 것이 원인이다. Admin Server 로그 파일 심각도가 원인이라면 다른 서버 메시지도 같이 걸러졌어야 한다. Node Manager 사용 여부와 회전 유형은 전달 여부와 무관하고, 표준 출력 심각도는 콘솔 출력에만 영향을 준다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-DOMAINLOG-FILTER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Using WLST online, an administrator changes the listen port of the running server ms1 from 7003 to 8003 in an edit session and activates it successfully. ms1 continues to accept connections only on port 7003. What explains this?",
+  "options": {
+   "A": "The activation silently failed because ms1 was running",
+   "B": "The change was saved only to the pending directory and was never activated, despite the success message",
+   "C": "The Administration Server must be restarted to push the change to ms1",
+   "D": "Listen port is a non-dynamic attribute, so the new value takes effect only after ms1 restarts",
+   "E": "WLST online cannot change server listen ports"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "리슨 포트는 비동적 속성이라 활성화되면 구성에는 반영되지만 해당 서버를 재시작해야 실제로 적용된다. 활성화가 성공했으므로 실패나 미활성 상태가 아니고, WLST 온라인으로도 포트를 바꿀 수 있다. Admin Server를 재시작해도 ms1의 비동적 변경은 반영되지 않으며 ms1을 재시작해야 한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-DYNAMIC-ATTR"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A monitoring script connects WLST directly to the Managed Server ms1 and then calls domainRuntime() to list the state of every server in the domain. The script cannot reach the domain-wide runtime data. What should be changed?",
+  "options": {
+   "A": "Run the script with WLST offline after readDomain()",
+   "B": "Call startEdit() before domainRuntime()",
+   "C": "Use serverConfig() instead, because that tree contains the runtime data of all servers in the domain",
+   "D": "Grant the script user the Monitor role on ms1 only",
+   "E": "Connect to the Administration Server, because only it hosts the Domain Runtime MBean Server"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "도메인 전체 런타임 정보는 Administration Server에만 있는 Domain Runtime MBean Server를 통해 제공되므로 스크립트가 Admin Server에 연결해야 한다. 오프라인 모드에는 런타임 데이터가 없고, startEdit()는 구성 편집용이다. serverConfig 트리는 구성 정보이며 런타임 데이터가 아니다. 역할 부여만으로는 Managed Server에서 도메인 런타임 트리를 얻을 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-DOMAINRUNTIME"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A nightly WLST monitoring script runs from cron, and the security team prohibits clear-text administrator passwords in scripts or on the command line. What is the most appropriate solution?",
+  "options": {
+   "A": "Create encrypted user config and key files with storeUserConfig() and connect using those files",
+   "B": "Base64-encode the password inside the script",
+   "C": "Store the password in an environment variable that the script echoes to connect()",
+   "D": "Run the script with WLST offline, which does not require credentials to monitor servers",
+   "E": "Add the password to boot.properties of the Administration Server and have the script read it from there"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "storeUserConfig()로 암호화된 사용자 구성 파일과 키 파일을 만들고 connect(userConfigFile=..., userKeyFile=...)로 접속하면 평문 비밀번호 없이 스크립트를 자동 실행할 수 있다. Base64는 암호화가 아니고, 환경 변수 노출도 평문 관리에 해당한다. 오프라인 모드로는 런타임 모니터링을 할 수 없으며, boot.properties를 스크립트가 직접 읽는 방식은 지원되는 접속 방법이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLST-STOREUSER"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Operations wants a diagnostic image to be captured automatically whenever the pending request queue length of a server's thread pool exceeds a threshold for several harvest cycles. Which configuration achieves this?",
+  "options": {
+   "A": "An HTTP access log in extended format",
+   "B": "A WLDF diagnostic module with a harvester-based policy on the thread pool metric and an image action",
+   "C": "A log filter on the server log with severity set to Critical so that only critical thread pool messages are kept",
+   "D": "A Monitoring Dashboard chart saved as a custom view",
+   "E": "A capacity constraint on the default Work Manager"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "MBean 메트릭이 임계값을 넘을 때 자동으로 진단 이미지를 남기려면 WLDF 진단 시스템 모듈에 Harvester 기반 정책(스레드 풀 런타임 메트릭 조건)과 진단 이미지 액션을 구성한다. 로그 필터는 메시지 출력만 걸러 내고, 용량 제약은 요청을 거부할 뿐 진단 데이터를 남기지 않는다. 대시보드 뷰와 확장 형식 접근 로그는 자동 액션을 수행하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring and Using the Diagnostics Framework for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WLDF-POLICY"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which tasks cannot be performed with WLST offline? (Choose two.)",
+  "options": {
+   "A": "Viewing the current values of runtime MBeans such as a server's heap usage",
+   "B": "Modifying an existing domain's configuration and saving it with updateDomain()",
+   "C": "Navigating configuration MBeans with cd() and ls()",
+   "D": "Reading the configuration of an existing domain from disk",
+   "E": "Activating configuration changes on running servers through an edit session"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "WLST 오프라인은 서버에 연결하지 않으므로 런타임 MBean 값 조회와 편집 세션을 통한 실행 중 서버로의 변경 활성화는 할 수 없다. 기존 도메인 구성을 디스크에서 읽고, updateDomain()으로 수정·저장하고, cd()와 ls()로 구성 계층을 탐색하는 작업은 오프라인에서도 가능하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-OPS-OFFLINE-LIMITS"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which deployment descriptor settings correctly assign a module to a named Work Manager? (Choose two.)",
+  "options": {
+   "A": "A thread-pool element in persistence.xml",
+   "B": "The wl-dispatch-policy element in weblogic.xml",
+   "C": "The dispatch-policy element in weblogic-ejb-jar.xml",
+   "D": "A work-manager element in web.xml",
+   "E": "A dispatch-policy element in the standard Java EE application.xml"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "웹 모듈은 weblogic.xml의 wl-dispatch-policy, EJB는 weblogic-ejb-jar.xml의 dispatch-policy로 Work Manager를 지정한다. web.xml과 application.xml은 Java EE 표준 기술자로 WebLogic Work Manager 지정 요소가 없고, persistence.xml은 JPA 설정 파일이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Environments for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-WM-DISPATCH"
+ },
+ {
+  "domain": "WLS_OPS",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Operations requires that ms1.log be rotated every day at midnight and that only the 30 most recent rotated files be kept. How should the server log be configured?",
+  "options": {
+   "A": "Configure a log filter that discards messages older than 30 days before they are written to ms1.log",
+   "B": "Set the log file severity to Warning so that the file grows more slowly",
+   "C": "Use By Time rotation starting at 00:00 with a 24-hour interval, and limit retained files to 30",
+   "D": "Set the rotation type to By Size with a file size of 30 KB",
+   "E": "Set the rotation type to None and enable rotation on startup"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "매일 자정 회전은 회전 유형을 시간 기준(By Time)으로 하고 시작 시각 00:00, 간격 24시간으로 지정하며, 보관 파일 수 제한을 켜고 30개로 설정해 오래된 파일을 정리한다. 크기 기준 회전은 시각을 보장하지 않고, 회전 없음과 기동 시 회전 조합은 매일 회전을 보장하지 않는다. 심각도 조정은 회전과 무관하고, 로그 필터는 시간 경과로 파일을 지우지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Log Files and Filtering Log Messages for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-OPS-LOG-ROTATION-TIME"
+ }
+]

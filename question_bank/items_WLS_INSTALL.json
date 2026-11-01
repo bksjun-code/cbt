@@ -1,0 +1,1415 @@
+[
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "The Oracle WebLogic Server 14.1.1 generic installer is delivered as a JAR file. How is this installer normally started?",
+  "options": {
+   "A": "By running java -jar with the installer file name, using a certified JDK",
+   "B": "By extracting it with unzip directly into the target Oracle home and running setup.sh",
+   "C": "By installing it with the rpm -ivh command as the root user",
+   "D": "By running config.sh with the -install option and the JAR file name",
+   "E": "By copying it into the autodeploy directory of an existing domain"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "제네릭 설치 프로그램은 JAR 파일이며, 인증된 JDK로 java -jar <설치 파일>.jar 를 실행해 시작한다. rpm 패키지나 setup.sh 방식으로 설치하지 않고, config.sh 는 도메인을 만드는 Configuration Wizard 이므로 설치와 무관하다. autodeploy 디렉터리는 애플리케이션 자동 배포용이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-INSTALLER-LAUNCH"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which Java SE versions are certified for running Oracle WebLogic Server 14.1.1.0.0?",
+  "options": {
+   "A": "Java SE 6 and Java SE 7",
+   "B": "Java SE 8 and Java SE 11",
+   "C": "Java SE 7 and Java SE 8 only",
+   "D": "Java SE 17 and Java SE 21 only",
+   "E": "Java SE 11 only, because Java SE 8 is not supported"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WebLogic Server 14.1.1.0.0은 Java SE 8과 Java SE 11에서 인증된 릴리스다. Java SE 6, 7은 지원 범위가 아니며, Java SE 17·21은 이후 릴리스(14.1.2 등)의 지원 대상이다. Java SE 8도 14.1.1에서 지원되므로 11만 지원한다는 설명은 틀리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-JDK-CERT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a WebLogic Server 14.1.1 installation on Linux, where is the Configuration Wizard script used to create a new domain located?",
+  "options": {
+   "A": "ORACLE_HOME/OPatch/config.sh",
+   "B": "DOMAIN_HOME/bin/config.sh",
+   "C": "ORACLE_HOME/oracle_common/common/bin/config.sh",
+   "D": "ORACLE_HOME/inventory/bin/config.sh",
+   "E": "ORACLE_HOME/coherence/bin/config.sh"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "12c 이후 Configuration Wizard 는 ORACLE_HOME/oracle_common/common/bin/config.sh(Windows는 config.cmd)로 실행한다. OPatch 디렉터리는 패치 도구, inventory 는 설치 인벤토리, coherence 는 Coherence 제품 디렉터리다. 도메인 홈의 bin 에는 시작·종료 스크립트가 있을 뿐 도메인 생성 도구는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-CONFIG-WIZARD-PATH"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When you create a domain with the Configuration Wizard and accept the default domain location, where is the domain created?",
+  "options": {
+   "A": "ORACLE_HOME/wlserver/domains/base_domain",
+   "B": "ORACLE_HOME/oracle_common/domains/base_domain",
+   "C": "/var/opt/weblogic/domains/base_domain",
+   "D": "ORACLE_HOME/user_projects/domains/base_domain",
+   "E": "The home directory of the operating system user under .weblogic/base_domain"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Configuration Wizard 가 기본으로 제안하는 도메인 위치는 ORACLE_HOME/user_projects/domains/base_domain 이다. wlserver 나 oracle_common 아래에 domains 디렉터리를 만들지 않으며, /var/opt 나 사용자 홈의 숨김 디렉터리도 기본값이 아니다. 다만 운영 환경에서는 도메인을 Oracle home 밖에 두는 것이 권장된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-DEFAULT-DOMAIN-LOC"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which file is the central configuration file of a WebLogic Server domain?",
+  "options": {
+   "A": "DOMAIN_HOME/bin/setDomainEnv.sh",
+   "B": "DOMAIN_HOME/security/SerializedSystemIni.dat",
+   "C": "ORACLE_HOME/inventory/registry.xml",
+   "D": "DOMAIN_HOME/servers/AdminServer/security/boot.properties",
+   "E": "DOMAIN_HOME/config/config.xml"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "도메인 구성의 중심 파일은 DOMAIN_HOME/config/config.xml 이며 서버, 클러스터, 머신, 리소스 참조 등이 기록된다. setDomainEnv.sh 는 환경 변수 설정 스크립트, SerializedSystemIni.dat 는 암호화 시드 파일, boot.properties 는 서버 시작용 자격 증명 파일이다. inventory/registry.xml 은 Oracle home 의 설치 정보로 도메인 구성이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-CONFIG-XML"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where does a WebLogic Server instance named AdminServer look for its boot.properties file when it starts?",
+  "options": {
+   "A": "DOMAIN_HOME/servers/AdminServer/security/boot.properties",
+   "B": "DOMAIN_HOME/config/boot.properties",
+   "C": "DOMAIN_HOME/bin/boot.properties",
+   "D": "ORACLE_HOME/wlserver/server/lib/boot.properties",
+   "E": "ORACLE_HOME/oracle_common/common/bin/boot.properties"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "boot.properties 는 서버별로 DOMAIN_HOME/servers/<서버 이름>/security 디렉터리에 둔다. config 디렉터리는 config.xml 과 리소스 모듈, bin 은 스크립트 위치이며, Oracle home 아래(wlserver/server/lib, oracle_common/common/bin)는 제품 설치 파일 영역이라 서버가 부트 자격 증명을 찾지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-LOC"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which two property names are used inside a boot.properties file to supply the boot identity of a WebLogic Server instance?",
+  "options": {
+   "A": "admin.user and admin.password",
+   "B": "username and password",
+   "C": "principal and credential",
+   "D": "weblogic.user and weblogic.secret",
+   "E": "login and passphrase"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "boot.properties 에는 username= 과 password= 두 항목을 적는다. 처음에는 평문으로 작성하고 서버가 시작될 때 암호화한다. admin.user, principal/credential, weblogic.user, login/passphrase 같은 키는 boot.properties 에서 사용하는 이름이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-KEYS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which script is used to start the Administration Server of a domain from the command line?",
+  "options": {
+   "A": "DOMAIN_HOME/bin/setDomainEnv.sh",
+   "B": "DOMAIN_HOME/bin/stopWebLogic.sh",
+   "C": "DOMAIN_HOME/bin/startWebLogic.sh",
+   "D": "ORACLE_HOME/oracle_common/common/bin/config.sh",
+   "E": "ORACLE_HOME/wlserver/server/bin/setWLSEnv.sh"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "관리 서버는 DOMAIN_HOME/bin/startWebLogic.sh 로 시작한다(도메인 홈 최상위의 startWebLogic.sh 도 이 스크립트를 호출한다). setDomainEnv.sh 는 환경 변수만 설정하고, stopWebLogic.sh 는 종료용이다. config.sh 는 도메인 생성 도구, setWLSEnv.sh 는 셸에 WebLogic 클래스패스를 설정하는 스크립트다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-START-ADMIN-SCRIPT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When you start a Managed Server with startManagedWebLogic.sh, which two arguments are normally passed to the script?",
+  "options": {
+   "A": "The domain name and the Administration Server listen port",
+   "B": "The administrator user name and password",
+   "C": "The cluster name and the multicast address",
+   "D": "The Managed Server name and the Administration Server URL",
+   "E": "The machine name and the Node Manager port"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "startManagedWebLogic.sh 는 첫 번째 인수로 관리 대상 서버 이름, 두 번째 인수로 관리 서버 URL(예: t3://adminhost:7001)을 받는다. 자격 증명은 인수가 아니라 boot.properties 나 프롬프트로 제공한다. 도메인 이름, 클러스터 이름, 머신·Node Manager 포트는 이 스크립트의 인수가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-START-MS-ARGS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "On the Domain Mode and JDK screen of the Configuration Wizard, which domain mode disables automatic deployment of applications from the autodeploy directory?",
+  "options": {
+   "A": "Development mode",
+   "B": "Evaluation mode",
+   "C": "Express mode",
+   "D": "Standalone mode",
+   "E": "Production mode"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "운영(Production) 모드에서는 autodeploy 디렉터리를 이용한 자동 배포가 비활성화된다. 개발(Development) 모드는 autodeploy 를 허용한다. Evaluation, Express, Standalone 은 Configuration Wizard 에서 선택할 수 있는 도메인 모드가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-MODE-AUTODEPLOY"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a development mode domain, which directory does the Administration Server monitor for automatic deployment of applications?",
+  "options": {
+   "A": "DOMAIN_HOME/autodeploy",
+   "B": "DOMAIN_HOME/lib",
+   "C": "DOMAIN_HOME/bin",
+   "D": "DOMAIN_HOME/security",
+   "E": "ORACLE_HOME/wlserver/server/lib"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "개발 모드 도메인의 관리 서버는 DOMAIN_HOME/autodeploy 디렉터리를 감시하여 넣어 둔 애플리케이션을 자동 배포한다. DOMAIN_HOME/lib 은 서버 클래스패스에 추가할 JAR 위치, bin 은 스크립트, security 는 암호화 시드 등 보안 파일 위치다. wlserver/server/lib 은 제품 라이브러리 디렉터리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-AUTODEPLOY-DIR"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the DOMAIN_HOME/lib directory?",
+  "options": {
+   "A": "It stores the log files of all servers in the domain",
+   "B": "JAR files placed there are added to the server classpath at startup",
+   "C": "It contains the start and stop scripts for the domain",
+   "D": "It holds the embedded LDAP data files used by the Administration Server",
+   "E": "It contains the domain templates used by the Configuration Wizard"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DOMAIN_HOME/lib 에 둔 JAR 파일은 서버 시작 시 해당 도메인 서버들의 클래스패스에 자동으로 추가된다. 로그는 servers/<서버>/logs, 스크립트는 bin, 임베디드 LDAP 데이터는 servers/<서버>/data/ldap 에 있다. 도메인 템플릿은 Oracle home 의 템플릿 디렉터리에 있으며 도메인 lib 과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-LIB"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "By default, where is the server log file of a Managed Server named ms1 written?",
+  "options": {
+   "A": "DOMAIN_HOME/logs/ms1.log",
+   "B": "DOMAIN_HOME/config/ms1.log",
+   "C": "DOMAIN_HOME/servers/ms1/logs/ms1.log",
+   "D": "ORACLE_HOME/cfgtoollogs/ms1.log",
+   "E": "ORACLE_HOME/wlserver/logs/ms1.log"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "서버 로그는 기본적으로 DOMAIN_HOME/servers/<서버 이름>/logs/<서버 이름>.log 에 기록된다. 도메인 최상위 logs 나 config 디렉터리는 서버 로그 기본 위치가 아니다. ORACLE_HOME/cfgtoollogs 는 설치·구성 도구의 로그 위치이고, wlserver 아래에는 서버 로그를 쓰지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SERVER-LOG-LOC"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a WebLogic Server 14.1.1 installation, which directory is referred to as WL_HOME?",
+  "options": {
+   "A": "ORACLE_HOME/oracle_common",
+   "B": "ORACLE_HOME/coherence",
+   "C": "ORACLE_HOME/user_projects",
+   "D": "ORACLE_HOME/wlserver",
+   "E": "ORACLE_HOME/OPatch"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "WL_HOME 은 WebLogic Server 제품 파일이 설치되는 ORACLE_HOME/wlserver 를 가리킨다. oracle_common 은 공통 도구(Configuration Wizard, WLST 등), coherence 는 Coherence 제품, user_projects 는 기본 도메인·애플리케이션 위치, OPatch 는 패치 도구 디렉터리다.",
+  "reference": "Oracle Fusion Middleware 14.1.1 - Planning an Installation of Oracle Fusion Middleware (검수 필요)",
+  "variant_group": "WLS-INSTALL-WL-HOME"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "If you do not change it in the Configuration Wizard, which listen port does the Administration Server use for non-SSL traffic?",
+  "options": {
+   "A": "7002",
+   "B": "5556",
+   "C": "8001",
+   "D": "80",
+   "E": "7001"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "관리 서버의 기본 비SSL 수신 포트는 7001이다. 7002는 기본 SSL 포트, 5556은 Node Manager 기본 포트다. 8001이나 80은 관리 서버의 기본값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-ADMIN-DEFAULT-PORT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the ORACLE_HOME/wlserver/server/bin/setWLSEnv.sh script do?",
+  "options": {
+   "A": "It sets CLASSPATH, PATH, and related variables in the current shell for WebLogic tools",
+   "B": "It creates a new domain from the Basic WebLogic Server Domain template in the default location",
+   "C": "It starts the Administration Server in the background",
+   "D": "It encrypts the values in all boot.properties files",
+   "E": "It registers the Oracle home in the central inventory"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "setWLSEnv.sh 는 현재 셸에 CLASSPATH, PATH 등을 설정해 java weblogic.version, weblogic.Deployer 같은 도구를 실행할 수 있게 한다. 도메인 생성은 Configuration Wizard 나 WLST, 서버 시작은 startWebLogic.sh 가 담당한다. boot.properties 는 서버 시작 시 서버가 직접 암호화하고, 인벤토리 등록은 설치 프로그램이 한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SETWLSENV"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which installer options are used to install WebLogic Server 14.1.1 without the graphical interface?",
+  "options": {
+   "A": "-quiet together with -props pointing to a properties file",
+   "B": "-silent together with -responseFile pointing to a response file",
+   "C": "-mode=console together with -log",
+   "D": "-batch together with -domainTemplate",
+   "E": "-headless together with -input"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "무인(silent) 설치는 java -jar <설치 파일> -silent -responseFile <응답 파일> 형식으로 실행하며, 필요하면 -invPtrLoc 로 oraInst.loc 를 지정한다. -quiet, -props, -batch, -headless 같은 옵션은 Oracle 설치 프로그램의 무인 설치 옵션이 아니고, -mode=console 은 콘솔 모드 지정 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-SILENT-INSTALL"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which tool is used to deinstall a WebLogic Server 14.1.1 Oracle home?",
+  "options": {
+   "A": "ORACLE_HOME/oracle_common/common/bin/config.sh with the remove option",
+   "B": "ORACLE_HOME/OPatch/opatch rollback -all",
+   "C": "ORACLE_HOME/oui/bin/deinstall.sh",
+   "D": "ORACLE_HOME/oracle_common/common/bin/unpack.sh with the remove option",
+   "E": "DOMAIN_HOME/bin/stopWebLogic.sh with the uninstall option"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Oracle home 제거는 Oracle Universal Installer 의 ORACLE_HOME/oui/bin/deinstall.sh(Windows는 deinstall.cmd)로 수행한다. config.sh 는 도메인 생성·갱신 도구, opatch rollback 은 패치 제거, unpack.sh 는 템플릿으로 도메인을 만드는 도구, stopWebLogic.sh 는 서버 종료 스크립트로 제품 제거 기능이 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-DEINSTALL"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two subdirectories are created inside a new domain home by the Configuration Wizard? (Choose two.)",
+  "options": {
+   "A": "OPatch",
+   "B": "config",
+   "C": "inventory",
+   "D": "security",
+   "E": "coherence"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "Configuration Wizard 로 만든 도메인 홈에는 config(config.xml 과 리소스 모듈), security(SerializedSystemIni.dat 등), bin, servers 등이 생긴다. OPatch, inventory, coherence 는 도메인이 아니라 Oracle home 아래에 있는 설치 디렉터리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-SUBDIRS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are install types offered by the Oracle WebLogic Server 14.1.1 generic installer? (Choose two.)",
+  "options": {
+   "A": "WebLogic Server",
+   "B": "Fusion Middleware Infrastructure",
+   "C": "Oracle HTTP Server Standalone",
+   "D": "Complete with Examples",
+   "E": "Oracle Database Client"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "WebLogic Server 제네릭 설치 프로그램의 설치 유형에는 WebLogic Server, Coherence, Complete with Examples 가 있다. Fusion Middleware Infrastructure 는 별도의 Infrastructure 설치 프로그램으로 설치하고, Oracle HTTP Server 와 Database Client 도 각각 다른 설치 프로그램을 사용한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-INSTALL-TYPES"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator creates boot.properties with clear-text values and starts the server. What happens to the file after the server boots successfully?",
+  "options": {
+   "A": "The server deletes the file after reading it",
+   "B": "The server moves the file into DOMAIN_HOME/config",
+   "C": "The server leaves the clear-text values unchanged",
+   "D": "The server encrypts the user name and password values in the file",
+   "E": "The server converts the file into a Java keystore"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "평문으로 작성한 boot.properties 는 서버가 이를 사용해 정상 부팅하면 username 과 password 값을 도메인 암호화 키로 암호화해 다시 기록한다. 파일을 삭제하거나 config 디렉터리로 옮기지 않으며, 평문으로 남겨 두지도 않는다. 키스토어로 변환하는 기능도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-ENCRYPT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the role of the DOMAIN_HOME/security/SerializedSystemIni.dat file?",
+  "options": {
+   "A": "It stores the list of users and groups of the default authenticator for the domain",
+   "B": "It contains the SSL identity keystore of the Administration Server",
+   "C": "It records which domain templates and extension templates were applied to the domain",
+   "D": "It lists the Managed Servers that are allowed to join the domain",
+   "E": "It holds the domain's encryption seed used to encrypt and decrypt stored passwords"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SerializedSystemIni.dat 는 도메인마다 고유한 암호화 시드로, boot.properties 와 config.xml·리소스 모듈에 저장되는 암호화된 비밀번호를 암호화·복호화하는 데 쓰인다. 사용자·그룹은 임베디드 LDAP 에, SSL 인증서는 키스토어에 저장된다. 적용된 템플릿 정보나 서버 목록을 담는 파일이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SERIALIZED-INI"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A domain created in development mode with the Configuration Wizard starts its Administration Server without asking for a user name and password. What is the reason?",
+  "options": {
+   "A": "The Configuration Wizard created boot.properties for the Administration Server",
+   "B": "Development mode domains do not have any administrative users",
+   "C": "The Administration Server reads the clear-text administrator password from config.xml",
+   "D": "The Configuration Wizard stored the credentials in setDomainEnv.sh",
+   "E": "Development mode disables authentication for the Administration Server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "개발 모드로 도메인을 만들면 Configuration Wizard 가 관리 서버의 servers/AdminServer/security 에 boot.properties 를 만들어 두므로 시작 시 자격 증명을 묻지 않는다. 개발 모드에도 관리자 계정과 인증은 그대로 있다. config.xml 이나 setDomainEnv.sh 에 평문 비밀번호가 저장되지는 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-DEV-BOOT-PROPS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a production mode domain, the Administration Server is started with startWebLogic.sh and no boot.properties file exists. What happens?",
+  "options": {
+   "A": "The server boots with a built-in default user name and password",
+   "B": "The script prompts on the console for the administrator user name and password",
+   "C": "The server reads the administrator password from config.xml",
+   "D": "The server starts in ADMIN state without authenticating anyone",
+   "E": "The server refuses to start and deletes its security directory"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "boot.properties 가 없으면 서버는 시작 시 콘솔에서 사용자 이름과 비밀번호를 입력받는다. 기본 계정으로 자동 부팅하거나 config.xml 에서 관리자 비밀번호를 읽지 않으며, 인증 없이 ADMIN 상태로 시작하지도 않는다. security 디렉터리를 삭제하는 동작도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-PROD-PROMPT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which file should be used to add custom JAVA_OPTIONS for all servers in a domain so that the changes are not lost when the domain is reconfigured or extended?",
+  "options": {
+   "A": "DOMAIN_HOME/bin/setDomainEnv.sh",
+   "B": "ORACLE_HOME/wlserver/server/bin/setWLSEnv.sh",
+   "C": "DOMAIN_HOME/bin/setUserOverrides.sh",
+   "D": "DOMAIN_HOME/config/config.xml",
+   "E": "ORACLE_HOME/oracle_common/common/bin/config.sh"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "사용자 정의 JVM 옵션은 DOMAIN_HOME/bin/setUserOverrides.sh 에 두는 것이 권장된다. setDomainEnv.sh 는 이 파일이 있으면 호출하며, 도메인 확장·재구성 시 setDomainEnv.sh 는 다시 생성될 수 있지만 setUserOverrides.sh 는 보존된다. setWLSEnv.sh 는 셸 환경 설정용, config.xml 은 도메인 구성 파일, config.sh 는 Configuration Wizard 다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SETUSEROVERRIDES"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which environment variable, when set before the start scripts run, replaces the default JVM heap arguments that setDomainEnv.sh would otherwise use?",
+  "options": {
+   "A": "WLS_HEAP_SIZE",
+   "B": "JAVA_HEAP_OPTS",
+   "C": "MAX_HEAP_ARGS",
+   "D": "USER_MEM_ARGS",
+   "E": "SERVER_MEM_LIMIT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "USER_MEM_ARGS 를 지정하면 setDomainEnv.sh 가 기본 MEM_ARGS 대신 그 값을 사용한다. 보통 setUserOverrides.sh 에 설정한다. WLS_HEAP_SIZE, JAVA_HEAP_OPTS, MAX_HEAP_ARGS, SERVER_MEM_LIMIT 는 WebLogic 시작 스크립트가 인식하는 변수가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-USER-MEM-ARGS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the pack command produce when it is run with the -managed=true option?",
+  "options": {
+   "A": "A compressed backup of the Oracle home including all patches",
+   "B": "A deployment archive of all applications currently deployed to the Managed Servers of the domain",
+   "C": "A new Managed Server entry in config.xml",
+   "D": "A response file for a silent installation on the remote machine",
+   "E": "A managed server template that unpack uses to create the domain on a remote machine"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "pack -managed=true 는 관리 대상 서버용 템플릿을 만든다. 이 템플릿을 원격 머신으로 복사해 unpack 하면 그 머신에 관리 대상 서버용 도메인 디렉터리가 만들어진다. Oracle home 백업, 애플리케이션 아카이브, 무인 설치 응답 파일을 만드는 명령이 아니며, config.xml 에 서버를 추가하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating Templates and Domains Using the Pack and Unpack Commands (검수 필요)",
+  "variant_group": "WLS-INSTALL-PACK-MANAGED"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A managed server template named mydomain_managed.jar has been copied to a new host. Which command creates the domain directory on that host?",
+  "options": {
+   "A": "unpack.sh -domain=/u01/domains/mydomain -template=/tmp/mydomain_managed.jar",
+   "B": "pack.sh -domain=/u01/domains/mydomain -template=/tmp/mydomain_managed.jar -managed=true",
+   "C": "config.sh -import=/tmp/mydomain_managed.jar",
+   "D": "opatch apply /tmp/mydomain_managed.jar",
+   "E": "startManagedWebLogic.sh /tmp/mydomain_managed.jar"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "원격 호스트에서는 unpack.sh -domain=<도메인 경로> -template=<템플릿 JAR> 로 템플릿에서 도메인 디렉터리를 만든다. pack.sh 는 템플릿을 만드는 쪽 명령이고, config.sh 에는 그런 import 옵션이 없다. opatch 는 패치 도구이며, startManagedWebLogic.sh 는 템플릿 JAR 를 인수로 받지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating Templates and Domains Using the Pack and Unpack Commands (검수 필요)",
+  "variant_group": "WLS-INSTALL-UNPACK-CMD"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "You need to add the resources from an extension template to an existing domain by using the Configuration Wizard. Which option do you choose on the first screen?",
+  "options": {
+   "A": "Create a new domain",
+   "B": "Update an existing domain",
+   "C": "Create a new domain template",
+   "D": "Reconfigure the Oracle home",
+   "E": "Import a managed server template"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "기존 도메인에 확장 템플릿을 적용하려면 Configuration Wizard 첫 화면에서 Update an existing domain 을 선택하고 도메인 위치를 지정한다. Create a new domain 은 새 도메인을 만든다. 템플릿 생성은 Domain Template Builder 나 pack 이 담당하고, Oracle home 재구성이나 관리 대상 서버 템플릿 가져오기는 이 화면의 선택 항목이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-UPDATE-DOMAIN"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about the Basic WebLogic Server Domain template is correct?",
+  "options": {
+   "A": "It is an extension template that can only be added to an existing domain",
+   "B": "It creates a domain that contains only Managed Servers and no Administration Server",
+   "C": "It is the base template for a WebLogic Server domain and is always included",
+   "D": "It is created by the pack command when the -managed=true option is used",
+   "E": "It is optional and is normally deselected for production domains"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Basic WebLogic Server Domain 템플릿(wls.jar)은 WebLogic 도메인의 기본 템플릿으로, 도메인을 만들 때 항상 포함되며 관리 서버 등 기본 구성을 제공한다. 확장 템플릿이 아니고, pack -managed=true 로 만들어지는 관리 대상 서버 템플릿과도 다르다. 운영 도메인이라고 해서 제외할 수 있는 선택 항목이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Domain Template Reference (검수 필요)",
+  "variant_group": "WLS-INSTALL-BASIC-TEMPLATE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is an extension template in WebLogic Server domain configuration?",
+  "options": {
+   "A": "A template that upgrades the JDK used by the domain",
+   "B": "A template that converts a development mode domain into a production mode domain at the next restart",
+   "C": "A template that contains only the files needed to patch the Oracle home",
+   "D": "A template that adds applications, services, or resources to a domain built from a base template",
+   "E": "A template that defines the log rotation policy for every server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "확장 템플릿은 기본 도메인 템플릿으로 만든 도메인에 애플리케이션, 서비스, 리소스 등을 추가하는 템플릿이다. JDK 업그레이드, 도메인 모드 전환, Oracle home 패치, 로그 회전 정책 정의는 템플릿의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Domain Template Reference (검수 필요)",
+  "variant_group": "WLS-INSTALL-EXTENSION-TEMPLATE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which sequence of WLST offline commands creates a new domain from a domain template?",
+  "options": {
+   "A": "connect, then edit, then startEdit, then activate",
+   "B": "readDomain, then startEdit, then save, then disconnect from the server",
+   "C": "connect, then createDomain, then shutdown",
+   "D": "loadProperties, then deploy, then activate",
+   "E": "readTemplate, configure, writeDomain, then closeTemplate"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WLST 오프라인에서는 readTemplate 로 템플릿을 연 뒤 구성 값을 설정하고 writeDomain 으로 도메인을 쓰고 closeTemplate 으로 닫는다. connect, edit, startEdit, activate 는 실행 중인 관리 서버에 연결해 쓰는 온라인 명령이다. deploy 는 배포 명령이고, 도메인 생성 절차와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-INSTALL-WLST-CREATE-DOMAIN"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST offline commands are used to open an existing domain, apply changes, and save them back to disk?",
+  "options": {
+   "A": "readDomain, updateDomain, and closeDomain",
+   "B": "readTemplate, writeTemplate, and closeTemplate",
+   "C": "connect, save, and activate",
+   "D": "startEdit, updateDomain, and disconnect",
+   "E": "openDomain, commitDomain, and exitDomain"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "WLST 오프라인에서 기존 도메인을 수정할 때는 readDomain 으로 열고 변경 후 updateDomain 으로 저장한 다음 closeDomain 으로 닫는다. readTemplate/writeTemplate 은 템플릿 작업용, connect·save·activate·startEdit 는 온라인 편집용 명령이다. openDomain, commitDomain, exitDomain 이라는 명령은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-INSTALL-WLST-UPDATE-DOMAIN"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When you enter the administrator account on the Administrator Account screen of the Configuration Wizard, which password rule is enforced?",
+  "options": {
+   "A": "The password must be exactly six digits",
+   "B": "The password must have at least eight characters with at least one number or special character",
+   "C": "The password must be identical to the operating system password of the user running the wizard",
+   "D": "The password must not contain any numbers",
+   "E": "The password can be left empty in development mode"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "관리자 비밀번호는 최소 8자 이상이며 숫자나 특수 문자를 하나 이상 포함해야 한다. 6자리 숫자 규칙이나 OS 사용자 비밀번호와 같아야 한다는 규칙은 없고, 숫자를 금지하지도 않는다. 개발 모드라도 비밀번호를 비워 둘 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-ADMIN-PWD-RULE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "During a silent installation on Linux, the -invPtrLoc option points to an oraInst.loc file. What information does this file provide?",
+  "options": {
+   "A": "The location of the domain home that the installer creates after installation",
+   "B": "The administrator user name and password for the new domain",
+   "C": "The location of the Oracle central inventory and the OS group that owns it",
+   "D": "The JDK that the installer must use",
+   "E": "The list of patches to apply after installation"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "oraInst.loc 는 inventory_loc(중앙 인벤토리 위치)과 inst_group(인벤토리 소유 OS 그룹)을 담는 인벤토리 포인터 파일이다. 도메인 위치나 관리자 계정은 설치 후 도메인 구성 단계에서 정하며, JDK 는 설치 프로그램을 실행한 java 로 결정된다. 패치 목록을 지정하는 파일도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-ORAINST-LOC"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which practice does Oracle recommend for the location of production domain homes?",
+  "options": {
+   "A": "Create the domain home inside ORACLE_HOME/wlserver",
+   "B": "Create the domain home inside the JDK installation directory",
+   "C": "Create the domain home inside ORACLE_HOME/OPatch",
+   "D": "Create the domain home outside the Oracle home directory",
+   "E": "Create the domain home in a temporary directory such as /tmp"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Oracle 은 도메인 홈을 Oracle home 밖에 두도록 권장한다. 그래야 제품 바이너리와 구성을 분리해 패치·업그레이드·백업을 독립적으로 할 수 있다. wlserver, JDK, OPatch 디렉터리는 제품 파일 영역이라 도메인을 두기에 적절하지 않고, /tmp 같은 임시 디렉터리는 파일이 삭제될 수 있어 부적절하다.",
+  "reference": "Oracle Fusion Middleware 14.1.1 - Planning an Installation of Oracle Fusion Middleware (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-OUTSIDE-OH"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "After sourcing setWLSEnv.sh, which command displays the installed WebLogic Server version and applied patch information?",
+  "options": {
+   "A": "java weblogic.Server -version",
+   "B": "config.sh -version",
+   "C": "wlst.sh -patches",
+   "D": "startWebLogic.sh -v",
+   "E": "java weblogic.version"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "setWLSEnv.sh 로 클래스패스를 설정한 뒤 java weblogic.version 을 실행하면 WebLogic Server 버전과 적용된 패치 정보가 표시된다. weblogic.Server -version, config.sh -version, wlst.sh -patches, startWebLogic.sh -v 는 버전 확인 방법으로 쓰이지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-VERIFY-VERSION"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which command lists the patches applied to a WebLogic Server 14.1.1 Oracle home?",
+  "options": {
+   "A": "ORACLE_HOME/OPatch/opatch lsinventory",
+   "B": "ORACLE_HOME/oui/bin/deinstall.sh -list",
+   "C": "ORACLE_HOME/oracle_common/common/bin/pack.sh -patches",
+   "D": "DOMAIN_HOME/bin/setDomainEnv.sh -showpatches",
+   "E": "ORACLE_HOME/oracle_common/common/bin/config.sh -patchlist"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Oracle home 에 적용된 패치는 ORACLE_HOME/OPatch/opatch lsinventory 로 확인한다. deinstall.sh 는 제거 도구, pack.sh 는 템플릿 생성 도구, setDomainEnv.sh 는 환경 설정 스크립트, config.sh 는 도메인 구성 도구로 패치 목록을 보여 주는 옵션이 없다.",
+  "reference": "Oracle Fusion Middleware 14.1.1 - Patching with OPatch (검수 필요)",
+  "variant_group": "WLS-INSTALL-OPATCH-LSINV"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "On the Node Manager screen of the Configuration Wizard, which Node Manager type creates the Node Manager home under DOMAIN_HOME/nodemanager?",
+  "options": {
+   "A": "Per Domain Custom Location",
+   "B": "Per Domain Default Location",
+   "C": "Manual Node Manager Setup",
+   "D": "Per Host Shared Location",
+   "E": "Per Cluster Default Location"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Per Domain Default Location 을 선택하면 Node Manager 홈이 DOMAIN_HOME/nodemanager 에 만들어진다. Per Domain Custom Location 은 도메인별이지만 경로를 직접 지정하고, Manual Node Manager Setup 은 마법사가 Node Manager 구성을 하지 않는다. Per Host Shared Location, Per Cluster Default Location 은 이 화면의 선택 항목이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-NM-WIZARD-TYPE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the DOMAIN_HOME/pending directory contain?",
+  "options": {
+   "A": "Applications waiting to be auto-deployed",
+   "B": "Log messages that have not been written to the server log yet",
+   "C": "Configuration changes that have been saved but not yet activated",
+   "D": "Patches that have been downloaded but not applied",
+   "E": "Managed Servers waiting for Node Manager to start them"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "pending 디렉터리에는 변경 센터에서 저장했지만 아직 활성화(activate)하지 않은 구성 변경 파일이 놓인다. 활성화되면 config 디렉터리에 반영된다. 자동 배포 대기 애플리케이션은 autodeploy, 로그는 servers/<서버>/logs 와 관련이 있으며 패치나 서버 시작 대기 목록과는 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-PENDING-DIR"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A domain was created in development mode and must now run in production mode. Which approach is supported?",
+  "options": {
+   "A": "Delete the boot.properties files of all servers; the domain then switches to production mode automatically",
+   "B": "Run the Configuration Wizard and choose Create a new domain over the existing domain",
+   "C": "Rename the autodeploy directory to production",
+   "D": "Enable Production Mode for the domain in the Administration Console and restart the servers",
+   "E": "Apply a production mode patch with OPatch"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "관리 콘솔의 도메인 일반 구성 페이지에서 Production Mode 를 활성화하고 서버를 재시작하면 운영 모드로 전환된다(WLST 로 같은 속성을 바꿀 수도 있다). boot.properties 삭제나 autodeploy 디렉터리 이름 변경은 도메인 모드와 무관하다. 기존 위치에 새 도메인을 덮어 만들면 구성이 사라지며, 모드 전환용 패치는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-PROD-MODE-SWITCH"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which tool creates a custom domain template or extension template from an existing domain or template?",
+  "options": {
+   "A": "The Reconfiguration Wizard (reconfig.sh)",
+   "B": "OPatch",
+   "C": "The deinstall utility",
+   "D": "The setWLSEnv.sh script",
+   "E": "The Domain Template Builder (config_builder.sh)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Domain Template Builder(ORACLE_HOME/oracle_common/common/bin/config_builder.sh)는 기존 도메인이나 템플릿으로부터 도메인 템플릿·확장 템플릿을 만든다. Reconfiguration Wizard 는 업그레이드 시 기존 도메인을 재구성하는 도구, OPatch 는 패치 도구, deinstall 은 제거 도구, setWLSEnv.sh 는 환경 설정 스크립트다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Domain Template Reference (검수 필요)",
+  "variant_group": "WLS-INSTALL-CONFIG-BUILDER"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator starts the Administration Server of a production mode domain with nohup startWebLogic.sh & so that it runs in the background. The server never reaches RUNNING, and the output file ends with a request for the user name. What should the administrator do?",
+  "options": {
+   "A": "Create boot.properties with the admin credentials in the server's security directory and restart",
+   "B": "Switch the domain to development mode so that authentication is skipped at startup",
+   "C": "Add the administrator password to config.xml in clear text",
+   "D": "Increase the heap size with USER_MEM_ARGS and restart",
+   "E": "Delete SerializedSystemIni.dat so that the server no longer asks for the administrator user name"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "운영 모드에서 boot.properties 가 없으면 서버가 콘솔 입력을 기다리므로 백그라운드 실행 시 진행되지 않는다. servers/AdminServer/security/boot.properties 에 자격 증명을 넣으면 해결된다. 개발 모드로 바꿔도 인증이 사라지지 않으며, config.xml 에 평문 비밀번호를 넣는 방식은 지원되지 않는다. 힙 크기와는 무관하고, SerializedSystemIni.dat 를 지우면 암호화된 값을 복호화할 수 없어 도메인이 손상된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-BACKGROUND"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator added a -D system property directly to setDomainEnv.sh. Later, the domain was updated with an extension template using the Configuration Wizard, and the property disappeared from the server command line. How should the property be configured to avoid this in the future?",
+  "options": {
+   "A": "Put it in ORACLE_HOME/wlserver/server/bin/setWLSEnv.sh",
+   "B": "Put it in DOMAIN_HOME/bin/setUserOverrides.sh",
+   "C": "Put it in the extension template so that every update adds it again",
+   "D": "Put it in DOMAIN_HOME/config/config.xml as a comment",
+   "E": "Make setDomainEnv.sh read-only so the wizard cannot overwrite it"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "도메인 확장·재구성 시 setDomainEnv.sh 는 다시 생성될 수 있으므로 직접 수정한 내용이 사라질 수 있다. 사용자 설정은 setDomainEnv.sh 가 호출하는 setUserOverrides.sh 에 두면 보존된다. setWLSEnv.sh 는 셸 환경용으로 서버 시작 경로가 아니며, config.xml 주석은 아무 효과가 없다. 템플릿에 넣는 방식은 우회일 뿐이고, 파일을 읽기 전용으로 만들면 도메인 갱신이 실패할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SETDOMAINENV-OVERWRITE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A domain was created on host1. A new machine, host2, needs to run Managed Server ms2 of this domain. WebLogic Server 14.1.1 is already installed on host2 in the same Oracle home path. What is the recommended way to create the domain directory on host2?",
+  "options": {
+   "A": "Run the Configuration Wizard on host2 and create a new domain with the same name",
+   "B": "Copy only config.xml from host1 to an empty directory on host2",
+   "C": "Run pack with -managed=true on host1, copy the template to host2, and run unpack on host2",
+   "D": "Run deinstall.sh on host2 and reinstall WebLogic Server with the domain option",
+   "E": "Start ms2 on host2 without any domain directory, using only the Administration Server URL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "원격 머신용 도메인 디렉터리는 관리 서버 호스트에서 pack -managed=true 로 템플릿을 만들고 이를 복사해 원격 머신에서 unpack 하여 만드는 것이 권장 방식이다. 같은 이름으로 새 도메인을 만들면 다른 도메인(다른 암호화 시드)이 되어 함께 동작하지 않는다. config.xml 만 복사하면 security 디렉터리 등이 빠지고, 재설치는 무의미하다. 도메인 디렉터리 없이 서버를 시작할 수는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating Templates and Domains Using the Pack and Unpack Commands (검수 필요)",
+  "variant_group": "WLS-INSTALL-PACK-UNPACK-FLOW"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A user runs ./setWLSEnv.sh from the wlserver/server/bin directory and then runs java weblogic.Deployer in the same terminal. The command fails because the weblogic.Deployer class cannot be found. What is the most likely cause?",
+  "options": {
+   "A": "weblogic.Deployer can only be run from the Administration Console",
+   "B": "setWLSEnv.sh must be run only on Windows",
+   "C": "The Administration Server must be running in development mode before weblogic.Deployer can be loaded",
+   "D": "The script ran in a child shell instead of being sourced, so CLASSPATH was not set in this shell",
+   "E": "A domain must first be created with WLST offline before setWLSEnv.sh can set the classpath"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "./setWLSEnv.sh 처럼 실행하면 자식 셸에서만 변수가 설정되고 끝나므로 현재 셸의 CLASSPATH 는 바뀌지 않는다. '. ./setWLSEnv.sh' 또는 source 로 실행해야 한다. weblogic.Deployer 는 명령줄 도구이고, 이 스크립트는 Linux에도 있으며, 도메인 모드나 WLST 로 도메인을 만들었는지와는 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SETWLSENV-SOURCE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A utility JAR file must be available on the system classpath of every server in a domain. The administrator does not want to modify any start script. What is the simplest approach?",
+  "options": {
+   "A": "Copy the JAR into DOMAIN_HOME/autodeploy",
+   "B": "Copy the JAR into DOMAIN_HOME/security",
+   "C": "Copy the JAR into ORACLE_HOME/OPatch",
+   "D": "Add the JAR file name to boot.properties",
+   "E": "Copy the JAR into DOMAIN_HOME/lib and restart the servers"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "DOMAIN_HOME/lib 에 둔 JAR 는 서버 시작 시 자동으로 클래스패스에 추가되므로 스크립트를 고치지 않아도 된다. 다만 재시작해야 반영된다. autodeploy 는 애플리케이션 자동 배포 디렉터리, security 는 보안 파일 디렉터리, OPatch 는 패치 도구 위치이며, boot.properties 는 자격 증명 파일로 클래스패스와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-LIB-JAR"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator changed the password of the weblogic administrator user in the Administration Console. The next time the Administration Server is started with startWebLogic.sh, it fails with an authentication error. The server's boot.properties file was created months ago. What should be done?",
+  "options": {
+   "A": "Replace the encrypted values in boot.properties with the user name and new password in clear text",
+   "B": "Delete config.xml so the server rebuilds it with the new password",
+   "C": "Run the Configuration Wizard to create a new domain over the existing domain using the new password",
+   "D": "Copy boot.properties from another domain that uses the same password",
+   "E": "Switch the domain to development mode so that boot.properties is ignored"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "boot.properties 에는 이전 비밀번호가 암호화되어 있으므로 비밀번호 변경 후에는 이 파일을 새 평문 값으로 바꿔 줘야 하며, 서버가 시작하면서 다시 암호화한다. config.xml 삭제나 새 도메인 생성은 구성을 잃게 한다. 다른 도메인의 boot.properties 는 다른 SerializedSystemIni.dat 로 암호화되어 있어 복호화되지 않는다. 개발 모드로 바꿔도 boot.properties 는 그대로 사용된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-ADMIN-PWD-CHANGE"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements correctly describe differences between development mode and production mode domains in WebLogic Server 14.1.1? (Choose two.)",
+  "options": {
+   "A": "Automatic deployment from the autodeploy directory is disabled in production mode",
+   "B": "A production mode domain cannot contain Managed Servers that run on machines other than the Administration Server host",
+   "C": "The Configuration Wizard does not create a boot.properties file for the Administration Server in production mode",
+   "D": "A production mode domain must store its configuration in database tables instead of config.xml",
+   "E": "A development mode domain cannot use SSL"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "운영 모드에서는 autodeploy 자동 배포가 꺼지고, Configuration Wizard 가 관리 서버용 boot.properties 를 만들어 주지 않아 시작 시 자격 증명을 요구한다. 운영 모드에서도 원격 머신의 관리 대상 서버를 둘 수 있고, 구성은 데이터베이스가 아니라 config.xml 등 파일에 저장된다. 개발 모드에서도 SSL 을 사용할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-DEV-VS-PROD"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two entries are typically specified in the response file for a silent installation of WebLogic Server 14.1.1? (Choose two.)",
+  "options": {
+   "A": "DOMAIN_NAME",
+   "B": "ADMIN_PASSWORD",
+   "C": "ORACLE_HOME",
+   "D": "LISTEN_PORT",
+   "E": "INSTALL_TYPE"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "무인 설치 응답 파일에는 설치 위치인 ORACLE_HOME 과 설치 유형인 INSTALL_TYPE(예: WebLogic Server)을 지정한다. 도메인 이름, 관리자 비밀번호, 수신 포트는 설치가 아니라 도메인 생성(Configuration Wizard 나 WLST) 단계의 설정이므로 설치 응답 파일 항목이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Installing and Configuring Oracle WebLogic Server and Coherence (검수 필요)",
+  "variant_group": "WLS-INSTALL-SILENT-RSP"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which scripts are found in the DOMAIN_HOME/bin directory of a domain created with the Configuration Wizard on Linux? (Choose all that apply.)",
+  "options": {
+   "A": "setDomainEnv.sh",
+   "B": "startManagedWebLogic.sh",
+   "C": "config_builder.sh",
+   "D": "opatch",
+   "E": "stopWebLogic.sh"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "E"
+  ],
+  "explanation": "도메인 bin 디렉터리에는 setDomainEnv.sh, startWebLogic.sh, startManagedWebLogic.sh, stopWebLogic.sh, stopManagedWebLogic.sh 등 도메인 전용 스크립트가 있다. config_builder.sh 는 ORACLE_HOME/oracle_common/common/bin 의 Domain Template Builder, opatch 는 ORACLE_HOME/OPatch 의 패치 도구로 도메인 bin 에 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-DOMAIN-BIN-SCRIPTS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about boot.properties are true? (Choose two.)",
+  "options": {
+   "A": "The values must be encrypted manually before the first startup",
+   "B": "The server encrypts clear-text values in the file when it starts",
+   "C": "A single boot.properties file in DOMAIN_HOME/config is shared by all servers",
+   "D": "Each server uses its own file in its own servers/<server_name>/security directory",
+   "E": "The file stores the passphrases of the SSL keystores"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "boot.properties 는 처음에 평문으로 작성해도 서버가 시작하면서 암호화하며, 서버마다 servers/<서버 이름>/security 아래에 각자의 파일을 둔다. 미리 수동으로 암호화할 필요는 없고, config 디렉터리의 공용 파일 개념은 없다. 키스토어 암호는 서버의 SSL·키스토어 구성에 저장되며 boot.properties 의 내용이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-FACTS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two tools can create a domain template from an existing WebLogic Server domain? (Choose two.)",
+  "options": {
+   "A": "The pack command",
+   "B": "OPatch",
+   "C": "The deinstall utility",
+   "D": "The Domain Template Builder",
+   "E": "The stopWebLogic.sh script"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "기존 도메인에서 템플릿을 만들 수 있는 도구는 pack 명령과 Domain Template Builder(config_builder.sh)다. OPatch 는 패치, deinstall 은 제품 제거, stopWebLogic.sh 는 서버 종료 용도라 템플릿을 만들지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Domain Template Reference (검수 필요)",
+  "variant_group": "WLS-INSTALL-TEMPLATE-CREATE-TOOLS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two items can be configured through the Advanced Configuration options of the Configuration Wizard when creating a domain? (Choose two.)",
+  "options": {
+   "A": "Administration Server settings such as listen address and listen port",
+   "B": "Patches to be applied to the Oracle home before the domain is created",
+   "C": "Topology elements such as Managed Servers, clusters, and machines",
+   "D": "Download and installation of a new JDK",
+   "E": "Creation of a new Oracle Database instance"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Configuration Wizard 의 고급 구성(Advanced Configuration)에서는 관리 서버(수신 주소·포트·SSL), Node Manager, 토폴로지(관리 대상 서버, 클러스터, 머신) 등을 설정할 수 있다. Oracle home 패치는 OPatch, JDK 설치는 별도 작업이며, 데이터베이스 인스턴스 생성은 DBCA 등 데이터베이스 도구의 역할이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-WIZARD-ADV-CONFIG"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two WLST offline commands are used when creating a new domain from a template with a script? (Choose two.)",
+  "options": {
+   "A": "connect",
+   "B": "startEdit",
+   "C": "readTemplate",
+   "D": "getActivationTask",
+   "E": "writeDomain"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "템플릿에서 새 도메인을 만드는 WLST 오프라인 스크립트는 readTemplate 로 템플릿을 열고 설정을 바꾼 뒤 writeDomain 으로 도메인을 디스크에 쓴다. connect, startEdit, getActivationTask 는 실행 중인 관리 서버에 연결해 구성을 바꾸는 온라인 명령이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-INSTALL-WLST-CREATE-DOMAIN"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Why should config.xml not be edited by hand while the Administration Server is running?",
+  "options": {
+   "A": "config.xml is a binary file that cannot be edited with a text editor",
+   "B": "The server holds the configuration in memory and rewrites config.xml on activation, so manual edits can be lost",
+   "C": "config.xml is encrypted as a whole with SerializedSystemIni.dat, so it becomes unreadable after any manual edit",
+   "D": "Editing config.xml automatically switches the domain to development mode",
+   "E": "config.xml is read only by Node Manager and not by the Administration Server"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "관리 서버는 구성을 메모리에 유지하고 변경을 활성화할 때 config.xml 을 다시 쓰므로, 실행 중 수동으로 고친 내용은 덮어써져 사라지거나 불일치를 일으킬 수 있다. config.xml 은 텍스트 XML 파일이며 파일 전체가 암호화되지는 않는다(암호 속성 값만 암호화). 편집이 도메인 모드를 바꾸지 않으며, 관리 서버가 이 파일을 읽는 주체다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-CONFIG-XML-HANDEDIT"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the Configuration Wizard, you select an extension template that depends on other templates. What happens?",
+  "options": {
+   "A": "The wizard ignores the dependencies and creates the domain without them",
+   "B": "The wizard refuses to continue until you run pack to merge the templates",
+   "C": "The wizard automatically selects the templates that the chosen template depends on",
+   "D": "The wizard converts the extension template into a base domain template",
+   "E": "The wizard creates a separate domain for each dependent template"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Configuration Wizard 는 선택한 템플릿이 의존하는 템플릿을 자동으로 함께 선택한다. 의존성을 무시하지 않으며, pack 으로 템플릿을 합칠 필요도 없다. 확장 템플릿을 기본 템플릿으로 바꾸거나 템플릿마다 도메인을 따로 만들지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating WebLogic Domains Using the Configuration Wizard (검수 필요)",
+  "variant_group": "WLS-INSTALL-TEMPLATE-DEPENDENCY"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the difference between a template created by pack without the -managed option and one created with -managed=true?",
+  "options": {
+   "A": "Without -managed, the template contains only Managed Servers; with -managed=true, it contains only the Administration Server",
+   "B": "Without -managed, the template is encrypted; with -managed=true, it is stored in clear text",
+   "C": "Without -managed, the template can be used only on Windows; with -managed=true, it can be used only on Linux",
+   "D": "Without -managed, it captures the full domain; with -managed=true, only what a Managed Server domain directory needs",
+   "E": "There is no difference; the option only changes the template file name"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "-managed 옵션 없이 pack 하면 도메인 전체를 담은 도메인 템플릿이 만들어져 관리 서버를 포함한 새 도메인을 만들 수 있다. -managed=true 는 원격 머신의 관리 대상 서버용 도메인 디렉터리에 필요한 파일만 담는다. 서버 종류를 거꾸로 나누는 설명, 암호화 여부, 운영체제 제한은 이 옵션과 무관하며 파일 이름만 바꾸는 옵션도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Creating Templates and Domains Using the Pack and Unpack Commands (검수 필요)",
+  "variant_group": "WLS-INSTALL-PACK-FULL-VS-MANAGED"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator plans to clear stale cached files of Managed Server ms1. Which action is generally considered safe?",
+  "options": {
+   "A": "With ms1 running, delete DOMAIN_HOME/security/SerializedSystemIni.dat so that it is regenerated at startup",
+   "B": "With ms1 shut down, delete DOMAIN_HOME/config/config.xml",
+   "C": "With ms1 running, delete DOMAIN_HOME/servers/ms1/security",
+   "D": "With ms1 shut down, delete the entire ORACLE_HOME/wlserver directory",
+   "E": "With ms1 shut down, clear DOMAIN_HOME/servers/ms1/tmp and cache, which are recreated at startup"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "서버를 정지한 상태에서 servers/ms1/tmp 와 cache 의 내용을 지우는 것은 일반적인 정리 방법이며 다음 시작 때 다시 만들어진다. SerializedSystemIni.dat 를 지우면 도메인의 암호화 값을 복호화할 수 없게 되고, config.xml 을 지우면 도메인 구성이 사라진다. security 디렉터리에는 boot.properties 가 있어 지우면 시작에 영향을 주며, wlserver 삭제는 제품 자체를 훼손한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-TMP-CACHE-CLEAN"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Three domains on one host use the same WebLogic Server 14.1.1 Oracle home. An administrator plans to apply a patch to that Oracle home with OPatch. Which statement is correct?",
+  "options": {
+   "A": "It affects all three domains, so stop the servers of every domain using that Oracle home first",
+   "B": "The patch affects only the domain whose Administration Server is currently running",
+   "C": "Each domain must be recreated with the Configuration Wizard before the patch can be applied to the Oracle home",
+   "D": "OPatch applies the patch to DOMAIN_HOME/lib of each domain separately",
+   "E": "The patch is applied only after unpack is run in each domain"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "패치는 Oracle home 의 제품 파일에 적용되므로 그 Oracle home 을 쓰는 모든 도메인이 영향을 받는다. 따라서 해당 Oracle home 을 사용하는 모든 도메인의 서버를 정지하고 적용한다. 특정 도메인에만 적용되지 않으며, 도메인 재생성이나 unpack 이 필요하지 않다. OPatch 는 도메인 lib 디렉터리를 대상으로 하지 않는다.",
+  "reference": "Oracle Fusion Middleware 14.1.1 - Patching with OPatch (검수 필요)",
+  "variant_group": "WLS-INSTALL-SHARED-OH-PATCH"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "To save time, an administrator copied an already encrypted boot.properties file from domain A to the AdminServer security directory of domain B. Both domains use the same administrator user name and password, but the Administration Server of domain B fails to boot because it cannot use the boot identity. What is the cause and fix?",
+  "options": {
+   "A": "The file must be renamed to boot.properties.enc before it can be read",
+   "B": "Values were encrypted with domain A's SerializedSystemIni.dat; rewrite them in clear text in domain B",
+   "C": "boot.properties is supported only in development mode; switch domain B to development mode and restart it",
+   "D": "The administrator user must be deleted and recreated in domain B",
+   "E": "The Oracle home must be reinstalled because the encryption library is corrupted"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "boot.properties 의 암호화 값은 각 도메인 고유의 SerializedSystemIni.dat 로 암호화되므로 다른 도메인에서는 복호화할 수 없다. 복사해 온 대상 도메인에서는 평문 username/password 로 다시 작성하면 서버가 대상 도메인의 키로 암호화한다. 파일 이름 변경, 개발 모드 전환, 사용자 재생성, Oracle home 재설치는 원인과 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-COPY-BOOT-PROPS"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A domain was lost and an administrator recreated it with the Configuration Wizard using the same domain name. He then copied the old domain's config directory, including config.xml and JDBC modules with encrypted passwords, into the new domain. The servers now fail with errors decrypting those passwords. What is the most likely cause?",
+  "options": {
+   "A": "The JDBC modules must be stored in DOMAIN_HOME/lib instead of the config directory",
+   "B": "Recreated domains always start in development mode, which cannot read passwords encrypted in production mode",
+   "C": "The new domain has a different SerializedSystemIni.dat, so the old encrypted values cannot be decrypted",
+   "D": "The Configuration Wizard deletes all JDBC drivers from the Oracle home",
+   "E": "config.xml must be renamed to config.xml.orig before it is copied"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "도메인을 새로 만들면 새 SerializedSystemIni.dat(새 암호화 시드)가 생성되므로 이전 도메인에서 암호화한 값은 복호화되지 않는다. 복원하려면 원래 도메인의 SerializedSystemIni.dat 를 함께 복원하거나 비밀번호를 다시 설정해야 한다. JDBC 모듈은 config/jdbc 에 두는 것이 정상이며, 도메인 모드나 JDBC 드라이버, 파일 이름은 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SERIALIZED-INI"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The password of the only administrator user of a domain has been forgotten, and no other user can log in. The domain uses the default authenticator with the embedded LDAP server. Which procedure is used to regain administrative access?",
+  "options": {
+   "A": "Edit config.xml and replace the encrypted administrator password with a clear-text value",
+   "B": "Delete SerializedSystemIni.dat so that the server asks for a new password",
+   "C": "Run the Configuration Wizard with Update an existing domain and choose a new password on the Templates screen",
+   "D": "With all servers stopped, run java weblogic.security.utils.AdminAccount in DOMAIN_HOME/security to create a new initial admin account file, move aside the Administration Server's data/ldap directory, update boot.properties, and restart",
+   "E": "Reinstall the Oracle home; the domain password is stored in the inventory"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "관리자 비밀번호를 잊은 경우 서버를 모두 정지하고 DOMAIN_HOME/security 에서 java weblogic.security.utils.AdminAccount <사용자> <비밀번호> . 를 실행해 DefaultAuthenticatorInit.ldift 를 새로 만들고, 관리 서버의 data/ldap 디렉터리를 다른 이름으로 옮긴 뒤 boot.properties 를 갱신하고 재시작한다. 사용자 비밀번호는 config.xml 에 있지 않고 임베디드 LDAP 에 있다. SerializedSystemIni.dat 삭제는 도메인을 손상시키며, 템플릿 화면이나 인벤토리와도 관련이 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-ADMIN-PWD-RESET"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After the host crashed, the Administration Server fails to start with a message that it is unable to obtain a lock on DOMAIN_HOME/servers/AdminServer/tmp/AdminServer.lok and that the server may already be running. The administrator confirms with ps that no WebLogic Java process exists. What is the appropriate action?",
+  "options": {
+   "A": "Delete SerializedSystemIni.dat and restart",
+   "B": "Reinstall WebLogic Server into a new Oracle home",
+   "C": "Change the domain to development mode and restart",
+   "D": "Increase the open file limit and wait for the lock to expire",
+   "E": "Remove the stale .lok lock files of that server, then start the server again"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "비정상 종료 후 남은 잠금 파일(.lok) 때문에 서버가 이미 실행 중이라고 판단하는 상황이다. 프로세스가 실제로 없음을 확인했다면 해당 서버의 오래된 .lok 파일을 지우고 다시 시작한다. SerializedSystemIni.dat 삭제는 도메인을 손상시키고, 재설치나 도메인 모드 변경은 원인과 무관하다. 잠금 파일은 시간이 지나도 저절로 풀리지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-STALE-LOK"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A WebLogic Server 12.2.1.4 domain that uses no database schemas must be moved to WebLogic Server 14.1.1. The administrator has backed up the domain. Which approach follows the documented upgrade process?",
+  "options": {
+   "A": "Install 14.1.1 into a new Oracle home and run its Reconfiguration Wizard (reconfig.sh) against the domain",
+   "B": "Install 14.1.1 over the existing 12.2.1.4 Oracle home so that the domain is upgraded automatically at the next start",
+   "C": "Apply 14.1.1 to the existing Oracle home as a patch with OPatch",
+   "D": "Create a new 14.1.1 domain with the same name and copy config.xml from the old domain into it",
+   "E": "Run pack in the 12.2.1.4 domain and unpack the template into the 14.1.1 Oracle home directory"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "업그레이드는 14.1.1 을 새 Oracle home 에 설치한 뒤 새 Oracle home 의 Reconfiguration Wizard(oracle_common/common/bin/reconfig.sh)로 기존 도메인을 재구성하는 방식이다(스키마가 있는 경우 Upgrade Assistant 도 사용). 기존 Oracle home 위에 덮어 설치하거나 OPatch 로 메이저 버전을 올릴 수 없다. 새 도메인에 config.xml 만 복사하면 암호화 시드가 달라 문제가 생기고, pack/unpack 은 버전 업그레이드 도구가 아니다.",
+  "reference": "Oracle Fusion Middleware 14.1.1 - Upgrading Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-UPGRADE-RECONFIG"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "In a production mode domain, the Administration Server starts in the background without prompts because it has a boot.properties file. Managed Server ms1 is started in the background with nohup startManagedWebLogic.sh ms1 t3://adminhost:7001 &, but it hangs waiting for a user name. What should be done?",
+  "options": {
+   "A": "Copy boot.properties into DOMAIN_HOME/config so that all servers share it",
+   "B": "Create boot.properties in DOMAIN_HOME/servers/ms1/security on the host where ms1 runs",
+   "C": "Pass the Administration Server's boot.properties path as a third argument to startManagedWebLogic.sh",
+   "D": "Restart the Administration Server so that it pushes its boot.properties to ms1",
+   "E": "Switch ms1 to development mode while the Administration Server stays in production mode"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "boot.properties 는 서버마다 각자의 servers/<서버 이름>/security 에서 읽으므로, ms1 이 실행되는 호스트의 servers/ms1/security 에 파일을 만들어야 한다. config 디렉터리에 공유하는 방식이나 스크립트 세 번째 인수로 경로를 넘기는 방식은 지원되지 않는다. 관리 서버가 boot.properties 를 배포하지 않으며, 도메인 모드는 서버별로 다르게 설정할 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-BOOT-PROPS-PER-SERVER"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator needs a larger heap only for Managed Server ms1. All servers in the domain are started with the standard domain scripts, and the change must survive domain reconfiguration. What is the best approach?",
+  "options": {
+   "A": "Set USER_MEM_ARGS in setDomainEnv.sh without any condition on the server name",
+   "B": "Set USER_MEM_ARGS in setWLSEnv.sh",
+   "C": "In setUserOverrides.sh, set USER_MEM_ARGS only when SERVER_NAME equals ms1",
+   "D": "Put the heap arguments in boot.properties of ms1",
+   "E": "Edit config.xml and add a heap-size element under the ms1 server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "setUserOverrides.sh 는 도메인 재구성 후에도 유지되며, 시작 스크립트가 설정하는 SERVER_NAME 변수를 조건으로 확인하면 ms1 에만 USER_MEM_ARGS 를 적용할 수 있다. 조건 없이 setDomainEnv.sh 에 넣으면 모든 서버에 적용되고 재구성 시 사라질 수 있다. setWLSEnv.sh 는 서버 시작 경로가 아니고, boot.properties 는 자격 증명 파일이며, config.xml 에 그런 힙 크기 요소는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-OVERRIDES-PER-SERVER"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "When a domain is restored from backup, passwords encrypted in its configuration files must remain decryptable. Which two must come from the same original domain backup? (Choose two.)",
+  "options": {
+   "A": "The server log files under DOMAIN_HOME/servers/<server_name>/logs",
+   "B": "DOMAIN_HOME/security/SerializedSystemIni.dat",
+   "C": "The DOMAIN_HOME/servers/<server_name>/tmp directories",
+   "D": "The ORACLE_HOME/OPatch directory",
+   "E": "The DOMAIN_HOME/config directory, including config.xml and its resource modules"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "config.xml 과 리소스 모듈의 암호화 값은 도메인의 SerializedSystemIni.dat 로 복호화되므로 둘은 같은 원본 도메인 백업에서 함께 복원해야 한다. 서버 로그와 tmp 디렉터리는 복호화와 무관하며 tmp 는 시작 시 다시 만들어진다. OPatch 디렉터리는 Oracle home 의 패치 도구다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-RESTORE-SAME-BACKUP"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about setUserOverrides.sh in WebLogic Server 14.1.1 are true? (Choose two.)",
+  "options": {
+   "A": "The Configuration Wizard always generates it with default heap settings",
+   "B": "If the file exists in DOMAIN_HOME/bin, setDomainEnv.sh runs it",
+   "C": "It is used only when servers are started by Node Manager",
+   "D": "It is preserved when the domain is reconfigured or extended",
+   "E": "It replaces startWebLogic.sh as the server start script"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "setUserOverrides.sh 는 DOMAIN_HOME/bin 에 있으면 setDomainEnv.sh 가 실행하며, 도메인 재구성·확장 시에도 보존된다. 기본으로 생성되는 파일이 아니라 관리자가 직접 만든다. 스크립트로 시작하든 Node Manager 가 시작 스크립트를 사용하든 setDomainEnv.sh 경로로 적용되며, 서버 시작 스크립트를 대체하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-INSTALL-SETUSEROVERRIDES"
+ },
+ {
+  "domain": "WLS_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "An automation pipeline must create WebLogic Server 14.1.1 domains on hosts without a graphical display. Which two methods can create a domain without the Configuration Wizard's graphical interface? (Choose two.)",
+  "options": {
+   "A": "A WLST offline script that reads a template and writes the domain",
+   "B": "Running config.sh with the -mode=silent option",
+   "C": "Running opatch apply with a domain template",
+   "D": "The unpack command with a domain template",
+   "E": "Running setWLSEnv.sh with a domain name argument"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "GUI 없이 도메인을 만들려면 WLST 오프라인 스크립트(readTemplate, writeDomain 등)를 쓰거나 unpack 명령으로 템플릿에서 도메인을 만든다. 12c 이후 Configuration Wizard 는 그래픽 모드만 지원하며 무인 모드 대신 WLST 사용이 안내된다. opatch 는 패치 도구이고, setWLSEnv.sh 는 환경 변수만 설정한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding the WebLogic Scripting Tool (검수 필요)",
+  "variant_group": "WLS-INSTALL-NON-GUI-DOMAIN"
+ }
+]

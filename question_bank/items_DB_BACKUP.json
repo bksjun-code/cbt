@@ -1,0 +1,1417 @@
+[
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In which mode must an Oracle Database 19c database run so that RMAN can back up the whole database while it remains open?",
+  "options": {
+   "A": "ARCHIVELOG mode",
+   "B": "NOARCHIVELOG mode with FORCE LOGGING enabled",
+   "C": "Restricted session mode",
+   "D": "Read-only mode",
+   "E": "NOARCHIVELOG mode with Flashback Database enabled"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "열린 상태의 데이터베이스를 백업(온라인·inconsistent 백업)하고 나중에 복구하려면 리두를 보존하는 ARCHIVELOG 모드가 필요하다. NOARCHIVELOG 모드에서는 FORCE LOGGING이나 Flashback Database 설정과 관계없이 데이터베이스를 MOUNT 상태로 내린 일관된 백업만 가능하다. 제한 세션 모드나 읽기 전용 모드는 온라인 백업의 전제 조건이 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-ARCHIVELOG-ONLINE-BACKUP"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which RMAN backup serves as the base for subsequent level 1 incremental backups?",
+  "options": {
+   "A": "A level 1 cumulative incremental backup",
+   "B": "A level 0 incremental backup",
+   "C": "A level 1 differential incremental backup",
+   "D": "A backup of all archived redo log files",
+   "E": "A control file autobackup"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "level 1 증분 백업은 level 0 증분 백업을 기준으로 변경된 블록만 백업하므로 증분 전략의 기준은 level 0 백업이다. level 1 cumulative와 differential 백업은 기준이 아니라 기준 위에 쌓이는 백업이다. 아카이브 로그 백업과 컨트롤 파일 자동 백업은 데이터 파일 블록의 증분 기준이 될 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-INCR-LEVEL0"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which RMAN command enables automatic backups of the control file and server parameter file?",
+  "options": {
+   "A": "SET CONTROLFILE AUTOBACKUP TRUE;",
+   "B": "ALTER DATABASE CONTROLFILE AUTOBACKUP ON;",
+   "C": "CONFIGURE CONTROLFILE AUTOBACKUP ON;",
+   "D": "BACKUP CONTROLFILE AUTOMATIC;",
+   "E": "CONFIGURE SPFILE AUTOBACKUP ENABLE;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "CONFIGURE CONTROLFILE AUTOBACKUP ON은 RMAN 영구 설정으로, 백업 작업 후 등에 컨트롤 파일과 SPFILE을 자동으로 백업하게 한다. SET CONTROLFILE AUTOBACKUP TRUE, ALTER DATABASE CONTROLFILE AUTOBACKUP ON, BACKUP CONTROLFILE AUTOMATIC, CONFIGURE SPFILE AUTOBACKUP ENABLE은 존재하지 않는 구문이다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-CTRL-AUTOBACKUP"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which initialization parameter limits the total space that can be used by files in the fast recovery area?",
+  "options": {
+   "A": "DB_RECOVERY_FILE_DEST",
+   "B": "LOG_ARCHIVE_DEST_1",
+   "C": "DB_FLASHBACK_RETENTION_TARGET",
+   "D": "DB_RECOVERY_FILE_DEST_SIZE",
+   "E": "DB_CREATE_FILE_DEST"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DB_RECOVERY_FILE_DEST_SIZE는 빠른 복구 영역(FRA)에 저장되는 복구 관련 파일이 사용할 수 있는 최대 용량을 지정한다. DB_RECOVERY_FILE_DEST는 FRA의 위치를 지정할 뿐 크기를 제한하지 않는다. LOG_ARCHIVE_DEST_1은 아카이브 대상, DB_FLASHBACK_RETENTION_TARGET은 Flashback Database 보존 목표 시간, DB_CREATE_FILE_DEST는 OMF 데이터 파일 기본 위치이다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FRA-CONFIG"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "When no recovery catalog is used, where does RMAN record the metadata about backups of a target database?",
+  "options": {
+   "A": "In the SYSAUX tablespace of the target database",
+   "B": "In an XML file in the fast recovery area",
+   "C": "In the password file of the target database",
+   "D": "In the server parameter file of the target database",
+   "E": "In the control file of the target database"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "복구 카탈로그를 쓰지 않으면 RMAN 저장소(repository) 메타데이터는 대상 데이터베이스의 컨트롤 파일에만 기록된다. SYSAUX 테이블스페이스, FRA의 XML 파일, 비밀번호 파일, SPFILE은 RMAN 백업 메타데이터의 저장 위치가 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-REPOSITORY-CONTROLFILE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A user accidentally dropped the table HR.EMP, and the table is still in the recycle bin. Which statement restores it?",
+  "options": {
+   "A": "FLASHBACK TABLE hr.emp TO BEFORE DROP;",
+   "B": "UNDROP TABLE hr.emp;",
+   "C": "RECOVER TABLE hr.emp FROM RECYCLEBIN;",
+   "D": "ROLLBACK TABLE hr.emp;",
+   "E": "ALTER TABLE hr.emp UNDROP;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "휴지통(recycle bin)에 남아 있는 삭제된 테이블은 FLASHBACK TABLE ... TO BEFORE DROP으로 되살린다(Flashback Drop). UNDROP TABLE, RECOVER TABLE ... FROM RECYCLEBIN, ROLLBACK TABLE, ALTER TABLE ... UNDROP은 Oracle에 없는 구문이다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DROP"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which data does Oracle Flashback Query (SELECT ... AS OF TIMESTAMP) primarily use to reconstruct past row images?",
+  "options": {
+   "A": "Flashback logs",
+   "B": "Undo data",
+   "C": "Archived redo log files",
+   "D": "The recycle bin",
+   "E": "RMAN backup sets"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Flashback Query는 언두 데이터를 이용해 과거 시점의 행 이미지를 재구성한다. 플래시백 로그는 Flashback Database가 사용하고, 휴지통은 Flashback Drop이 사용한다. 아카이브 로그와 RMAN 백업 세트는 Flashback Query가 읽는 대상이 아니다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-UNDO"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Where does Oracle Database 19c store flashback logs used by Flashback Database?",
+  "options": {
+   "A": "In the undo tablespace",
+   "B": "In the SYSAUX tablespace",
+   "C": "In the fast recovery area",
+   "D": "In the diagnostic trace directory",
+   "E": "In the online redo log groups"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Flashback Database가 사용하는 플래시백 로그는 RVWR 프로세스가 빠른 복구 영역(FRA)에 기록하며, FRA가 구성되어 있어야 Flashback Database를 켤 수 있다. 언두 테이블스페이스와 SYSAUX는 플래시백 로그 위치가 아니고, 진단 trace 디렉터리나 온라인 리두 로그 그룹에도 저장되지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-LOG-LOCATION"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Where does Oracle Data Pump Export (expdp) write its dump files?",
+  "options": {
+   "A": "To the current working directory on the client machine that started the expdp command",
+   "B": "To the path defined by the UTL_FILE_DIR parameter on the client",
+   "C": "To the temporary tablespace of the exporting user",
+   "D": "To the server file system path referenced by a database directory object",
+   "E": "To the directory listed in the client tnsnames.ora file"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Data Pump는 서버 측에서 동작하므로 덤프 파일을 데이터베이스 서버의 디렉터리 객체(DIRECTORY)가 가리키는 경로에 쓴다. 클라이언트 작업 디렉터리나 클라이언트의 UTL_FILE_DIR, tnsnames.ora 경로에는 쓰지 않으며, 임시 테이블스페이스는 덤프 파일 저장 위치가 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-DIRECTORY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which expdp parameter performs a full database export?",
+  "options": {
+   "A": "SCHEMAS=ALL",
+   "B": "TABLES=*",
+   "C": "DATABASE=YES",
+   "D": "MODE=ENTIRE",
+   "E": "FULL=YES"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "expdp에서 전체 데이터베이스 모드 export는 FULL=YES로 지정한다. SCHEMAS=ALL은 ALL이라는 이름의 스키마를 뜻할 뿐 전체 모드가 아니며, TABLES=*, DATABASE=YES, MODE=ENTIRE는 전체 export를 지정하는 유효한 파라미터가 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-FULL"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which impdp parameter loads objects exported from schema SCOTT into schema SCOTT_TEST?",
+  "options": {
+   "A": "REMAP_SCHEMA=scott:scott_test",
+   "B": "REMAP_TABLESPACE=scott:scott_test",
+   "C": "REMAP_DATAFILE=scott:scott_test",
+   "D": "TABLE_EXISTS_ACTION=scott_test",
+   "E": "SCHEMA_TARGET=scott_test"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "REMAP_SCHEMA=원본:대상은 원본 스키마의 객체를 다른 스키마로 불러온다. REMAP_TABLESPACE는 테이블스페이스 이름을, REMAP_DATAFILE은 데이터 파일 이름을 바꾸는 파라미터이고, TABLE_EXISTS_ACTION은 이미 존재하는 테이블 처리 방식을 정한다. SCHEMA_TARGET이라는 파라미터는 없다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-REMAP-SCHEMA"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which type of RMAN backup is an exact, usable copy of a single data file that can be used without first being restored?",
+  "options": {
+   "A": "A backup set",
+   "B": "An image copy",
+   "C": "A backup piece",
+   "D": "A compressed backup set",
+   "E": "A level 1 incremental backup set"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "이미지 카피는 데이터 파일을 그대로 복사한 것이어서 RESTORE 없이 SWITCH로 바로 사용할 수 있다. 백업 세트와 그 구성 단위인 백업 피스는 RMAN 전용 형식이라 RESTORE로 풀어야 하며, 압축 백업 세트와 level 1 증분 백업 세트도 마찬가지로 백업 세트 형식이다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-IMAGE-COPY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which RMAN command lists backups that are no longer needed to satisfy the configured retention policy?",
+  "options": {
+   "A": "LIST EXPIRED BACKUP;",
+   "B": "CROSSCHECK BACKUP;",
+   "C": "REPORT OBSOLETE;",
+   "D": "VALIDATE BACKUPSET ALL;",
+   "E": "SHOW RETENTION POLICY;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "REPORT OBSOLETE는 보존 정책을 만족하는 데 더 이상 필요 없는(obsolete) 백업을 보고한다. LIST EXPIRED BACKUP은 CROSSCHECK에서 찾지 못한 백업을 보여 주고, CROSSCHECK는 저장소와 실제 파일을 대조하며, VALIDATE는 백업의 사용 가능성을 검사하고, SHOW RETENTION POLICY는 설정값만 보여 준다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-EXPIRED-OBSOLETE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which RMAN command checks whether backup pieces recorded in the repository still exist on their media and marks missing ones as EXPIRED?",
+  "options": {
+   "A": "DELETE OBSOLETE;",
+   "B": "REPORT NEED BACKUP;",
+   "C": "CATALOG START WITH '/backup';",
+   "D": "CROSSCHECK BACKUP;",
+   "E": "RESYNC CATALOG;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CROSSCHECK BACKUP은 저장소에 기록된 백업이 실제로 디스크나 테이프에 있는지 확인하고, 없으면 상태를 EXPIRED로 바꾼다. DELETE OBSOLETE는 보존 정책상 불필요한 백업을 지우고, REPORT NEED BACKUP은 백업이 더 필요한 파일을 보고한다. CATALOG START WITH는 기존 파일을 저장소에 등록하며, RESYNC CATALOG는 컨트롤 파일 정보를 복구 카탈로그에 동기화한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-CROSSCHECK"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of the RMAN command CONFIGURE RETENTION POLICY TO RECOVERY WINDOW OF 7 DAYS?",
+  "options": {
+   "A": "RMAN keeps exactly seven backups of each data file",
+   "B": "RMAN automatically deletes every backup older than 7 days from all devices immediately",
+   "C": "RMAN marks all backups older than 7 days as EXPIRED",
+   "D": "RMAN makes a level 0 backup automatically every 7 days",
+   "E": "RMAN keeps all backups needed to recover to any point within the last 7 days"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "RECOVERY WINDOW 보존 정책은 최근 7일 안의 임의 시점으로 복구하는 데 필요한 백업과 아카이브 로그를 보존 대상으로 본다. 파일당 백업 개수를 지정하는 것은 REDUNDANCY 정책이다. 보존 정책은 백업을 obsolete로 판정할 뿐 모든 장치에서 즉시 지우거나 EXPIRED로 바꾸지 않으며, 백업을 자동으로 수행하지도 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-RETENTION-WINDOW"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "When starting RMAN, which connection keyword identifies the database that is being backed up or recovered?",
+  "options": {
+   "A": "TARGET",
+   "B": "AUXILIARY",
+   "C": "CATALOG",
+   "D": "PRIMARY",
+   "E": "SOURCE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "RMAN에서 백업·복구 대상 데이터베이스는 TARGET으로 접속한다(예: rman TARGET /). CATALOG는 복구 카탈로그 데이터베이스, AUXILIARY는 복제나 TSPITR에 쓰는 보조 인스턴스 접속이다. PRIMARY와 SOURCE는 RMAN 명령행의 접속 키워드가 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-RMAN-CONNECT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which expdp parameter setting exports only object definitions without any table rows?",
+  "options": {
+   "A": "CONTENT=DATA_ONLY",
+   "B": "CONTENT=METADATA_ONLY",
+   "C": "METADATA=ALL",
+   "D": "ESTIMATE_ONLY=YES",
+   "E": "EXCLUDE=ROWS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "CONTENT=METADATA_ONLY는 객체 정의(DDL)만 export하고 행 데이터는 제외한다. CONTENT=DATA_ONLY는 반대로 데이터만 내보낸다. ESTIMATE_ONLY=YES는 덤프 파일을 만들지 않고 크기만 추정하며, METADATA=ALL과 EXCLUDE=ROWS는 유효한 설정이 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-CONTENT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two initialization parameters must be set to configure a fast recovery area? (Choose two.)",
+  "options": {
+   "A": "DB_RECOVERY_FILE_DEST",
+   "B": "DB_FLASHBACK_RETENTION_TARGET",
+   "C": "DB_RECOVERY_FILE_DEST_SIZE",
+   "D": "LOG_ARCHIVE_FORMAT",
+   "E": "CONTROL_FILE_RECORD_KEEP_TIME"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "빠른 복구 영역은 위치를 지정하는 DB_RECOVERY_FILE_DEST와 용량 한도를 지정하는 DB_RECOVERY_FILE_DEST_SIZE로 구성하며, 크기를 먼저 설정해야 위치를 지정할 수 있다. DB_FLASHBACK_RETENTION_TARGET은 Flashback Database 보존 목표, LOG_ARCHIVE_FORMAT은 아카이브 파일 이름 형식, CONTROL_FILE_RECORD_KEEP_TIME은 컨트롤 파일 레코드 보존 기간으로 FRA 구성 필수 파라미터가 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FRA-CONFIG"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which Oracle Flashback features rely on undo data? (Choose all that apply.)",
+  "options": {
+   "A": "Flashback Query",
+   "B": "Flashback Drop",
+   "C": "Flashback Version Query",
+   "D": "Flashback Database",
+   "E": "Flashback Table"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "Flashback Query, Flashback Version Query, Flashback Table(시점 지정)은 모두 언두 데이터를 이용한다. Flashback Drop은 휴지통(recycle bin)에 남은 삭제 객체를 이용하고, Flashback Database는 FRA의 플래시백 로그를 이용하므로 언두에 의존하는 기능이 아니다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-UNDO"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which file types can be backed up with RMAN? (Choose all that apply.)",
+  "options": {
+   "A": "Online redo log files",
+   "B": "Data files",
+   "C": "Archived redo log files",
+   "D": "Server parameter file",
+   "E": "Temp files of locally managed temporary tablespaces"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "RMAN은 데이터 파일, 컨트롤 파일, 아카이브 리두 로그, SPFILE, 그리고 백업 세트를 백업할 수 있다. 온라인 리두 로그는 RMAN 백업 대상이 아니며(아카이브 로그로 보호), 로컬 관리 임시 테이블스페이스의 임시 파일도 백업하지 않고 필요 시 재생성된다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-RMAN-FILE-TYPES"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does an RMAN level 1 cumulative incremental backup contain?",
+  "options": {
+   "A": "All blocks changed since the most recent level 1 or level 0 incremental backup",
+   "B": "All blocks changed since the most recent full backup that was not part of an incremental strategy",
+   "C": "All blocks changed since the most recent level 0 incremental backup",
+   "D": "Every used block of the data files, regardless of changes",
+   "E": "Only the redo generated since the most recent level 0 backup"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "cumulative level 1 증분 백업은 가장 최근 level 0 이후 변경된 모든 블록을 담는다. 가장 최근 level 1 또는 level 0 이후의 변경분만 담는 것은 differential 방식이다. 증분 전략 밖의 전체(full) 백업은 증분의 기준이 될 수 없고, 변경 여부와 무관한 모든 사용 블록은 level 0의 특징이며, 증분 백업은 리두가 아니라 데이터 블록을 백업한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-INCR-CUM-DIFF"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database is backed up with a level 0 backup every Sunday and a differential level 1 backup every night Monday through Friday at 23:00. A data file is lost on Thursday at 10:00. Which incremental backups does RMAN apply during recovery after restoring the Sunday level 0 backup?",
+  "options": {
+   "A": "Only the Wednesday level 1 backup, followed by redo",
+   "B": "Only the Monday level 1 backup, followed by redo",
+   "C": "No incremental backups, because differential backups cannot be used for recovery",
+   "D": "The Monday, Tuesday, and Wednesday level 1 backups, followed by redo",
+   "E": "The Monday through Thursday level 1 backups, followed by redo"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "differential level 1은 직전 level 1 또는 level 0 이후 변경분만 담으므로 일요일 level 0을 복원한 뒤 월·화·수 백업을 차례로 적용하고 나머지는 리두로 복구한다. 수요일 백업 하나만으로는 월·화의 변경분이 빠지고, 월요일 백업만 적용하면 이후 변경을 모두 리두로 처리해야 한다. 목요일 23시 백업은 장애 시점에 아직 존재하지 않으며, differential 백업도 복구에 정상적으로 사용된다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-INCR-RECOVERY-CHAIN"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the main benefit of enabling block change tracking for an Oracle Database 19c database?",
+  "options": {
+   "A": "Level 0 backups become smaller because blocks unchanged since the last backup are skipped",
+   "B": "Flashback Query can retrieve older row versions without undo",
+   "C": "Archived redo logs are compressed as they are generated",
+   "D": "RMAN no longer needs to read the control file during backups",
+   "E": "Incremental backups read only changed blocks instead of scanning whole data files"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "블록 변경 추적은 변경된 블록을 추적 파일에 기록하여 증분 백업 시 데이터 파일 전체를 스캔하지 않고 변경 블록만 읽게 해 증분 백업 시간을 줄인다. level 0 백업은 여전히 사용된 블록 전체를 백업하므로 작아지지 않는다. 언두 없는 Flashback Query, 아카이브 로그 압축, 컨트롤 파일 미참조와는 관계가 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-BCT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement enables block change tracking with an explicitly named tracking file?",
+  "options": {
+   "A": "ALTER DATABASE ENABLE BLOCK CHANGE TRACKING USING FILE '/u01/app/oracle/bct/chg.trc';",
+   "B": "CONFIGURE BLOCK CHANGE TRACKING ON FILE '/u01/app/oracle/bct/chg.trc';",
+   "C": "ALTER SYSTEM SET BLOCK_CHANGE_TRACKING_FILE='/u01/app/oracle/bct/chg.trc';",
+   "D": "BACKUP INCREMENTAL LEVEL 0 WITH CHANGE TRACKING;",
+   "E": "ALTER TABLESPACE users ENABLE CHANGE TRACKING;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "블록 변경 추적은 SQL 문 ALTER DATABASE ENABLE BLOCK CHANGE TRACKING으로 켜며, USING FILE 절로 추적 파일 이름을 지정할 수 있다(생략하면 DB_CREATE_FILE_DEST에 OMF로 생성). RMAN CONFIGURE에는 블록 변경 추적 설정이 없고, 같은 이름의 초기화 파라미터, BACKUP 명령의 WITH CHANGE TRACKING 절, 테이블스페이스 단위 설정도 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-BCT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In an incrementally updated backup strategy, what does the command RECOVER COPY OF DATABASE WITH TAG 'incr_upd'; do?",
+  "options": {
+   "A": "It performs media recovery of the current data files of the open database by applying archived redo logs",
+   "B": "It applies level 1 incremental backups with that tag to the image copies to roll them forward",
+   "C": "It restores the image copies to the original data file locations",
+   "D": "It creates new level 0 image copies of all data files",
+   "E": "It validates the image copies without changing them"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "증분 갱신 백업(incrementally updated backup)에서 RECOVER COPY OF DATABASE WITH TAG는 해당 태그의 level 1 증분 백업을 이미지 카피에 적용해 카피를 최신 쪽으로 롤포워드한다. 현재 운영 중인 데이터 파일을 복구하거나 원래 위치로 복원하지 않으며, 새 level 0 카피 생성이나 검증만 하는 명령도 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-INCR-UPDATED-COPY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the RMAN command SWITCH DATAFILE 5 TO COPY; do?",
+  "options": {
+   "A": "It copies the image copy back over the original data file 5 location",
+   "B": "It applies all available redo to data file 5 and brings it online",
+   "C": "It updates the control file so that the latest image copy of data file 5 becomes the current data file",
+   "D": "It creates a new image copy of data file 5 in the fast recovery area",
+   "E": "It renames data file 5 on disk to match the image copy name without recording any change in the control file"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SWITCH ... TO COPY는 파일을 복사하지 않고 컨트롤 파일의 포인터만 바꾸어 이미지 카피를 현재 데이터 파일로 사용하게 한다. 그래서 RESTORE보다 훨씬 빠르지만, 이후 RECOVER로 리두를 적용해야 한다. 원래 위치로 다시 복사하거나 리두를 적용하거나 새 카피를 만드는 동작은 하지 않으며, 컨트롤 파일 갱신이 핵심이다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-SWITCH-COPY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "V$DATABASE_BLOCK_CORRUPTION lists several corrupt blocks in different data files. Which RMAN command repairs all of the listed blocks while the affected data files stay online?",
+  "options": {
+   "A": "RESTORE CORRUPTION LIST;",
+   "B": "REPAIR DATABASE BLOCKS;",
+   "C": "VALIDATE DATABASE REPAIR;",
+   "D": "RECOVER CORRUPTION LIST;",
+   "E": "ALTER DATABASE RECOVER CORRUPT BLOCKS;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "RECOVER CORRUPTION LIST는 V$DATABASE_BLOCK_CORRUPTION에 기록된 손상 블록을 블록 단위 미디어 복구로 고치며, 데이터 파일은 온라인 상태를 유지한다. RESTORE CORRUPTION LIST, REPAIR DATABASE BLOCKS, VALIDATE DATABASE REPAIR, ALTER DATABASE RECOVER CORRUPT BLOCKS는 유효한 구문이 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-BLOCK-RECOVERY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the RMAN command BACKUP VALIDATE CHECK LOGICAL DATABASE; do?",
+  "options": {
+   "A": "It creates a full backup of the database and then verifies each resulting backup piece for corruption",
+   "B": "It restores the latest backup to a temporary location to test it",
+   "C": "It checks only the existing backup sets for corruption",
+   "D": "It repairs any corrupt blocks it finds using flashback logs",
+   "E": "It reads the data files and checks for physical and logical corruption without creating a backup"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "BACKUP VALIDATE는 백업하듯 데이터 파일을 읽어 손상을 점검하지만 백업 파일을 만들지 않으며, CHECK LOGICAL을 붙이면 논리적 손상까지 검사하고 결과는 V$DATABASE_BLOCK_CORRUPTION에 기록된다. 백업을 만든 뒤 검증하거나 임시 위치로 복원하지 않으며, 기존 백업 세트 검사는 RESTORE ... VALIDATE 등의 역할이다. 손상을 수리하지도 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-BACKUP-VALIDATE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which RMAN command confirms that the backups needed to restore the database exist and are usable, without actually restoring any files?",
+  "options": {
+   "A": "RESTORE DATABASE VALIDATE;",
+   "B": "BACKUP VALIDATE DATABASE;",
+   "C": "RECOVER DATABASE TEST;",
+   "D": "CROSSCHECK DATABASE;",
+   "E": "LIST BACKUP OF DATABASE SUMMARY;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "RESTORE DATABASE VALIDATE는 복원에 쓰일 백업을 선택해 실제로 읽어 보고 사용 가능한지 확인하되 파일을 복원하지 않는다. BACKUP VALIDATE는 백업이 아니라 현재 데이터 파일을 점검한다. RECOVER DATABASE TEST는 시험적 리두 적용이며, CROSSCHECK DATABASE는 유효한 형식이 아니고, LIST는 저장소 기록만 보여 줄 뿐 백업 내용을 읽지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-RESTORE-VALIDATE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Where is it recommended to create an RMAN recovery catalog schema?",
+  "options": {
+   "A": "In the SYSTEM tablespace of each target database",
+   "B": "In a separate database that is not one of the target databases it records",
+   "C": "In the fast recovery area of the primary target database",
+   "D": "In the SYS schema of the target database",
+   "E": "In the same PDB as the application data it protects"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "복구 카탈로그는 대상 데이터베이스와 함께 손실되지 않도록 별도의 데이터베이스에 두는 것이 권장된다. 대상 데이터베이스의 SYSTEM 테이블스페이스, SYS 스키마, 보호 대상 PDB에 두면 대상 장애 시 카탈로그도 함께 사용할 수 없게 된다. FRA는 파일 저장 영역일 뿐 카탈로그 스키마를 만드는 곳이 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CATALOG-LOCATION"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After creating a recovery catalog with CREATE CATALOG, which RMAN command, run while connected to both the target and the catalog, adds the target database to the catalog?",
+  "options": {
+   "A": "CREATE CATALOG FOR TARGET;",
+   "B": "RESYNC DATABASE;",
+   "C": "REGISTER DATABASE;",
+   "D": "CATALOG DATABASE;",
+   "E": "ADD DATABASE TO CATALOG;"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "복구 카탈로그를 만든 뒤 대상과 카탈로그에 모두 접속해 REGISTER DATABASE를 실행하면 대상 데이터베이스가 카탈로그에 등록되고 컨트롤 파일 정보가 동기화된다. CREATE CATALOG FOR TARGET, RESYNC DATABASE, CATALOG DATABASE, ADD DATABASE TO CATALOG는 이 용도의 명령이 아니다(CATALOG 명령은 개별 백업 파일을 등록하는 데 쓴다).",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-CATALOG-REGISTER"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the CONTROL_FILE_RECORD_KEEP_TIME initialization parameter control?",
+  "options": {
+   "A": "The number of days RMAN keeps backups before deleting them",
+   "B": "The number of days a recovery catalog keeps resynchronized records",
+   "C": "The number of days archived redo logs must remain in the fast recovery area before RMAN is allowed to delete them",
+   "D": "The minimum number of days reusable control file records, such as backup records, are kept before being overwritten",
+   "E": "The number of days a control file autobackup remains valid"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CONTROL_FILE_RECORD_KEEP_TIME은 컨트롤 파일의 재사용 가능 레코드(백업 기록 등)를 덮어쓰기 전 최소 보존 일수이다. 백업 삭제 시점은 보존 정책이 정하고, 카탈로그 레코드 보존이나 FRA 내 아카이브 로그 보존 기간, 자동 백업의 유효 기간을 정하는 파라미터가 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CFILE-KEEP-TIME"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which prerequisite must be met before FLASHBACK TABLE orders TO TIMESTAMP ... can succeed?",
+  "options": {
+   "A": "Flashback Database must be enabled",
+   "B": "The ORDERS table must be in the recycle bin",
+   "C": "Supplemental logging must be enabled for the ORDERS table",
+   "D": "A guaranteed restore point must exist",
+   "E": "Row movement must be enabled on the ORDERS table"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "시점 지정 Flashback Table은 행의 ROWID가 바뀔 수 있으므로 ALTER TABLE ... ENABLE ROW MOVEMENT가 선행되어야 하며 언두 데이터를 사용한다. Flashback Database나 보장 복원 지점은 Flashback Table과 무관하고, 휴지통은 삭제된 테이블을 되살리는 Flashback Drop의 조건이며, 보충 로깅은 필수 조건이 아니다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-TABLE-ROWMOVE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about a guaranteed restore point is true?",
+  "options": {
+   "A": "Flashback logs needed to flash back to it are kept even beyond DB_FLASHBACK_RETENTION_TARGET",
+   "B": "It is automatically dropped when DB_FLASHBACK_RETENTION_TARGET is exceeded",
+   "C": "It can be created only when a recovery catalog is used",
+   "D": "It is stored in the undo tablespace",
+   "E": "It behaves the same as a normal restore point: it only records an SCN and does not retain any flashback logs"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "보장 복원 지점(guaranteed restore point)은 그 시점으로 되돌리는 데 필요한 플래시백 로그를 DB_FLASHBACK_RETENTION_TARGET과 무관하게 보존하며, 직접 삭제할 때까지 유지된다. 보존 목표를 넘었다고 자동 삭제되지 않고, 복구 카탈로그가 필요하지 않으며, 언두에 저장되지도 않는다. 일반 복원 지점은 SCN에 이름만 붙인 것으로 로그 보존을 보장하지 않는다는 점이 다르다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-GUARANTEED-RP"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After a successful FLASHBACK DATABASE TO RESTORE POINT before_upgrade; command, how must the database be opened for read/write access?",
+  "options": {
+   "A": "ALTER DATABASE OPEN;",
+   "B": "ALTER DATABASE OPEN RESETLOGS;",
+   "C": "ALTER DATABASE OPEN UPGRADE;",
+   "D": "STARTUP FORCE;",
+   "E": "RECOVER DATABASE; followed by ALTER DATABASE OPEN;"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Flashback Database로 과거 시점으로 되돌린 뒤 읽기·쓰기로 열려면 RESETLOGS로 열어 새 incarnation을 시작해야 한다(확인용으로 READ ONLY 열기는 가능). 일반 OPEN이나 STARTUP FORCE는 RESETLOGS 요구로 실패하고, UPGRADE 모드는 업그레이드용이다. RECOVER DATABASE를 하면 되돌린 시점 이후 변경이 다시 적용되어 flashback 목적이 사라진다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DB-OPEN"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In which state must the database be when the FLASHBACK DATABASE command is issued?",
+  "options": {
+   "A": "Open read/write",
+   "B": "Started in NOMOUNT",
+   "C": "Mounted but not open",
+   "D": "Open in restricted mode",
+   "E": "Open read-only"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "FLASHBACK DATABASE는 인스턴스가 MOUNT 상태(열리지 않은 상태)일 때 실행해야 한다. 데이터베이스가 열려 있으면 읽기·쓰기, 제한 모드, 읽기 전용 모두 실행할 수 없고, NOMOUNT 상태는 컨트롤 파일이 열리지 않아 데이터 파일 정보를 알 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DB-STATE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which query clause returns every committed version of rows that existed between two SCNs, together with pseudocolumns such as VERSIONS_OPERATION?",
+  "options": {
+   "A": "AS OF SCN ...",
+   "B": "FLASHBACK BETWEEN SCN ... AND ...",
+   "C": "UNTIL SCN ...",
+   "D": "VERSIONS BETWEEN SCN ... AND ...",
+   "E": "HISTORY FROM SCN ... TO ..."
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Flashback Version Query는 VERSIONS BETWEEN SCN(또는 TIMESTAMP) 절을 사용하며 VERSIONS_STARTSCN, VERSIONS_OPERATION 같은 의사 열을 제공한다. AS OF SCN은 한 시점의 이미지만 돌려준다. FLASHBACK BETWEEN, UNTIL SCN, HISTORY FROM 절은 SELECT 문의 유효한 구문이 아니다(UNTIL SCN은 RMAN 복구 구문이다).",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-VERSIONS"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "You run expdp with PARALLEL=4 and want each worker to be able to write to its own dump file. How should the DUMPFILE parameter be specified?",
+  "options": {
+   "A": "DUMPFILE=exp_*.dmp",
+   "B": "DUMPFILE=exp.dmp,PARALLEL",
+   "C": "DUMPFILE=exp_$N.dmp",
+   "D": "DUMPFILE=exp_?.dmp",
+   "E": "DUMPFILE=exp_%U.dmp"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "DUMPFILE에 %U 치환 변수를 쓰면 필요한 만큼 01, 02 같은 번호가 붙은 덤프 파일이 자동 생성되어 병렬 워커들이 각자 파일에 쓸 수 있다. 별표, 물음표, $N 같은 와일드카드는 Data Pump 치환 변수가 아니며, DUMPFILE 값에 PARALLEL을 붙이는 형식도 없다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-PARALLEL-FILE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "During impdp, a table in the dump file already exists in the target schema. Which TABLE_EXISTS_ACTION value drops the existing table, re-creates it from the dump file, and loads the rows?",
+  "options": {
+   "A": "REPLACE",
+   "B": "TRUNCATE",
+   "C": "APPEND",
+   "D": "SKIP",
+   "E": "RECREATE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "TABLE_EXISTS_ACTION=REPLACE는 기존 테이블을 삭제하고 덤프 파일의 정의로 다시 만든 뒤 데이터를 적재한다. TRUNCATE는 테이블은 두고 행만 지운 뒤 적재하고, APPEND는 기존 행에 추가하며, SKIP은 해당 테이블을 건너뛴다. RECREATE는 유효한 값이 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-TABLE-EXISTS"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "While attached to a running Data Pump export job in interactive-command mode, which command stops the job so that it can be restarted later with START_JOB?",
+  "options": {
+   "A": "KILL_JOB",
+   "B": "STOP_JOB",
+   "C": "EXIT_CLIENT",
+   "D": "CONTINUE_CLIENT",
+   "E": "PAUSE_JOB"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "STOP_JOB은 작업을 정상 중지하고 마스터 테이블을 남겨 두므로 나중에 ATTACH 후 START_JOB으로 재시작할 수 있다. KILL_JOB은 작업을 중단하고 마스터 테이블까지 지워 재시작할 수 없다. EXIT_CLIENT는 클라이언트만 빠져나가고 작업은 계속 실행되며, CONTINUE_CLIENT는 로깅 모드로 돌아가는 명령이다. PAUSE_JOB은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-INTERACTIVE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of running impdp with the NETWORK_LINK parameter?",
+  "options": {
+   "A": "The dump file is first copied to the target server over the network before the import job starts",
+   "B": "The import runs on the client and sends rows to the server over Oracle Net",
+   "C": "Data is imported directly from the source database over a database link, with no dump file",
+   "D": "The source database must be shut down during the import",
+   "E": "The parameter names the TNS alias used to connect the impdp client to the target database"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "impdp의 NETWORK_LINK는 데이터베이스 링크를 통해 원본 데이터베이스에서 직접 데이터를 가져오므로 덤프 파일이 필요 없다. 덤프 파일을 복사하거나 클라이언트에서 처리하는 방식이 아니며, 원본 데이터베이스를 내릴 필요도 없다. 클라이언트 접속에 쓰는 것은 접속 문자열이지 NETWORK_LINK가 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-NETWORK-LINK"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA wants an expdp schema export that is transactionally consistent as of 22:00 even though users keep changing data during the export. Which parameter should be used?",
+  "options": {
+   "A": "SNAPSHOT_TIME",
+   "B": "AS_OF_TIME",
+   "C": "READ_CONSISTENT",
+   "D": "FLASHBACK_TIME",
+   "E": "CONSISTENCY_MODE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "FLASHBACK_TIME(또는 FLASHBACK_SCN)을 지정하면 Data Pump가 해당 시점 기준으로 일관된 데이터를 export하며, 이 기능은 언두 데이터에 의존한다. SNAPSHOT_TIME, AS_OF_TIME, READ_CONSISTENT, CONSISTENCY_MODE는 expdp 파라미터가 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-CONSISTENT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Sessions hang and the alert log reports ORA-19809: limit exceeded for recovery files, because archived redo logs can no longer be written to the fast recovery area. The file system that holds the fast recovery area still has plenty of free space. What is the quickest correct action?",
+  "options": {
+   "A": "Delete the archived redo logs in the fast recovery area with an operating system command and take no further action",
+   "B": "Increase UNDO_RETENTION so that fewer archived logs are needed",
+   "C": "Disable control file autobackup",
+   "D": "Restart the instance with STARTUP FORCE",
+   "E": "Increase DB_RECOVERY_FILE_DEST_SIZE with ALTER SYSTEM"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "FRA 사용량이 DB_RECOVERY_FILE_DEST_SIZE 한도에 도달한 것이므로, 파일 시스템 공간이 충분하다면 ALTER SYSTEM으로 한도를 늘리는 것이 가장 빠르다(또는 RMAN으로 백업 후 삭제). OS 명령으로 아카이브 로그를 지우면 RMAN 저장소와 맞지 않고 복구 가능성을 잃을 수 있다. UNDO_RETENTION, 컨트롤 파일 자동 백업 해제, 인스턴스 재시작은 FRA 한도 문제를 해결하지 못한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FRA-FULL"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Table SALES.ORDERS was dropped by mistake. Before anyone noticed, the application created a new, empty table named SALES.ORDERS. The dropped table is still in the recycle bin, and you need its rows back without removing the new table. What should you do?",
+  "options": {
+   "A": "FLASHBACK TABLE sales.orders TO BEFORE DROP RENAME TO orders_old;",
+   "B": "FLASHBACK TABLE sales.orders TO BEFORE DROP;",
+   "C": "PURGE TABLE sales.orders; and then flash back the dropped table",
+   "D": "FLASHBACK TABLE sales.orders TO TIMESTAMP SYSTIMESTAMP - INTERVAL '1' HOUR;",
+   "E": "FLASHBACK DATABASE TO TIMESTAMP SYSTIMESTAMP - INTERVAL '1' HOUR;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "같은 이름의 객체가 이미 있으면 TO BEFORE DROP만으로는 원래 이름을 쓸 수 없어 실패하므로 RENAME TO 절로 다른 이름을 주어 복원한다. PURGE TABLE은 휴지통의 테이블을 영구 삭제한다. 시점 지정 Flashback Table은 새로 만든 빈 테이블에 적용될 뿐 삭제된 테이블을 되살리지 못하고, Flashback Database는 데이터베이스 전체를 되돌려 다른 변경까지 잃는다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DROP-RENAME"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A database runs in ARCHIVELOG mode with valid RMAN backups. A disk failure destroys one data file of the APP_DATA tablespace while the database is open; other tablespaces are unaffected and must stay available. What is the best recovery approach?",
+  "options": {
+   "A": "Shut down the database, restore all data files from the latest backup, and perform complete recovery",
+   "B": "Take the data file offline, restore and recover only that file with RMAN, then bring it online",
+   "C": "Restore the data file and open the database with RESETLOGS",
+   "D": "Use FLASHBACK DATABASE to rewind the database to before the failure",
+   "E": "Drop the APP_DATA tablespace and re-create it from a Data Pump export"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ARCHIVELOG 모드에서 비SYSTEM 데이터 파일 하나가 손상되었다면 해당 파일만 오프라인으로 하고 RESTORE DATAFILE, RECOVER DATAFILE 후 온라인으로 하면 데이터베이스를 연 채 완전 복구할 수 있다. 전체 데이터 파일 복원은 불필요한 중단을 낳고, 완전 복구에는 RESETLOGS가 필요 없다. Flashback Database는 물리적 손실된 파일을 복구하지 못하며, 테이블스페이스 재생성은 데이터 손실을 일으킨다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-LOST-USER-DATAFILE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "You must import a schema-mode dump file into a new database. The tables in the dump file were stored in tablespace USERS_DATA, which does not exist in the new database, and they must be created in tablespace APP_TS instead. Which impdp parameter should you use?",
+  "options": {
+   "A": "REMAP_SCHEMA=users_data:app_ts",
+   "B": "REMAP_DATAFILE=users_data:app_ts",
+   "C": "REMAP_TABLESPACE=users_data:app_ts",
+   "D": "TRANSFORM=TABLESPACE:app_ts",
+   "E": "DEFAULT_TABLESPACE=app_ts"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "REMAP_TABLESPACE=원본:대상은 덤프 파일에 기록된 테이블스페이스 이름을 대상 테이블스페이스로 바꾸어 객체를 생성한다. REMAP_SCHEMA는 스키마 이름을, REMAP_DATAFILE은 데이터 파일 경로를 바꾸는 파라미터다. TRANSFORM=TABLESPACE:app_ts와 DEFAULT_TABLESPACE는 테이블스페이스를 지정하는 유효한 impdp 설정이 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-REMAP-TS"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "All copies of the control file are lost. The database uses an SPFILE, the fast recovery area, and CONFIGURE CONTROLFILE AUTOBACKUP ON; no recovery catalog is used. After starting the instance in NOMOUNT state, which RMAN command should you run next?",
+  "options": {
+   "A": "RESTORE DATABASE;",
+   "B": "RECOVER CONTROLFILE;",
+   "C": "ALTER DATABASE OPEN RESETLOGS;",
+   "D": "RESTORE CONTROLFILE FROM AUTOBACKUP;",
+   "E": "SWITCH CONTROLFILE TO COPY;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "컨트롤 파일이 모두 손실되면 NOMOUNT 상태에서 RESTORE CONTROLFILE FROM AUTOBACKUP으로 FRA의 자동 백업을 복원한 뒤 MOUNT, RECOVER DATABASE, OPEN RESETLOGS 순으로 진행한다. RESTORE DATABASE는 컨트롤 파일이 있어야(MOUNT 상태여야) 실행할 수 있다. RECOVER CONTROLFILE과 SWITCH CONTROLFILE TO COPY는 유효한 RMAN 명령이 아니며, 복원 전에 OPEN RESETLOGS를 할 수는 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CONTROLFILE-RESTORE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are prerequisites for enabling Flashback Database? (Choose two.)",
+  "options": {
+   "A": "A recovery catalog must be registered",
+   "B": "The database must run in ARCHIVELOG mode",
+   "C": "Block change tracking must be enabled",
+   "D": "A fast recovery area must be configured",
+   "E": "The undo tablespace must have RETENTION GUARANTEE"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "Flashback Database를 켜려면 데이터베이스가 ARCHIVELOG 모드여야 하고, 플래시백 로그를 저장할 빠른 복구 영역이 구성되어 있어야 한다. 복구 카탈로그, 블록 변경 추적, 언두 RETENTION GUARANTEE는 Flashback Database의 전제 조건이 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DB-PREREQ"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about RMAN backup encryption are true? (Choose two.)",
+  "options": {
+   "A": "RMAN can encrypt image copies",
+   "B": "A recovery catalog is required to create encrypted backups",
+   "C": "Transparent-mode encryption requires an open keystore",
+   "D": "An encrypted backup can be restored by anyone who knows the DBID",
+   "E": "Restoring a password-encrypted backup requires supplying the password with SET DECRYPTION"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "투명 모드 암호화는 키스토어(wallet)가 열려 있어야 하고, 암호 모드로 만든 백업을 복원할 때는 SET DECRYPTION IDENTIFIED BY로 암호를 제공해야 한다. RMAN 암호화는 백업 세트에만 적용되며 이미지 카피는 암호화할 수 없다. 복구 카탈로그는 필요 없고, DBID만으로는 암호화된 백업을 복원할 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-BACKUP-ENCRYPTION"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which of the following are valid Data Pump Export modes specified by expdp parameters? (Choose all that apply.)",
+  "options": {
+   "A": "SCHEMAS",
+   "B": "TABLES",
+   "C": "EXTENTS",
+   "D": "TABLESPACES",
+   "E": "ROWIDS"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "expdp의 export 모드는 FULL, SCHEMAS, TABLES, TABLESPACES, TRANSPORT_TABLESPACES 파라미터로 지정한다. EXTENTS와 ROWIDS는 export 모드를 지정하는 파라미터가 아니다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-MODES"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about EXPIRED and OBSOLETE backups in RMAN are true? (Choose two.)",
+  "options": {
+   "A": "A backup is marked EXPIRED when CROSSCHECK cannot find its file on the media",
+   "B": "CROSSCHECK physically deletes backup pieces it cannot find",
+   "C": "REPORT OBSOLETE removes obsolete backups from disk and deletes their repository records",
+   "D": "A backup is OBSOLETE when it is no longer needed to satisfy the retention policy",
+   "E": "Every obsolete backup is also expired"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "EXPIRED는 CROSSCHECK가 매체에서 파일을 찾지 못한 상태이고, OBSOLETE는 보존 정책상 더 이상 필요 없는 상태로 서로 다른 개념이다. CROSSCHECK는 상태만 갱신할 뿐 파일을 지우지 않으며, REPORT OBSOLETE는 보고만 하고 삭제는 DELETE OBSOLETE가 한다. obsolete 백업도 파일이 존재하면 AVAILABLE 상태이므로 항상 expired인 것은 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-EXPIRED-OBSOLETE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "With CONFIGURE CONTROLFILE AUTOBACKUP ON set and the database in ARCHIVELOG mode, which two events cause RMAN or the database to create a control file autobackup? (Choose two.)",
+  "options": {
+   "A": "Every log switch of the online redo logs",
+   "B": "Successful completion of a BACKUP command at the RMAN prompt",
+   "C": "Every commit of a user transaction",
+   "D": "Every checkpoint that the checkpoint process performs, including incremental checkpoints",
+   "E": "A structural change to the database, such as adding a data file"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "자동 백업이 켜져 있으면 RMAN BACKUP 명령(RUN 블록이면 블록 종료 시)이 성공한 뒤 컨트롤 파일과 SPFILE이 자동 백업되고, ARCHIVELOG 모드에서는 데이터 파일 추가 같은 구조 변경 시에도 자동 백업이 생성된다. 로그 스위치, 커밋, 체크포인트마다 자동 백업이 만들어지지는 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CTRL-AUTOBACKUP"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two capabilities are available only when RMAN uses a recovery catalog? (Choose two.)",
+  "options": {
+   "A": "Backing up a database that runs in ARCHIVELOG mode",
+   "B": "Using RMAN DUPLICATE to create a test copy of a target database on another host",
+   "C": "Faster backup I/O through additional channels",
+   "D": "Storing RMAN scripts as global or local stored scripts in the repository",
+   "E": "Keeping backup metadata history longer than the control file can retain it"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "저장 스크립트(stored script)는 복구 카탈로그에만 저장할 수 있고, 카탈로그는 컨트롤 파일의 재사용 레코드 한계를 넘어 오래된 백업 이력을 보관할 수 있다. ARCHIVELOG 모드 백업과 DUPLICATE는 카탈로그 없이도 가능하며, 백업 I/O 속도는 카탈로그 유무와 무관하다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CATALOG-BENEFIT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about Oracle Data Pump are true? (Choose two.)",
+  "options": {
+   "A": "Dump files are written by server processes on the database server",
+   "B": "A stopped job can be restarted after reattaching to it",
+   "C": "The original imp utility can read dump files created by expdp",
+   "D": "The job is terminated as soon as the expdp client session disconnects",
+   "E": "Dump files are always written to the client machine"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "Data Pump는 서버 측 프로세스가 디렉터리 객체 경로에 덤프 파일을 쓰며, 중지된 작업은 ATTACH 후 START_JOB으로 재시작할 수 있다. expdp 덤프 파일은 원래의 imp 유틸리티와 호환되지 않는다. 클라이언트가 끊겨도 서버의 작업은 계속 실행되고, 덤프 파일은 클라이언트 머신에 쓰이지 않는다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-ARCH"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Developers need Flashback Query to reliably return data as of up to three hours in the past. Which two actions help ensure this? (Choose two.)",
+  "options": {
+   "A": "Increase DB_FLASHBACK_RETENTION_TARGET to 180 to keep three hours of flashback logs",
+   "B": "Set UNDO_RETENTION to at least 10800 and size the undo tablespace accordingly",
+   "C": "Enable RETENTION GUARANTEE on the undo tablespace",
+   "D": "Enable block change tracking",
+   "E": "Increase CONTROL_FILE_RECORD_KEEP_TIME"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "Flashback Query는 언두에 의존하므로 UNDO_RETENTION을 3시간(10800초) 이상으로 하고 언두 공간을 충분히 확보해야 하며, RETENTION GUARANTEE를 켜면 만료되지 않은 언두가 덮어써지지 않는다. DB_FLASHBACK_RETENTION_TARGET은 Flashback Database의 플래시백 로그 보존 목표이고, 블록 변경 추적과 CONTROL_FILE_RECORD_KEEP_TIME은 Flashback Query와 무관하다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-UNDO-RETENTION-FLASHBACK"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database has this backup schedule: level 0 on Sunday, differential level 1 on Monday, Tuesday, and Wednesday, cumulative level 1 on Thursday, and differential level 1 on Friday. A media failure occurs on Saturday morning. Which incremental backups does RMAN need to apply after restoring the Sunday level 0 backup?",
+  "options": {
+   "A": "All level 1 backups from Monday through Friday",
+   "B": "Only the Friday differential backup",
+   "C": "Only the Thursday cumulative backup",
+   "D": "The Wednesday differential backup and the Friday differential backup",
+   "E": "The Thursday cumulative backup and the Friday differential backup"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "목요일 cumulative level 1은 일요일 level 0 이후 변경을 모두 담으므로 월~수 differential은 필요 없고, 금요일 differential은 목요일 이후 변경을 담으므로 목요일·금요일 두 백업만 적용한 뒤 리두로 복구한다. 월~금 전부 적용할 필요는 없고, 금요일만 적용하면 일~목 변경이 빠지며, 목요일만 적용하면 금요일 변경이 리두로만 처리된다. 수요일 백업은 목요일 cumulative에 이미 포함된다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-INCR-RECOVERY-CHAIN"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database was recovered to a point in time and opened with RESETLOGS yesterday. Now you must recover the database to an SCN that is earlier than that RESETLOGS operation and belongs to the previous incarnation. Which RMAN step is required before restoring and recovering to that SCN when using the control file as the repository?",
+  "options": {
+   "A": "Mount the database and run RESET DATABASE TO INCARNATION with the key of the previous incarnation",
+   "B": "Run CATALOG START WITH to register the backups of the previous incarnation as new backups of the current one",
+   "C": "Open the database with NORESETLOGS to return to the previous incarnation",
+   "D": "Run FLASHBACK DATABASE TO INCARNATION with the previous key while the database is open",
+   "E": "Delete the current incarnation with DELETE INCARNATION"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "RESETLOGS 이전 incarnation의 시점으로 복구하려면 데이터베이스를 MOUNT하고 LIST INCARNATION으로 키를 확인한 뒤 RESET DATABASE TO INCARNATION으로 대상 incarnation을 지정한 다음 RESTORE/RECOVER UNTIL을 수행한다. CATALOG START WITH는 파일 등록일 뿐 incarnation을 바꾸지 않는다. NORESETLOGS로 열기, FLASHBACK DATABASE TO INCARNATION, DELETE INCARNATION은 이 작업의 올바른 절차가 아니다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-INCARNATION"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about RMAN automated tablespace point-in-time recovery (TSPITR) is true?",
+  "options": {
+   "A": "The entire database must be mounted and closed during TSPITR",
+   "B": "Objects created in the recovered tablespace after the target time are lost",
+   "C": "TSPITR requires Flashback Database to be enabled",
+   "D": "TSPITR can be used to recover the SYSTEM tablespace",
+   "E": "TSPITR does not use an auxiliary instance"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "TSPITR은 테이블스페이스를 과거 시점으로 되돌리므로 대상 시점 이후 그 테이블스페이스에 생성된 객체는 사라진다. 나머지 데이터베이스는 열린 상태로 유지되며, RMAN이 자동으로 보조(auxiliary) 인스턴스를 만들어 사용한다. Flashback Database는 필요 없고, SYSTEM처럼 딕셔너리를 담은 테이블스페이스는 TSPITR 대상이 될 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-TSPITR"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about FLASHBACK TABLE ... TO TIMESTAMP is true?",
+  "options": {
+   "A": "It keeps enabled triggers firing by default while rows are changed",
+   "B": "It reconstructs the table from flashback logs in the fast recovery area",
+   "C": "It cannot rewind the table past a DDL operation that changed the table structure",
+   "D": "It requires the database to be restarted in MOUNT mode",
+   "E": "It can be used on tables owned by SYS"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Flashback Table은 언두로 행 변경만 되돌리므로 컬럼 추가·삭제 같은 구조 변경 DDL 이전 시점으로는 되돌릴 수 없다. 기본적으로 작업 중 트리거를 비활성화했다가 다시 활성화하며(ENABLE TRIGGERS 절로 바꿀 수 있음), 플래시백 로그가 아니라 언두를 사용한다. 데이터베이스가 열린 상태에서 수행하며, SYS 소유 테이블에는 사용할 수 없다.",
+  "reference": "Oracle Database 19c - Development Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-TABLE-LIMITS"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Several direct-path loads were performed with the NOLOGGING attribute after the last backup. Which RMAN command identifies the data files that contain changes that cannot be recovered from redo and therefore need a new backup?",
+  "options": {
+   "A": "LIST EXPIRED BACKUP;",
+   "B": "REPORT OBSOLETE;",
+   "C": "CROSSCHECK DATAFILE ALL;",
+   "D": "REPORT UNRECOVERABLE;",
+   "E": "SHOW ALL;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "REPORT UNRECOVERABLE은 마지막 백업 이후 NOLOGGING 작업처럼 리두로 복구할 수 없는 변경이 발생한 데이터 파일을 보고하므로, 해당 파일을 새로 백업해야 함을 알 수 있다. LIST EXPIRED BACKUP은 찾지 못한 백업, REPORT OBSOLETE는 불필요한 백업을 보여 준다. CROSSCHECK DATAFILE ALL은 유효한 형식이 아니고 SHOW ALL은 RMAN 설정만 보여 준다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-NOLOGGING-REPORT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A 4 TB bigfile tablespace is backed up with four disk channels, but only one channel does any work and the backup takes many hours. Which BACKUP option lets the four channels back up this single data file in parallel?",
+  "options": {
+   "A": "FILESPERSET",
+   "B": "MAXPIECESIZE",
+   "C": "MAXSETSIZE",
+   "D": "KEEP UNTIL TIME",
+   "E": "SECTION SIZE"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SECTION SIZE를 지정하면 큰 데이터 파일을 여러 섹션으로 나누어 여러 채널이 동시에 백업하는 다중 섹션 백업이 된다. FILESPERSET은 백업 세트당 파일 수, MAXPIECESIZE는 백업 피스 크기, MAXSETSIZE는 백업 세트 크기 제한으로 하나의 파일을 여러 채널로 나누지 않는다. KEEP UNTIL TIME은 보관 백업의 보존 기한을 지정한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery Reference (검수 필요)",
+  "variant_group": "DB-BACKUP-SECTION-SIZE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Table FIN.LEDGER was truncated by mistake two days ago. Undo data from that time is no longer available, the table is not in the recycle bin, and the rest of the database must keep all changes made since then. The database runs in ARCHIVELOG mode with RMAN backups covering the last week. What is the best way to recover the table?",
+  "options": {
+   "A": "Use RMAN RECOVER TABLE fin.ledger UNTIL TIME with an AUXILIARY DESTINATION",
+   "B": "FLASHBACK TABLE fin.ledger TO TIMESTAMP for the time before the truncate",
+   "C": "FLASHBACK TABLE fin.ledger TO BEFORE DROP",
+   "D": "FLASHBACK DATABASE to the time before the truncate",
+   "E": "Run a Flashback Query on fin.ledger AS OF TIMESTAMP and insert the result"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "RMAN RECOVER TABLE은 백업으로 보조 인스턴스에서 해당 시점까지 복구한 뒤 Data Pump로 테이블만 가져오므로 나머지 데이터베이스의 변경은 유지된다. TRUNCATE는 DDL이고 언두도 없어 시점 지정 Flashback Table과 Flashback Query는 쓸 수 없으며, 휴지통에 없으므로 TO BEFORE DROP도 불가하다. FLASHBACK DATABASE는 데이터베이스 전체를 되돌려 다른 변경을 잃는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-RECOVER-TABLE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Data file 7 is lost because of a disk failure while the database is open. The DBA maintains image copies of all data files in the fast recovery area and rolls them forward every night with level 1 incremental backups. The business requires the shortest possible outage for that data file. Which sequence is best?",
+  "options": {
+   "A": "Shut down the database, run RESTORE DATABASE and RECOVER DATABASE, and open it",
+   "B": "Take data file 7 offline, run SWITCH DATAFILE 7 TO COPY, run RECOVER DATAFILE 7, and bring it online",
+   "C": "Take data file 7 offline, run RESTORE DATAFILE 7 from a level 0 backup set, recover it, and bring it online",
+   "D": "Run FLASHBACK DATABASE to the time of the last nightly roll-forward",
+   "E": "Take data file 7 offline and run RECOVER COPY OF DATAFILE 7, then bring it online"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "이미지 카피가 있으면 SWITCH DATAFILE TO COPY로 컨트롤 파일 포인터만 바꾸어 복사 시간 없이 카피를 현재 파일로 사용하고, RECOVER로 마지막 롤포워드 이후 리두를 적용하면 가장 빠르다. 전체 데이터베이스 복원이나 백업 세트에서의 RESTORE는 파일 복사 시간이 필요하다. Flashback Database는 손실된 물리 파일을 복구하지 못하고, RECOVER COPY OF DATAFILE은 카피를 갱신할 뿐 손실 파일을 대체하지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-SWITCH-COPY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A faulty batch job started at 14:00 and corrupted data in many tables across several schemas. Flashback Database is enabled and the retention covers the whole day. Management agrees that all changes made after 13:59 may be discarded and wants the fastest recovery. What should the DBA do?",
+  "options": {
+   "A": "Run RMAN RECOVER TABLE for each affected table",
+   "B": "Restore the whole database from last night's backup, recover it until 13:59, and open with RESETLOGS",
+   "C": "Mount the database, run FLASHBACK DATABASE TO TIMESTAMP for 13:59, and open with RESETLOGS",
+   "D": "Use Flashback Query on each table and reinsert the old rows manually",
+   "E": "Run FLASHBACK TABLE ... TO BEFORE DROP for every affected table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "여러 스키마에 걸친 논리적 손상을 특정 시점 이전으로 한꺼번에 되돌려도 되는 상황이므로, 플래시백 로그로 빠르게 되감는 FLASHBACK DATABASE(MOUNT 상태에서 실행 후 RESETLOGS로 오픈)가 가장 빠르다. 테이블별 RECOVER TABLE이나 Flashback Query 재입력은 대상이 많아 느리고, 백업 복원 후 불완전 복구도 가능하지만 복원 시간이 길다. TO BEFORE DROP은 삭제된 테이블에만 쓰인다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-DB-USE"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The data file of the SYSTEM tablespace is destroyed by a storage failure and the instance crashes. The database runs in ARCHIVELOG mode, all archived and online redo logs are intact, and RMAN backups are available. Which procedure achieves complete recovery?",
+  "options": {
+   "A": "Open the database, take the SYSTEM data file offline, restore and recover it, and bring it online",
+   "B": "Start the database in MOUNT state, restore and recover the SYSTEM data file, and then open it with RESETLOGS",
+   "C": "Start the database in NOMOUNT state and run FLASHBACK DATABASE",
+   "D": "Start the database in MOUNT state, restore and recover the SYSTEM data file, and open the database normally",
+   "E": "Re-create the SYSTEM tablespace and import the data dictionary with Data Pump"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SYSTEM 데이터 파일이 손실되면 데이터베이스를 열 수 없으므로 MOUNT 상태에서 해당 파일을 RESTORE·RECOVER하고, 리두가 모두 있으므로 완전 복구 후 일반 OPEN으로 연다. SYSTEM 파일은 열린 상태에서 오프라인으로 복구할 수 없고, 완전 복구에는 RESETLOGS가 필요 없다. Flashback Database는 손실 파일을 복구하지 못하며 NOMOUNT에서 실행할 수도 없다. 딕셔너리를 Data Pump로 재구성할 수는 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-SYSTEM-DATAFILE-LOSS"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA tries to flash the database back to 06:00 yesterday, but FLASHBACK DATABASE fails because the required flashback logs are no longer available. The database runs in ARCHIVELOG mode and RMAN backups plus archived logs from the last two weeks exist. How can the database still be returned to 06:00 yesterday?",
+  "options": {
+   "A": "Increase DB_FLASHBACK_RETENTION_TARGET and run FLASHBACK DATABASE again",
+   "B": "Create a guaranteed restore point for 06:00 yesterday and flash back to it",
+   "C": "Run FLASHBACK TABLE for all tables in the database",
+   "D": "Open the database and run RECOVER DATABASE UNTIL TIME",
+   "E": "Perform RMAN database point-in-time recovery: restore the database from a backup taken before 06:00, recover it until that time, and open with RESETLOGS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "필요한 플래시백 로그가 이미 없으면 Flashback Database로는 되돌릴 수 없으므로 백업에서 복원하고 UNTIL TIME까지 불완전 복구한 뒤 RESETLOGS로 여는 RMAN DBPITR을 사용한다. 보존 목표를 지금 늘리거나 과거 시점의 보장 복원 지점을 새로 만드는 것은 이미 사라진 로그를 되살리지 못한다. 모든 테이블에 Flashback Table은 비현실적이고 언두 한계도 있으며, 불완전 복구는 열린 상태가 아니라 MOUNT 상태에서 수행한다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-FLASHBACK-LOGS-INSUFFICIENT"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A small database runs in NOARCHIVELOG mode and is backed up every night at 01:00 with RMAN while it is mounted after a clean shutdown. At 15:00 one data file is lost. The online redo logs have been overwritten many times since 01:00. What recovery is possible?",
+  "options": {
+   "A": "Restore the entire database from the 01:00 backup and open it, losing all changes made after the backup",
+   "B": "Restore only the lost data file and recover it to 15:00 using the online redo logs",
+   "C": "Use FLASHBACK DATABASE to recover the lost data file",
+   "D": "Use RMAN RECOVER TABLE for the tables in the lost data file",
+   "E": "Use block media recovery to rebuild the lost data file"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "NOARCHIVELOG 모드이고 온라인 리두가 이미 여러 번 덮어써졌다면 복구에 필요한 리두가 없으므로 마지막 일관 백업 전체를 복원해 그 시점으로 돌아갈 수밖에 없고, 백업 이후 변경은 잃는다. 손실 파일만 복원해 현재 시점까지 복구하려면 리두가 필요하다. Flashback Database는 ARCHIVELOG 모드가 필요하고, RECOVER TABLE과 블록 미디어 복구도 아카이브 리두에 의존하며 파일 전체 손실에는 쓸 수 없다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-NOARCHIVELOG-RECOVERY"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The recovery catalog database is down for maintenance during tonight's backup window, but the production backup must still run. The target database uses CONTROL_FILE_RECORD_KEEP_TIME large enough to retain several weeks of records. What is the best approach?",
+  "options": {
+   "A": "Skip the backup until the catalog database is available",
+   "B": "Back up while connected only to the target (NOCATALOG), then run RESYNC CATALOG once the catalog is available",
+   "C": "Create a new recovery catalog in the target database itself and register the target database there permanently",
+   "D": "Run the backup and later re-create the catalog with CREATE CATALOG to import the records",
+   "E": "Run the backup with the CATALOG connection and ignore the connection errors"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "RMAN 메타데이터는 항상 대상 컨트롤 파일에 기록되므로 카탈로그 없이 백업한 뒤, 카탈로그가 복구되면 RESYNC CATALOG(또는 다음 접속 시 자동 동기화)로 기록을 반영하면 된다. 백업을 건너뛰면 보호 공백이 생긴다. 대상 데이터베이스 안에 카탈로그를 두는 것은 권장되지 않으며, CREATE CATALOG는 기록을 가져오는 명령이 아니다. 카탈로그 접속이 실패한 상태에서 RMAN 백업은 진행되지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-CATALOG-RESYNC"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA started a long-running full expdp job named EXP_FULL from a laptop. The laptop's network connection dropped and the expdp client terminated with an error. The DBA wants to check the job's progress without starting a new export. What should the DBA do?",
+  "options": {
+   "A": "Restart the export from the beginning, because the job was terminated with the client",
+   "B": "Run impdp with ATTACH=exp_full to convert the job into an import",
+   "C": "Run expdp ATTACH=exp_full from any client and use STATUS, because the job keeps running on the server",
+   "D": "Restart the database instance to release the orphaned job",
+   "E": "Query V$SESSION_LONGOPS only, because a Data Pump job cannot be reattached once the client that started it disconnects"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Data Pump 작업은 서버 측 프로세스(마스터·워커)로 실행되므로 클라이언트가 끊겨도 계속 진행되며, expdp ATTACH=작업명으로 다시 붙어 STATUS 등 대화형 명령을 쓸 수 있다. 처음부터 다시 실행할 필요가 없고, impdp로 export 작업을 import로 바꿀 수는 없다. 인스턴스 재시작은 불필요한 중단이며, 클라이언트가 끊긴 뒤에도 재접속은 가능하다.",
+  "reference": "Oracle Database 19c - Utilities (검수 필요)",
+  "variant_group": "DB-BACKUP-DP-ATTACH"
+ },
+ {
+  "domain": "DB_BACKUP",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "A DBA performs RMAN database point-in-time recovery to 10:00 yesterday by using RESTORE DATABASE and RECOVER DATABASE UNTIL TIME, without Flashback Database. Which two statements are true? (Choose two.)",
+  "options": {
+   "A": "Only the data files changed after 10:00 yesterday are restored",
+   "B": "Flashback Database must be enabled for point-in-time recovery to work",
+   "C": "The database must be mounted, not open, during the restore and recovery",
+   "D": "The database must be opened with RESETLOGS after the recovery",
+   "E": "Archived redo logs generated after 10:00 yesterday must be applied"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "데이터베이스 전체 시점 복구는 MOUNT 상태에서 모든 데이터 파일을 대상 시점 이전 백업으로 복원하고 UNTIL TIME까지 리두를 적용한 뒤 RESETLOGS로 연다. 변경된 파일만 골라 복원하는 방식이 아니며, Flashback Database 없이도 가능하다. 대상 시점 이후에 생성된 아카이브 로그는 적용하지 않는다.",
+  "reference": "Oracle Database 19c - Backup and Recovery User's Guide (검수 필요)",
+  "variant_group": "DB-BACKUP-DBPITR"
+ }
+]

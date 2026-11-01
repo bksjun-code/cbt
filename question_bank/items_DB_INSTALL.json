@@ -1,0 +1,1416 @@
+[
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After installing the Oracle Database 19c software on Linux, which script located in the new Oracle home must be run as the root user to complete the installation?",
+  "options": {
+   "A": "oraenv",
+   "B": "dbca",
+   "C": "runInstaller",
+   "D": "root.sh",
+   "E": "netca"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "root.sh는 Oracle home 디렉터리에 생성되며 root 권한으로 실행해 oratab 등록, 권한 설정 같은 설치 후 작업을 마무리한다. runInstaller는 설치 프로그램 자체이고, dbca는 데이터베이스 생성 도구, netca는 네트워크 구성 도구이다. oraenv는 환경 변수를 설정하는 스크립트로 root 실행이 필요한 설치 후 작업과 무관하다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ROOTSH"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Oracle Database 19c software for Linux is delivered as an image (zip) file. What is the correct way to begin the software installation?",
+  "options": {
+   "A": "Run dbca first so that it creates the Oracle home and then installs the software",
+   "B": "Run root.sh from the zip file before extracting any files",
+   "C": "Install the zip file directly with the rpm -i command",
+   "D": "Extract the image into a temporary staging directory, run runInstaller there, and let it copy the files to a different Oracle home",
+   "E": "Extract the image into the directory that will become the Oracle home, then run runInstaller from that directory"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "19c는 이미지 기반 설치 방식이므로 zip 파일을 Oracle home으로 사용할 디렉터리에 바로 풀고 그 위치에서 runInstaller를 실행한다. 임시 스테이징 디렉터리에서 다른 Oracle home으로 복사하는 방식은 이전 버전의 설치 방식이다. dbca는 소프트웨어 설치 후 데이터베이스를 만드는 도구이고, zip 파일은 rpm 패키지가 아니며, root.sh는 설치 이후 단계에서 실행한다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-IMAGE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "When STARTUP is issued without a PFILE clause on Linux, which parameter file does the instance look for first in $ORACLE_HOME/dbs?",
+  "options": {
+   "A": "spfile<ORACLE_SID>.ora",
+   "B": "init<ORACLE_SID>.ora",
+   "C": "spfile.ora",
+   "D": "orapw<ORACLE_SID>",
+   "E": "config<ORACLE_SID>.ora"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "PFILE 절 없이 STARTUP 하면 spfile<SID>.ora를 가장 먼저 찾고, 없으면 spfile.ora, 그다음 init<SID>.ora 순으로 찾는다. 따라서 spfile.ora와 init<SID>.ora는 첫 번째 대상이 아니다. config<SID>.ora라는 기본 파라미터 파일은 없으며, orapw<SID>는 패스워드 파일이다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SEARCH-ORDER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which type of file is a binary, server-side initialization parameter file that the database can update persistently with ALTER SYSTEM?",
+  "options": {
+   "A": "Control file",
+   "B": "SPFILE",
+   "C": "listener.ora",
+   "D": "PFILE (text init.ora file)",
+   "E": "Password file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SPFILE은 서버 측 바이너리 파라미터 파일로 ALTER SYSTEM ... SCOPE=SPFILE/BOTH로 변경 내용을 영구 저장할 수 있다. PFILE은 텍스트 파일이라 ALTER SYSTEM으로 갱신되지 않고 편집기로 직접 고친다. listener.ora는 리스너 구성 파일, 컨트롤 파일은 데이터베이스 구조 정보, 패스워드 파일은 관리 권한 사용자 인증용 파일로 초기화 파라미터를 저장하지 않는다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SPFILE-BINARY"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the default TCP port on which an Oracle Net listener named LISTENER listens if no port is configured?",
+  "options": {
+   "A": "5500",
+   "B": "1522",
+   "C": "1521",
+   "D": "1158",
+   "E": "8080"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Oracle Net 리스너의 기본 TCP 포트는 1521이다. 1522는 추가 리스너에 관례적으로 쓰는 경우가 있을 뿐 기본값이 아니다. 1158과 5500은 Enterprise Manager 계열에서 쓰이던 포트이고, 8080은 일반적인 HTTP 대체 포트로 리스너 기본값이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-PORT-DEFAULT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which command-line utility is used to start, stop, and check the status of an Oracle Net listener?",
+  "options": {
+   "A": "netca",
+   "B": "lsnrctl",
+   "C": "srvctl config",
+   "D": "tnsping",
+   "E": "adrci"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "lsnrctl은 리스너 시작(start), 중지(stop), 상태 확인(status) 등을 수행하는 리스너 제어 유틸리티이다. tnsping은 리스너 도달 가능 여부만 확인하고, netca는 구성용 GUI/silent 도구이다. adrci는 진단 저장소 조회 도구이며, srvctl config는 Oracle Restart/RAC 리소스 구성을 보여 줄 뿐 리스너 제어 명령이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LSNRCTL"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle Net configuration file maps net service names (aliases) to connect descriptors for the local naming method?",
+  "options": {
+   "A": "tnsnames.ora",
+   "B": "cman.ora",
+   "C": "listener.ora",
+   "D": "init.ora",
+   "E": "sqlnet.ora"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "로컬 네이밍 방식에서 net service name과 connect descriptor의 매핑은 tnsnames.ora에 정의한다. listener.ora는 리스너 주소와 정적 등록을 정의하고, sqlnet.ora는 네이밍 순서·타임아웃 등 프로파일 설정을 담는다. cman.ora는 Connection Manager 구성 파일이고, init.ora는 인스턴스 초기화 파라미터 파일이다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-TNSNAMES"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a read-write Oracle home where TNS_ADMIN is not set, in which directory does Oracle Net look for tnsnames.ora, sqlnet.ora, and listener.ora by default?",
+  "options": {
+   "A": "$ORACLE_HOME/dbs",
+   "B": "$ORACLE_BASE/admin/<db_name>",
+   "C": "$ORACLE_HOME/network/admin",
+   "D": "/etc/oracle",
+   "E": "$ORACLE_HOME/rdbms/admin"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "TNS_ADMIN이 설정되지 않은 읽기/쓰기 Oracle home에서는 네트워크 구성 파일의 기본 위치가 $ORACLE_HOME/network/admin이다. $ORACLE_HOME/dbs는 SPFILE·패스워드 파일 위치이고, $ORACLE_HOME/rdbms/admin은 catalog 등 SQL 스크립트 위치이다. $ORACLE_BASE/admin/<db_name>은 덤프·감사 파일 등 데이터베이스 관리 디렉터리이며, /etc/oracle은 네트워크 파일 기본 위치가 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-ADMIN-DIR"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which connect string uses valid Easy Connect syntax to reach service sales.example.com on host dbhost, port 1521?",
+  "options": {
+   "A": "scott@sales.example.com:dbhost:1521",
+   "B": "scott@(dbhost,1521,sales.example.com)",
+   "C": "scott@tns://dbhost/sales.example.com?port=1521",
+   "D": "scott@dbhost/1521:sales.example.com",
+   "E": "scott@//dbhost:1521/sales.example.com"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Easy Connect 구문은 [//]host[:port][/service_name] 형식이므로 //dbhost:1521/sales.example.com이 올바르다. host 뒤에 /1521:service 순서로 쓰는 형식, 서비스명을 먼저 쓰는 형식은 구문 순서가 틀리다. tns:// URL과 괄호·쉼표 나열 형식은 Easy Connect 구문이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-EZCONNECT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle tool creates a new database from templates, either interactively or in silent mode?",
+  "options": {
+   "A": "Net Configuration Assistant (NETCA)",
+   "B": "Oracle Universal Installer (runInstaller)",
+   "C": "Automatic Diagnostic Repository Command Interpreter (ADRCI)",
+   "D": "Database Configuration Assistant (DBCA)",
+   "E": "Database Upgrade Assistant (DBUA)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DBCA는 템플릿을 사용해 GUI 또는 silent 모드로 데이터베이스를 생성·삭제·구성하는 도구이다. NETCA는 리스너와 네이밍 방식을 구성하고, DBUA는 기존 데이터베이스 업그레이드 도구이다. runInstaller는 소프트웨어 설치 프로그램이며, ADRCI는 진단 정보 조회 도구로 데이터베이스를 생성하지 않는다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-DBCA-PURPOSE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle tool is primarily used to configure listeners and naming methods through a guided interface?",
+  "options": {
+   "A": "ADRCI",
+   "B": "orapwd",
+   "C": "Database Configuration Assistant (DBCA)",
+   "D": "Net Configuration Assistant (NETCA)",
+   "E": "Database Upgrade Assistant (DBUA)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "NETCA는 리스너, 네이밍 방식(sqlnet.ora), 로컬 net service name(tnsnames.ora)을 구성하는 도구이다. DBCA는 데이터베이스 생성 도구, DBUA는 업그레이드 도구이다. orapwd는 패스워드 파일을 만들고, ADRCI는 진단 저장소를 조회하는 도구로 리스너 구성과 무관하다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-NETCA"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which utility creates the database password file used to authenticate administrative users such as SYS over the network?",
+  "options": {
+   "A": "dbca -createPassword",
+   "B": "mkstore",
+   "C": "tnsping",
+   "D": "lsnrctl",
+   "E": "orapwd"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "orapwd 유틸리티로 패스워드 파일을 생성하며, 원격으로 SYSDBA 등 관리 권한 접속을 인증하는 데 사용된다. lsnrctl은 리스너 제어, tnsping은 리스너 연결 확인 도구이다. mkstore는 wallet 자격 증명 관리 도구로 데이터베이스 패스워드 파일을 만들지 않으며, dbca에는 -createPassword라는 옵션이 없다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ORAPWD"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In SQL*Plus, which command is the simplest way to determine whether the running instance was started with an SPFILE?",
+  "options": {
+   "A": "SHOW PARAMETER pfile_name",
+   "B": "SELECT * FROM v$controlfile;",
+   "C": "SHOW PARAMETER spfile",
+   "D": "SHOW SPFILE STATUS",
+   "E": "SHOW SGA"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SHOW PARAMETER spfile을 실행해 값에 경로가 표시되면 SPFILE로 기동된 것이고, 값이 비어 있으면 PFILE로 기동된 것이다. SHOW SGA는 메모리 크기만 보여 준다. pfile_name이라는 파라미터는 없고, v$controlfile은 컨트롤 파일 목록이다. SHOW SPFILE STATUS라는 SQL*Plus 명령은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SHOW-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement creates a text parameter file copy of the current server parameter file?",
+  "options": {
+   "A": "CREATE PFILE FROM SPFILE;",
+   "B": "ALTER SYSTEM DUMP SPFILE TO PFILE;",
+   "C": "EXPORT SPFILE TO PFILE;",
+   "D": "CREATE SPFILE FROM PFILE;",
+   "E": "ALTER DATABASE BACKUP SPFILE TO TRACE;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "CREATE PFILE FROM SPFILE은 SPFILE의 내용을 텍스트 PFILE로 만들어 준다. CREATE SPFILE FROM PFILE은 반대 방향으로 SPFILE을 만든다. ALTER SYSTEM DUMP SPFILE, EXPORT SPFILE은 존재하지 않는 구문이며, ALTER DATABASE BACKUP ... TO TRACE는 컨트롤 파일에 대한 구문으로 SPFILE을 텍스트로 만들지 않는다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-CREATE-PFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "On Linux, which file points to the location of the central Oracle Inventory and identifies the inventory group?",
+  "options": {
+   "A": "$ORACLE_HOME/dbs/init.ora",
+   "B": "/etc/oraInst.loc",
+   "C": "/etc/oracle/inventory.xml",
+   "D": "/etc/oratab",
+   "E": "$ORACLE_HOME/network/admin/sqlnet.ora"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Linux에서 /etc/oraInst.loc는 중앙 인벤토리 위치(inventory_loc)와 인벤토리 그룹(inst_group)을 기록한다. /etc/oratab은 ORACLE_SID와 Oracle home 매핑 및 자동 시작 여부를 기록한다. init.ora와 sqlnet.ora는 각각 인스턴스·네트워크 설정 파일이며, /etc/oracle/inventory.xml은 인벤토리 포인터 파일이 아니다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ORAINST-LOC"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a typical Oracle Database installation on Linux, members of which operating system group (the OSDBA group) can connect AS SYSDBA using operating system authentication?",
+  "options": {
+   "A": "oper",
+   "B": "backupdba",
+   "C": "oinstall",
+   "D": "asmadmin",
+   "E": "dba"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "관례적으로 OSDBA 그룹은 dba이며, 이 그룹 구성원은 OS 인증으로 AS SYSDBA 접속이 가능하다. oinstall은 Oracle Inventory 그룹, oper는 SYSOPER용 OSOPER 그룹이다. backupdba는 SYSBACKUP용, asmadmin은 ASM의 SYSASM용 그룹으로 SYSDBA 권한과 다르다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-OSDBA"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which naming methods can Oracle Net use to resolve a connect identifier? (Choose all that apply.)",
+  "options": {
+   "A": "Listener broadcast naming",
+   "B": "Easy Connect naming",
+   "C": "Directory naming using an LDAP directory",
+   "D": "Local naming using tnsnames.ora",
+   "E": "SPFILE naming using server parameters"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "Oracle Net은 tnsnames.ora 기반 로컬 네이밍, host:port/service 형식의 Easy Connect, LDAP 디렉터리를 사용하는 디렉터리 네이밍 등을 지원한다. SPFILE 기반 네이밍이나 리스너 브로드캐스트 네이밍은 존재하지 않는 방식이다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-NAMING-METHODS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "On Linux, which two environment variables are normally set so that 'sqlplus / as sysdba' connects to the intended local instance? (Choose two.)",
+  "options": {
+   "A": "ORACLE_HOME",
+   "B": "DB_SERVICE",
+   "C": "TNS_PORT",
+   "D": "LISTENER_NAME",
+   "E": "ORACLE_SID"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "로컬 bequeath 접속은 ORACLE_HOME으로 실행 파일 위치를, ORACLE_SID로 대상 인스턴스를 식별한다. TNS_PORT, LISTENER_NAME, DB_SERVICE는 Oracle이 사용하는 표준 환경 변수가 아니며 로컬 인스턴스 선택에 쓰이지 않는다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ENV-VARS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A user runs 'sqlplus hr@salesdb' from a client and immediately receives ORA-12154: TNS:could not resolve the connect identifier specified. The listener and database are running normally. What should be checked first?",
+  "options": {
+   "A": "Whether the database is in ARCHIVELOG mode",
+   "B": "Whether the user hr has been granted the CREATE SESSION system privilege directly or through a role in salesdb",
+   "C": "Whether the SGA on the server is large enough to accept new dedicated server sessions",
+   "D": "Whether the alias salesdb is defined in the tnsnames.ora that the client actually reads (check TNS_ADMIN)",
+   "E": "Whether the listener.log file on the server has grown beyond its configured maximum size"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "ORA-12154는 클라이언트가 connect identifier를 connect descriptor로 해석하지 못했다는 오류이므로, 클라이언트가 읽는 tnsnames.ora(TNS_ADMIN 경로 포함)에 별칭이 정의되어 있는지 먼저 확인한다. ARCHIVELOG 모드, 리스너 로그 크기, SGA 크기는 이름 해석과 무관하다. CREATE SESSION 권한 부족은 서버에 접속한 이후 ORA-01045로 나타나므로 이 오류의 원인이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-ORA12154"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA ran ALTER SYSTEM SET open_cursors=500 SCOPE=MEMORY on an instance started with an SPFILE. After the next restart, OPEN_CURSORS has returned to its previous value. Why?",
+  "options": {
+   "A": "The SPFILE was automatically converted to a PFILE during shutdown",
+   "B": "SCOPE=MEMORY changes only the running instance and does not record the change in the SPFILE",
+   "C": "OPEN_CURSORS is a static parameter that cannot be changed",
+   "D": "The control file overrides all parameter values at startup",
+   "E": "SCOPE=MEMORY changes are written to the SPFILE only after a checkpoint"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SCOPE=MEMORY는 현재 인스턴스 메모리에만 적용되고 SPFILE에는 기록되지 않으므로 재시작하면 이전 값이 다시 사용된다. OPEN_CURSORS는 ALTER SYSTEM으로 즉시 변경 가능한 동적 파라미터이다. 종료 시 SPFILE이 PFILE로 바뀌는 일은 없고, 체크포인트 후 SPFILE에 기록되는 동작도 없다. 컨트롤 파일은 초기화 파라미터 값을 덮어쓰지 않는다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SCOPE-MEMORY"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An instance was started with an SPFILE. A DBA issues ALTER SYSTEM SET ... SCOPE=SPFILE for a parameter. When does the new value take effect?",
+  "options": {
+   "A": "At the next instance startup; the running instance is not changed",
+   "B": "Only after the next log switch",
+   "C": "Only after CREATE PFILE FROM SPFILE is executed",
+   "D": "Immediately, and it is also stored in the SPFILE",
+   "E": "Immediately, but only for the current session"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SCOPE=SPFILE은 변경 내용을 SPFILE에만 기록하므로 현재 인스턴스에는 반영되지 않고 다음 기동 시 적용된다. 즉시 적용과 SPFILE 기록을 동시에 하는 것은 SCOPE=BOTH이다. 세션 단위 변경은 ALTER SESSION의 동작이며, 로그 스위치나 CREATE PFILE 실행은 파라미터 적용 시점과 무관하다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SCOPE-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "The instance was started with an SPFILE. A DBA runs ALTER SYSTEM SET for a dynamic parameter without specifying SCOPE. Which scope is applied?",
+  "options": {
+   "A": "SESSION",
+   "B": "SPFILE",
+   "C": "BOTH",
+   "D": "MEMORY",
+   "E": "DEFERRED"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SPFILE로 기동된 인스턴스에서 SCOPE를 생략하면 기본값은 BOTH로, 메모리와 SPFILE 모두에 반영된다. MEMORY는 PFILE로 기동했을 때의 기본값이다. SPFILE은 명시해야만 적용된다. SESSION은 SCOPE 값이 아니며, DEFERRED는 SCOPE가 아니라 이후 세션부터 적용하는 별도 키워드이다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SCOPE-DEFAULT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "On Linux, in which order does STARTUP (with no PFILE clause) search $ORACLE_HOME/dbs for an initialization parameter file?",
+  "options": {
+   "A": "spfile.ora, then spfile<SID>.ora, then init<SID>.ora",
+   "B": "init<SID>.ora, then spfile<SID>.ora, then spfile.ora",
+   "C": "spfile<SID>.ora, then init<SID>.ora, then spfile.ora",
+   "D": "spfile<SID>.ora, then spfile.ora, then init<SID>.ora",
+   "E": "init.ora, then init<SID>.ora, then spfile<SID>.ora"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "기본 검색 순서는 spfile<SID>.ora → spfile.ora → init<SID>.ora이다. 즉 SID 전용 SPFILE, 일반 SPFILE, SID 전용 PFILE 순으로 찾는다. init<SID>.ora를 먼저 찾는 순서나 spfile.ora를 spfile<SID>.ora보다 먼저 찾는 순서는 틀리다. init.ora는 기본 검색 대상이 아닌 샘플 파일이다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SEARCH-ORDER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which dynamic performance view shows the parameter values stored in the SPFILE, regardless of the values currently in effect in the instance?",
+  "options": {
+   "A": "V$PARAMETER",
+   "B": "V$SPPARAMETER",
+   "C": "V$PARAMETER_VALID_VALUES",
+   "D": "V$SYSTEM_PARAMETER",
+   "E": "V$OBSOLETE_PARAMETER"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "V$SPPARAMETER는 SPFILE에 저장된 값을 보여 주며, PFILE로 기동한 경우 ISSPECIFIED가 모두 FALSE로 나온다. V$PARAMETER는 현재 세션에 적용 중인 값, V$SYSTEM_PARAMETER는 인스턴스 전체에 적용 중인 값이다. V$PARAMETER_VALID_VALUES는 허용 값 목록, V$OBSOLETE_PARAMETER는 폐기된 파라미터 목록이다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-VSPPARAMETER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement removes an explicitly set parameter from the SPFILE so that the default value is used at the next startup?",
+  "options": {
+   "A": "ALTER SYSTEM DELETE parameter_name FROM SPFILE;",
+   "B": "ALTER DATABASE REMOVE PARAMETER parameter_name;",
+   "C": "ALTER SYSTEM CLEAR parameter_name;",
+   "D": "ALTER SYSTEM UNSET parameter_name SCOPE=SPFILE;",
+   "E": "ALTER SYSTEM RESET parameter_name SCOPE=SPFILE;"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ALTER SYSTEM RESET은 SPFILE에서 해당 파라미터 항목을 제거하므로 다음 기동 시 기본값이 적용된다. UNSET, DELETE ... FROM SPFILE, CLEAR, ALTER DATABASE REMOVE PARAMETER는 모두 존재하지 않는 구문이다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-RESET"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In V$PARAMETER, a parameter shows ISSYS_MODIFIABLE = FALSE. What does this mean?",
+  "options": {
+   "A": "The parameter is static: it can be changed only in the parameter file and takes effect after restart",
+   "B": "The parameter is obsolete and is ignored by the instance",
+   "C": "The parameter can be changed with ALTER SYSTEM and the new value takes effect immediately for all current sessions",
+   "D": "The parameter can be changed with ALTER SYSTEM ... DEFERRED and takes effect for new sessions",
+   "E": "The parameter can be changed only with ALTER SESSION"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ISSYS_MODIFIABLE=FALSE는 정적 파라미터라는 뜻으로, SCOPE=SPFILE(또는 PFILE 편집)으로만 바꿀 수 있고 재기동 후 적용된다. 즉시 적용은 IMMEDIATE, 이후 세션 적용은 DEFERRED 값에 해당한다. ALTER SESSION 가능 여부는 ISSES_MODIFIABLE 컬럼이 나타내며, 폐기 여부는 V$OBSOLETE_PARAMETER로 확인한다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-ISSYS-MODIFIABLE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA wants an instance to start using an SPFILE that is stored in a non-default location. Which method is supported?",
+  "options": {
+   "A": "Set the ORACLE_SPFILE environment variable to the SPFILE path before running STARTUP",
+   "B": "Run ALTER SYSTEM SET spfile='/path/spfileorcl.ora' SCOPE=MEMORY while the instance is idle",
+   "C": "Start with a PFILE that contains only the SPFILE parameter pointing to that SPFILE",
+   "D": "Add the SPFILE path to the sqlnet.ora file",
+   "E": "Use STARTUP SPFILE='/path/spfileorcl.ora'"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "STARTUP 명령에는 PFILE 절만 있고 SPFILE 절이 없으므로, SPFILE 파라미터 한 줄만 담은 PFILE로 기동해 비기본 위치의 SPFILE을 사용하게 한다. STARTUP SPFILE= 구문과 ORACLE_SPFILE 환경 변수는 존재하지 않는다. 인스턴스가 기동되지 않은 상태에서는 ALTER SYSTEM을 실행할 수 없으며, sqlnet.ora는 네트워크 설정 파일이다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-NONDEFAULT-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An SPFILE was accidentally deleted while the instance is still running. Which statement can re-create an SPFILE that reflects the current parameter values of the running instance?",
+  "options": {
+   "A": "CREATE SPFILE FROM MEMORY;",
+   "B": "ALTER SYSTEM WRITE SPFILE;",
+   "C": "CREATE SPFILE FROM PFILE;",
+   "D": "CREATE PFILE FROM SPFILE;",
+   "E": "ALTER DATABASE RECOVER SPFILE;"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "CREATE SPFILE FROM MEMORY는 실행 중인 인스턴스의 현재 파라미터 값으로 SPFILE을 생성한다. CREATE SPFILE FROM PFILE은 기존 텍스트 파일이 있어야 하고 그 파일의 내용을 반영하므로 현재 값과 다를 수 있다. CREATE PFILE FROM SPFILE은 원본 SPFILE이 필요하다. ALTER SYSTEM WRITE SPFILE, ALTER DATABASE RECOVER SPFILE은 존재하지 않는 구문이다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-FROM-MEMORY"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which DBCA command-line option runs DBCA without the graphical interface, for example in a scripted database creation?",
+  "options": {
+   "A": "-quiet",
+   "B": "-batch",
+   "C": "-console",
+   "D": "-silent",
+   "E": "-nogui"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DBCA는 -silent 옵션으로 GUI 없이 실행되며 -createDatabase, -responseFile 등과 함께 스크립트에서 사용한다. -nogui, -batch, -quiet, -console은 DBCA의 실행 모드 옵션이 아니다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-DBCA-SILENT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "DBCA templates exist in two kinds: files with the .dbc extension and files with the .dbt extension. What is the key difference?",
+  "options": {
+   "A": "Only .dbt templates can create a container database",
+   "B": "They are identical in content; the extension differs only by the operating system platform on which DBCA runs",
+   "C": ".dbc (seed) templates include data files; .dbt (non-seed) templates hold only the structure and create the database from scratch",
+   "D": "Only .dbc templates can be used in silent mode",
+   "E": ".dbt templates include prebuilt data files for faster creation, while .dbc templates hold only the structure and use CREATE DATABASE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "seed 템플릿(.dbc)은 미리 만든 데이터 파일을 포함해 빠르게 데이터베이스를 만들고, non-seed 템플릿(.dbt)은 구조 정보만 담아 CREATE DATABASE로 새로 생성하므로 세부 설정 자유도가 높다. 포함 관계를 반대로 설명한 내용은 틀리다. 두 템플릿 모두 silent 모드에서 사용할 수 있고, CDB 생성 가능 여부가 확장자로 나뉘지 않으며, 플랫폼별 확장자 차이도 아니다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-DBCA-TEMPLATE-TYPE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, which background process registers database services with the listener (dynamic service registration)?",
+  "options": {
+   "A": "PMON",
+   "B": "DBRM",
+   "C": "SMON",
+   "D": "MMON",
+   "E": "LREG"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "12c부터 서비스 동적 등록은 LREG(Listener Registration) 프로세스가 수행하며 19c도 동일하다. 이전 버전에서는 PMON이 담당했으나 19c에서는 아니다. SMON은 인스턴스 복구, MMON은 AWR 관련 작업, DBRM은 Resource Manager 담당이다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LREG"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A new service was started, but the listener does not list it yet. Which statement forces the instance to register with the listener immediately?",
+  "options": {
+   "A": "ALTER SYSTEM FLUSH SERVICES;",
+   "B": "ALTER SYSTEM REGISTER;",
+   "C": "lsnrctl register",
+   "D": "ALTER DATABASE REGISTER SERVICE;",
+   "E": "ALTER SYSTEM REFRESH LISTENER;"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ALTER SYSTEM REGISTER는 다음 주기를 기다리지 않고 즉시 리스너에 서비스 등록을 수행하게 한다. ALTER SYSTEM REFRESH LISTENER, ALTER DATABASE REGISTER SERVICE, ALTER SYSTEM FLUSH SERVICES는 존재하지 않는다. lsnrctl에는 데이터베이스 등록을 강제하는 register 명령이 없다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-ALTER-REGISTER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "lsnrctl status shows: Instance \"orcl\", status UNKNOWN, has 1 handler(s) for this service. What does the UNKNOWN status indicate?",
+  "options": {
+   "A": "The listener could not read the listener.ora file",
+   "B": "The instance registered dynamically through LREG, but the listener has marked its service handler as blocked",
+   "C": "The instance is in RESTRICTED mode",
+   "D": "The instance is shut down, so the listener rejects every connection request for it until the instance registers again",
+   "E": "The instance is statically registered via SID_DESC in listener.ora, so the listener does not know its actual state"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "UNKNOWN은 listener.ora의 SID_LIST/SID_DESC로 정적 등록된 인스턴스에 표시되며, 리스너가 인스턴스의 실제 상태를 알지 못한다는 뜻이다. 동적 등록된 정상 인스턴스는 READY, 연결을 받을 수 없는 상태는 BLOCKED, 제한 모드는 RESTRICTED로 표시된다. listener.ora를 읽지 못했다면 정적 항목 자체가 표시되지 않는다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-STATUS-UNKNOWN"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A database is configured for shared server, but one batch application must always use a dedicated server process. Where is this requested in the application's connect descriptor?",
+  "options": {
+   "A": "POOLED=FALSE in sqlnet.ora",
+   "B": "DEDICATED=TRUE in the ADDRESS section",
+   "C": "SERVER=DEDICATED in the CONNECT_DATA section",
+   "D": "SHARED_SERVERS=0 in tnsnames.ora",
+   "E": "SERVICE_NAME=DEDICATED in the CONNECT_DATA section"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "connect descriptor의 CONNECT_DATA에 SERVER=DEDICATED를 지정하면 shared server 환경에서도 전용 서버 프로세스로 접속한다. ADDRESS의 DEDICATED=TRUE와 sqlnet.ora의 POOLED=FALSE는 존재하지 않는 설정이다. SHARED_SERVERS는 서버 초기화 파라미터로 tnsnames.ora에 넣지 않으며, SERVICE_NAME=DEDICATED는 서비스 이름을 바꿀 뿐이다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-SERVER-DEDICATED"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A client machine has several Oracle homes. The DBA wants all of them to use one shared set of tnsnames.ora and sqlnet.ora files. What is the standard way to achieve this?",
+  "options": {
+   "A": "Set the LOCAL_LISTENER parameter on each client",
+   "B": "Set ORACLE_SID to the directory that contains the shared files",
+   "C": "Add an IFILE entry to the client's init.ora",
+   "D": "Set the TNS_ADMIN environment variable to the directory that contains the shared files",
+   "E": "Copy the files into $ORACLE_HOME/dbs of each home"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "TNS_ADMIN 환경 변수는 Oracle Net 구성 파일을 읽을 디렉터리를 지정하므로 여러 Oracle home이 같은 파일을 공유할 수 있다. ORACLE_SID는 인스턴스 식별자이고, $ORACLE_HOME/dbs는 네트워크 파일 위치가 아니다. LOCAL_LISTENER는 데이터베이스 서버 초기화 파라미터이며, 클라이언트 init.ora는 네트워크 파일 위치를 정하지 않는다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-TNS-ADMIN"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA edited listener.ora to add a new static SID_DESC entry. Which command makes the running listener read the modified file without stopping it?",
+  "options": {
+   "A": "lsnrctl reload",
+   "B": "lsnrctl refresh",
+   "C": "lsnrctl services",
+   "D": "lsnrctl save_config",
+   "E": "lsnrctl status"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "lsnrctl reload는 리스너를 중지하지 않고 listener.ora를 다시 읽어 변경 내용을 반영한다. refresh는 존재하지 않는 명령이다. status와 services는 정보 조회만 한다. save_config는 lsnrctl SET으로 바꾼 현재 설정을 listener.ora에 저장하는 명령으로 파일을 다시 읽지 않는다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LSNRCTL-RELOAD"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which sqlnet.ora parameter, set on the database server, enables dead connection detection by periodically probing client connections?",
+  "options": {
+   "A": "TCP.CONNECT_TIMEOUT",
+   "B": "SQLNET.EXPIRE_TIME",
+   "C": "SQLNET.RECV_TIMEOUT",
+   "D": "SQLNET.INBOUND_CONNECT_TIMEOUT",
+   "E": "NAMES.DIRECTORY_PATH"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SQLNET.EXPIRE_TIME(분 단위)은 서버가 주기적으로 프로브를 보내 비정상 종료된 클라이언트 연결을 감지하게 한다. SQLNET.RECV_TIMEOUT은 데이터 수신 대기 시간, SQLNET.INBOUND_CONNECT_TIMEOUT은 접속·인증 완료 제한 시간이다. NAMES.DIRECTORY_PATH는 네이밍 방식 순서이고, TCP.CONNECT_TIMEOUT은 클라이언트가 TCP 연결을 맺는 제한 시간이다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-EXPIRE-TIME"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A connect descriptor lists two listener addresses in an ADDRESS_LIST. Which parameter makes the client choose among those addresses randomly to spread connection load?",
+  "options": {
+   "A": "LOAD_BALANCE=ON",
+   "B": "RANDOMIZE=YES",
+   "C": "SOURCE_ROUTE=ON",
+   "D": "FAILOVER=ON",
+   "E": "ENABLE=BROKEN"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "LOAD_BALANCE=ON은 주소 목록에서 무작위로 주소를 골라 클라이언트 측 연결 부하를 분산한다. FAILOVER=ON은 접속 실패 시 다음 주소로 넘어가는 기능, SOURCE_ROUTE=ON은 Connection Manager 경유처럼 주소를 순서대로 경유하는 기능이다. ENABLE=BROKEN은 TCP keepalive 사용 설정이며, RANDOMIZE는 존재하지 않는 파라미터이다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LOAD-BALANCE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which command performs a silent (non-interactive) installation of Oracle Database 19c software using a prepared response file?",
+  "options": {
+   "A": "./runInstaller -quiet -config /home/oracle/db_install.rsp",
+   "B": "./root.sh -responseFile /home/oracle/db_install.rsp",
+   "C": "./runInstaller -silent -responseFile /home/oracle/db_install.rsp",
+   "D": "dbca -silent -installSoftware /home/oracle/db_install.rsp",
+   "E": "./runInstaller -batch -rsp /home/oracle/db_install.rsp"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "소프트웨어 silent 설치는 runInstaller에 -silent와 -responseFile 옵션을 주어 실행한다. -batch -rsp, -quiet -config는 runInstaller의 옵션이 아니다. dbca는 데이터베이스 생성 도구로 소프트웨어 설치를 하지 않으며, root.sh는 응답 파일을 받아 설치를 수행하는 스크립트가 아니다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-SILENT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "On Oracle Linux, which package can be installed to automatically create the oracle user and groups and set the kernel parameters and resource limits required by Oracle Database 19c?",
+  "options": {
+   "A": "oracle-instantclient19c-basic",
+   "B": "oracleasm-support",
+   "C": "oracle-rdbms-server-19c-setup",
+   "D": "oracle-database-preinstall-19c",
+   "E": "oracle-database-ee-19c-kernel"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "oracle-database-preinstall-19c RPM은 oracle 사용자·그룹 생성, 커널 파라미터, 리소스 제한 등 19c 설치 사전 요구 사항을 자동으로 설정한다. oracle-instantclient19c-basic은 클라이언트 라이브러리 패키지이고, oracleasm-support는 ASMLib 지원 도구이다. 나머지 두 이름은 사전 설정 패키지가 아니다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-PREINSTALL-RPM"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, which command converts a newly installed Oracle home into a read-only Oracle home before databases are created in it?",
+  "options": {
+   "A": "dbca -configureReadOnlyHome",
+   "B": "roohctl -enable",
+   "C": "orabase -readonly",
+   "D": "chmod -R 555 $ORACLE_HOME",
+   "E": "opatch lshome -ro"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "읽기 전용 Oracle home은 roohctl -enable로 활성화하며, 이후 구성 파일은 ORACLE_BASE_HOME/ORACLE_BASE_CONFIG 아래에 생성된다. orabase는 ORACLE_BASE 값을 출력하는 도구일 뿐이고, opatch와 dbca에는 해당 옵션이 없다. 단순히 파일 권한을 바꾸는 것은 Oracle이 지원하는 읽기 전용 Oracle home 구성 방법이 아니다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ROOH"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the maximum length of the DB_NAME initialization parameter?",
+  "options": {
+   "A": "128 characters",
+   "B": "16 characters",
+   "C": "30 characters",
+   "D": "12 characters",
+   "E": "8 characters"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "DB_NAME은 최대 8자까지 지정할 수 있으며, 컨트롤 파일과 데이터 파일 헤더에 기록된다. 12, 16, 30, 128자는 DB_NAME의 제한 값이 아니다. 30자나 128자는 객체 이름 길이 제한과 혼동하기 쉬운 값이다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-DBNAME-LEN"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Oracle recommends that the Oracle Database software owner on Linux have which group as its primary group?",
+  "options": {
+   "A": "The root group",
+   "B": "The OSBACKUPDBA group (typically backupdba)",
+   "C": "The Oracle Inventory group (typically oinstall)",
+   "D": "The OSDBA group (typically dba)",
+   "E": "The OSOPER group (typically oper)"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "소프트웨어 소유자(oracle)의 기본(primary) 그룹은 Oracle Inventory 그룹(oinstall)으로 두고, dba·oper·backupdba 등은 보조 그룹으로 지정한다. OSDBA, OSOPER, OSBACKUPDBA 그룹은 관리 권한 부여용이라 보조 그룹이다. root 그룹을 기본 그룹으로 쓰는 것은 권장 구성이 아니다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-OINSTALL"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about a server parameter file (SPFILE) are true? (Choose two.)",
+  "options": {
+   "A": "It is a binary file that should not be edited with a text editor",
+   "B": "It is read by client tools such as SQL*Plus to resolve net service names",
+   "C": "It can be created only by DBCA",
+   "D": "Changes made with ALTER SYSTEM ... SCOPE=SPFILE or SCOPE=BOTH persist across instance restarts",
+   "E": "It must be stored in $ORACLE_HOME/network/admin together with listener.ora"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "SPFILE은 바이너리 파일이라 텍스트 편집기로 고치면 손상될 수 있고, ALTER SYSTEM의 SCOPE=SPFILE/BOTH 변경은 재기동 후에도 유지된다. 클라이언트의 이름 해석은 tnsnames.ora 등이 담당한다. SPFILE은 CREATE SPFILE 문으로도 만들 수 있고, 기본 위치는 $ORACLE_HOME/dbs이며 ASM에도 둘 수 있으므로 network/admin에 있어야 한다는 설명은 틀리다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SPFILE-TRUE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two initialization parameters are static, so that a new value requires SCOPE=SPFILE and an instance restart? (Choose two.)",
+  "options": {
+   "A": "UNDO_RETENTION",
+   "B": "PROCESSES",
+   "C": "OPEN_CURSORS",
+   "D": "DB_RECOVERY_FILE_DEST_SIZE",
+   "E": "SGA_MAX_SIZE"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "PROCESSES와 SGA_MAX_SIZE는 정적 파라미터라 SCOPE=SPFILE로 변경한 뒤 재기동해야 적용된다. OPEN_CURSORS, UNDO_RETENTION, DB_RECOVERY_FILE_DEST_SIZE는 ALTER SYSTEM으로 즉시 변경할 수 있는 동적 파라미터이다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-STATIC-EXAMPLE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about dynamic service registration in Oracle Database 19c are true? (Choose two.)",
+  "options": {
+   "A": "Dynamic registration works only for shared server connections",
+   "B": "The LREG background process registers instance and service information with the listener",
+   "C": "If the listener does not use the default local address (for example, a non-default port), LOCAL_LISTENER must be set for the instance to find it",
+   "D": "A SID_LIST entry in listener.ora is required for each instance before dynamic registration can work",
+   "E": "The listener must be restarted every time a new service is started"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "19c에서 동적 등록은 LREG가 수행하며, 기본 주소(로컬 호스트 1521 포트)가 아닌 리스너에는 LOCAL_LISTENER를 설정해야 등록된다. SID_LIST는 정적 등록용이라 동적 등록에 필요하지 않다. 새 서비스는 리스너 재시작 없이 등록되며, 동적 등록은 dedicated와 shared server 모두에 사용된다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-DYNREG-TRUE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two parameters are configured in the sqlnet.ora file? (Choose two.)",
+  "options": {
+   "A": "SQLNET.EXPIRE_TIME",
+   "B": "LOCAL_LISTENER",
+   "C": "DB_DOMAIN",
+   "D": "NAMES.DIRECTORY_PATH",
+   "E": "SID_LIST_LISTENER"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "NAMES.DIRECTORY_PATH(네이밍 방식 순서)와 SQLNET.EXPIRE_TIME(dead connection detection)은 sqlnet.ora 파라미터이다. SID_LIST_LISTENER는 listener.ora의 정적 등록 항목이다. LOCAL_LISTENER와 DB_DOMAIN은 데이터베이스 초기화 파라미터로 SPFILE/PFILE에 설정한다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-SQLNET-PARAMS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which tasks can be performed with DBCA in Oracle Database 19c? (Choose all that apply.)",
+  "options": {
+   "A": "Delete an existing database",
+   "B": "Apply a Release Update patch to the Oracle home",
+   "C": "Create a database template from an existing database",
+   "D": "Install the Oracle Database software binaries",
+   "E": "Create a new database"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "DBCA는 데이터베이스 생성·삭제와 기존 데이터베이스를 바탕으로 한 템플릿 관리 등을 수행한다. 소프트웨어 바이너리 설치는 runInstaller가 담당하고, Release Update 패치 적용은 OPatch 등 패치 도구가 담당하므로 DBCA 작업이 아니다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-DBCA-TASKS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two lsnrctl commands only display information and do not change the listener's running state or configuration? (Choose two.)",
+  "options": {
+   "A": "reload",
+   "B": "status",
+   "C": "stop",
+   "D": "services",
+   "E": "start"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "status는 리스너 버전·가동 시간·서비스 요약을, services는 서비스별 핸들러 상세 정보를 보여 줄 뿐 상태를 바꾸지 않는다. reload는 설정을 다시 읽어 구성을 바꾸고, stop과 start는 리스너 가동 상태를 바꾼다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LSNRCTL-CMDS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A listener named LISTENER was configured on port 1522 on the database host instead of 1521. The listener is running, but lsnrctl services shows no services for the database, and clients receive ORA-12514. The database parameters were not changed after installation. What is the most appropriate fix?",
+  "options": {
+   "A": "Change SERVER=DEDICATED to SERVER=SHARED in the client tnsnames.ora so that dispatchers handle the connections",
+   "B": "Restart the database in RESTRICTED mode",
+   "C": "Add the database host to TCP.INVITED_NODES in sqlnet.ora and then reload the listener",
+   "D": "Increase the PROCESSES parameter",
+   "E": "Set LOCAL_LISTENER to an address that points to port 1522 and then run ALTER SYSTEM REGISTER"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LREG는 기본적으로 로컬 1521 포트의 리스너에 등록하므로, 리스너를 1522로 옮겼다면 LOCAL_LISTENER에 1522 주소를 지정하고 ALTER SYSTEM REGISTER로 즉시 등록한다. TCP.INVITED_NODES는 클라이언트 접근 제어 설정이라 등록과 무관하다. SERVER=SHARED로 바꾸거나 RESTRICTED 모드로 재기동해도 서비스가 등록되지 않으며, PROCESSES는 프로세스 수 한도일 뿐이다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-LOCAL-LISTENER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "An instance is running with an SPFILE. A DBA runs ALTER SYSTEM SET processes=600 SCOPE=BOTH and receives ORA-02095: specified initialization parameter cannot be modified. What should the DBA do to change the value?",
+  "options": {
+   "A": "Run the statement with SCOPE=MEMORY",
+   "B": "Add the DEFERRED keyword to the original statement",
+   "C": "Run ALTER SYSTEM REGISTER and then retry SCOPE=BOTH",
+   "D": "Run the statement with SCOPE=SPFILE and restart the instance",
+   "E": "Change the value with ALTER SESSION SET processes=600"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "PROCESSES는 정적 파라미터라 메모리 변경이 포함된 SCOPE=BOTH나 SCOPE=MEMORY는 ORA-02095로 실패한다. SCOPE=SPFILE로 기록한 뒤 재기동해야 한다. DEFERRED는 이후 세션부터 적용 가능한 동적 파라미터에만 쓸 수 있고, ALTER SESSION으로 바꿀 수 있는 파라미터가 아니며, ALTER SYSTEM REGISTER는 리스너 등록 명령이다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-STATIC-CHANGE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a DBA set an invalid value in the SPFILE with SCOPE=SPFILE, the instance fails to start. No PFILE backup exists. Which sequence restores a startable configuration?",
+  "options": {
+   "A": "Open the binary SPFILE in vi, correct the invalid value in place, save the file, and then run STARTUP normally",
+   "B": "As SYSDBA on the idle instance, run CREATE PFILE FROM SPFILE, fix the value in the PFILE, STARTUP PFILE=<pfile>, then CREATE SPFILE FROM PFILE",
+   "C": "Run STARTUP NOMOUNT, then ALTER SYSTEM RESET the invalid parameter with SCOPE=SPFILE, and finally ALTER DATABASE MOUNT and ALTER DATABASE OPEN",
+   "D": "Run lsnrctl reload so that the listener reloads the parameter file",
+   "E": "Run dbca -silent -deleteDatabase and re-create the database"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "CREATE PFILE FROM SPFILE은 인스턴스를 기동하지 않은 상태에서도 실행할 수 있으므로 텍스트로 꺼내 값을 고친 뒤 PFILE로 기동하고 다시 SPFILE을 만든다. 잘못된 값 때문에 NOMOUNT 단계부터 실패하므로 기동 후 RESET하는 방법은 쓸 수 없다. 바이너리 SPFILE을 편집기로 고치면 손상될 수 있고, lsnrctl reload는 리스너 설정만 다룬다. 데이터베이스 삭제·재생성은 불필요하고 파괴적이다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-RECOVER-BAD-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A client connects with a tnsnames.ora entry that specifies SERVICE_NAME=hrsvc. The listener is reachable, but the connection fails with ORA-12514: TNS:listener does not currently know of service requested in connect descriptor. What is the most likely cause?",
+  "options": {
+   "A": "The service hrsvc is not currently registered with that listener (for example, not started or misnamed)",
+   "B": "No listener process is running on the host and port specified in the ADDRESS section of the connect descriptor",
+   "C": "The user's password has expired",
+   "D": "The client's sqlnet.ora does not allow Easy Connect",
+   "E": "The tnsnames.ora file is missing from the directory that the client reads, such as TNS_ADMIN"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-12514는 리스너에 도달했지만 요청한 서비스가 리스너에 등록되어 있지 않을 때 발생하므로, 서비스 기동 여부와 이름 일치 여부를 확인한다. tnsnames.ora가 없으면 ORA-12154, 리스너가 없으면 ORA-12541이 발생한다. 비밀번호 만료는 인증 단계 오류이고, Easy Connect 허용 여부는 tnsnames 별칭 사용과 무관하다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-ORA12514"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a server reboot, clients receive ORA-12541: TNS:no listener when connecting to dbhost:1521. The database instance is open. What is the most likely cause and action?",
+  "options": {
+   "A": "The requested service is not registered; run ALTER SYSTEM REGISTER",
+   "B": "The database is in MOUNT mode; open it",
+   "C": "No listener is running at that host and port; start it with lsnrctl start",
+   "D": "The password file is missing; re-create it with orapwd",
+   "E": "The alias is missing from tnsnames.ora; add the alias"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ORA-12541은 지정한 호스트·포트에서 리스너가 응답하지 않을 때 발생하므로, 재부팅 후 리스너가 기동되지 않았다면 lsnrctl start로 기동한다. 서비스 미등록은 리스너가 떠 있는 상태에서의 ORA-12514이고, 별칭 누락은 ORA-12154이다. MOUNT 상태나 패스워드 파일 누락은 리스너 부재 오류를 일으키지 않는다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-ORA12541"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A client's sqlnet.ora contains NAMES.DIRECTORY_PATH=(TNSNAMES). A user tries 'sqlplus scott@//dbhost:1521/orclpdb' and receives ORA-12154. tnsnames.ora connections work. What should be changed?",
+  "options": {
+   "A": "Set SQLNET.EXPIRE_TIME to 10",
+   "B": "Set LOCAL_LISTENER on the client",
+   "C": "Remove TNS_ADMIN from the client environment",
+   "D": "Add an ADDRESS_LIST entry for orclpdb to listener.ora",
+   "E": "Add EZCONNECT to NAMES.DIRECTORY_PATH, for example (TNSNAMES, EZCONNECT)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "NAMES.DIRECTORY_PATH에 지정된 네이밍 방식만 사용되므로 TNSNAMES만 있으면 Easy Connect 문자열을 해석하지 못해 ORA-12154가 발생한다. EZCONNECT를 추가해야 한다. listener.ora 변경, 클라이언트의 LOCAL_LISTENER(서버 파라미터), TNS_ADMIN 제거, SQLNET.EXPIRE_TIME 설정은 이름 해석 방식과 관계가 없다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-DIRECTORY-PATH"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A RAC database SPFILE contains both '*.open_cursors=300' and 'orcl1.open_cursors=500'. Which value does instance orcl1 use at startup, and which value does instance orcl2 use?",
+  "options": {
+   "A": "The instances fail to start because the parameter is defined twice",
+   "B": "Both instances use 500 because the last entry in the file wins for all instances",
+   "C": "orcl1 uses 300 and orcl2 uses 500",
+   "D": "orcl1 uses 500 and orcl2 uses 300",
+   "E": "Both instances use 300 because the '*' entry always takes precedence"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SPFILE에서 'SID.파라미터' 항목은 해당 인스턴스에만 적용되며 같은 파라미터의 '*.' 항목보다 우선한다. 따라서 orcl1은 500, 지정 항목이 없는 orcl2는 '*' 값인 300을 사용한다. '*' 항목이 항상 우선한다거나 마지막 항목이 모든 인스턴스에 적용된다는 설명은 틀리다. 이런 인스턴스별 정의는 정상 구성이므로 기동 실패 원인이 아니다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SID-PREFIX"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA needs to start a shut-down database instance remotely with 'sqlplus sys@orcl as sysdba' followed by STARTUP. The password file is valid. What must be configured on the listener side for the connection to the idle instance to succeed?",
+  "options": {
+   "A": "LOAD_BALANCE=ON in the client connect descriptor for the orcl alias",
+   "B": "Dynamic registration through LREG only, with no SID_LIST entries in listener.ora",
+   "C": "Static registration of the instance with a SID_DESC entry in listener.ora",
+   "D": "SQLNET.EXPIRE_TIME set in the server sqlnet.ora",
+   "E": "LOCAL_LISTENER set in the SPFILE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "인스턴스가 내려가 있으면 LREG가 동작하지 않아 동적 등록 정보가 없으므로, listener.ora의 SID_LIST에 SID_DESC로 정적 등록해야 원격에서 유휴 인스턴스에 접속해 STARTUP할 수 있다. LOCAL_LISTENER는 동적 등록 대상 리스너 주소일 뿐 인스턴스가 꺼져 있으면 효과가 없다. SQLNET.EXPIRE_TIME은 dead connection detection, LOAD_BALANCE는 주소 선택 분산 설정이다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-STATIC-REMOTE-STARTUP"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An instance that uses dynamic registration was started with STARTUP NOMOUNT. lsnrctl status shows the instance with status BLOCKED. Why?",
+  "options": {
+   "A": "The listener has reached the maximum number of handlers",
+   "B": "The instance is registered but is not in a state that accepts normal connections (for example, NOMOUNT)",
+   "C": "The password file is missing",
+   "D": "The instance is statically registered through a SID_DESC entry in listener.ora, which the listener reports as BLOCKED",
+   "E": "LOCAL_LISTENER points to the wrong port"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "동적 등록된 인스턴스가 NOMOUNT 등 일반 연결을 받을 수 없는 상태이면 리스너는 BLOCKED로 표시한다. 정적 등록 인스턴스는 UNKNOWN으로 표시된다. LOCAL_LISTENER 포트가 틀렸다면 해당 리스너에 등록 자체가 되지 않아 목록에 나타나지 않는다. 핸들러 수나 패스워드 파일 누락은 BLOCKED 상태 표시의 원인이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-STATUS-BLOCKED"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An instance was started with STARTUP PFILE=/tmp/initorcl.ora. A DBA then runs ALTER SYSTEM SET open_cursors=400 SCOPE=SPFILE. What is the result?",
+  "options": {
+   "A": "The statement fails with ORA-32001 because no SPFILE is in use",
+   "B": "The value is written to /tmp/initorcl.ora",
+   "C": "A new SPFILE is created automatically from memory",
+   "D": "The value is applied to memory only, and a warning is returned",
+   "E": "The value is written to $ORACLE_HOME/dbs/spfileorcl.ora"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "PFILE로 기동한 인스턴스에서 SCOPE=SPFILE(또는 BOTH)을 지정하면 ORA-32001(write to SPFILE requested but no SPFILE is in use)로 실패한다. 인스턴스는 사용 중이지 않은 기본 위치 SPFILE이나 텍스트 PFILE에 값을 기록하지 않는다. 메모리에만 적용하려면 SCOPE=MEMORY를 써야 하며, SPFILE이 자동 생성되지도 않는다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SCOPE-NO-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A tnsnames.ora entry has one DESCRIPTION with two ADDRESS entries (host1 then host2) and does not specify FAILOVER or LOAD_BALANCE. host1 is down. What happens when a client connects?",
+  "options": {
+   "A": "The client connects to both hosts in parallel and keeps the first response",
+   "B": "The client fails immediately because FAILOVER is off by default",
+   "C": "The client always uses only the last address in the list",
+   "D": "The client randomly chooses one address and fails if it picks host1",
+   "E": "The client tries host1 first and, after that attempt fails, tries host2"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "DESCRIPTION 안의 주소 목록은 FAILOVER가 기본적으로 ON이고 LOAD_BALANCE는 기본 OFF이므로, 목록 순서대로 host1을 먼저 시도하고 실패하면 host2로 넘어간다. 무작위 선택은 LOAD_BALANCE=ON일 때의 동작이다. 병렬 접속이나 마지막 주소만 사용하는 동작은 기본 동작이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-FAILOVER-DEFAULT"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An instance is running with $ORACLE_HOME/dbs/spfileorcl.ora. A DBA runs CREATE SPFILE='/u01/app/oracle/product/19.0.0/dbhome_1/dbs/spfileorcl.ora' FROM PFILE='/tmp/initorcl.ora'. What happens?",
+  "options": {
+   "A": "The SPFILE is overwritten and the new values take effect immediately",
+   "B": "The instance shuts down so that the SPFILE can be replaced",
+   "C": "The statement fails with ORA-32002 because the instance is already using that SPFILE",
+   "D": "The SPFILE is overwritten and the new values take effect at the next startup",
+   "E": "A second SPFILE with a numbered suffix is created"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "인스턴스가 현재 사용 중인 SPFILE을 CREATE SPFILE로 덮어쓰려 하면 ORA-32002(cannot create SPFILE already being used by the instance)로 실패한다. 따라서 덮어쓴 뒤 즉시 또는 다음 기동 때 적용된다는 설명은 틀리다. 번호를 붙인 새 SPFILE을 만들거나 인스턴스를 종료하는 동작도 없다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-SPFILE-IN-USE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "The SPFILE for instance orcl is stored at /u02/config/spfileorcl.ora, and no SPFILE exists in $ORACLE_HOME/dbs. Which two approaches make the instance start with that SPFILE? (Choose two.)",
+  "options": {
+   "A": "Add SPFILE=/u02/config/spfileorcl.ora to the server sqlnet.ora",
+   "B": "Run STARTUP SPFILE='/u02/config/spfileorcl.ora'",
+   "C": "Set the environment variable ORACLE_SPFILE=/u02/config/spfileorcl.ora in the oracle user's profile, then run STARTUP",
+   "D": "Run STARTUP PFILE=/tmp/initsp.ora, where /tmp/initsp.ora contains only SPFILE='/u02/config/spfileorcl.ora'",
+   "E": "Create $ORACLE_HOME/dbs/initorcl.ora containing only SPFILE='/u02/config/spfileorcl.ora', then run STARTUP"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "SPFILE 파라미터만 담은 PFILE을 사용하면 비기본 위치의 SPFILE로 기동할 수 있다. 기본 검색 순서에서 init<SID>.ora를 찾게 하거나 STARTUP PFILE=로 그 파일을 직접 지정하면 된다. STARTUP 명령에는 SPFILE 절이 없고, ORACLE_SPFILE 환경 변수는 존재하지 않으며, sqlnet.ora는 초기화 파라미터를 읽는 파일이 아니다.",
+  "reference": "Oracle Database 19c - Database Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-NONDEFAULT-SPFILE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "A security team requires that only clients from approved IP addresses can connect through the listener. Which two server-side sqlnet.ora parameters are used together to enforce this? (Choose two.)",
+  "options": {
+   "A": "TCP.VALIDNODE_CHECKING=YES",
+   "B": "TCP.INVITED_NODES=(<approved hosts or addresses>)",
+   "C": "TCP.ALLOWED_HOSTS=(<approved hosts or addresses>)",
+   "D": "LOCAL_LISTENER=(<approved hosts or addresses>)",
+   "E": "SQLNET.ALLOWED_LOGON_VERSION_SERVER=12"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "TCP.VALIDNODE_CHECKING=YES로 노드 검사를 켜고 TCP.INVITED_NODES에 허용할 호스트·주소를 나열하면 그 외 클라이언트 접속이 거부된다. TCP.ALLOWED_HOSTS는 존재하지 않는 파라미터이다. SQLNET.ALLOWED_LOGON_VERSION_SERVER는 허용 인증 프로토콜 버전을 정할 뿐 IP 제한과 무관하고, LOCAL_LISTENER는 데이터베이스의 리스너 등록 주소 파라미터이다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-VALIDNODE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about creating parameter files are true? (Choose two.)",
+  "options": {
+   "A": "CREATE PFILE FROM SPFILE can be executed while connected AS SYSDBA to an idle (not started) instance",
+   "B": "CREATE SPFILE FROM MEMORY creates an SPFILE from the current parameter values of the running instance",
+   "C": "CREATE PFILE FROM SPFILE converts the SPFILE in place and deletes the binary file",
+   "D": "CREATE PFILE FROM SPFILE requires the database to be OPEN",
+   "E": "CREATE SPFILE FROM PFILE can overwrite the SPFILE that the running instance is currently using without error"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "CREATE PFILE FROM SPFILE은 인스턴스 기동 전후 어느 때나 SYSDBA로 실행할 수 있고, CREATE SPFILE FROM MEMORY는 실행 중 인스턴스의 현재 값으로 SPFILE을 만든다. 데이터베이스가 OPEN 상태일 필요는 없다. PFILE 생성 시 원본 SPFILE은 그대로 남는다. 사용 중인 SPFILE을 CREATE SPFILE로 덮어쓰려 하면 ORA-32002로 실패한다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-CREATE-STMTS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about the root scripts run during an Oracle Database 19c installation on Linux are true? (Choose two.)",
+  "options": {
+   "A": "orainstRoot.sh is located in $ORACLE_HOME/bin of every Oracle home and must be run once for each home",
+   "B": "root.sh creates the database and starts the listener",
+   "C": "Both scripts must be run as the oracle software owner, not as root",
+   "D": "root.sh must be run as root for each new Oracle home that is installed",
+   "E": "orainstRoot.sh is needed only when a central inventory is created on the host for the first time"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "orainstRoot.sh는 호스트에 중앙 인벤토리를 처음 만들 때 인벤토리 디렉터리 권한과 /etc/oraInst.loc 등을 설정하기 위해 실행하며, 인벤토리 디렉터리에 위치한다. root.sh는 Oracle home마다 root로 실행한다. 두 스크립트 모두 root로 실행해야 하고, root.sh는 데이터베이스 생성이나 리스너 기동을 하지 않는다.",
+  "reference": "Oracle Database 19c - Database Installation Guide for Linux (검수 필요)",
+  "variant_group": "DB-INSTALL-INST-ROOT-SCRIPTS"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "In a 19c CDB, the tnsnames.ora entry SALESPDB uses (CONNECT_DATA=(SID=orcl)). Users connecting with this alias find that SYS_CONTEXT('USERENV','CON_NAME') returns CDB$ROOT instead of the PDB SALES. What should be changed?",
+  "options": {
+   "A": "Set LOAD_BALANCE=ON in the DESCRIPTION so that connections are spread across PDBs",
+   "B": "Set LOCAL_LISTENER in the PDB",
+   "C": "Replace SID=orcl with SERVICE_NAME set to the service of the SALES PDB",
+   "D": "Add SERVER=DEDICATED to the CONNECT_DATA section",
+   "E": "Grant the SET CONTAINER privilege to the users"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SID는 인스턴스를 식별할 뿐이므로 SID로 접속하면 CDB 루트(CDB$ROOT)에 연결된다. PDB에 바로 연결하려면 해당 PDB의 서비스 이름을 SERVICE_NAME으로 지정해야 한다. SERVER=DEDICATED와 LOAD_BALANCE는 접속 컨테이너를 바꾸지 않는다. LOCAL_LISTENER는 리스너 등록 주소이며, SET CONTAINER 권한은 접속 후 ALTER SESSION으로 컨테이너를 바꿀 때 필요한 것으로 이 접속 문자열 문제를 해결하지 않는다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-PDB-SERVICE"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "On a Linux server, a DBA increased MEMORY_TARGET in the SPFILE and restarted the instance. STARTUP now fails with ORA-00845: MEMORY_TARGET not supported on this system. What is the most likely cause?",
+  "options": {
+   "A": "The password file does not match the SYS password",
+   "B": "The listener is not running on port 1521",
+   "C": "SGA_MAX_SIZE was not set in the SPFILE",
+   "D": "The /dev/shm shared memory file system is smaller than the configured MEMORY_TARGET",
+   "E": "The SPFILE was corrupted by the change and must be re-created by DBCA before startup"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Linux에서 MEMORY_TARGET(AMM)은 /dev/shm(tmpfs)을 사용하므로 /dev/shm 크기가 MEMORY_TARGET보다 작으면 ORA-00845가 발생한다. /dev/shm을 늘리거나 PFILE로 값을 낮춰 기동한다. 리스너 상태와 패스워드 파일은 인스턴스 메모리 할당과 무관하다. SPFILE 손상이나 SGA_MAX_SIZE 미설정은 이 오류의 원인이 아니다.",
+  "reference": "Oracle Database 19c - Error Messages (검수 필요)",
+  "variant_group": "DB-INSTALL-PARAM-ORA00845"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Idle client sessions are silently dropped by a firewall between the application servers and the database. Sessions left on the server consume resources until manually killed. Which server-side configuration is most appropriate to detect and clean up these dead connections?",
+  "options": {
+   "A": "Run lsnrctl reload every few minutes",
+   "B": "Set LOAD_BALANCE=ON in the client tnsnames.ora",
+   "C": "Set NAMES.DIRECTORY_PATH=(EZCONNECT) on the client",
+   "D": "Set SQLNET.INBOUND_CONNECT_TIMEOUT in the database server's sqlnet.ora",
+   "E": "Set SQLNET.EXPIRE_TIME in the database server's sqlnet.ora"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SQLNET.EXPIRE_TIME을 서버 sqlnet.ora에 설정하면 주기적인 프로브로 끊어진 연결을 감지해 서버 프로세스를 정리할 수 있고, 프로브 트래픽이 방화벽의 유휴 연결 끊김 방지에도 도움이 된다. SQLNET.INBOUND_CONNECT_TIMEOUT은 접속·인증 단계의 제한 시간이라 이미 맺어진 세션에는 영향이 없다. LOAD_BALANCE와 NAMES.DIRECTORY_PATH는 접속 시점 설정이고, lsnrctl reload는 기존 세션과 무관하다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-EXPIRE-TIME"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA adds a second listener named LISTENER2 on port 1531 to listener.ora and runs 'lsnrctl start'. Clients that connect to port 1531 receive ORA-12541: TNS:no listener, while connections on port 1521 work. What is the cause?",
+  "options": {
+   "A": "LOCAL_LISTENER must be set to the port 1531 address in the SPFILE before a second listener can be started",
+   "B": "Port 1531 is reserved by Oracle and cannot be used",
+   "C": "lsnrctl start without a name starts only the listener named LISTENER; start LISTENER2 with lsnrctl start LISTENER2",
+   "D": "LISTENER2 requires a separate Oracle home",
+   "E": "Two listeners cannot be defined in the same listener.ora file, so LISTENER2 needs its own configuration file"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "lsnrctl start에 이름을 생략하면 기본 이름 LISTENER만 기동하므로 LISTENER2는 lsnrctl start LISTENER2로 따로 기동해야 한다. 하나의 listener.ora에 여러 리스너를 정의할 수 있고, 1531 포트가 Oracle 예약 포트인 것도 아니다. 별도 Oracle home은 필요 없으며, LOCAL_LISTENER는 서비스 등록 대상 지정용이라 리스너 기동 조건이 아니다.",
+  "reference": "Oracle Database 19c - Net Services Reference (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-NAMED-LISTENER"
+ },
+ {
+  "domain": "DB_INSTALL",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A database has DB_NAME=orcl, DB_UNIQUE_NAME=orcl, and DB_DOMAIN=example.com. A new client tnsnames.ora entry uses SERVICE_NAME=orcl and fails with ORA-12514, although lsnrctl services shows the database registered. What is the most likely fix?",
+  "options": {
+   "A": "Use the fully qualified service name orcl.example.com in SERVICE_NAME",
+   "B": "Restart the listener with lsnrctl start orcl",
+   "C": "Change SERVICE_NAME=orcl to SID=orcl.example.com in the CONNECT_DATA section",
+   "D": "Remove DB_DOMAIN from the client sqlnet.ora",
+   "E": "Add orcl to TCP.INVITED_NODES"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DB_DOMAIN이 설정되면 데이터베이스 서비스 이름에 도메인이 붙어 orcl.example.com으로 등록되므로 클라이언트도 전체 서비스 이름을 사용해야 한다. DB_DOMAIN은 데이터베이스 초기화 파라미터라 클라이언트 sqlnet.ora와 무관하다. SID에는 서비스 이름이 아니라 인스턴스 이름을 쓰며, 리스너 이름을 orcl로 기동하는 것과 TCP.INVITED_NODES는 서비스 이름 불일치를 해결하지 않는다.",
+  "reference": "Oracle Database 19c - Net Services Administrator's Guide (검수 필요)",
+  "variant_group": "DB-INSTALL-NET-DB-DOMAIN"
+ }
+]

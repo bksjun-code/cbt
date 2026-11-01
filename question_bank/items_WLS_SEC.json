@@ -1,0 +1,1416 @@
+[
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In Oracle WebLogic Server 14.1.1, what is a security realm?",
+  "options": {
+   "A": "A container for the users, groups, security roles, security policies, and security providers that protect WebLogic resources",
+   "B": "A separate JVM partition, started by Node Manager, in which only applications that declare security constraints are deployed and run",
+   "C": "A group of Managed Servers that share an SSL certificate",
+   "D": "A keystore file that stores the private keys of all servers in the domain",
+   "E": "A directory under the domain home that contains encrypted passwords"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "보안 영역(security realm)은 사용자, 그룹, 보안 역할, 보안 정책과 이를 처리하는 보안 제공자(provider)를 담아 WebLogic 리소스를 보호하는 컨테이너이다. 별도의 JVM 파티션이나 서버 묶음, 개인 키를 담는 키스토어 파일, 암호화된 비밀번호가 있는 디렉터리는 보안 영역의 정의가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-REALM-DEF"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the name of the default security realm that is created with a new WebLogic Server 14.1.1 domain?",
+  "options": {
+   "A": "DefaultRealm",
+   "B": "myrealm",
+   "C": "wlsrealm",
+   "D": "WebLogicRealm",
+   "E": "securityrealm"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "새 도메인을 만들면 기본 보안 영역 myrealm이 생성되고 기본 영역(default realm)으로 지정된다. DefaultRealm, wlsrealm, WebLogicRealm, securityrealm이라는 이름의 영역은 자동으로 만들어지지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-REALM-DEFAULT-NAME"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How many security realms can be active at the same time in a single WebLogic Server domain?",
+  "options": {
+   "A": "One per Managed Server in the domain",
+   "B": "One per cluster in the domain",
+   "C": "Only one, the default realm, although additional realms can be configured",
+   "D": "Any number; all configured realms are consulted in sequence",
+   "E": "Two, a primary realm and a backup realm used for failover"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "도메인에는 여러 보안 영역을 구성해 둘 수 있지만 실제로 활성화되는 것은 기본 영역(default realm)으로 지정된 하나뿐이다. 서버별·클러스터별로 다른 영역이 활성화되거나, 모든 영역이 차례로 조회되거나, 주·백업 영역이 페일오버하는 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-REALM-ACTIVE-COUNT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the default security realm, which security provider authenticates users against user and group data stored in the embedded LDAP server?",
+  "options": {
+   "A": "The XACML Role Mapping provider",
+   "B": "The WebLogic Credential Mapping provider",
+   "C": "The WebLogic CertPath provider",
+   "D": "The WebLogic Authentication provider (DefaultAuthenticator)",
+   "E": "The WebLogic Adjudication provider"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "기본 영역의 WebLogic Authentication provider(DefaultAuthenticator)는 임베디드 LDAP 서버에 저장된 사용자와 그룹 정보로 인증을 수행한다. XACML Role Mapping provider는 역할 매핑, Credential Mapping provider는 원격 시스템용 자격 증명 매핑, CertPath provider는 인증서 경로 검증, Adjudication provider는 인가 결과 조정을 담당하므로 사용자 인증과는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ATN-DEFAULT-PROVIDER"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the primary function of an Authorization provider in a WebLogic security realm?",
+  "options": {
+   "A": "To verify a user's password when the user logs in",
+   "B": "To map a WebLogic user to a user name and password for a remote system",
+   "C": "To validate the chain of a certificate presented by a peer during an SSL handshake, using the trust keystore",
+   "D": "To write security events to an audit log",
+   "E": "To decide whether a subject may access a resource, based on security roles and policies"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Authorization provider는 사용자가 가진 보안 역할과 리소스에 설정된 보안 정책을 근거로 리소스 접근 허용 여부를 결정한다. 비밀번호 검증은 Authentication provider, 원격 시스템용 자격 증명 매핑은 Credential Mapping provider, 인증서 체인 검증은 Certification Path provider, 보안 이벤트 기록은 Auditing provider의 역할이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ATZ-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does a Credential Mapping provider do in a WebLogic security realm?",
+  "options": {
+   "A": "It maps an authenticated WebLogic principal to credentials that are used to access a remote or legacy system",
+   "B": "It maps a user to the global security roles defined in the realm",
+   "C": "It converts an X.509 certificate presented on an inbound request into a WebLogic user name so that no password is needed",
+   "D": "It stores the server's private key and certificate for SSL",
+   "E": "It resolves conflicting decisions returned by several Authorization providers"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Credential Mapping provider는 WebLogic에서 인증된 주체(principal)를 원격·레거시 시스템(예: 리소스 어댑터 대상 EIS)에 접속할 때 쓸 자격 증명으로 매핑한다. 사용자를 역할에 대응시키는 것은 Role Mapping provider, 인바운드 인증서를 사용자 이름으로 바꾸는 것은 Identity Assertion provider, 개인 키와 인증서 저장은 Identity 키스토어, 인가 결정 충돌 해소는 Adjudication provider의 기능이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-CREDMAP-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of an Identity Assertion provider in WebLogic Server?",
+  "options": {
+   "A": "To store users and groups in the embedded LDAP server",
+   "B": "To validate an externally supplied token, such as an X.509 certificate or SAML assertion, and map it to a user name",
+   "C": "To decide, based on the roles and policies of the realm, whether an authenticated user can invoke a particular EJB method",
+   "D": "To encrypt passwords that are written to config.xml",
+   "E": "To record successful and failed login attempts in an audit file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Identity Assertion provider는 경계 인증(perimeter authentication)에 쓰이며, 외부에서 전달된 토큰(X.509 인증서, SAML 어설션 등)을 검증해 사용자 이름으로 매핑한다. 그래서 비밀번호 없이도 신원을 확립할 수 있다. 사용자·그룹 저장은 Authentication provider와 임베디드 LDAP, 접근 결정은 Authorization provider, 비밀번호 암호화는 도메인 암호화 키, 로그인 기록은 Auditing provider의 영역이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-IDASSERT-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the primary function of an Auditing provider in a WebLogic security realm?",
+  "options": {
+   "A": "To block requests that come from untrusted IP addresses",
+   "B": "To check that a user's new password meets the configured composition rules",
+   "C": "To collect, store, and distribute information about security requests and their outcomes",
+   "D": "To replicate the embedded LDAP data from the Administration Server to Managed Servers",
+   "E": "To renew SSL certificates before they expire"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Auditing provider는 인증 시도, 인가 결정 등 보안 요청과 그 결과에 대한 정보를 수집·저장·배포하는 감사 기능을 제공한다. IP 기반 차단은 연결 필터, 비밀번호 구성 규칙 검사는 Password Validation provider, LDAP 복제는 임베디드 LDAP 자체 기능이며, 인증서 자동 갱신은 Auditing provider의 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-AUDIT-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a WebLogic Server domain that uses the embedded LDAP server, where does the master copy of the embedded LDAP data reside?",
+  "options": {
+   "A": "On the first Managed Server that is started in the domain",
+   "B": "On every server equally, with no master copy",
+   "C": "On the Node Manager of the machine that hosts the Administration Server",
+   "D": "On the Administration Server; Managed Servers keep replicas",
+   "E": "In an external database that must be configured during domain creation"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "임베디드 LDAP의 마스터 데이터는 Administration Server에 있고, Managed Server는 그 복제본(replica)을 가진다. 처음 기동된 Managed Server가 마스터가 되거나 모든 서버가 동등한 구조는 아니며, Node Manager나 도메인 생성 시 반드시 구성해야 하는 외부 DB에 저장되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-MASTER"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does a WebLogic Server identity keystore contain?",
+  "options": {
+   "A": "Only the root certificates of certificate authorities that the server trusts",
+   "B": "The user names and hashed passwords of the security realm",
+   "C": "The security policies that protect deployed applications",
+   "D": "The encryption key used for passwords in config.xml",
+   "E": "The server's private key together with its digital certificate (and certificate chain)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Identity 키스토어에는 서버의 개인 키와 그 공개 키를 담은 디지털 인증서(필요하면 인증서 체인)가 들어 있어, SSL에서 서버 자신의 신원을 증명하는 데 쓰인다. 신뢰하는 CA 루트 인증서는 Trust 키스토어에 둔다. 사용자 비밀번호와 보안 정책은 보안 영역(기본은 임베디드 LDAP)에, config.xml 비밀번호 암호화 키는 SerializedSystemIni.dat에 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-KS-IDENTITY"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the role of a trust keystore in WebLogic Server SSL configuration?",
+  "options": {
+   "A": "It holds the certificates of trusted CAs that are used to validate certificates presented by peers",
+   "B": "It holds the server's own private key and certificate, which the server uses to prove its identity during the SSL handshake",
+   "C": "It holds the list of users who are allowed to connect over SSL",
+   "D": "It holds the session keys negotiated for each SSL connection",
+   "E": "It holds the deployment descriptors of secured applications"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Trust 키스토어에는 신뢰하는 CA의 인증서가 들어 있고, 상대방이 제시한 인증서가 신뢰할 수 있는 CA에서 발급되었는지 검증하는 데 쓰인다. 서버 자신의 개인 키는 Identity 키스토어에 있다. 접속 허용 사용자 목록이나 연결별 세션 키, 배포 기술자는 Trust 키스토어에 저장되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-KS-TRUST"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "By default, members of which group in a new WebLogic Server domain are granted the global Admin role?",
+  "options": {
+   "A": "Deployers",
+   "B": "Administrators",
+   "C": "Operators",
+   "D": "Monitors",
+   "E": "AdminChannelUsers"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "기본 역할 매핑에서 Administrators 그룹의 구성원에게 전역 Admin 역할이 부여된다. Deployers 그룹은 Deployer 역할, Operators 그룹은 Operator 역할, Monitors 그룹은 Monitor 역할, AdminChannelUsers 그룹은 AdminChannelUser 역할에 대응한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-GROUP-ADMINISTRATORS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which predefined global role gives read-only access to WebLogic Server configuration and runtime information?",
+  "options": {
+   "A": "Operator",
+   "B": "Deployer",
+   "C": "Monitor",
+   "D": "Admin",
+   "E": "CrossDomainConnector"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Monitor 역할은 구성과 런타임 정보를 읽기 전용으로 조회만 할 수 있다. Operator는 조회에 더해 서버 기동·종료 같은 작업을, Deployer는 배포 관련 변경을, Admin은 모든 관리 작업을 수행할 수 있다. CrossDomainConnector는 도메인 간 호출을 위한 역할로 관리 정보 조회 권한과는 목적이 다르다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ROLE-MONITOR"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which predefined global role allows a user to start, stop, and resume server instances but not to modify the domain configuration or deploy applications?",
+  "options": {
+   "A": "Monitor",
+   "B": "Deployer",
+   "C": "AppTester",
+   "D": "Operator",
+   "E": "Anonymous"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Operator 역할은 구성을 조회하고 서버 인스턴스를 기동·종료·재개하는 운영 작업을 수행할 수 있지만 구성 변경이나 배포는 할 수 없다. Monitor는 읽기 전용이라 서버 기동·종료를 할 수 없고, Deployer는 배포 권한을 가진다. AppTester는 관리 모드 애플리케이션 테스트용이며, Anonymous는 인증되지 않은 사용자에게 부여되는 역할이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ROLE-OPERATOR"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the default SSL listen port of the Administration Server in a WebLogic Server 14.1.1 domain?",
+  "options": {
+   "A": "7001",
+   "B": "9002",
+   "C": "5556",
+   "D": "443",
+   "E": "7002"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Administration Server의 기본 SSL 리슨 포트는 7002이다. 7001은 일반(평문) 기본 리슨 포트, 9002는 도메인 전체 관리 포트(administration port)의 기본값, 5556은 Node Manager 기본 포트이며, 443은 WebLogic의 기본 SSL 포트가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SSL-PORT-DEFAULT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Why should the demonstration identity and trust keystores not be used in a production WebLogic Server environment?",
+  "options": {
+   "A": "The demo CA ships with every WebLogic Server installation, so certificates it signs cannot be relied on to prove identity",
+   "B": "They use a keystore format that WebLogic Server cannot read in production mode",
+   "C": "They disable SSL encryption and send data in clear text",
+   "D": "They are deleted automatically when the domain is switched to production mode, so the SSL listen ports fail to start afterward",
+   "E": "They can be used only by the Node Manager, not by servers"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "데모 키스토어의 인증서는 모든 WebLogic 설치본에 함께 배포되는 데모 CA로 서명되므로 누구나 같은 CA로 인증서를 만들 수 있어 신원 증명 수단으로 신뢰할 수 없다. 그래서 운영 환경에서는 신뢰할 수 있는 CA가 발급한 인증서로 Custom Identity/Trust를 구성해야 한다. 데모 키스토어도 SSL 암호화는 정상 수행하며, 형식을 읽지 못하거나 운영 모드 전환 시 자동 삭제되거나 Node Manager 전용인 것은 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing a Production Environment for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-DEMO-KS-PROD"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When an application is deployed without explicitly selecting a security model, which security model does WebLogic Server use by default?",
+  "options": {
+   "A": "Custom Roles",
+   "B": "DD Only",
+   "C": "Custom Roles and Policies",
+   "D": "Advanced",
+   "E": "Global Roles Only"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "별도로 지정하지 않으면 배포 기술자(web.xml, weblogic.xml 등)에 정의된 역할과 정책을 사용하는 DD Only 모델이 기본으로 적용된다. Custom Roles, Custom Roles and Policies, Advanced는 배포 시 명시적으로 선택해야 하는 모델이며, Global Roles Only라는 보안 모델은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SEC-MODEL-DEFAULT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the JAAS Control Flag of a WebLogic Authentication provider determine?",
+  "options": {
+   "A": "Whether the provider stores the passwords of its users in clear text or in hashed form in the embedded LDAP server",
+   "B": "Whether the provider can be used over SSL connections",
+   "C": "How its success or failure affects the overall result when several Authentication providers are configured",
+   "D": "Which applications are allowed to call the provider",
+   "E": "How often the provider refreshes its cache of users and groups"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "JAAS Control Flag(REQUIRED, REQUISITE, SUFFICIENT, OPTIONAL)는 여러 Authentication provider가 구성되어 있을 때 각 provider의 성공·실패가 전체 인증 결과와 이후 provider 호출에 어떻게 반영되는지를 정한다. 비밀번호 저장 형식, SSL 사용 여부, 호출 가능한 애플리케이션, 캐시 갱신 주기와는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-DEF"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are predefined global security roles in WebLogic Server 14.1.1? (Choose two.)",
+  "options": {
+   "A": "Admin",
+   "B": "SuperUser",
+   "C": "Deployer",
+   "D": "Root",
+   "E": "SecurityManager"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "WebLogic에는 Admin, Deployer, Operator, Monitor, AppTester, CrossDomainConnector, AdminChannelUser, Anonymous 같은 전역 역할이 미리 정의되어 있으므로 Admin과 Deployer가 해당한다. SuperUser, Root, SecurityManager라는 전역 역할은 제공되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ROLE-GLOBAL-LIST"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two security providers are configured in the default realm (myrealm) of a newly created WebLogic Server 14.1.1 domain? (Choose two.)",
+  "options": {
+   "A": "The Active Directory Authentication provider (ActiveDirectoryAuthenticator)",
+   "B": "The WebLogic Authentication provider (DefaultAuthenticator)",
+   "C": "The Negotiate Identity Assertion provider",
+   "D": "The XACML Authorization provider",
+   "E": "The SAML 2.0 Credential Mapping provider"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "새 도메인의 myrealm에는 DefaultAuthenticator, DefaultIdentityAsserter, XACML Role Mapping provider, XACML Authorization provider, Default Credential Mapping provider, CertPath provider 등이 기본으로 구성된다. Active Directory Authentication provider, Negotiate(Kerberos/SPNEGO) Identity Assertion provider, SAML 2.0 Credential Mapping provider는 필요할 때 관리자가 추가해야 한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-REALM-DEFAULT-PROVIDERS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An Authentication provider has its JAAS Control Flag set to REQUIRED. Which statement describes its behavior?",
+  "options": {
+   "A": "If the provider succeeds, control returns immediately and no further providers are called",
+   "B": "If the provider fails, control returns immediately to the application and none of the remaining providers in the list is called",
+   "C": "The provider's result is ignored unless it is the only provider in the realm",
+   "D": "The provider must succeed, and regardless of its result, authentication continues with the next providers in the list",
+   "E": "The provider is called only when all other providers have failed"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "REQUIRED는 해당 provider가 반드시 성공해야 하며, 성공하든 실패하든 목록의 다음 provider로 인증이 계속 진행된다. 성공 즉시 반환하는 것은 SUFFICIENT, 실패 즉시 반환하는 것은 REQUISITE의 동작이다. 결과가 무시되거나 다른 provider가 모두 실패했을 때만 호출되는 방식은 REQUIRED의 정의가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-REQUIRED"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement correctly describes an Authentication provider whose JAAS Control Flag is SUFFICIENT?",
+  "options": {
+   "A": "It must succeed, and authentication always continues down the list",
+   "B": "It must succeed; if it fails, control returns immediately to the application and none of the providers below it in the list is called",
+   "C": "It is called only after all OPTIONAL providers have succeeded",
+   "D": "Its failure always causes the entire login to fail",
+   "E": "It need not succeed; if it succeeds and no earlier REQUIRED or REQUISITE provider failed, the providers below it are not called"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SUFFICIENT provider는 반드시 성공할 필요는 없다. 성공하면 앞선 REQUIRED/REQUISITE provider가 실패하지 않은 한 아래 provider를 호출하지 않고 즉시 반환하며, 실패하면 다음 provider로 진행한다. 반드시 성공해야 하고 항상 계속 진행하는 것은 REQUIRED, 실패 시 즉시 반환하는 것은 REQUISITE이다. SUFFICIENT의 실패가 곧바로 전체 로그인 실패로 이어지지는 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-SUFFICIENT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What happens when an Authentication provider with the JAAS Control Flag REQUISITE fails to authenticate a user?",
+  "options": {
+   "A": "Control returns immediately to the application and authentication fails without calling the remaining providers",
+   "B": "Authentication continues with the next provider in the list, and the failure is ignored if any later provider succeeds",
+   "C": "The provider is retried until the configured lockout threshold is reached",
+   "D": "The user is authenticated as the Anonymous user",
+   "E": "Authentication continues, and the failure is recorded only if an Auditing provider is configured"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "REQUISITE는 반드시 성공해야 하며, 실패하면 남은 provider를 호출하지 않고 즉시 애플리케이션으로 제어가 돌아가 인증이 실패한다. 실패를 무시하고 뒤의 provider 결과로 성공하는 동작은 REQUISITE가 아니다. 잠금 임계값까지 재시도하거나 Anonymous로 인증하거나, 감사 provider 유무에 따라 결과가 달라지는 동작도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-REQUISITE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a security realm, every configured Authentication provider has its JAAS Control Flag set to OPTIONAL. What is required for a login to succeed?",
+  "options": {
+   "A": "All of the Authentication providers must successfully authenticate the user",
+   "B": "At least one of the Authentication providers must successfully authenticate the user",
+   "C": "Nothing; the user is always authenticated because no provider is required",
+   "D": "The first provider in the list must succeed; the others are ignored",
+   "E": "The last provider in the list must succeed; the others are ignored"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "OPTIONAL provider는 개별적으로 성공할 필요가 없지만, 영역의 모든 Authentication provider가 OPTIONAL이면 적어도 하나는 인증에 성공해야 로그인이 성공한다. 모두 성공해야 하는 것은 아니며, 아무 조건 없이 인증되는 것도 아니다. 목록의 첫 번째나 마지막 provider만 결과를 결정하는 규칙도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-OPTIONAL"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When is an Adjudication provider used in a WebLogic security realm?",
+  "options": {
+   "A": "When multiple Authentication providers return different group memberships for the same user and these must be merged",
+   "B": "When an SSL client certificate cannot be validated by the trust keystore",
+   "C": "When several Authorization providers return differing access decisions that must be resolved into one",
+   "D": "When an embedded LDAP replica differs from the master copy",
+   "E": "When two applications define security roles with the same name"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Adjudication provider는 여러 Authorization provider가 구성되어 있을 때 각 provider가 반환한 PERMIT/DENY/ABSTAIN 결정이 서로 다르면 이를 최종 결정 하나로 조정한다. 인증 provider 간 그룹 정보 차이, 인증서 검증 실패, LDAP 복제본 불일치, 애플리케이션 간 역할 이름 중복은 Adjudication provider가 다루는 문제가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ADJUDICATION-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement correctly describes the relationship between security roles and security policies in WebLogic Server?",
+  "options": {
+   "A": "A security role and a security policy are two names for the same object",
+   "B": "A security policy assigns users to groups, and a security role protects a resource",
+   "C": "Security roles are used only by Authentication providers during login, and security policies are used only by Credential Mapping providers for outbound calls",
+   "D": "A role is an identity granted to users or groups based on conditions; a policy specifies which users, groups, or roles may access a resource",
+   "E": "A security policy can only be defined in config.xml, and a security role only in web.xml"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "보안 역할은 조건에 따라 사용자나 그룹에 동적으로 부여되는 신원이고, 보안 정책은 특정 리소스에 어떤 사용자·그룹·역할이 어떤 조건에서 접근할 수 있는지를 정한다. 둘은 같은 객체가 아니다. 사용자를 그룹에 넣는 것은 정책의 역할이 아니며, 역할은 Role Mapping provider, 정책은 Authorization provider가 주로 다룬다. 정의 위치도 config.xml이나 web.xml로만 한정되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ROLE-VS-POLICY"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the difference between a global security role and a scoped security role in WebLogic Server?",
+  "options": {
+   "A": "A global role is stored in the embedded LDAP server, whereas a scoped role is stored only in memory",
+   "B": "A global role applies only to resources on the Administration Server, whereas a scoped role applies only to resources on Managed Servers",
+   "C": "A global role can contain only groups, whereas a scoped role can contain only users",
+   "D": "A global role is defined in web.xml, whereas a scoped role is defined in config.xml",
+   "E": "A global role applies to all resources in the domain, whereas a scoped role applies only to a specific resource or application"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "전역 역할은 도메인 안의 모든 리소스에 적용되고, 범위 지정(scoped) 역할은 특정 리소스나 애플리케이션 같은 한정된 범위에서만 적용된다. 저장 위치가 메모리로 나뉘거나, Admin/Managed Server로 적용 대상이 나뉘거나, 그룹/사용자로 구성원이 제한되거나, 정의 파일로 구분되는 것은 둘의 차이가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ROLE-SCOPED"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application is deployed with the Custom Roles and Policies security model. How does WebLogic Server treat the security roles and policies in its deployment descriptors?",
+  "options": {
+   "A": "They are ignored; roles and policies are managed through the Administration Console (security realm) instead",
+   "B": "They are copied into the realm once and then kept in sync on every redeployment",
+   "C": "Roles are taken from the deployment descriptors, but policies are ignored",
+   "D": "They override any roles and policies defined in the Administration Console",
+   "E": "They are merged with the console definitions, and any conflicts between the two are resolved by the Adjudication provider"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Custom Roles and Policies 모델에서는 배포 기술자의 역할·정책 정의를 무시하고 관리 콘솔(보안 영역)에서 정의한 역할과 정책만 사용한다. 기술자에서 역할만 가져오고 정책은 무시하는 것은 Custom Roles 모델이다. 기술자 정의가 콘솔 정의보다 우선하거나, 재배포마다 동기화되거나, Adjudication provider가 둘을 병합하는 동작은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SEC-MODEL-CUSTOM-RP"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How are changes to users and groups in the embedded LDAP server handled in a domain with several Managed Servers?",
+  "options": {
+   "A": "Each Managed Server keeps an independent user store, and changes must be repeated on every server",
+   "B": "Changes are made on the master on the Administration Server and replicated to the Managed Servers' replicas",
+   "C": "Changes are written to config.xml and pushed to Managed Servers as configuration changes",
+   "D": "Changes are made on whichever Managed Server receives the request and are then replicated back to the Administration Server",
+   "E": "Changes are stored in the trust keystore and distributed by Node Manager"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "임베디드 LDAP의 사용자·그룹 변경은 Administration Server의 마스터에 기록되고 Managed Server의 복제본으로 전파된다. Managed Server별로 독립된 저장소를 두어 반복 작업하는 구조가 아니며, 사용자 정보가 config.xml이나 Trust 키스토어에 저장되지도 않는다. Managed Server에서 변경하여 Admin Server로 역복제하는 방식도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-REPLICA"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the Credential attribute on the Embedded LDAP page of the domain security configuration used for?",
+  "options": {
+   "A": "It is the password of the WebLogic administrator account that was created by the Configuration Wizard when the domain was created",
+   "B": "It is the passphrase that protects the identity keystore",
+   "C": "It is the password of the embedded LDAP admin user, used to connect to embedded LDAP with an external LDAP browser",
+   "D": "It is the shared secret used by Node Manager to authenticate the Administration Server",
+   "E": "It is the encryption key for passwords stored in config.xml"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Embedded LDAP 설정의 Credential 속성은 임베디드 LDAP 관리 사용자(cn=Admin)의 비밀번호로, 외부 LDAP 브라우저 등으로 임베디드 LDAP에 직접 접속할 때 사용한다. WebLogic 관리자 계정 비밀번호, Identity 키스토어 암호, Node Manager 인증 정보, config.xml 암호화 키(SerializedSystemIni.dat)와는 별개이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-CREDENTIAL"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where does WebLogic Server keep the automatic backups of the embedded LDAP data on the Administration Server?",
+  "options": {
+   "A": "In the security directory of the domain home, next to SerializedSystemIni.dat",
+   "B": "In the WL_HOME/server/lib directory of the product installation",
+   "C": "In the identity keystore as a secret entry",
+   "D": "In the data/ldap/backup directory under the Administration Server's directory in the domain home",
+   "E": "In a database table created by the Repository Creation Utility"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "임베디드 LDAP 데이터는 DOMAIN_HOME/servers/<Admin Server 이름>/data/ldap 아래에 있고, 자동 백업은 그 아래 backup 디렉터리에 저장된다. 백업 시각과 보관 개수는 Embedded LDAP 설정에서 조정한다. 도메인 security 디렉터리, 제품의 WL_HOME/server/lib, 키스토어, RCU로 만든 DB 테이블은 임베디드 LDAP 백업 위치가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-BACKUP"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which type of security provider in WebLogic Server is responsible for building and validating certificate chains?",
+  "options": {
+   "A": "A Role Mapping provider",
+   "B": "A Credential Mapping provider",
+   "C": "An Adjudication provider",
+   "D": "A Password Validation provider",
+   "E": "A Certification Path provider"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "인증서 체인을 구성(build)하고 검증(validate)하는 것은 Certification Path provider이며, 기본 영역에는 WebLogic CertPath provider가 구성되어 있다. Role Mapping provider는 역할 부여, Credential Mapping provider는 원격 자격 증명 매핑, Adjudication provider는 인가 결과 조정, Password Validation provider는 비밀번호 규칙 검사를 담당한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-CERTPATH-PURPOSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "During an SSL handshake with WebLogic Server, what does host name verification check?",
+  "options": {
+   "A": "That the host name the client used to connect matches the host name in the server's certificate",
+   "B": "That the server's host name is registered in DNS with a reverse lookup entry",
+   "C": "That the client's IP address is allowed by the connection filter",
+   "D": "That the server certificate was signed by a certificate authority whose certificate is in the client's trust keystore",
+   "E": "That the server's listen address matches the machine name in config.xml"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "호스트 이름 검증은 클라이언트가 접속에 사용한 호스트 이름과 서버 인증서에 들어 있는 호스트 이름이 일치하는지 확인해 중간자 공격을 막는다. DNS 역방향 조회, 연결 필터 허용 여부, 머신 구성과의 일치 여부는 이 검증의 대상이 아니다. 인증서가 신뢰하는 CA로 서명되었는지는 인증서 체인(신뢰) 검증으로, 호스트 이름 검증과는 별개 단계이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-HOSTNAME-VERIFY"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "To configure two-way SSL so that a WebLogic Server instance rejects clients that do not present a trusted certificate, which Two Way Client Cert Behavior setting should be used?",
+  "options": {
+   "A": "Client Certs Not Requested",
+   "B": "Client Certs Requested And Enforced",
+   "C": "Client Certs Requested But Not Enforced",
+   "D": "Client Certs Optional And Logged",
+   "E": "Client Certs Trusted By Hostname"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클라이언트 인증서를 요청하고, 제시하지 않거나 신뢰할 수 없는 인증서이면 연결을 거부하려면 Client Certs Requested And Enforced를 선택한다. Client Certs Not Requested는 단방향 SSL(기본값)이고, Client Certs Requested But Not Enforced는 인증서를 요청하되 없어도 연결을 허용한다. 나머지 두 값은 존재하지 않는 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-TWOWAY-SSL-SETTING"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A server's keystore configuration is set to Custom Identity and Java Standard Trust. Which trust keystore does the server use?",
+  "options": {
+   "A": "The DemoTrust keystore in the WebLogic Server installation",
+   "B": "A trust keystore whose path is set on the Keystores page of the server",
+   "C": "The cacerts keystore of the JDK that runs WebLogic Server",
+   "D": "The identity keystore, which also acts as the trust keystore",
+   "E": "The trust store specified with system properties on the java command line"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Java Standard Trust는 WebLogic을 실행하는 JDK의 cacerts 키스토어를 Trust 키스토어로 사용한다. DemoTrust는 데모 구성, 서버 Keystores 페이지에서 경로를 지정하는 것은 Custom Trust, java 명령행 속성으로 지정하는 것은 Command Line Trust 구성이다. Identity 키스토어가 자동으로 Trust 키스토어 역할을 하지는 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-KS-JAVA-STD-TRUST"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator has a private key and its certificate in PEM files and wants to load them into a JKS identity keystore for WebLogic Server. Which WebLogic utility is designed for this task?",
+  "options": {
+   "A": "weblogic.Deployer",
+   "B": "weblogic.security.Encrypt",
+   "C": "weblogic.WLST",
+   "D": "weblogic.ImportPrivateKey",
+   "E": "weblogic.Server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "weblogic.ImportPrivateKey 유틸리티는 PEM/DER 형식의 개인 키와 인증서(체인)를 키스토어에 하나의 개인 키 항목으로 불러온다. weblogic.Deployer는 배포, weblogic.security.Encrypt는 문자열 암호화, weblogic.WLST는 스크립트 기반 관리, weblogic.Server는 서버 기동에 쓰인다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-IMPORTPRIVATEKEY"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator needs to encrypt a clear-text password so that it can be placed in a configuration file of an existing domain. Which utility should be used?",
+  "options": {
+   "A": "keytool -genseckey, run against the domain's identity keystore to store the password as a secret key entry",
+   "B": "weblogic.ImportPrivateKey, run with the password as its argument",
+   "C": "The openssl enc command with the AES cipher",
+   "D": "weblogic.Deployer with the -encrypt option",
+   "E": "weblogic.security.Encrypt, run in the domain's environment so that it uses that domain's key"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "weblogic.security.Encrypt는 도메인의 SerializedSystemIni.dat에 있는 키로 평문을 암호화하므로, 해당 도메인 환경(도메인 디렉터리)에서 실행해야 그 도메인이 복호화할 수 있는 값이 만들어진다. keytool은 키스토어 관리, ImportPrivateKey는 개인 키 불러오기 도구이다. 일반 openssl 암호화 결과는 WebLogic이 복호화할 수 없고, weblogic.Deployer에는 비밀번호 암호화 기능이 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ENCRYPT-UTIL"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the SerializedSystemIni.dat file in the security directory of a WebLogic Server domain?",
+  "options": {
+   "A": "It holds the domain-specific key data used to encrypt and decrypt passwords and other sensitive configuration values",
+   "B": "It stores the users and groups of the default authenticator so that servers can start without the embedded LDAP server",
+   "C": "It stores the server's private key for SSL",
+   "D": "It lists the security providers configured in the default realm",
+   "E": "It records the audit events generated by the Auditing provider"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SerializedSystemIni.dat는 도메인 고유의 암호화 키 데이터로, config.xml 등에 저장되는 비밀번호와 민감한 값을 암호화·복호화하는 데 쓰인다. 사용자·그룹은 임베디드 LDAP, SSL 개인 키는 Identity 키스토어, 보안 provider 목록은 config.xml, 감사 이벤트는 감사 로그에 저장된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SERIALIZEDSYSTEMINI"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which SSL implementation does WebLogic Server 14.1.1 use for its SSL/TLS connections?",
+  "options": {
+   "A": "The Certicom SSL implementation, which is the default",
+   "B": "An implementation based on the Java Secure Socket Extension (JSSE)",
+   "C": "OpenSSL libraries loaded through a native plug-in",
+   "D": "The operating system's TLS stack accessed through JNI",
+   "E": "A proprietary implementation that is selectable per application"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WebLogic Server 14.1.1은 JSSE 기반 SSL 구현을 사용한다. 과거의 Certicom 기반 구현은 이전 릴리스에서 제거되어 14.1.1에서는 선택할 수 없다. OpenSSL 네이티브 플러그인, 운영 체제 TLS 스택, 애플리케이션별로 고르는 독자 구현은 WebLogic 서버의 SSL 구현 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SSL-JSSE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator wants WebLogic Server to accept or reject incoming connections based on the client's IP address, the local port, and the protocol. Which feature provides this?",
+  "options": {
+   "A": "A security policy on the server's JNDI tree",
+   "B": "An Identity Assertion provider configured to accept IP address tokens from incoming requests",
+   "C": "A connection filter, such as weblogic.security.net.ConnectionFilterImpl",
+   "D": "The host name verifier of the SSL configuration",
+   "E": "The Adjudication provider with Require Unanimous Permit enabled"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "연결 필터(예: weblogic.security.net.ConnectionFilterImpl)는 클라이언트 주소, 로컬 주소·포트, 프로토콜 조건과 allow/deny 동작으로 이루어진 규칙으로 들어오는 연결을 허용하거나 거부한다. JNDI 보안 정책은 이미 연결된 요청의 리소스 접근을 제어하고, Identity Assertion provider는 토큰으로 신원을 확인하며, 호스트 이름 검증과 Adjudication provider도 IP 기반 연결 차단 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-CONN-FILTER"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two groups are created by default in the embedded LDAP server of a new WebLogic Server 14.1.1 domain? (Choose two.)",
+  "options": {
+   "A": "Developers",
+   "B": "Auditors",
+   "C": "Deployers",
+   "D": "SecurityAdmins",
+   "E": "Operators"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "새 도메인에는 Administrators, Deployers, Operators, Monitors, AppTesters, CrossDomainConnectors, AdminChannelUsers 같은 그룹이 기본으로 만들어지므로 Deployers와 Operators가 해당한다. Developers, Auditors, SecurityAdmins 그룹은 기본으로 생성되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-DEFAULT-GROUPS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are keystore configuration choices offered for a WebLogic Server instance in the Administration Console? (Choose two.)",
+  "options": {
+   "A": "Custom Identity and Custom Trust",
+   "B": "Java Standard Identity and Demo Trust",
+   "C": "Embedded LDAP Identity and Custom Trust",
+   "D": "Custom Identity and Java Standard Trust",
+   "E": "Node Manager Identity and Java Standard Trust"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "서버의 Keystores 설정에서는 Demo Identity and Demo Trust, Custom Identity and Custom Trust, Custom Identity and Java Standard Trust, Custom Identity and Command Line Trust 등을 고를 수 있다. Java Standard Identity, Embedded LDAP Identity, Node Manager Identity라는 Identity 구성은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-KS-CONFIG-OPTIONS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which are valid JAAS Control Flag values for a WebLogic Authentication provider? (Choose all that apply.)",
+  "options": {
+   "A": "REQUIRED",
+   "B": "REQUISITE",
+   "C": "MANDATORY",
+   "D": "SUFFICIENT",
+   "E": "OPTIONAL"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D",
+   "E"
+  ],
+  "explanation": "JAAS Control Flag 값은 REQUIRED, REQUISITE, SUFFICIENT, OPTIONAL 네 가지이다. MANDATORY는 JAAS 제어 플래그 값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-VALUES"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two Authentication providers are supplied with WebLogic Server 14.1.1 for authenticating users stored in an external LDAP directory? (Choose two.)",
+  "options": {
+   "A": "The XACML Role Mapping provider",
+   "B": "The Active Directory Authentication provider",
+   "C": "The WebLogic Credential Mapping provider",
+   "D": "The WebLogic CertPath provider",
+   "E": "The Oracle Internet Directory Authentication provider"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "외부 LDAP 디렉터리용으로 Active Directory, Oracle Internet Directory, Oracle Unified Directory, OpenLDAP, Novell, iPlanet 및 범용 LDAP Authentication provider가 제공된다. XACML Role Mapping provider, Credential Mapping provider, CertPath provider는 인증 provider가 아니므로 외부 LDAP 사용자 인증에 쓸 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-AUTHENTICATORS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about Identity Assertion providers in WebLogic Server are true? (Choose two.)",
+  "options": {
+   "A": "They store users and groups in the embedded LDAP server",
+   "B": "They let a user's identity be established from a token, such as an X.509 certificate, without a password",
+   "C": "A provider processes only the token types that are configured as active for it",
+   "D": "They are used only for outbound connections, mapping local users to credentials for remote systems",
+   "E": "They encrypt the passwords that are written to config.xml and to the boot.properties files"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "Identity Assertion provider는 X.509 인증서나 SAML 어설션 같은 토큰으로 사용자 신원을 확립하므로 비밀번호 입력 없이 인증할 수 있으며, 지원하는 토큰 형식 중 활성(Active Types)으로 설정된 것만 처리한다. 사용자·그룹 저장은 Authentication provider와 저장소의 몫이고, 아웃바운드 자격 증명은 Credential Mapping provider가 담당하며, config.xml이나 boot.properties 비밀번호 암호화와도 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-IDASSERT-FACTS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "An administrator configures one-way SSL on a Managed Server so that browsers can connect over HTTPS. Which two configuration items are required on the server? (Choose two.)",
+  "options": {
+   "A": "A client certificate for every browser stored in the server's trust keystore",
+   "B": "The Adjudication provider set to Require Unanimous Permit",
+   "C": "The server certificate stored as a user entry in the embedded LDAP server so that browsers can look it up",
+   "D": "An identity keystore that contains the server's private key and certificate",
+   "E": "An enabled SSL listen port with the private key alias and passphrase specified"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "단방향 SSL에는 서버의 개인 키와 인증서가 든 Identity 키스토어, 그리고 SSL 리슨 포트 활성화와 SSL 설정의 개인 키 별칭·암호 지정이 필요하다. 브라우저별 클라이언트 인증서는 양방향 SSL에서만 의미가 있고, Adjudication provider 설정이나 임베디드 LDAP에 인증서를 저장하는 것은 SSL 구성과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SSL-ONEWAY-REQ"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "A user is a member of the Monitors group only. Which two actions can this user perform? (Choose two.)",
+  "options": {
+   "A": "View the domain configuration in the Administration Console",
+   "B": "Start and stop Managed Servers",
+   "C": "Deploy a new application",
+   "D": "Lock the configuration and activate changes",
+   "E": "View server runtime and health information"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "Monitors 그룹은 Monitor 역할을 받아 구성과 서버 런타임·상태 정보를 읽기 전용으로 조회할 수 있다. 서버 기동·종료는 Operator 이상, 애플리케이션 배포는 Deployer 이상, 구성 잠금과 변경 활성화는 Admin(배포 관련 변경은 Deployer) 권한이 필요하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-MONITOR-CAPS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about configuring Authentication providers in the default security realm are true? (Choose two.)",
+  "options": {
+   "A": "The order of the Authentication providers determines the sequence in which they are called",
+   "B": "After providers are added or changed, the affected servers typically must be restarted for the change to apply",
+   "C": "Only one Authentication provider can be configured in a realm",
+   "D": "Authentication providers cannot be reordered after they are created",
+   "E": "Adding a new Authentication provider automatically deletes DefaultAuthenticator, so its users must first be migrated"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "Authentication provider는 영역에 여러 개 둘 수 있고 구성된 순서대로 호출되며, 콘솔에서 순서를 바꿀 수 있다. provider를 추가·변경하면 일반적으로 서버를 재시작해야 반영된다. 영역당 하나만 둘 수 있다거나, 순서를 바꿀 수 없다거나, 새 provider 추가 시 DefaultAuthenticator가 자동 삭제된다는 설명은 틀리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-PROVIDER-CONFIG-FACTS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator adds an Active Directory Authentication provider to myrealm with its control flag set to SUFFICIENT and restarts the servers. Users in the embedded LDAP server can still log in, but Active Directory users cannot. DefaultAuthenticator still has its original control flag of REQUIRED. What is the most appropriate fix?",
+  "options": {
+   "A": "Delete DefaultAuthenticator so that only Active Directory is used",
+   "B": "Change the control flag of the Active Directory provider to REQUISITE",
+   "C": "Enable two-way SSL between WebLogic Server and Active Directory",
+   "D": "Change the control flag of DefaultAuthenticator from REQUIRED to SUFFICIENT",
+   "E": "Move the XACML Role Mapping provider above the Authentication providers"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "DefaultAuthenticator가 REQUIRED이면 Active Directory에만 있는 사용자는 DefaultAuthenticator에서 실패하므로 다른 provider가 성공해도 전체 인증이 실패한다. DefaultAuthenticator를 SUFFICIENT(또는 OPTIONAL)로 바꾸는 것이 적절하다. DefaultAuthenticator를 삭제하면 임베디드 LDAP의 관리자 계정으로 로그인할 수 없게 될 수 있고, Active Directory provider를 REQUISITE로 바꾸면 임베디드 LDAP 사용자도 실패할 수 있다. 양방향 SSL이나 Role Mapping provider 순서는 이 문제의 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-AD-FLAG"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A Java client connects to WebLogic Server over HTTPS. The server's certificate was issued by the company's internal certificate authority. The client fails during the SSL handshake with an error stating that the certificate chain could not be validated. What should be done?",
+  "options": {
+   "A": "Import the internal CA's certificate into the server's trust keystore only, and restart the server",
+   "B": "Enable Client Certs Requested And Enforced on the server",
+   "C": "Disable host name verification on the server",
+   "D": "Add the client's IP address to a connection filter allow rule",
+   "E": "Import the internal CA's root (and any intermediate) certificate into the client's trust store"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "단방향 SSL에서 서버 인증서를 검증하는 쪽은 클라이언트이므로, 클라이언트가 사용하는 신뢰 저장소에 사내 CA의 루트(및 중간) 인증서를 넣어야 한다. 서버 Trust 키스토어는 서버가 클라이언트 인증서를 검증할 때 쓰므로 이 문제를 해결하지 못한다. 양방향 SSL 강제는 오히려 요구 조건을 늘리고, 호스트 이름 검증이나 연결 필터는 인증서 체인 검증 실패와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-CA-UNTRUSTED"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A server certificate was issued for the host name wls01.example.com. A WebLogic client connects to the server by using https://10.0.0.15:7002 and the handshake fails because of host name verification. What is the most appropriate solution for a production environment?",
+  "options": {
+   "A": "Connect by using the host name wls01.example.com so that it matches the name in the certificate",
+   "B": "Turn off host name verification permanently on all clients",
+   "C": "Replace the server's trust keystore with the demo trust keystore",
+   "D": "Change the server's SSL listen port to 443",
+   "E": "Set the server's two-way client certificate behavior to Client Certs Not Requested and restart the server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "호스트 이름 검증은 접속에 사용한 이름과 인증서의 호스트 이름을 비교하므로, 인증서에 있는 wls01.example.com으로 접속하는 것이 올바른 해결책이다. 운영 환경에서 검증을 끄면 중간자 공격에 취약해진다. 데모 Trust 키스토어로 바꾸거나 포트를 443으로 바꾸거나 클라이언트 인증서 요청 설정을 바꾸는 것은 이름 불일치를 해결하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-HOSTNAME-IP"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A WebLogic Server certificate was signed by an intermediate CA, which was signed by a public root CA. Clients that trust only the root CA report that the server's certificate cannot be validated. The identity keystore contains the server certificate alone under the private key alias. What should the administrator do?",
+  "options": {
+   "A": "Import the root CA certificate into the server's identity keystore as a separate private key entry with its own alias",
+   "B": "Import the full certificate chain, including the intermediate CA certificate, under the server's private key alias",
+   "C": "Remove the root CA from the clients' trust stores and add the server certificate instead",
+   "D": "Switch the server to Demo Identity and Demo Trust",
+   "E": "Enable two-way SSL so that the clients send their certificate chains"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클라이언트가 루트 CA만 신뢰하므로 서버가 핸드셰이크에서 서버 인증서와 중간 CA 인증서를 포함한 전체 체인을 보내야 검증이 가능하다. 따라서 Identity 키스토어의 개인 키 항목에 전체 체인을 넣어야 한다. 루트 CA를 별도 개인 키 항목으로 넣는 것은 의미가 없고, 클라이언트에 서버 인증서를 직접 신뢰시키는 것은 근본 해결이 아니다. 데모 키스토어는 운영용이 아니며, 양방향 SSL은 클라이언트 인증서 문제와 관련된 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-CHAIN-MISSING"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A user typed the wrong password several times and is now locked out of the default security realm. The administrator has verified the user's identity and wants to restore access immediately rather than wait for the lockout duration to expire. What should the administrator do?",
+  "options": {
+   "A": "Delete and recreate DefaultAuthenticator",
+   "B": "Delete the embedded LDAP data directory on the Administration Server",
+   "C": "Clear the user's lockout through the realm's user lockout manager, such as the UserLockoutManagerRuntimeMBean",
+   "D": "Regenerate the SerializedSystemIni.dat file",
+   "E": "Restart Node Manager on the machine where the user last logged in so that the user's failed login counter is reset"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "사용자 잠금은 영역의 User Lockout Manager가 관리하며, 관리 콘솔이나 UserLockoutManagerRuntimeMBean의 잠금 해제 기능으로 즉시 해제할 수 있다. DefaultAuthenticator 재생성이나 LDAP 데이터 디렉터리 삭제는 사용자·그룹 정보를 잃을 수 있는 위험한 조치이다. SerializedSystemIni.dat를 바꾸면 기존 암호화 값을 복호화할 수 없게 되고, Node Manager 재시작은 사용자 잠금과 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-LOCKOUT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A release team must be able to deploy and update applications in a WebLogic domain, but must not be able to change security realm settings or start and stop servers. What is the most appropriate way to grant this access?",
+  "options": {
+   "A": "Add the release team's users to the Administrators group",
+   "B": "Add the release team's users to the Operators group",
+   "C": "Add the release team's users to the Monitors group",
+   "D": "Add the release team's users to the Deployers group",
+   "E": "Share the domain administrator's credentials with the release team"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Deployers 그룹은 Deployer 역할을 받아 애플리케이션 배포·갱신과 구성 조회를 할 수 있지만 보안 영역 변경이나 서버 기동·종료 권한은 없으므로 요구 사항에 맞다. Administrators는 권한이 과도하고, Operators는 서버 기동·종료는 가능하지만 배포 권한이 없으며, Monitors는 읽기 전용이다. 관리자 계정을 공유하는 것은 최소 권한 원칙과 추적성을 해친다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-DEPLOYER"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application was deployed with the default security model. The administrator now wants to manage its security roles and policies only through the Administration Console and ignore those in its deployment descriptors. Changes made so far in the console are not taking effect as expected. What should the administrator do?",
+  "options": {
+   "A": "Edit the security model attribute of the running application and activate the change",
+   "B": "Restart the Administration Server so that the console roles override the deployment descriptors",
+   "C": "Delete web.xml from the deployed archive while the application is running",
+   "D": "Set the JAAS control flag of DefaultAuthenticator to OPTIONAL",
+   "E": "Undeploy the application and deploy it again with the Custom Roles and Policies security model"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "보안 모델은 배포 시점에 정해지며 배포된 이후에는 바꿀 수 없으므로, 애플리케이션을 배포 해제한 뒤 Custom Roles and Policies 모델을 선택해 다시 배포해야 한다. 실행 중인 애플리케이션의 모델을 수정하거나 Admin Server를 재시작해도 DD Only 동작은 바뀌지 않는다. 실행 중 web.xml 삭제나 Authentication provider 제어 플래그 변경은 역할·정책 출처와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-SEC-MODEL-CHANGE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A realm has two Authentication providers in this order: Provider1 with control flag REQUIRED and Provider2 with control flag SUFFICIENT. For a login attempt, Provider1 fails and Provider2 succeeds. What is the overall result?",
+  "options": {
+   "A": "Authentication fails, because a REQUIRED provider failed",
+   "B": "Authentication succeeds, because a SUFFICIENT provider succeeded",
+   "C": "Authentication succeeds, because the last provider in the list determines the result",
+   "D": "Authentication succeeds with the Anonymous role only",
+   "E": "The result depends on the Adjudication provider's Require Unanimous Permit setting"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "REQUIRED provider가 실패하면 이후 provider가 계속 호출되더라도 전체 인증은 실패한다. SUFFICIENT의 성공은 앞선 REQUIRED/REQUISITE provider가 실패하지 않았을 때만 즉시 성공으로 이어진다. 마지막 provider가 결과를 정하는 규칙은 없고, Anonymous 역할로 부분 인증되지도 않는다. Adjudication provider는 인가 결정 조정용으로 인증 결과와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-FLAG-REQUIRED-FAIL"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "On the Embedded LDAP configuration page of a domain, the Master First attribute is enabled. What effect does this have?",
+  "options": {
+   "A": "The Administration Server must be started and reachable before any Managed Server in the domain is allowed to start",
+   "B": "Managed Servers use the master embedded LDAP server on the Administration Server instead of their local replica",
+   "C": "The master copy is moved to the first Managed Server that starts",
+   "D": "Managed Servers refresh their replica from the master only at startup",
+   "E": "Users are always created on the Administration Server before groups"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Master First를 활성화하면 Managed Server가 로컬 복제본 대신 Administration Server의 임베디드 LDAP 마스터에 접속해 사용한다. 기동 순서를 강제하거나 마스터를 이동시키는 기능은 아니다. 기동 시 복제본을 마스터로부터 새로 고치는 것은 별도의 Refresh Replica At Startup 속성이며, 사용자·그룹 생성 순서와도 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-LDAP-MASTERFIRST"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "As part of recovering a lost administrator password, an administrator stops the domain and runs java weblogic.security.utils.AdminAccount <user> <password> . in the domain's security directory. What is the purpose of this step?",
+  "options": {
+   "A": "It decrypts the existing administrator password stored in the embedded LDAP server",
+   "B": "It immediately changes the administrator's password in the embedded LDAP server and in the boot.properties file of every server",
+   "C": "It creates a DefaultAuthenticatorInit.ldift file that seeds the given admin user when the embedded LDAP data is re-initialized",
+   "D": "It regenerates SerializedSystemIni.dat with a new encryption key",
+   "E": "It writes the new password in clear text into config.xml"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "AdminAccount 유틸리티는 security 디렉터리에 새 DefaultAuthenticatorInit.ldift 파일을 만든다. 이후 Admin Server의 임베디드 LDAP 데이터 디렉터리를 옮기거나 지우고 기동하면 이 파일로 지정한 관리자 사용자가 초기화된다. 기존 비밀번호를 복호화하거나 실행 중인 LDAP이나 각 서버의 boot.properties에 있는 비밀번호를 즉시 바꾸지 않으며, SerializedSystemIni.dat를 재생성하거나 config.xml에 평문 비밀번호를 쓰지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ADMIN-PWD-RESET"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A realm has two Authorization providers and the WebLogic Adjudication provider with Require Unanimous Permit enabled. For a request, one Authorization provider returns PERMIT and the other returns ABSTAIN. What is the final decision?",
+  "options": {
+   "A": "Access is granted, because no provider returned DENY",
+   "B": "Access is granted, because the first provider in the list returned PERMIT",
+   "C": "Access is denied only if an Auditing provider is configured",
+   "D": "Access is denied, because not all Authorization providers returned PERMIT",
+   "E": "The request is passed to the Role Mapping provider for a final decision"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Require Unanimous Permit가 활성화되어 있으면 모든 Authorization provider가 PERMIT을 반환해야 접근이 허용되므로, ABSTAIN이 하나라도 있으면 거부된다. 이 속성을 끄면 ABSTAIN이 PERMIT처럼 취급되어 DENY가 없을 때 허용된다. 목록 순서로 결정하거나, 감사 provider 유무에 따라 결과가 달라지거나, Role Mapping provider가 최종 결정을 내리는 구조는 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-ADJUDICATOR-UNANIMOUS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A web application uses the CLIENT-CERT authentication method and two-way SSL is enforced. Which realm configuration allows WebLogic Server to map the client certificate to a WebLogic user?",
+  "options": {
+   "A": "Add X.509 to the Default Credential Mapping provider and set its control flag to REQUIRED",
+   "B": "Store each client certificate as a user password in the embedded LDAP server",
+   "C": "Configure the XACML Role Mapping provider to read the certificate's subject",
+   "D": "Import each client certificate into the server's identity keystore under an alias that matches the user's name in the embedded LDAP server",
+   "E": "Add X.509 to the Active Types of the Default Identity Assertion provider, enable its Default User Name Mapper, and ensure the user exists"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "CLIENT-CERT 인증에서는 Identity Assertion provider가 X.509 토큰을 처리해야 하므로 Default Identity Asserter의 Active Types에 X.509를 추가하고, 인증서 속성(예: CN이나 이메일 속성)을 사용자 이름으로 바꾸는 Default User Name Mapper를 활성화한다. 매핑된 사용자는 Authentication provider에서 찾을 수 있어야 그룹 정보가 채워진다. Credential Mapping provider는 아웃바운드용이고 제어 플래그도 없으며, 인증서를 비밀번호로 저장하거나 Role Mapping provider가 인증서를 읽거나 Identity 키스토어에 클라이언트 인증서를 넣는 방식은 쓰이지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-CERT-USERNAME-MAPPER"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A security audit requires that WebLogic Server 14.1.1 refuse SSL/TLS connections that use protocol versions older than TLS 1.2. Which approach accomplishes this?",
+  "options": {
+   "A": "Start the servers with the system property -Dweblogic.security.SSL.minimumProtocolVersion=TLSv1.2",
+   "B": "Set the Two Way Client Cert Behavior to Client Certs Requested And Enforced",
+   "C": "Remove older protocol versions by deleting entries from the trust keystore",
+   "D": "Enable host name verification on all servers",
+   "E": "Configure a connection filter rule that denies the t3 protocol"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "weblogic.security.SSL.minimumProtocolVersion 시스템 속성을 TLSv1.2로 지정하면 그보다 낮은 프로토콜 버전의 SSL/TLS 연결을 거부한다. 클라이언트 인증서 요구, Trust 키스토어 항목 삭제, 호스트 이름 검증은 프로토콜 버전을 제한하지 않으며, t3 프로토콜 차단은 TLS 버전과 별개로 특정 애플리케이션 프로토콜을 막을 뿐이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing a Production Environment for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SSL-MIN-PROTOCOL"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "By default, where do the XACML Role Mapping and XACML Authorization providers of myrealm persist the security roles and policies that administrators create?",
+  "options": {
+   "A": "In config.xml, in clear text, under the realm element",
+   "B": "In the embedded LDAP server, unless the realm is configured to use an RDBMS security store",
+   "C": "In the identity keystore of the Administration Server",
+   "D": "In the weblogic.xml deployment descriptor of each application",
+   "E": "In the SerializedSystemIni.dat file"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "XACML Role Mapping/Authorization provider는 기본적으로 임베디드 LDAP 서버에 역할과 정책을 저장하며, 영역에 RDBMS 보안 저장소를 구성하면 데이터베이스에 저장한다. config.xml에는 provider 구성만 있고 정책 데이터는 없다. Identity 키스토어는 개인 키와 인증서, weblogic.xml은 애플리케이션 기술자, SerializedSystemIni.dat는 암호화 키를 담는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-XACML-STORE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A legacy web application performs its own HTTP Basic authentication against its own user table, and its resources are not protected in web.xml. After migration to WebLogic Server, requests with an Authorization header for users that do not exist in the WebLogic realm receive HTTP 401 before reaching the application. What should the administrator do?",
+  "options": {
+   "A": "Create every application user in the embedded LDAP server",
+   "B": "Change the control flag of DefaultAuthenticator to OPTIONAL",
+   "C": "Set enforce-valid-basic-auth-credentials to false in the domain security configuration",
+   "D": "Redeploy the application with the Custom Roles and Policies security model so that its descriptors are ignored",
+   "E": "Enable two-way SSL so that the Authorization header is no longer sent"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WebLogic은 기본적으로 Authorization 헤더의 Basic 자격 증명을 영역에서 검증하므로, 영역에 없는 사용자는 애플리케이션에 도달하기 전에 401을 받는다. 보호되지 않은 리소스에 대해 이 검증을 끄려면 도메인 보안 구성의 enforce-valid-basic-auth-credentials를 false로 설정해 헤더를 애플리케이션에 그대로 넘긴다. 모든 사용자를 임베디드 LDAP에 만드는 것은 앱 자체 인증 구조와 맞지 않고, 제어 플래그를 바꿔도 영역에 없는 사용자는 인증에 실패한다. 보안 모델 변경이나 양방향 SSL은 Basic 헤더 검증과 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications with the WebLogic Security Service (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-BASIC-AUTH-ENFORCE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A company plans to let about 200,000 employees, already managed in a corporate LDAP directory, log in to applications on a WebLogic Server 14.1.1 domain. An engineer proposes exporting all of them into the embedded LDAP server. What is the most appropriate recommendation?",
+  "options": {
+   "A": "Import the users into the embedded LDAP server and increase the number of backup copies",
+   "B": "Import the users into the identity keystore so that each of them can authenticate with a client certificate instead of a password",
+   "C": "Create one Managed Server per 10,000 users so that each replica stays small",
+   "D": "Configure an LDAP Authentication provider for the corporate directory, because embedded LDAP suits only small user counts",
+   "E": "Store the users in config.xml and encrypt their passwords with weblogic.security.Encrypt"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "임베디드 LDAP은 비교적 적은 수(문서상 약 1만 명 이하)의 사용자에 적합하므로, 이미 사용자 관리가 이루어지는 사내 LDAP을 LDAP Authentication provider로 연결하는 것이 적절하다. 백업 개수를 늘려도 규모 문제는 해결되지 않는다. 사용자를 키스토어나 config.xml에 저장하는 방식은 없으며, Managed Server를 늘려도 복제본은 전체 데이터를 가지므로 크기가 줄지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-LDAP-SCALE"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After the domain-wide administration port is enabled on its default port and the servers are restarted, administrators can no longer open the Administration Console at http://adminhost:7001/console. Applications on port 7001 still work. What is the cause and resolution?",
+  "options": {
+   "A": "The administration port disables the console permanently, so all administration must be done with WLST offline",
+   "B": "Port 7001 is now reserved for Node Manager, so the console must be accessed on port 5556",
+   "C": "The console now requires two-way SSL, so each administrator needs a client certificate stored in the server's identity keystore",
+   "D": "The embedded LDAP server was reset, so the administrator user must be recreated",
+   "E": "Administrative traffic is now accepted only over SSL on the administration port, so use https on that port (for example 9002)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "도메인 관리 포트를 활성화하면 콘솔 등 관리 트래픽은 SSL을 쓰는 관리 포트(기본 9002)로만 받으므로 https://adminhost:9002/console 처럼 접속해야 한다. 애플리케이션 트래픽은 기존 포트에서 계속 동작한다. 콘솔이 영구히 비활성화되거나 7001이 Node Manager용으로 바뀌지 않으며, 양방향 SSL 필수나 임베디드 LDAP 초기화도 관리 포트 활성화의 결과가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-ADMIN-PORT"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The Administration Server of a domain is down, while the Managed Servers keep running. Existing users can still log in to applications on the Managed Servers, but an attempt to create a new user in the default authenticator through a Managed Server fails. What explains this behavior?",
+  "options": {
+   "A": "Managed Servers authenticate using local LDAP replicas, but user changes must go to the master on the Administration Server",
+   "B": "Managed Servers cache only passwords, and user creation requires a restart of every Managed Server",
+   "C": "The Managed Servers have switched to Demo Identity and cannot write to LDAP",
+   "D": "User creation is allowed only through WLST offline",
+   "E": "The JAAS control flag of DefaultAuthenticator changes to OPTIONAL when the Administration Server is down, so new users are rejected"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Managed Server는 임베디드 LDAP 복제본으로 인증을 계속 수행할 수 있지만, 사용자·그룹 변경은 Administration Server의 마스터에 기록되어야 하므로 Admin Server가 내려가 있으면 실패한다. 비밀번호만 캐시하는 구조가 아니고, 키스토어 전환이나 제어 플래그 자동 변경은 일어나지 않는다. 사용자 생성은 온라인 관리 도구로 가능하며 WLST 오프라인으로만 제한되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-ADMIN-DOWN-LDAP"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An Active Directory Authentication provider is working, and members of the Active Directory group WLSAdmins must receive full administrative rights in the domain. Users in that group can log in to the console but get access denied for configuration changes. What is the most appropriate configuration?",
+  "options": {
+   "A": "Add WLSAdmins to the global Monitor role",
+   "B": "Edit the global Admin role and add a condition that grants it to the group WLSAdmins",
+   "C": "Change the Active Directory provider's control flag to REQUISITE",
+   "D": "Import the WLSAdmins users into the server's trust keystore",
+   "E": "Rename the Active Directory group to Administrators in config.xml"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "외부 LDAP 그룹에 관리 권한을 주려면 전역 Admin 역할의 역할 조건에 WLSAdmins 그룹을 추가하는 것이 적절하다. Monitor 역할은 읽기 전용이라 구성 변경 권한이 없다. 제어 플래그 변경은 인증 흐름만 바꾸고 권한을 부여하지 않으며, 사용자를 Trust 키스토어에 넣거나 config.xml에서 그룹 이름을 바꾸는 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-AD-GROUP-ADMIN"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator switches a Managed Server from the demo keystores to Custom Identity and Custom Trust. After restart, the SSL port does not come up and the server log reports that the private key for the configured alias cannot be loaded. The keystore path and keystore password are correct. What is the most likely cause?",
+  "options": {
+   "A": "The trust keystore does not contain the server's own private key, which the server loads from it at startup",
+   "B": "The embedded LDAP server does not contain a user named after the alias",
+   "C": "The Private Key Alias or Passphrase on the SSL page does not match the key entry in the identity keystore",
+   "D": "Host name verification is enabled on the server",
+   "E": "The Two Way Client Cert Behavior is set to Client Certs Not Requested"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "키스토어 경로와 암호가 맞는데 개인 키를 불러오지 못한다면, SSL 페이지에 지정한 개인 키 별칭(Private Key Alias)이나 개인 키 암호(Private Key Passphrase)가 Identity 키스토어의 키 항목과 맞지 않는 경우가 가장 흔하다. 서버의 개인 키는 Trust 키스토어가 아니라 Identity 키스토어에 있어야 하고, 임베디드 LDAP 사용자나 호스트 이름 검증, 단방향 SSL 설정은 개인 키 로딩 실패의 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Security for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SCN-KEY-ALIAS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "The SerializedSystemIni.dat file of a production domain is lost and no backup exists. Which two statements describe the consequences? (Choose two.)",
+  "options": {
+   "A": "WebLogic Server automatically regenerates the file from config.xml and re-encrypts all values at the next startup",
+   "B": "Only the SSL configuration is affected; all other passwords remain usable",
+   "C": "Encrypted values in the domain configuration, such as data source passwords, can no longer be decrypted by the domain",
+   "D": "Generating a new file does not restore access to the existing encrypted values; they must be re-entered or re-encrypted",
+   "E": "The Managed Servers restore the file from their embedded LDAP replicas when they reconnect to the Administration Server"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "SerializedSystemIni.dat는 도메인의 암호화 키 데이터이므로 잃어버리면 이 키로 암호화된 데이터 소스 비밀번호 등의 값을 복호화할 수 없다. 새 파일을 만들어도 키가 달라 기존 값은 쓸 수 없으므로 값을 다시 입력·암호화해야 하며, 그래서 이 파일은 반드시 백업해야 한다. 자동 재생성·재암호화 기능은 없고, 영향 범위가 SSL에만 한정되지 않으며, 임베디드 LDAP 복제본에서 복원되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing a Production Environment for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-SERIALIZEDSYSTEMINI-LOSS"
+ },
+ {
+  "domain": "WLS_SEC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about security roles and policies in WebLogic Server are true? (Choose two.)",
+  "options": {
+   "A": "A security policy can be assigned only to individual users, never to roles or groups",
+   "B": "A policy can grant access to roles, users, or groups and can include extra conditions such as time constraints",
+   "C": "Global security roles apply only to the application in which they are defined",
+   "D": "Security roles are evaluated dynamically at runtime, so whether a user holds a role can depend on the conditions of the role",
+   "E": "A policy defined on a parent resource never applies to its child resources, even when the child has no policy of its own"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "보안 정책은 역할·사용자·그룹에 접근을 허용할 수 있고 시간 제약 같은 추가 조건을 결합할 수 있다. 역할은 런타임에 동적으로 평가되므로 역할 조건에 따라 사용자의 역할 보유 여부가 달라진다. 정책을 개별 사용자에게만 지정할 수 있는 것은 아니며, 전역 역할은 도메인 전체 리소스에 적용된다. 리소스는 계층 구조를 가지므로 하위 리소스에 자체 정책이 없으면 상위 리소스의 정책이 적용된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Securing Resources Using Roles and Policies for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-SEC-POLICY-FACTS"
+ }
+]

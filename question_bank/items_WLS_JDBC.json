@@ -1,0 +1,1414 @@
+[
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In Oracle WebLogic Server 14.1.1, what is a generic data source?",
+  "options": {
+   "A": "An object bound in the JNDI tree that provides a pool of JDBC connections to a single database",
+   "B": "A group of data sources that provides load balancing or failover between several databases",
+   "C": "An event-driven data source that subscribes to ONS notifications from an Oracle RAC database",
+   "D": "A JMS resource that persists messages in a database table",
+   "E": "A domain-level setting in config.xml that forces one JDBC driver class on every application deployed in the domain"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Generic data source는 JNDI 트리에 바인딩되어 단일 데이터베이스에 대한 JDBC 커넥션 풀을 제공하는 객체이다. 여러 데이터 소스 사이의 부하 분산·장애 조치는 Multi data source, ONS 알림을 구독하는 RAC 전용 유형은 Active GridLink data source의 설명이다. 메시지를 DB 테이블에 저장하는 것은 JMS JDBC store이며, 도메인 전체에 드라이버 하나를 지정하는 설정은 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-GENERIC-DEF"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which description best matches a WebLogic Server multi data source?",
+  "options": {
+   "A": "A data source that multiplexes several databases over a single physical connection",
+   "B": "An abstraction around a group of generic data sources that provides load balancing or failover among the member data sources",
+   "C": "A data source that is created automatically for each Managed Server in a cluster",
+   "D": "A data source that can be used only by application-scoped JDBC modules",
+   "E": "A data source that receives FAN events from Oracle RAC through ONS and uses runtime connection load balancing advisories to route requests"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Multi data source는 여러 generic data source를 묶어 Failover 또는 Load-Balancing 알고리즘으로 요청을 분배하는 추상화 계층이다. 하나의 물리 커넥션으로 여러 DB를 다중화하는 기능은 없으며, 클러스터 서버마다 자동 생성되는 데이터 소스나 애플리케이션 범위 전용이라는 제약도 없다. FAN 이벤트와 런타임 부하 분산 권고를 사용하는 것은 Active GridLink data source이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-DEF"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WebLogic Server data source type is designed for Oracle RAC and reacts to Fast Application Notification (FAN) events?",
+  "options": {
+   "A": "Generic data source",
+   "B": "Multi data source using the Failover algorithm",
+   "C": "Active GridLink data source",
+   "D": "Application-scoped JDBC module",
+   "E": "Proxy data source"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Active GridLink(AGL) data source는 Oracle RAC 환경을 위해 설계되었으며 ONS를 통해 전달되는 FAN 이벤트에 반응해 Fast Connection Failover와 Runtime Connection Load Balancing을 수행한다. Generic data source와 Failover 알고리즘의 Multi data source는 FAN 이벤트를 처리하지 않고 커넥션 테스트에 의존한다. 애플리케이션 범위 모듈은 배포 범위에 대한 개념이고, Proxy data source는 콜백으로 데이터 소스를 전환하는 유형으로 FAN과 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-DEF"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does a Java EE application deployed on WebLogic Server normally obtain a connection from a configured data source?",
+  "options": {
+   "A": "It opens a socket to the Administration Server, which creates the database connection on its behalf and forwards it to the application",
+   "B": "It calls DriverManager.getConnection() using the data source descriptor file name as the URL",
+   "C": "It reads the JDBC module XML file and parses the database URL itself",
+   "D": "It looks up the data source by its JNDI name and calls getConnection() on the returned DataSource object",
+   "E": "It sends a request to Node Manager, which returns a pooled connection"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "애플리케이션은 데이터 소스에 설정된 JNDI 이름으로 DataSource 객체를 조회(lookup)한 뒤 getConnection()을 호출해 풀의 커넥션을 예약한다. Administration Server나 Node Manager가 커넥션을 대신 만들어 주는 구조가 아니며, 모듈 XML 파일을 직접 읽거나 파일 이름을 DriverManager URL로 쓰는 방식도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JDBC Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-JNDI-LOOKUP"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "With default data source settings, what happens when an application calls close() on a connection obtained from a WebLogic Server data source?",
+  "options": {
+   "A": "The physical database session is terminated immediately",
+   "B": "The data source is suspended until a replacement connection is created",
+   "C": "The connection is converted into an entry in the statement cache",
+   "D": "The Administration Server records the close in the domain log and recreates the physical connection on the next request from that server",
+   "E": "The logical connection is released and the underlying physical connection is returned to the pool for reuse"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WebLogic 데이터 소스에서 얻은 커넥션은 논리 커넥션이므로 close()를 호출하면 물리 커넥션은 끊기지 않고 풀로 반환되어 재사용된다. 물리 세션이 즉시 종료되거나 데이터 소스가 일시 중지되는 일은 없다. 문장 캐시는 커넥션별로 PreparedStatement를 보관하는 기능이며 커넥션 자체가 캐시 항목이 되지는 않고, Administration Server는 커넥션 반환에 관여하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JDBC Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-CLOSE-RETURN"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where is the configuration of a system-level JDBC data source stored in a WebLogic Server domain?",
+  "options": {
+   "A": "In a JDBC module descriptor file under DOMAIN_HOME/config/jdbc that is referenced from config.xml",
+   "B": "Only in the boot.properties file of each Managed Server",
+   "C": "In the tnsnames.ora file of the WebLogic Oracle Home",
+   "D": "In the logs directory of the Administration Server",
+   "E": "Inside the web.xml or weblogic.xml deployment descriptor of each application that uses the data source"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "시스템 리소스 데이터 소스는 DOMAIN_HOME/config/jdbc 아래의 JDBC 모듈 디스크립터(-jdbc.xml) 파일에 저장되고 config.xml이 이 파일을 참조한다. boot.properties는 서버 기동 자격 증명 파일이고, tnsnames.ora는 Oracle Net 설정 파일이다. 로그 디렉터리나 애플리케이션의 web.xml·weblogic.xml에는 시스템 데이터 소스 정의가 저장되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MODULE-FILE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which connection pool attribute sets the upper limit on the number of physical connections a data source can open on each server instance?",
+  "options": {
+   "A": "Initial Capacity",
+   "B": "Maximum Capacity",
+   "C": "Statement Cache Size",
+   "D": "Shrink Frequency",
+   "E": "Test Frequency"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Maximum Capacity는 서버 인스턴스 하나에서 풀이 가질 수 있는 물리 커넥션 수의 상한이다. Initial Capacity는 풀 생성 시 만드는 커넥션 수, Statement Cache Size는 커넥션별로 캐시할 문장 수, Shrink Frequency는 미사용 커넥션 축소 주기, Test Frequency는 유휴 커넥션 주기 테스트 간격이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MAX-CAP"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which attribute determines how many physical connections are created when a data source is deployed or its server starts?",
+  "options": {
+   "A": "Maximum Capacity",
+   "B": "Connection Reserve Timeout",
+   "C": "Initial Capacity",
+   "D": "Inactive Connection Timeout",
+   "E": "Seconds to Trust an Idle Pool Connection"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Initial Capacity는 데이터 소스가 배포되거나 서버가 기동될 때 미리 만들어 두는 물리 커넥션 수이다. Maximum Capacity는 상한, Connection Reserve Timeout은 커넥션을 기다리는 최대 시간, Inactive Connection Timeout은 예약 후 사용하지 않는 커넥션을 회수하는 시간, Seconds to Trust an Idle Pool Connection은 최근 사용된 커넥션의 테스트를 생략하는 시간이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-INIT-CAP"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which data source setting makes WebLogic Server test a connection before handing it to the application that requested it?",
+  "options": {
+   "A": "Connection Creation Retry Frequency",
+   "B": "Pinned-To-Thread",
+   "C": "Wrap Data Types",
+   "D": "Test Connections On Reserve",
+   "E": "Statement Cache Type"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Test Connections On Reserve를 활성화하면 애플리케이션이 커넥션을 예약할 때 Test Table Name에 지정된 테스트를 먼저 수행해 유효한 커넥션만 넘겨준다. Connection Creation Retry Frequency는 커넥션 생성 실패 시 재시도 간격, Pinned-To-Thread는 커넥션을 실행 스레드에 고정하는 옵션, Wrap Data Types는 JDBC 객체를 래핑하는 옵션, Statement Cache Type은 문장 캐시 알고리즘(LRU/FIXED) 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-ON-RESERVE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the Test Table Name attribute of a data source connection pool?",
+  "options": {
+   "A": "It names the table in which the transaction manager stores XA transaction logs for recovery after a crash",
+   "B": "It names the table in which Logging Last Resource commit records are written",
+   "C": "It sets the default schema used by applications that borrow connections",
+   "D": "It identifies the table that is locked while the pool is being shrunk",
+   "E": "It specifies the table name or SQL statement used to test database connections"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Test Table Name은 커넥션 테스트(예약 시 테스트, 주기 테스트 등)에 사용할 테이블 이름이나 'SQL '로 시작하는 SQL 문을 지정한다. 트랜잭션 로그는 기본적으로 TLOG 저장소에 기록되며, LLR 커밋 레코드는 WL_LLR_<서버명> 테이블에 기록되므로 Test Table Name과 별개이다. 기본 스키마 지정이나 풀 축소 시 잠금 대상 테이블이라는 개념은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-TABLE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Shrink Frequency attribute of a data source control?",
+  "options": {
+   "A": "How often the pool checks for unused connections and closes those above the minimum capacity",
+   "B": "How often unused connections are tested against the database",
+   "C": "How often statements are removed from the statement cache",
+   "D": "How often reserved but inactive connections are reclaimed from applications that have not closed them",
+   "E": "How often all connections in the pool are closed and recreated"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Shrink Frequency는 풀이 필요 이상으로 늘어난 미사용 커넥션을 확인하고 Minimum Capacity까지 줄이는 주기(초)이다. 유휴 커넥션 테스트 주기는 Test Frequency, 예약 후 방치된 커넥션 회수는 Inactive Connection Timeout이 담당한다. 문장 캐시를 주기적으로 비우는 기능은 없고, 모든 커넥션을 닫고 다시 만드는 것은 Reset 작업이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-SHRINK-DEF"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which Oracle JDBC driver class should be selected to create an XA-capable data source for an Oracle database?",
+  "options": {
+   "A": "oracle.jdbc.OracleDriver",
+   "B": "oracle.jdbc.xa.client.OracleXADataSource",
+   "C": "oracle.jdbc.pool.OracleConnectionPoolDataSource",
+   "D": "java.sql.DriverManager",
+   "E": "oracle.ucp.jdbc.PoolDataSourceImpl"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Oracle Thin 드라이버의 XA 구현 클래스는 oracle.jdbc.xa.client.OracleXADataSource이다. oracle.jdbc.OracleDriver는 비 XA 드라이버, oracle.jdbc.pool.OracleConnectionPoolDataSource는 XA가 아닌 ConnectionPoolDataSource 구현이며, java.sql.DriverManager는 드라이버 클래스가 아니라 JDBC 표준 관리 클래스이다. oracle.ucp.jdbc.PoolDataSourceImpl은 UCP의 비 XA 풀 데이터 소스 구현이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JDBC Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-XA-DRIVER"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When a data source uses an XA JDBC driver, which global transactions protocol does it use to participate in global transactions?",
+  "options": {
+   "A": "Logging Last Resource",
+   "B": "Emulate Two-Phase Commit",
+   "C": "Two-Phase Commit",
+   "D": "One-Phase Commit",
+   "E": "None"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "XA 드라이버를 사용하는 데이터 소스는 XA 프로토콜에 따라 Two-Phase Commit으로 전역 트랜잭션에 참여한다. Logging Last Resource, Emulate Two-Phase Commit, One-Phase Commit은 비 XA 드라이버에서 'Supports Global Transactions'를 선택했을 때 고르는 옵션이다. None은 전역 트랜잭션을 지원하지 않는 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-XA-PROTOCOL"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What must be done so that a system data source is available to applications running on a particular Managed Server?",
+  "options": {
+   "A": "Copy the JDBC module file into the server's tmp directory",
+   "B": "Restart the Administration Server in production mode",
+   "C": "Add the data source JNDI name to the boot.properties file in that server's security directory",
+   "D": "Target the data source to that server or to a cluster that includes that server",
+   "E": "Create a machine definition for the database host"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "시스템 데이터 소스는 대상(target)으로 지정된 서버나 클러스터에만 배포되어 그 서버의 JNDI 트리에 바인딩된다. 모듈 파일을 tmp 디렉터리에 복사하거나 boot.properties에 JNDI 이름을 넣는 방식은 없으며, 프로덕션 모드 재기동이나 DB 호스트용 머신 정의는 데이터 소스 사용 가능 여부와 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TARGET"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Connection Reserve Timeout attribute of a data source define?",
+  "options": {
+   "A": "How many seconds a reserved connection may stay unused by the application before WebLogic Server reclaims it into the pool",
+   "B": "How many seconds a single SQL statement may run before it is cancelled",
+   "C": "How many seconds pass between periodic tests of unused connections",
+   "D": "How many seconds a physical connection may live before it is replaced",
+   "E": "How many seconds a connection request waits for a connection to become available when none is free"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Connection Reserve Timeout은 사용 가능한 커넥션이 없을 때 커넥션 요청이 대기하는 최대 시간(초)이며, 시간이 지나면 예외가 발생한다. 예약 후 사용하지 않는 커넥션 회수는 Inactive Connection Timeout, SQL 실행 시간 제한은 Statement Timeout, 유휴 커넥션 주기 테스트는 Test Frequency의 역할이다. 물리 커넥션 수명 자체를 제한하는 설정과도 다르다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-RESERVE-TIMEOUT-DEF"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator suspends a data source from the WebLogic Server Administration Console. Which state does the data source report afterwards?",
+  "options": {
+   "A": "Suspended",
+   "B": "Running",
+   "C": "Overloaded",
+   "D": "Unhealthy",
+   "E": "Shutdown"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "관리자가 Suspend 작업을 수행하면 데이터 소스는 Suspended 상태가 되어 애플리케이션의 새 커넥션 요청을 거부하며, Resume 작업으로 다시 Running 상태로 돌아온다. Overloaded는 모든 커넥션이 사용 중일 때, Unhealthy는 커넥션을 사용할 수 없는 비정상 상태일 때, Shutdown은 데이터 소스가 종료되었을 때의 상태이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-STATE-SUSPENDED"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are data source types that can be created in the WebLogic Server 14.1.1 Administration Console? (Choose two.)",
+  "options": {
+   "A": "Generic data source",
+   "B": "Coherence cache data source",
+   "C": "Active GridLink data source",
+   "D": "JMS persistent data source",
+   "E": "Session replication data source"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "WebLogic Server 14.1.1 Administration Console에서는 Generic data source, Active GridLink data source(그리고 Multi data source 등)를 생성할 수 있다. Coherence 캐시, JMS 영속, 세션 복제 용도의 데이터 소스 유형은 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-DS-TYPES"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two capabilities are provided by an Active GridLink data source connected to Oracle RAC? (Choose two.)",
+  "options": {
+   "A": "HTTP session replication between clusters",
+   "B": "Fast Connection Failover",
+   "C": "Automatic schema migration between databases",
+   "D": "Runtime Connection Load Balancing",
+   "E": "Staging of JDBC driver files to Managed Servers"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "Active GridLink data source는 FAN 이벤트를 이용한 Fast Connection Failover와 데이터베이스의 부하 분산 권고에 따른 Runtime Connection Load Balancing을 제공한다. HTTP 세션 복제는 클러스터 기능이고, 스키마 이전이나 드라이버 파일 스테이징은 데이터 소스 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-FEATURES"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "A data source uses a non-XA driver and has Supports Global Transactions enabled. Which two are valid global transaction options for it? (Choose two.)",
+  "options": {
+   "A": "Distributed Two-Phase Locking",
+   "B": "Serializable Snapshot Commit",
+   "C": "Logging Last Resource",
+   "D": "Optimistic Concurrency Commit",
+   "E": "Emulate Two-Phase Commit"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "비 XA 드라이버 데이터 소스에서 전역 트랜잭션을 지원할 때 선택할 수 있는 옵션은 Logging Last Resource, Emulate Two-Phase Commit, One-Phase Commit이다. Distributed Two-Phase Locking, Serializable Snapshot Commit, Optimistic Concurrency Commit은 WebLogic 데이터 소스의 트랜잭션 옵션이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-NONXA-TX-OPTS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "LOW",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application looks up jdbc/OrdersDS successfully on ManagedServer1 but gets a javax.naming.NameNotFoundException on ManagedServer2. Both servers run the same application, and the data source is targeted only to ManagedServer1. What should the administrator do?",
+  "options": {
+   "A": "Increase the Maximum Capacity of the data source",
+   "B": "Add ManagedServer2, or a cluster containing it, to the targets of the data source",
+   "C": "Enable Test Connections On Reserve",
+   "D": "Change the data source to use an XA driver so that it is bound on every server in the domain",
+   "E": "Increase the Statement Cache Size"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "데이터 소스는 대상으로 지정된 서버의 JNDI 트리에만 바인딩되므로 ManagedServer2에서 NameNotFoundException이 발생한다. ManagedServer2(또는 이를 포함한 클러스터)를 대상에 추가해야 한다. 최대 용량, 예약 시 테스트, XA 드라이버, 문장 캐시 크기는 JNDI 바인딩 여부와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TARGET"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the effect of the Test Frequency attribute on a WebLogic Server data source?",
+  "options": {
+   "A": "Connections currently reserved by applications are tested at that interval while the application holds them",
+   "B": "The data source is suspended and resumed at that interval",
+   "C": "Unused connections in the pool are tested at that interval, and failed ones are closed and reopened",
+   "D": "Reserved connections that have been idle for that long are reclaimed",
+   "E": "Cached statements are re-parsed at that interval"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Test Frequency는 풀에 있는 미사용 커넥션을 지정한 간격(초)마다 테스트하고, 실패한 커넥션은 닫은 뒤 다시 연결하는 설정이다. 애플리케이션이 사용 중인 커넥션은 주기 테스트 대상이 아니다. 예약 후 방치된 커넥션 회수는 Inactive Connection Timeout의 기능이고, 주기적인 일시 중지나 문장 재파싱 기능은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-FREQ"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator sets Test Frequency to 0 on a data source. What is the result?",
+  "options": {
+   "A": "Unused connections are tested continuously without any pause",
+   "B": "Every connection is tested each time it is returned to the pool",
+   "C": "The data source can no longer be tested from the Administration Console",
+   "D": "Periodic testing of unused pool connections is disabled",
+   "E": "Test Connections On Reserve is automatically enabled"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Test Frequency를 0으로 설정하면 미사용 커넥션에 대한 주기적 테스트가 비활성화된다. 0이 연속 테스트를 의미하지는 않으며, 반환 시 테스트나 예약 시 테스트가 자동으로 켜지는 것도 아니다. 콘솔의 수동 테스트 기능은 이 값과 관계없이 사용할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-FREQ"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of Seconds to Trust an Idle Pool Connection?",
+  "options": {
+   "A": "Idle connections older than that number of seconds are closed by the shrink process",
+   "B": "Applications may keep a reserved connection for that many seconds before WebLogic Server reclaims it and returns it to the pool",
+   "C": "The pool waits that many seconds before creating each new physical connection",
+   "D": "A failed connection is retried for that many seconds before the data source is suspended and marked as unhealthy",
+   "E": "A connection used successfully within that many seconds is trusted and not tested again on reserve or by periodic testing"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Seconds to Trust an Idle Pool Connection은 최근 지정한 시간 안에 정상적으로 사용된 커넥션은 유효하다고 믿고 예약 시 테스트나 주기 테스트를 생략하게 하여 테스트 부하를 줄인다. 유휴 커넥션 정리는 Shrink Frequency, 방치된 예약 커넥션 회수는 Inactive Connection Timeout, 커넥션 생성 전 지연은 Login Delay의 역할이다. 실패한 커넥션을 재시도하다 데이터 소스를 중지하는 설정이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-SECONDS-TRUST"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What happens when Inactive Connection Timeout is set to a positive value on a data source?",
+  "options": {
+   "A": "Reserved connections that the application has not used for that many seconds are reclaimed into the pool",
+   "B": "Unused connections in the pool are closed after that many seconds",
+   "C": "Connection requests fail with an exception if no connection becomes available in the pool within that many seconds",
+   "D": "SQL statements running longer than that many seconds are cancelled",
+   "E": "The pool is shrunk to its minimum capacity every that many seconds"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Inactive Connection Timeout은 애플리케이션이 예약한 뒤 지정 시간 동안 사용하지 않은 커넥션을 강제로 회수해 풀로 되돌리는 기능으로, 커넥션 누수 대응에 쓰인다(0이면 비활성). 미사용 커넥션 축소는 Shrink Frequency, 요청 대기 한도는 Connection Reserve Timeout, SQL 실행 시간 제한은 Statement Timeout의 역할이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-INACTIVE-TIMEOUT"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When a WebLogic Server data source pool shrinks, what is the lowest number of connections it is reduced to?",
+  "options": {
+   "A": "Zero, regardless of any capacity settings",
+   "B": "The Minimum Capacity, or the number of connections currently in use if that is higher",
+   "C": "Half of the Maximum Capacity",
+   "D": "The value of Statement Cache Size",
+   "E": "The number of Managed Servers in the cluster to which the data source is targeted, one connection per server"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "풀 축소는 미사용 커넥션을 닫아 Minimum Capacity까지 줄이며, 사용 중인 커넥션은 닫지 않으므로 사용 중인 수가 더 많으면 그 수 아래로는 줄지 않는다. 설정과 무관하게 0으로 줄거나 Maximum Capacity의 절반으로 줄이는 규칙은 없고, 문장 캐시 크기나 클러스터 서버 수는 축소 하한과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MIN-CAP-SHRINK"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How is the statement cache of a WebLogic Server data source organized?",
+  "options": {
+   "A": "A single cache of prepared and callable statements is shared by all data sources and connections in the domain",
+   "B": "A single cache is shared by all servers in a cluster",
+   "C": "Each physical connection in the pool maintains its own cache of prepared and callable statements",
+   "D": "The cache is stored in a table in the database",
+   "E": "One cache is maintained per deployed application"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "WebLogic 데이터 소스의 문장 캐시는 풀의 물리 커넥션마다 따로 유지되며, Statement Cache Size는 커넥션 하나당 캐시할 문장 수이다. 도메인·클러스터·애플리케이션 단위로 공유되는 캐시가 아니고, 데이터베이스 테이블에 저장되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-STMT-CACHE-SCOPE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How do the LRU and FIXED statement cache types differ?",
+  "options": {
+   "A": "LRU caches only callable statements, while FIXED caches only prepared statements, so each type needs its own cache size",
+   "B": "LRU stores the cache in memory, while FIXED stores it in the database",
+   "C": "LRU uses one cache shared by all connections in the pool, while FIXED keeps a separate cache for each connection",
+   "D": "LRU closes the least recently used statement to cache a new one when full; FIXED stops caching once the cache is full",
+   "E": "LRU requires an XA driver, while FIXED works only with non-XA drivers"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "LRU 방식은 캐시가 가득 차면 가장 오래 사용되지 않은 문장을 닫고 새 문장으로 교체하며, FIXED 방식은 캐시가 가득 찬 뒤의 문장은 캐시하지 않는다. 두 방식 모두 커넥션별 캐시이고 PreparedStatement와 CallableStatement를 대상으로 하며, 저장 위치나 XA 여부와는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-STMT-CACHE-TYPE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where does a Logging Last Resource (LLR) data source record the commit decision of a global transaction?",
+  "options": {
+   "A": "Only in the default persistent store transaction log (TLOG) file of the server that coordinates the transaction",
+   "B": "In the embedded LDAP server of the Administration Server",
+   "C": "In the DBA_2PC_PENDING view of every XA resource",
+   "D": "Only in the memory of the transaction coordinator",
+   "E": "In a table named WL_LLR_<server name> in the database used by the LLR data source"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LLR은 커밋 결정 레코드를 LLR 데이터 소스가 사용하는 데이터베이스의 WL_LLR_<서버명> 테이블에 로컬 트랜잭션의 일부로 기록하므로 장애 후에도 결과를 복구할 수 있다. 서버 TLOG 파일에만 기록하거나 임베디드 LDAP, 각 XA 리소스의 DBA_2PC_PENDING, 메모리에만 기록하는 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-LLR-TABLE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How many Logging Last Resource (LLR) participants can take part in a single global transaction?",
+  "options": {
+   "A": "Only one",
+   "B": "Two, one on each side of the transaction",
+   "C": "Any number",
+   "D": "One per server in the cluster",
+   "E": "One per XA resource in the transaction"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "하나의 전역 트랜잭션에는 LLR 참여자가 하나만 허용된다. LLR 리소스는 다른 XA 리소스가 prepare된 뒤 마지막에 로컬 커밋되며 커밋 레코드를 함께 기록하는 구조이므로 둘 이상이 될 수 없다. 서버 수나 XA 리소스 수에 비례해 늘어나지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-LLR-COUNT"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the main risk of using the Emulate Two-Phase Commit option on a non-XA data source?",
+  "options": {
+   "A": "It requires the database to support the XA protocol",
+   "B": "It returns prepare success without really preparing, so a crash during commit can leave participants inconsistent",
+   "C": "It writes a commit record table in the database that must be maintained",
+   "D": "It prevents any other XA or non-XA resource from participating in the same global transaction as this data source",
+   "E": "It disables connection testing for the data source"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Emulate Two-Phase Commit은 prepare 단계에서 실제 준비 없이 성공(XA_OK)을 반환하므로 커밋 중 장애가 나면 다른 참여자와 결과가 어긋나는 휴리스틱 위험이 있다. XA 지원이 필요하지 않고, 커밋 레코드 테이블을 쓰는 것은 LLR이다. 다른 리소스의 참여를 막는 것은 One-Phase Commit의 제약이며, 커넥션 테스트와는 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-EMULATE-2PC"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A non-XA data source is configured with the One-Phase Commit global transaction option. Which statement is true?",
+  "options": {
+   "A": "The data source can participate in global transactions with any number of XA resources",
+   "B": "The data source writes its commit records to a WL_LLR table",
+   "C": "The data source can be the only resource participating in a global transaction",
+   "D": "The data source requires an XA driver class",
+   "E": "The data source automatically promotes itself to Two-Phase Commit when needed"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "One-Phase Commit 옵션의 비 XA 데이터 소스는 전역 트랜잭션의 유일한 참여자일 때만 사용할 수 있으며, 다른 리소스가 함께 참여하면 오류가 발생한다. WL_LLR 테이블 기록은 LLR의 동작이고, XA 드라이버가 필요하지 않으며 2단계 커밋으로 자동 승격되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-ONE-PC"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does a multi data source configured with the Failover algorithm route connection requests?",
+  "options": {
+   "A": "Requests are distributed round-robin across all member data sources",
+   "B": "Requests are routed according to runtime load balancing advisories that the RAC database publishes through ONS",
+   "C": "Requests go to the member data source with the fewest active connections",
+   "D": "Requests go to the first member in the list; the next member is used only if the current one fails or, if enabled, is busy",
+   "E": "Requests are sent to all member data sources in parallel, and the connection that responds first is returned to the application"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Failover 알고리즘은 목록의 첫 번째 멤버 데이터 소스를 항상 우선 사용하고, 그 멤버가 실패하거나(Failover Request if Busy를 켠 경우) 모두 사용 중일 때만 다음 멤버로 넘어간다. 라운드로빈 분배는 Load-Balancing 알고리즘, ONS 부하 분산 권고 사용은 Active GridLink의 기능이다. 활성 커넥션 수 기준 선택이나 병렬 요청 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-FAILOVER-ALG"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does a multi data source configured with the Load-Balancing algorithm distribute connection requests?",
+  "options": {
+   "A": "Always to the first member, moving to the next only on failure",
+   "B": "Based on runtime load balancing advisories published by the database",
+   "C": "To the member whose database server has the lowest CPU usage",
+   "D": "To a member chosen by the Administration Server for each request",
+   "E": "In a round-robin fashion among the available member data sources"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Load-Balancing 알고리즘은 사용 가능한 멤버 데이터 소스 사이에 커넥션 요청을 라운드로빈 방식으로 분배한다. 첫 번째 멤버를 우선하는 것은 Failover 알고리즘이고, 데이터베이스의 부하 분산 권고를 사용하는 것은 Active GridLink이다. DB CPU 사용률을 측정하거나 Administration Server가 요청마다 선택하는 방식은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-LB-ALG"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which rule applies to the member data sources of a single multi data source?",
+  "options": {
+   "A": "Members must be all XA or all non-XA data sources; the two kinds cannot be mixed",
+   "B": "Members must all be Active GridLink data sources",
+   "C": "Exactly two members are allowed",
+   "D": "Each member must connect to a database from a different vendor so that failover crosses vendors",
+   "E": "Members must not have JNDI names of their own"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Multi data source의 멤버는 모두 XA이거나 모두 비 XA여야 하며 혼합할 수 없다. 멤버는 일반적으로 generic data source이고 Active GridLink로만 구성해야 한다는 규칙은 없다. 멤버 수가 두 개로 제한되지 않으며, 서로 다른 DB 벤더를 써야 하거나 멤버에 JNDI 이름이 없어야 한다는 제약도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-XA-MIX"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A multi data source is targeted to Cluster1. What targeting requirement applies to its member data sources?",
+  "options": {
+   "A": "The members must be targeted only to the Administration Server",
+   "B": "The member data sources must also be deployed to the same targets as the multi data source",
+   "C": "The members must not be targeted anywhere, because the multi data source deploys them to its own targets",
+   "D": "Each member must be targeted to a different Managed Server",
+   "E": "The members must be targeted to a different cluster than the multi data source"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Multi data source는 멤버 데이터 소스의 풀을 사용하므로 멤버들도 Multi data source와 같은 서버·클러스터에 배포되어 있어야 한다. Administration Server에만 대상 지정하거나, 대상을 비워 두거나, 멤버마다 다른 서버나 다른 클러스터에 두면 Multi data source가 해당 서버에서 멤버 풀을 찾을 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-TARGET"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What role does Oracle Notification Service (ONS) play for an Active GridLink data source?",
+  "options": {
+   "A": "It stores the data source configuration for all Managed Servers and pushes changes to them when the data source is edited",
+   "B": "It replicates HTTP session data between RAC instances",
+   "C": "It delivers FAN events, such as instance UP/DOWN events and load balancing advisories, from RAC to the data source",
+   "D": "It encrypts JDBC traffic between WebLogic Server and the database",
+   "E": "It records XA transaction logs for recovery"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ONS는 RAC 데이터베이스가 발행하는 FAN 이벤트(인스턴스·서비스 UP/DOWN, 부하 분산 권고)를 Active GridLink 데이터 소스에 전달하는 통로이다. 데이터 소스 구성 저장, HTTP 세션 복제, JDBC 트래픽 암호화, XA 트랜잭션 로그 기록은 ONS의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-ONS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which connection URL style is recommended for an Active GridLink data source connecting to Oracle RAC?",
+  "options": {
+   "A": "A URL that uses the SID of one specific RAC instance",
+   "B": "A URL that points to the ASM instance of the cluster",
+   "C": "A URL that uses the Administration Server host and listen port",
+   "D": "A URL that uses the SCAN address and a database service name",
+   "E": "A URL that lists the private interconnect IP addresses of all nodes"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Active GridLink는 SCAN 주소와 데이터베이스 서비스 이름을 사용하는 URL을 권장한다. 서비스 기반으로 접속해야 RAC가 서비스 단위로 FAN 이벤트와 부하 분산 권고를 제공할 수 있다. 특정 인스턴스의 SID, ASM 인스턴스, Administration Server 주소, 사설 인터커넥트 주소는 애플리케이션 접속 대상이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-URL-SCAN"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does XA affinity provide for an Active GridLink data source?",
+  "options": {
+   "A": "It distributes the branches of a global transaction evenly across all RAC instances",
+   "B": "It binds each HTTP session to a single Managed Server",
+   "C": "It forces all XA transactions to use one-phase commit",
+   "D": "It stores XA transaction logs on the RAC instance with the lowest load",
+   "E": "It routes all database work of a global transaction to the same RAC instance"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "XA affinity는 하나의 전역 트랜잭션에 속한 데이터베이스 작업이 같은 RAC 인스턴스로 전달되도록 보장해 RAC에서 XA 처리의 성능과 안정성을 높인다. 브랜치를 여러 인스턴스로 분산하는 것은 정반대 동작이다. HTTP 세션 고정은 웹 세션 관련 기능이며, 1단계 커밋 강제나 트랜잭션 로그 저장 위치 결정 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-XA-AFFINITY"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A new RAC instance that offers the application's database service is added to the cluster. How does an Active GridLink data source react?",
+  "options": {
+   "A": "It receives a FAN UP event and starts creating connections to the new instance without any configuration change",
+   "B": "It ignores the new instance until an administrator creates a new member data source for it and adds it to the list",
+   "C": "It must be deleted and recreated with the new instance in the URL",
+   "D": "It suspends itself until the Administration Server is restarted",
+   "E": "It moves all existing connections to the new instance immediately"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Active GridLink는 서비스가 새 인스턴스에서 시작될 때 FAN UP 이벤트를 받아 구성 변경 없이 새 인스턴스로 커넥션을 만들고 부하를 분산한다. 인스턴스마다 멤버 데이터 소스를 추가해야 하는 것은 Multi data source 방식이다. 재생성이나 Administration Server 재기동이 필요하지 않으며, 기존 커넥션을 한꺼번에 새 인스턴스로 옮기지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-NEW-NODE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Remove Infected Connections Enabled attribute control?",
+  "options": {
+   "A": "Whether connections that fail the connection test are retried several times before WebLogic Server discards them from the pool",
+   "B": "Whether a connection whose vendor connection the application obtained directly is discarded rather than returned to the pool",
+   "C": "Whether connections held by stuck threads are killed automatically and replaced with new connections in the pool",
+   "D": "Whether connections infected by SQL injection are logged",
+   "E": "Whether statements with syntax errors are removed from the statement cache"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Remove Infected Connections Enabled는 애플리케이션이 getVendorConnection() 등으로 물리(벤더) 커넥션에 직접 접근한 커넥션을 오염된 것으로 보고, 반환 시 풀에 되돌리지 않고 폐기할지를 정한다. 테스트 실패 재시도, Stuck 스레드 처리, SQL 인젝션 로깅, 문장 캐시 정리와는 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JDBC Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-REMOVE-INFECTED"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a side effect of enabling Pinned-To-Thread on a data source?",
+  "options": {
+   "A": "Connections are tested every time a thread calls getConnection()",
+   "B": "Each connection can be used by only one transaction for its lifetime and is then closed when that transaction ends",
+   "C": "The connection stays with the execute thread even after close(), so the pool size can grow beyond Maximum Capacity",
+   "D": "The statement cache is disabled for all connections",
+   "E": "Connections are shared simultaneously among all threads in the server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Pinned-To-Thread를 켜면 커넥션을 처음 예약한 실행 스레드에 커넥션이 고정되어 close() 후에도 풀로 돌아가지 않으므로, 스레드 수에 따라 풀이 Maximum Capacity를 넘어 늘어날 수 있다. 예약할 때마다 테스트하거나 트랜잭션 하나에만 사용하도록 하는 기능이 아니며, 문장 캐시를 끄거나 여러 스레드가 동시에 커넥션을 공유하게 하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-PINNED-THREAD"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of Connection Creation Retry Frequency on a data source?",
+  "options": {
+   "A": "It sets how often idle connections are tested",
+   "B": "It sets how often leaked connections are reclaimed",
+   "C": "It sets how often the pool shrinks",
+   "D": "If the database is down when the data source is created, creation of connections is retried at that interval",
+   "E": "It sets how often the data source polls the database for ONS events so that it can react quickly to RAC instance failures"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Connection Creation Retry Frequency를 설정하면 데이터 소스 생성 시점에 DB를 사용할 수 없어도 데이터 소스가 생성되고, 지정한 간격으로 커넥션 생성을 재시도한다(0이면 재시도하지 않음). 유휴 커넥션 테스트는 Test Frequency, 누수 커넥션 회수는 Inactive Connection Timeout, 풀 축소는 Shrink Frequency가 담당하며, ONS 이벤트는 폴링이 아니라 푸시 방식으로 전달된다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-CONN-RETRY"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the JDBC system resource MBean hierarchy, which bean holds the database URL and the JDBC driver class name?",
+  "options": {
+   "A": "JDBCConnectionPoolParams",
+   "B": "JDBCDataSourceParams",
+   "C": "JDBCXAParams",
+   "D": "JDBCOracleParams",
+   "E": "JDBCDriverParams"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "데이터베이스 URL, 드라이버 클래스 이름, 접속 속성은 JDBCDriverParams에 있다. JDBCConnectionPoolParams는 용량·테스트·문장 캐시 등 풀 설정, JDBCDataSourceParams는 JNDI 이름·전역 트랜잭션 프로토콜·Multi data source 알고리즘 등, JDBCXAParams는 XA 관련 설정, JDBCOracleParams는 FAN·ONS 등 Oracle 전용 설정을 담는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - MBean Reference for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-WLST-MBEAN"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the JDBC system resource MBean hierarchy, which bean holds the JNDI names and the Global Transactions Protocol of a data source?",
+  "options": {
+   "A": "JDBCDataSourceParams",
+   "B": "JDBCDriverParams",
+   "C": "JDBCConnectionPoolParams",
+   "D": "JDBCXAParams",
+   "E": "ServerRuntimeMBean"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "JNDI 이름 목록과 전역 트랜잭션 프로토콜(GlobalTransactionsProtocol)은 JDBCDataSourceParams에 정의된다. JDBCDriverParams는 URL·드라이버 클래스, JDBCConnectionPoolParams는 풀 용량과 테스트 설정, JDBCXAParams는 XA 타임아웃 등의 설정을 담고, ServerRuntimeMBean은 서버 런타임 정보를 제공하는 MBean이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - MBean Reference for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-WLST-MBEAN"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement describes an application-scoped (packaged) JDBC data source?",
+  "options": {
+   "A": "It is configured in config.xml and is available to every application in the domain",
+   "B": "It is packaged as a JDBC module inside an application archive and is available only to that application",
+   "C": "It is automatically created for each application that has a persistence.xml file",
+   "D": "It can be targeted independently to other servers and clusters after the application that contains it is deployed",
+   "E": "It is the only type of data source that supports XA transactions"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "애플리케이션 범위(패키지형) 데이터 소스는 EAR 등 애플리케이션 아카이브 안에 JDBC 모듈로 포함되어 해당 애플리케이션에서만 사용된다. 도메인 전체에서 쓰는 것은 시스템 리소스 데이터 소스이고, persistence.xml이 있다고 자동 생성되지 않는다. 애플리케이션과 함께 배포되므로 따로 대상 지정할 수 없으며, XA 지원은 범위와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-APP-SCOPED"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Reset control operation do to a running data source?",
+  "options": {
+   "A": "It deletes the data source configuration and recreates it with default values",
+   "B": "It clears the runtime statistics but leaves connections untouched",
+   "C": "It closes and recreates all available database connections in the pool",
+   "D": "It suspends the data source until an administrator resumes it",
+   "E": "It reduces the pool to its minimum capacity"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Reset 작업은 풀에 있는 사용 가능한 커넥션을 모두 닫고 새로 만들어 DB 측 변경 등을 반영할 때 사용한다. 구성을 기본값으로 재생성하거나 통계만 초기화하는 작업이 아니다. 새 요청을 막는 것은 Suspend, 최소 용량까지 줄이는 것은 Shrink 작업이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-RESET-OP"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After an administrator increases the Statement Cache Size of a busy data source from 10 to 300, the application starts failing with ORA-01000: maximum open cursors exceeded. Nothing else changed. What is the most likely cause?",
+  "options": {
+   "A": "The Test Table Name no longer exists in the database",
+   "B": "Shrink Frequency is too short, so connections are closed by the shrink process while applications are still using them",
+   "C": "The XA driver does not support statement caching",
+   "D": "Each pooled connection now holds up to 300 cached statements as open cursors, exceeding OPEN_CURSORS per session",
+   "E": "Seconds to Trust an Idle Pool Connection is too high"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "문장 캐시는 커넥션마다 유지되며 캐시된 문장은 DB 세션의 커서를 열어 둔 상태로 남는다. 캐시 크기를 300으로 늘리면 세션당 열린 커서가 OPEN_CURSORS 한도를 넘어 ORA-01000이 발생할 수 있으므로 캐시 크기를 줄이거나 OPEN_CURSORS를 조정해야 한다. 테스트 테이블, Shrink Frequency, 테스트 신뢰 시간은 커서 수와 관계없고, XA 드라이버도 문장 캐시를 사용할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-STMT-CACHE-CURSORS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "During peak hours, applications receive \"No resources currently available in pool OrdersDS to allocate to applications\". Monitoring shows ActiveConnectionsCurrentCount equal to Maximum Capacity, no leaked connections, and the database has spare session and CPU capacity. What is the most appropriate action?",
+  "options": {
+   "A": "Set Connection Reserve Timeout to -1",
+   "B": "Enable Pinned-To-Thread",
+   "C": "Set Shrink Frequency to 0",
+   "D": "Change the Test Table Name to a lighter SQL statement so that each connection is returned to the pool faster",
+   "E": "Increase Maximum Capacity after confirming the database can accept the extra sessions"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "누수 없이 정상 사용으로 풀이 Maximum Capacity에 도달했고 DB 여유가 있으므로 최대 용량을 늘리는 것이 적절하다. Connection Reserve Timeout을 -1로 하면 대기 없이 즉시 실패하므로 오류가 늘어난다. Pinned-To-Thread는 커넥션을 스레드에 묶어 문제를 키울 수 있고, 축소 비활성화나 테스트 SQL 변경은 최대 용량 부족을 해결하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-POOL-EXHAUST"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A data source pool becomes exhausted gradually over several days. Thread dumps show no threads executing JDBC calls, and the developers find a code path that reserves a connection but never closes it. While the code fix is being prepared, which setting helps keep the pool usable?",
+  "options": {
+   "A": "Set Inactive Connection Timeout so that reserved but unused connections are reclaimed",
+   "B": "Increase Shrink Frequency so that the shrink process closes idle connections above Minimum Capacity",
+   "C": "Enable Test Connections On Reserve",
+   "D": "Increase the Statement Cache Size",
+   "E": "Switch the data source to an XA driver"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "애플리케이션이 커넥션을 닫지 않는 누수 상황에서는 Inactive Connection Timeout을 설정해 일정 시간 사용되지 않은 예약 커넥션을 강제로 회수하는 것이 임시 대책이 된다. Shrink Frequency는 미사용 커넥션만 대상으로 하므로 예약된 누수 커넥션을 회수하지 못한다. 예약 시 테스트, 문장 캐시 크기, XA 드라이버 변경은 누수와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-INACTIVE-TIMEOUT"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The database is restarted every night for maintenance. Each morning, the first requests in WebLogic Server fail with closed connection errors, and later requests succeed. What is the best way to prevent applications from receiving dead connections?",
+  "options": {
+   "A": "Increase the Initial Capacity of the data source so that more connections are created when the server starts",
+   "B": "Enable Test Connections On Reserve so dead connections are replaced before applications receive them",
+   "C": "Increase the Statement Cache Size",
+   "D": "Enable Pinned-To-Thread",
+   "E": "Change the global transactions protocol to One-Phase Commit"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DB 재기동 후 풀에는 끊어진 커넥션이 남아 있으므로 Test Connections On Reserve를 켜면 예약 시점에 테스트해 죽은 커넥션을 교체한 뒤 넘겨줄 수 있다. 초기 용량이나 문장 캐시를 늘리는 것은 끊어진 커넥션 감지와 관계없고, Pinned-To-Thread는 커넥션을 스레드에 묶을 뿐이며, 전역 트랜잭션 옵션 변경도 해결책이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-ON-RESERVE"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are advantages of an Active GridLink data source over a multi data source when connecting to Oracle RAC? (Choose two.)",
+  "options": {
+   "A": "It uses FAN events to detect instance failures quickly instead of relying only on connection testing",
+   "B": "It does not require a database service to be defined, because it connects directly to each instance SID",
+   "C": "It works with any database vendor that supports JDBC, not only with Oracle RAC databases",
+   "D": "It distributes work using runtime load balancing advisories published by the database",
+   "E": "It requires one member data source per RAC instance"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "Active GridLink는 FAN 이벤트로 인스턴스 장애를 빠르게 감지하고, 데이터베이스가 발행하는 부하 분산 권고로 작업을 분배한다는 점에서 Multi data source보다 유리하다. AGL은 데이터베이스 서비스 기반으로 동작하며 Oracle 데이터베이스 전용이다. 인스턴스마다 멤버 데이터 소스가 필요한 것은 Multi data source의 특징이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-VS-MDS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about Test Connections On Reserve are true? (Choose two.)",
+  "options": {
+   "A": "It requires an XA driver",
+   "B": "It can add a small delay to connection requests because a test may run before the connection is returned",
+   "C": "It tests connections that are currently in use by applications at every Test Frequency interval, not only on reserve",
+   "D": "It disables the statement cache for the data source",
+   "E": "A connection that fails the test is not given to the application; WebLogic Server tries to replace it"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "Test Connections On Reserve는 커넥션을 넘겨주기 전에 테스트를 수행하므로 요청마다 약간의 지연이 생길 수 있고, 테스트에 실패한 커넥션은 애플리케이션에 주지 않고 다시 연결하거나 다른 커넥션으로 대체한다. XA 드라이버가 필요하지 않으며, 사용 중인 커넥션을 주기적으로 테스트하거나 문장 캐시를 끄는 기능도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-TEST-ON-RESERVE-FACTS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about WebLogic Server multi data sources are true? (Choose two.)",
+  "options": {
+   "A": "Their members are generic data sources that each maintain their own connection pool",
+   "B": "They create their own physical connections independently of the member pools",
+   "C": "They can be used only with Active GridLink members",
+   "D": "They react to FAN events published through ONS",
+   "E": "Their algorithm type is either Failover or Load-Balancing"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "Multi data source의 멤버는 각자 커넥션 풀을 가진 generic data source이며, 알고리즘은 Failover 또는 Load-Balancing 중 하나이다. Multi data source 자체는 물리 커넥션을 만들지 않고 멤버 풀의 커넥션을 사용한다. Active GridLink 멤버만 써야 한다는 제약은 없고, FAN 이벤트에 반응하는 것은 Active GridLink data source이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-FACTS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are XA-specific attributes that can be set on a data source that uses an XA driver? (Choose two.)",
+  "options": {
+   "A": "Shrink Frequency",
+   "B": "Set XA Transaction Timeout",
+   "C": "Keep XA Connection Till Transaction Complete",
+   "D": "Statement Cache Type",
+   "E": "Connection Creation Retry Frequency"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "Set XA Transaction Timeout과 Keep XA Connection Till Transaction Complete는 XA 데이터 소스 전용 설정(JDBCXAParams)이다. Shrink Frequency, Statement Cache Type, Connection Creation Retry Frequency는 XA 여부와 관계없이 모든 데이터 소스에 적용되는 커넥션 풀 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-XA-ATTRS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two JDBC data source runtime metrics are most useful when diagnosing connection pool exhaustion? (Choose two.)",
+  "options": {
+   "A": "OpenSessionsCurrentCount",
+   "B": "MessagesCurrentCount",
+   "C": "ActiveConnectionsCurrentCount",
+   "D": "WaitingForConnectionCurrentCount",
+   "E": "HeapFreeCurrent"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "ActiveConnectionsCurrentCount는 현재 사용 중인 커넥션 수, WaitingForConnectionCurrentCount는 커넥션을 기다리는 요청 수로 풀 고갈 진단에 직접 쓰인다. OpenSessionsCurrentCount는 웹 애플리케이션 HTTP 세션, MessagesCurrentCount는 JMS 대상의 메시지 수, HeapFreeCurrent는 JVM 힙 여유 메모리 지표이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - MBean Reference for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-RUNTIME-METRICS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A global transaction involves one Logging Last Resource (LLR) data source and two XA resources. In what order does the transaction manager complete the commit?",
+  "options": {
+   "A": "The LLR resource is prepared first, then all resources are committed in parallel",
+   "B": "All three resources are committed with one-phase commit at the same time",
+   "C": "The XA resources are prepared, then the LLR resource commits its local transaction together with the commit record, then the XA resources are committed",
+   "D": "The XA resources are committed first, then the LLR resource is prepared and committed",
+   "E": "The LLR resource commits first, before any XA resource is prepared"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "LLR 최적화에서는 먼저 XA 리소스들을 prepare하고, 그 다음 LLR 리소스가 커밋 레코드를 포함한 로컬 트랜잭션을 커밋해 트랜잭션 결과를 확정한 뒤, 마지막으로 XA 리소스를 커밋한다. LLR 리소스는 prepare 단계가 없으며, 모든 리소스를 1단계로 동시에 커밋하거나 XA 리소스를 먼저 커밋하면 원자성이 보장되지 않는다. XA prepare 이전에 LLR을 커밋하는 순서도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-LLR-ORDER"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An XA data source has Set XA Transaction Timeout enabled and XA Transaction Timeout set to 0. What timeout value does WebLogic Server pass to XAResource.setTransactionTimeout()?",
+  "options": {
+   "A": "Zero, which means the database never times out the branch",
+   "B": "The Connection Reserve Timeout of the data source",
+   "C": "The Statement Timeout of the data source",
+   "D": "The timeout of the global WebLogic Server transaction",
+   "E": "The Inactive Connection Timeout of the data source"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Set XA Transaction Timeout을 켜고 XA Transaction Timeout을 0으로 두면 트랜잭션 관리자는 해당 전역 트랜잭션의 타임아웃 값을 XAResource.setTransactionTimeout()에 전달한다. 0이 그대로 전달되어 DB 타임아웃이 없어지는 것이 아니며, Connection Reserve Timeout, Statement Timeout, Inactive Connection Timeout은 XA 브랜치 타임아웃과 무관한 커넥션 풀 설정이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-SET-XA-TIMEOUT"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A generic data source with Maximum Capacity 50 is targeted to a cluster of four Managed Servers. What is the maximum number of database connections this data source can open in total?",
+  "options": {
+   "A": "50, because the pool is shared by all servers in the cluster",
+   "B": "12, because the maximum is divided among the four servers",
+   "C": "54, because one extra connection is reserved for each server",
+   "D": "100, because only half of the servers open connections at a time",
+   "E": "200, because each server in the cluster creates its own pool of up to 50 connections"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "클러스터에 대상 지정된 데이터 소스는 각 서버 인스턴스마다 독립된 풀을 만들며, Maximum Capacity는 서버당 한도이다. 따라서 4대 × 50 = 최대 200개의 DB 세션이 생길 수 있어 DB의 PROCESSES·SESSIONS 설정을 함께 고려해야 한다. 클러스터 전체가 하나의 풀을 공유하거나 한도를 서버 수로 나누는 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-CLUSTER-PER-SERVER"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A multi data source uses the Failover algorithm with two members. Under peak load the first member reaches its Maximum Capacity and requests wait or time out, while the second member stays idle. Both databases are healthy. Which change makes the multi data source use the second member in this situation?",
+  "options": {
+   "A": "Enable Failover Request if Busy on the multi data source",
+   "B": "Change both member data sources to use an XA driver",
+   "C": "Increase the Test Frequency of the multi data source",
+   "D": "Set Shrink Frequency of the first member to 0",
+   "E": "Enable Pinned-To-Thread on the first member"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Failover 알고리즘은 기본적으로 첫 번째 멤버가 실패했을 때만 다음 멤버로 넘어가므로, 첫 번째 멤버가 사용 중으로 가득 찬 경우에도 넘기려면 Failover Request if Busy를 활성화해야 한다. XA 드라이버 변경, Test Frequency 조정, 축소 비활성화는 바쁜 상태의 전환과 무관하며, Pinned-To-Thread는 오히려 풀 사용을 늘린다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MDS-FAILOVER-BUSY"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application uses a generic data source with a SCAN URL to reach a two-node Oracle RAC database. When one instance crashes, users see errors for several minutes from connections to the failed instance until those connections are tested and replaced. The business requires failed connections to be cleaned up immediately. What is the best solution?",
+  "options": {
+   "A": "Increase the Statement Cache Size of the generic data source",
+   "B": "Replace it with an Active GridLink data source that receives FAN events through ONS",
+   "C": "Set Initial Capacity equal to Maximum Capacity",
+   "D": "Use Emulate Two-Phase Commit on the generic data source",
+   "E": "Decrease the Shrink Frequency of the generic data source"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Generic data source는 FAN 이벤트를 받지 못하므로 실패한 인스턴스의 커넥션을 테스트로만 발견한다. Active GridLink는 ONS로 DOWN 이벤트를 받아 해당 인스턴스의 커넥션을 즉시 정리(Fast Connection Failover)한다. 문장 캐시, 초기 용량, 전역 트랜잭션 옵션, 축소 주기는 장애 감지 속도와 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-RAC-GENERIC-DETECT"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A global transaction updates a database through a non-XA data source configured with Emulate Two-Phase Commit and sends a message to an XA JMS resource. After a server crash during commit, the database update and the message are inconsistent. The database driver must remain non-XA. What change best ensures a consistent outcome after failures?",
+  "options": {
+   "A": "Configure the data source with One-Phase Commit",
+   "B": "Increase the JTA transaction timeout",
+   "C": "Configure the data source with Logging Last Resource so the commit decision is recorded in the database and recovered after a crash",
+   "D": "Enable Test Connections On Reserve",
+   "E": "Disable Supports Global Transactions on the data source"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Emulate Two-Phase Commit은 prepare를 흉내만 내므로 장애 시 불일치가 발생할 수 있다. LLR은 비 XA 드라이버를 유지하면서 커밋 레코드를 같은 DB의 로컬 트랜잭션에 기록해 장애 후에도 일관된 결과를 복구할 수 있다. One-Phase Commit은 다른 리소스(JMS)와 함께 참여할 수 없고, 타임아웃이나 커넥션 테스트는 일관성과 무관하며, 전역 트랜잭션 지원을 끄면 이 트랜잭션에 참여할 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-EMULATE-2PC-FIX"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A global transaction calls two different non-XA data sources, both configured with the One-Phase Commit option. The transaction fails when the second data source tries to enlist. What is the cause?",
+  "options": {
+   "A": "The JTA timeout is shorter than the Connection Reserve Timeout",
+   "B": "Both data sources must use the same JNDI name",
+   "C": "The second data source has Test Connections On Reserve disabled",
+   "D": "A one-phase commit data source can be the only resource in a global transaction, so a second participant is not allowed",
+   "E": "The statement caches of the two data sources conflict"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "One-Phase Commit 데이터 소스는 전역 트랜잭션의 유일한 참여자여야 하므로 두 번째 리소스가 참여하려 하면 오류가 발생한다. 여러 리소스를 묶으려면 XA 드라이버를 쓰거나 한 데이터 소스를 LLR로 구성하는 등의 방법이 필요하다. 타임아웃 관계, JNDI 이름, 예약 시 테스트, 문장 캐시는 이 오류의 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-ONE-PC"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "XA transactions run through a generic XA data source that uses a SCAN URL to an Oracle RAC database. Branches of the same global transaction are processed on different RAC instances, which causes poor performance and intermittent XA errors. What is the best remedy?",
+  "options": {
+   "A": "Switch to Emulate Two-Phase Commit on the generic data source",
+   "B": "Increase Maximum Capacity so more branches can run in parallel",
+   "C": "Enable Pinned-To-Thread on the data source",
+   "D": "Set Shrink Frequency to 0",
+   "E": "Use an Active GridLink data source so that XA affinity keeps all work of a global transaction on the same RAC instance"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "RAC에서 하나의 전역 트랜잭션 브랜치가 여러 인스턴스로 흩어지면 성능 저하와 오류가 생길 수 있으므로, Active GridLink의 XA affinity로 같은 트랜잭션의 작업을 한 인스턴스에 고정하는 것이 권장된다. Emulate Two-Phase Commit은 비 XA 드라이버용 옵션이고 정합성을 약화시킨다. 최대 용량, Pinned-To-Thread, 축소 비활성화는 인스턴스 선택을 제어하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-XA-AFFINITY"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A Managed Server starts while its database is down for maintenance. The data source fails to deploy, and applications keep failing even after the database comes back, until an administrator manually redeploys the data source. Which configuration lets the data source deploy anyway and connect once the database is available?",
+  "options": {
+   "A": "Set Connection Creation Retry Frequency to a nonzero value",
+   "B": "Increase the Maximum Capacity",
+   "C": "Enable Test Connections On Reserve",
+   "D": "Decrease Seconds to Trust an Idle Pool Connection",
+   "E": "Set the Statement Cache Type to FIXED"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Connection Creation Retry Frequency를 0보다 큰 값으로 설정하면 데이터 소스 생성 시 DB를 사용할 수 없어도 데이터 소스가 배포되고, 지정한 간격으로 커넥션 생성을 재시도하므로 DB 복구 후 자동으로 연결된다. 최대 용량, 예약 시 테스트, 테스트 신뢰 시간, 문장 캐시 유형은 생성 시점 DB 장애에 따른 배포 실패를 막지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-CONN-RETRY"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Overnight traffic is very low, so the data source pool shrinks to one connection. Each morning, a sudden burst of users experiences high latency while many new physical connections are created at once. The DBA agrees to keep 40 sessions open at all times. What should the WebLogic administrator change?",
+  "options": {
+   "A": "Set Test Frequency to 0",
+   "B": "Raise Minimum Capacity to 40 so the pool never shrinks below that level",
+   "C": "Increase Inactive Connection Timeout",
+   "D": "Increase the Statement Cache Size",
+   "E": "Change Statement Cache Type from LRU to FIXED"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "풀 축소는 Minimum Capacity까지만 이루어지므로 이를 40으로 올리면 야간에도 40개의 커넥션이 유지되어 아침 폭주 시 커넥션 생성 지연이 줄어든다. Test Frequency, Inactive Connection Timeout, 문장 캐시 설정은 풀 축소 하한을 결정하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-MIN-CAP-SHRINK"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After a DBA changes the definition of a table used by prepared statements, an application on WebLogic Server keeps failing on those statements because stale prepared statements are reused from the data source cache. The administrator wants to fix this without restarting the server. Which data source operation is most appropriate?",
+  "options": {
+   "A": "Run the Shrink operation on the data source",
+   "B": "Increase the Test Frequency of the data source",
+   "C": "Run the Clear Statement Cache operation on the data source",
+   "D": "Change the Statement Cache Type from LRU to FIXED",
+   "E": "Increase Seconds to Trust an Idle Pool Connection"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "테이블 정의 변경 후 커넥션별로 캐시된 문장이 계속 재사용되어 문제가 생기면 Clear Statement Cache 작업으로 캐시를 비워 문장이 다시 준비되도록 할 수 있다. Shrink는 미사용 커넥션만 줄일 뿐 사용 중인 커넥션의 캐시를 비우지 않고, Test Frequency나 테스트 신뢰 시간은 캐시와 무관하다. 캐시 유형을 바꾸는 것도 이미 캐시된 문장을 정리하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-STMT-CACHE-DDL"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about the Logging Last Resource (LLR) transaction option are true? (Choose two.)",
+  "options": {
+   "A": "LLR requires the database to support the XA protocol",
+   "B": "LLR commit records are stored only in the server's default store",
+   "C": "LLR carries the same heuristic hazard as Emulate Two-Phase Commit",
+   "D": "LLR is configured on data sources that use a non-XA JDBC driver",
+   "E": "Only one LLR participant is allowed in a global transaction"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "LLR은 비 XA 드라이버 데이터 소스에 설정하는 최적화 옵션이며, 한 전역 트랜잭션에는 LLR 참여자가 하나만 허용된다. XA 프로토콜 지원이 필요하지 않고, 커밋 레코드는 해당 DB의 WL_LLR_<서버명> 테이블에 기록된다. 커밋 결정을 DB에 기록해 복구하므로 Emulate Two-Phase Commit과 같은 휴리스틱 위험이 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-LLR-FACTS"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "An administrator is creating an Active GridLink data source for an Oracle RAC 19c database. Which two items are typically required to build its connection URL? (Choose two.)",
+  "options": {
+   "A": "The SCAN host name and listener port",
+   "B": "The database service name",
+   "C": "The SID of every RAC instance",
+   "D": "One generic member data source per RAC instance",
+   "E": "The listen port of the Administration Server"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "Active GridLink의 URL은 SCAN 호스트·리스너 포트와 데이터베이스 서비스 이름으로 구성한다. 인스턴스별 SID 나열이나 인스턴스별 멤버 데이터 소스는 Multi data source 시절의 구성 방식이며, Administration Server 포트는 DB 접속 URL과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-URL-SCAN"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "A DBA stops one RAC instance for planned maintenance, and FAN publishes a planned DOWN event. Which two describe the behavior of an Active GridLink data source? (Choose two.)",
+  "options": {
+   "A": "All connections to every RAC instance are reset at once",
+   "B": "Idle connections to the stopping instance are closed",
+   "C": "The data source suspends itself until the instance is restarted",
+   "D": "Connections in use on that instance are closed when the application returns them to the pool, instead of being terminated abruptly",
+   "E": "Active transactions are migrated mid-flight to another instance by WebLogic Server"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "계획된 DOWN 이벤트를 받으면 Active GridLink는 해당 인스턴스의 유휴 커넥션을 닫고, 사용 중인 커넥션은 애플리케이션이 반환할 때 닫아 작업을 점진적으로 이전한다. 모든 인스턴스의 커넥션을 한꺼번에 리셋하거나 데이터 소스를 중지하지 않으며, WebLogic이 진행 중인 트랜잭션을 다른 인스턴스로 옮기지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server, Using Active GridLink Data Sources (검수 필요)",
+  "variant_group": "WLS-JDBC-AGL-PLANNED"
+ },
+ {
+  "domain": "WLS_JDBC",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two actions help identify the application code responsible for a connection leak in a WebLogic Server data source? (Choose two.)",
+  "options": {
+   "A": "Set Inactive Connection Timeout and monitor the LeakedConnectionCount runtime metric",
+   "B": "Increase the Statement Cache Size",
+   "C": "Enable connection leak profiling to capture the stack trace of the code that reserved the leaked connection",
+   "D": "Disable Test Connections On Reserve",
+   "E": "Change the multi data source algorithm to Load-Balancing so that leaked connections are spread across members"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Inactive Connection Timeout을 설정하면 방치된 커넥션이 회수되며 LeakedConnectionCount로 누수 발생을 확인할 수 있고, 커넥션 누수 프로파일링을 켜면 누수 커넥션을 예약한 코드의 스택 트레이스를 수집할 수 있다. 문장 캐시 확대, 예약 시 테스트 비활성화, Multi data source 알고리즘 변경은 누수 원인 코드를 찾는 데 도움이 되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JDBC Data Sources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-JDBC-LEAK-DIAG"
+ }
+]

@@ -1,0 +1,1414 @@
+[
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, what are the default AWR snapshot interval and snapshot retention period?",
+  "options": {
+   "A": "Every 60 minutes, retained for 8 days",
+   "B": "Every 30 minutes, retained for 7 days",
+   "C": "Every 15 minutes, retained for 31 days",
+   "D": "Every 60 minutes, retained for 30 days",
+   "E": "Every 24 hours, retained for 8 days"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "AWR은 기본적으로 60분마다 스냅샷을 생성하고 8일 동안 보관한다. 30분/7일, 15분/31일, 60분/30일, 24시간/8일 조합은 모두 기본값이 아니며, 필요하면 DBMS_WORKLOAD_REPOSITORY.MODIFY_SNAPSHOT_SETTINGS로 간격과 보관 기간을 변경한다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AWR-DEFAULTS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which script in $ORACLE_HOME/rdbms/admin generates a standard AWR report for a range of snapshots of the current database instance?",
+  "options": {
+   "A": "addmrpt.sql",
+   "B": "ashrpt.sql",
+   "C": "awrddrpt.sql",
+   "D": "awrrpt.sql",
+   "E": "spreport.sql"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "awrrpt.sql은 지정한 두 스냅샷 구간의 표준 AWR 보고서를 생성한다. addmrpt.sql은 ADDM 분석 보고서, ashrpt.sql은 ASH 보고서, awrddrpt.sql은 두 구간을 비교하는 Compare Periods 보고서, spreport.sql은 Statspack 보고서를 만든다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AWR-SCRIPT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which initialization parameter controls whether Diagnostics Pack and Tuning Pack features, such as AWR and SQL Tuning Advisor, can be used?",
+  "options": {
+   "A": "OPTIMIZER_MODE",
+   "B": "CONTROL_MANAGEMENT_PACK_ACCESS",
+   "C": "DIAGNOSTIC_DEST",
+   "D": "AUDIT_TRAIL",
+   "E": "CURSOR_SHARING"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "CONTROL_MANAGEMENT_PACK_ACCESS는 DIAGNOSTIC+TUNING, DIAGNOSTIC, NONE 값으로 Diagnostics Pack과 Tuning Pack 기능 사용 여부를 제어한다. OPTIMIZER_MODE는 옵티마이저 목표, DIAGNOSTIC_DEST는 ADR 위치, AUDIT_TRAIL은 전통적 감사 설정, CURSOR_SHARING은 리터럴 처리 방식을 정하는 파라미터로 관리 팩 사용과 무관하다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-PACK-ACCESS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How often does Active Session History (ASH) sample active sessions into V$ACTIVE_SESSION_HISTORY by default?",
+  "options": {
+   "A": "Once every 10 milliseconds",
+   "B": "Once every minute",
+   "C": "Once every AWR snapshot interval",
+   "D": "Only when a session commits",
+   "E": "Once every second"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ASH는 매초 활성 세션(CPU 사용 중이거나 유휴가 아닌 대기 중인 세션)의 상태를 샘플링해 메모리 버퍼에 저장하고 V$ACTIVE_SESSION_HISTORY로 보여 준다. 10밀리초나 1분 주기, 스냅샷 주기 단위 샘플링은 사실이 아니며, 커밋 시점에만 기록하는 방식도 아니다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ASH-SAMPLE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which measure does ADDM primarily use to quantify the impact of the performance problems it reports?",
+  "options": {
+   "A": "Buffer cache hit ratio",
+   "B": "Number of user logons",
+   "C": "DB time",
+   "D": "Size of the redo log files",
+   "E": "Number of AWR snapshots retained"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ADDM은 DB time을 공통 기준으로 사용해 각 문제가 DB time의 몇 퍼센트를 차지하는지로 영향도를 산정한다. 버퍼 캐시 적중률 같은 비율 지표는 실제 사용자 영향과 직접 연결되지 않아 기준으로 쓰지 않으며, 로그온 수, 리두 로그 크기, 스냅샷 보관 개수는 영향도 측정 지표가 아니다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ADDM-DBTIME"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement best defines DB time?",
+  "options": {
+   "A": "Cumulative CPU time plus non-idle wait time of foreground sessions in database calls",
+   "B": "The elapsed wall-clock time since the instance was started",
+   "C": "The time spent only by background processes, such as DBWn, writing dirty buffers to data files",
+   "D": "The total idle wait time of all connected sessions",
+   "E": "The time sessions spend idle, waiting for the client application to send the next request"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DB time은 포그라운드 세션이 데이터베이스 호출 안에서 소비한 시간의 누적으로, CPU 시간과 유휴가 아닌 대기 시간을 합한 값이다. 인스턴스 가동 시간과는 다르며, 백그라운드 프로세스의 쓰기 시간만을 뜻하지도 않는다. 유휴 대기나 클라이언트 요청을 기다리는 시간(SQL*Net message from client 등)은 DB time에 포함되지 않는다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-DBTIME-DEF"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After running EXPLAIN PLAN FOR a SQL statement, which function is used to format and display the plan stored in PLAN_TABLE?",
+  "options": {
+   "A": "DBMS_XPLAN.DISPLAY_AWR",
+   "B": "DBMS_STATS.DISPLAY_PLAN",
+   "C": "DBMS_SQLTUNE.REPORT_TUNING_TASK",
+   "D": "DBMS_XPLAN.DISPLAY",
+   "E": "DBMS_MONITOR.SESSION_TRACE_ENABLE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "EXPLAIN PLAN 결과는 PLAN_TABLE에 저장되며 DBMS_XPLAN.DISPLAY로 형식화해 조회한다. DBMS_XPLAN.DISPLAY_AWR는 AWR에 저장된 계획을 보여 주고, DBMS_STATS.DISPLAY_PLAN이라는 함수는 없다. REPORT_TUNING_TASK는 SQL Tuning Advisor 결과 보고서, SESSION_TRACE_ENABLE은 세션 추적 활성화 프로시저이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-XPLAN-DISPLAY"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which wait event is typically associated with single-block physical reads, such as reading table blocks by ROWID after an index range scan?",
+  "options": {
+   "A": "db file scattered read",
+   "B": "db file sequential read",
+   "C": "log file sync",
+   "D": "log file parallel write",
+   "E": "SQL*Net message from client"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "db file sequential read는 단일 블록 물리 읽기 대기로, 인덱스 블록이나 ROWID를 통한 테이블 블록 읽기에서 주로 발생한다. db file scattered read는 전체 테이블 스캔 등의 멀티블록 읽기 대기이고, log file sync와 log file parallel write는 리두 관련 대기, SQL*Net message from client는 유휴 대기이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-WAIT-SEQREAD"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A user session waits on the log file sync event. What is the session waiting for?",
+  "options": {
+   "A": "DBWn to write the session's dirty buffers from the buffer cache to the data files",
+   "B": "ARCn to finish copying a filled online redo log to the archive log destination",
+   "C": "Another session to release a row lock",
+   "D": "A multiblock read of a table during a full scan",
+   "E": "LGWR to finish writing the session's redo after a commit or rollback"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "log file sync는 세션이 커밋(또는 롤백)한 뒤 LGWR가 해당 리두를 온라인 리두 로그에 기록 완료할 때까지 기다리는 대기이다. DBWn의 데이터 파일 쓰기, ARCn의 아카이브 복사는 이 대기의 대상이 아니며, 행 잠금 대기는 enq: TX - row lock contention, 멀티블록 읽기는 db file scattered read로 나타난다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-WAIT-LFS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which index type is generally best suited for low-cardinality columns in a data warehouse where data is mostly queried and rarely modified concurrently?",
+  "options": {
+   "A": "Reverse key index",
+   "B": "Unique B-tree index",
+   "C": "Bitmap index",
+   "D": "Index-organized table primary key index",
+   "E": "Descending B-tree index"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "비트맵 인덱스는 고유 값 수가 적은 컬럼에 대해 저장 공간이 작고 여러 조건의 AND/OR 결합에 유리해 데이터 웨어하우스 환경에 적합하다. 다만 동시 DML이 많으면 잠금 경합이 커지므로 OLTP에는 부적합하다. 리버스 키 인덱스는 순차 삽입 경합 완화용, 고유 B-tree는 고유값 컬럼용, IOT 기본 키 인덱스와 내림차순 B-tree는 저카디널리티 조회 최적화와 관계가 없다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-BITMAP-IDX"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Queries filter on WHERE UPPER(last_name) = :name, and a normal B-tree index exists on LAST_NAME. What allows an index to be used for this predicate?",
+  "options": {
+   "A": "Create a function-based index on UPPER(last_name)",
+   "B": "Create a bitmap index on LAST_NAME",
+   "C": "Rebuild the existing index with a larger PCTFREE",
+   "D": "Gather statistics on the existing index only",
+   "E": "Make the existing index invisible"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "컬럼에 함수를 적용한 조건은 일반 B-tree 인덱스를 직접 사용할 수 없으므로 UPPER(last_name) 표현식에 대한 함수 기반 인덱스를 만들어야 한다. 비트맵 인덱스도 원래 컬럼 값으로 만들어지므로 함수 조건에 쓰이지 않고, PCTFREE 변경 재구성이나 인덱스 통계 수집은 조건과 인덱스 키의 불일치를 해결하지 못한다. 인덱스를 invisible로 바꾸면 오히려 옵티마이저가 무시한다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-FBI"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the recommended method for gathering optimizer statistics on a table in Oracle Database 19c?",
+  "options": {
+   "A": "ANALYZE TABLE ... COMPUTE STATISTICS",
+   "B": "DBMS_WORKLOAD_REPOSITORY.CREATE_SNAPSHOT",
+   "C": "DBMS_SPACE.SPACE_USAGE",
+   "D": "DBMS_STATS.GATHER_TABLE_STATS",
+   "E": "ALTER TABLE ... MONITORING"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "옵티마이저 통계 수집에는 DBMS_STATS 패키지(GATHER_TABLE_STATS 등)를 사용하는 것이 권장된다. ANALYZE의 통계 수집 기능은 하위 호환용으로 남아 있을 뿐 권장되지 않는다. CREATE_SNAPSHOT은 AWR 스냅샷, DBMS_SPACE.SPACE_USAGE는 공간 사용량 조회이며, MONITORING 절은 더 이상 의미가 없는(테이블 모니터링이 자동인) 구문이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-GATHER-API"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "By default in Oracle Database 19c, how are optimizer statistics gathered automatically?",
+  "options": {
+   "A": "By the MMON process immediately after every automatic AWR snapshot is taken",
+   "B": "By an automated maintenance task that runs during the predefined maintenance windows",
+   "C": "By LGWR at every log switch",
+   "D": "Only when the database instance is restarted",
+   "E": "By SQL Tuning Advisor each time a DBA accepts one of its recommended SQL profiles"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "자동 옵티마이저 통계 수집은 자동화된 유지보수 작업(automated maintenance task)으로, 사전 정의된 유지보수 윈도우 동안 통계가 없거나 오래된 객체를 대상으로 실행된다. MMON의 AWR 스냅샷, LGWR의 로그 스위치, 인스턴스 재시작은 통계 수집과 관계가 없으며, SQL 프로파일 수락이 통계를 수집하지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AUTO-STATS-TASK"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the default value of the OPTIMIZER_MODE initialization parameter in Oracle Database 19c?",
+  "options": {
+   "A": "FIRST_ROWS_10",
+   "B": "RULE",
+   "C": "CHOOSE",
+   "D": "FIRST_ROWS_1000",
+   "E": "ALL_ROWS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "OPTIMIZER_MODE의 기본값은 ALL_ROWS로, 전체 결과를 가장 효율적으로 반환하는(처리량 중심) 계획을 선택한다. FIRST_ROWS_n 값은 처음 n행을 빨리 반환하는 데 최적화하는 선택 값이며 기본값이 아니다. RULE과 CHOOSE는 과거 규칙 기반 옵티마이저 시절의 값으로 현재는 지원되지 않는다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-OPT-MODE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement contains a correctly formatted optimizer hint?",
+  "options": {
+   "A": "SELECT /* FULL(e) */ * FROM employees e",
+   "B": "SELECT * FROM employees e /*+ FULL(e) */ WHERE 1=1",
+   "C": "SELECT /*+ FULL(e) */ * FROM employees e",
+   "D": "SELECT * FROM employees e HINT FULL(e)",
+   "E": "SELECT {+ FULL(e)} * FROM employees e"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "힌트는 SELECT, INSERT, UPDATE, DELETE, MERGE 키워드 바로 뒤에 더하기 기호로 시작하는 주석(/*+ ... */) 형태로 써야 한다. 더하기 기호가 없는 주석은 일반 주석으로 무시되고, 테이블 이름 뒤 등 다른 위치에 둔 힌트 주석도 힌트로 인식되지 않는다. HINT 키워드나 중괄호 표기는 존재하지 않는 문법이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-HINT-SYNTAX"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In SQL*Plus, which setting displays the execution plan and execution statistics for statements while suppressing the query result rows?",
+  "options": {
+   "A": "SET AUTOTRACE TRACEONLY",
+   "B": "SET AUTOTRACE ON",
+   "C": "SET AUTOTRACE OFF",
+   "D": "SET TIMING ON",
+   "E": "SET SERVEROUTPUT ON"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SET AUTOTRACE TRACEONLY는 실행 계획과 통계를 보여 주되 질의 결과 행 출력은 생략한다. SET AUTOTRACE ON은 결과 행까지 모두 출력하고, OFF는 기능을 끈다. SET TIMING ON은 경과 시간만, SET SERVEROUTPUT ON은 DBMS_OUTPUT 출력을 표시할 뿐 실행 계획과 무관하다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AUTOTRACE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which utility formats a raw SQL trace file into a readable report with parse, execute, and fetch statistics for each statement?",
+  "options": {
+   "A": "adrci",
+   "B": "orapwd",
+   "C": "lsnrctl",
+   "D": "tkprof",
+   "E": "dbca"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "tkprof는 SQL 추적 파일을 읽어 문장별 parse/execute/fetch 횟수, CPU·경과 시간, 읽기 블록 수 등을 정리한 보고서를 만든다. adrci는 ADR 진단 데이터 관리 도구, orapwd는 비밀번호 파일 생성 도구, lsnrctl은 리스너 제어 도구, dbca는 데이터베이스 생성 도구이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-TKPROF"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which view contains historical SQL execution statistics captured in AWR snapshots?",
+  "options": {
+   "A": "V$SQL",
+   "B": "DBA_HIST_SQLSTAT",
+   "C": "V$SQLAREA",
+   "D": "DBA_TAB_STATISTICS",
+   "E": "V$SYSSTAT"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DBA_HIST_SQLSTAT는 AWR 스냅샷마다 저장된 SQL별 실행 통계(델타 및 누적값)를 보관하는 이력 뷰이다. V$SQL과 V$SQLAREA는 현재 공유 풀에 있는 커서의 통계만 보여 주므로 커서가 밀려나면 사라진다. DBA_TAB_STATISTICS는 옵티마이저용 테이블 통계, V$SYSSTAT는 인스턴스 시작 이후 누적 시스템 통계이다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-DBAHIST-SQLSTAT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about AWR snapshots are true? (Choose two.)",
+  "options": {
+   "A": "Snapshots are taken automatically by the MMON background process",
+   "B": "Snapshot data is stored in the SYSTEM tablespace",
+   "C": "A snapshot can be created manually with DBMS_WORKLOAD_REPOSITORY.CREATE_SNAPSHOT",
+   "D": "Snapshots are taken automatically only when STATISTICS_LEVEL is set to BASIC",
+   "E": "Snapshot data is written to the alert log and to trace files in the ADR"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "AWR 스냅샷은 MMON 백그라운드 프로세스가 주기적으로 자동 생성하며, DBMS_WORKLOAD_REPOSITORY.CREATE_SNAPSHOT으로 수동 생성할 수도 있다. AWR 데이터는 SYSTEM이 아니라 SYSAUX 테이블스페이스에 저장된다. STATISTICS_LEVEL이 BASIC이면 오히려 자동 스냅샷이 수행되지 않으며, 스냅샷 데이터는 alert log나 ADR 추적 파일이 아니라 AWR 테이블에 저장된다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AWR-SNAPSHOT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two execution plan operations access a B-tree index structure? (Choose two.)",
+  "options": {
+   "A": "TABLE ACCESS FULL",
+   "B": "INDEX RANGE SCAN",
+   "C": "HASH JOIN",
+   "D": "INDEX UNIQUE SCAN",
+   "E": "SORT AGGREGATE"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "INDEX RANGE SCAN과 INDEX UNIQUE SCAN은 B-tree 인덱스를 탐색하는 접근 방식이다. TABLE ACCESS FULL은 인덱스 없이 테이블의 모든 블록을 읽는 접근이고, HASH JOIN은 조인 방식, SORT AGGREGATE는 집계 연산으로 인덱스 구조 자체를 읽는 작업이 아니다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-IDX-ACCESS-OPS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "For a single SQL statement, which action causes row source execution statistics to be collected so that DBMS_XPLAN.DISPLAY_CURSOR with the ALLSTATS LAST format can show actual rows (A-Rows) next to estimated rows?",
+  "options": {
+   "A": "Add the MONITOR hint and set OPTIMIZER_MODE to RULE",
+   "B": "Run DBMS_STATS.GATHER_TABLE_STATS before the statement",
+   "C": "Execute the statement through EXPLAIN PLAN FOR",
+   "D": "Set CURSOR_SHARING to FORCE in the session",
+   "E": "Add the GATHER_PLAN_STATISTICS hint to the statement"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "GATHER_PLAN_STATISTICS 힌트(또는 세션의 STATISTICS_LEVEL=ALL)를 사용하면 실행 시 행 소스별 실제 통계가 수집되어 DISPLAY_CURSOR의 ALLSTATS LAST 형식에서 A-Rows, Starts 등을 볼 수 있다. RULE 옵티마이저 모드는 지원되지 않는 값이고, 테이블 통계 수집은 옵티마이저 입력일 뿐 실행 통계를 남기지 않는다. EXPLAIN PLAN은 문장을 실제로 실행하지 않으므로 실제 행 수가 없고, CURSOR_SHARING은 리터럴 처리와 관련된 설정이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-GATHER-PLAN-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "With the default METHOD_OPT setting of FOR ALL COLUMNS SIZE AUTO, how does DBMS_STATS decide which columns receive histograms?",
+  "options": {
+   "A": "It creates histograms on every column of every table",
+   "B": "It never creates histograms unless SIZE SKEWONLY is explicitly specified for the columns",
+   "C": "Based on column data skew and on how the columns are used in query predicates",
+   "D": "It creates histograms only on columns that are the leading column of an index",
+   "E": "It creates histograms only on primary key columns"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SIZE AUTO는 데이터 분포(편향 여부)와 워크로드에서 해당 컬럼이 조건절에 사용된 이력(컬럼 사용 정보)을 함께 고려해 히스토그램 생성 여부를 결정한다. 모든 컬럼에 무조건 만들지 않고, SKEWONLY를 지정해야만 만드는 것도 아니다. 인덱스 유무나 기본 키 여부는 판단 기준이 아니며, 기본 키처럼 고유한 컬럼은 오히려 히스토그램이 필요 없는 경우가 많다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-HISTOGRAM-AUTO"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, statistics are gathered with ESTIMATE_PERCENT set to AUTO_SAMPLE_SIZE. A column has more distinct values than the requested number of buckets, and the top-frequency criteria are not met. Which histogram type is created?",
+  "options": {
+   "A": "Hybrid histogram",
+   "B": "Frequency histogram",
+   "C": "Height-balanced histogram",
+   "D": "Bitmap histogram",
+   "E": "Range-partitioned histogram"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "12c 이후 AUTO_SAMPLE_SIZE로 수집할 때 고유 값 수가 버킷 수보다 많고 top frequency 조건을 만족하지 못하면 하이브리드 히스토그램이 생성된다. 빈도(frequency) 히스토그램은 고유 값 수가 버킷 수 이하일 때 만들어진다. 높이 균형(height-balanced) 히스토그램은 AUTO_SAMPLE_SIZE가 아닌 표본 비율을 지정한 경우에만 생성되는 이전 방식이며, 비트맵·범위 분할 히스토그램이라는 유형은 없다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-HISTOGRAM-TYPE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "The PUBLISH preference for a table is set to FALSE and new statistics are gathered. How can a session test the new statistics before they are published?",
+  "options": {
+   "A": "ALTER SESSION SET OPTIMIZER_DYNAMIC_SAMPLING = 0",
+   "B": "ALTER SESSION SET STATISTICS_LEVEL = BASIC",
+   "C": "EXEC DBMS_STATS.LOCK_TABLE_STATS on the table",
+   "D": "ALTER SESSION SET OPTIMIZER_USE_PENDING_STATISTICS = TRUE",
+   "E": "ALTER SESSION SET OPTIMIZER_CAPTURE_SQL_PLAN_BASELINES = TRUE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "PUBLISH=FALSE로 수집된 통계는 보류(pending) 상태로 저장되며, 세션에서 OPTIMIZER_USE_PENDING_STATISTICS를 TRUE로 설정하면 해당 세션만 보류 통계를 사용해 계획을 검증할 수 있다. 검증 후 DBMS_STATS.PUBLISH_PENDING_STATS로 게시한다. 동적 샘플링 비활성화, STATISTICS_LEVEL 변경, 통계 잠금, SQL 계획 기준선 자동 캡처는 보류 통계 사용과 관계가 없다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-PENDING-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After statistics were regathered on a table, several execution plans regressed. The previous statistics were not exported beforehand. Which procedure can revert the table statistics to the values in effect at an earlier point in time?",
+  "options": {
+   "A": "DBMS_STATS.DELETE_TABLE_STATS",
+   "B": "DBMS_STATS.RESTORE_TABLE_STATS",
+   "C": "DBMS_STATS.LOCK_TABLE_STATS",
+   "D": "DBMS_STATS.IMPORT_TABLE_STATS",
+   "E": "DBMS_STATS.SET_TABLE_PREFS"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DBMS_STATS는 통계를 변경할 때 이전 통계를 통계 이력에 자동 보관하므로 RESTORE_TABLE_STATS에 AS_OF_TIMESTAMP를 지정해 과거 시점 통계로 되돌릴 수 있다. DELETE_TABLE_STATS는 통계를 삭제할 뿐 이전 값을 복원하지 않고, LOCK_TABLE_STATS는 이후 변경을 막을 뿐이다. IMPORT_TABLE_STATS는 미리 내보낸 통계 테이블이 있어야 하며, SET_TABLE_PREFS는 수집 선호값을 바꾸는 프로시저이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-RESTORE-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of executing DBMS_STATS.LOCK_TABLE_STATS on a table?",
+  "options": {
+   "A": "DML on the table is blocked until the statistics are unlocked with UNLOCK_TABLE_STATS",
+   "B": "The table's statistics are deleted and dynamic sampling is disabled",
+   "C": "The optimizer ignores the table's statistics and uses default values or dynamic sampling instead",
+   "D": "The table is excluded from AWR snapshots",
+   "E": "Gathering procedures cannot overwrite the table's statistics unless FORCE is set to TRUE"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LOCK_TABLE_STATS로 통계를 잠그면 자동 통계 수집 작업은 해당 테이블을 건너뛰고, 수동 GATHER 호출도 FORCE=>TRUE를 지정하지 않으면 통계를 덮어쓸 수 없다. 통계 잠금은 테이블 DML을 막지 않으며, 기존 통계를 삭제하거나 옵티마이저가 통계를 무시하게 만들지도 않는다. AWR 스냅샷 수집 대상과도 무관하다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-LOCK-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "With OPTIMIZER_DYNAMIC_SAMPLING at its default level of 2, when does the optimizer use dynamic statistics for a serial query?",
+  "options": {
+   "A": "For every table in every statement regardless of existing statistics",
+   "B": "Only when the statement contains a GATHER_PLAN_STATISTICS hint",
+   "C": "When at least one table referenced in the statement has no optimizer statistics",
+   "D": "Only for tables larger than the buffer cache",
+   "E": "Never, because level 2 disables dynamic statistics"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "기본 레벨 2에서는 문장이 참조하는 테이블 중 하나 이상에 통계가 없을 때 동적 통계(동적 샘플링)를 사용한다. 통계 유무와 상관없이 모든 테이블에 적용하는 것은 더 높은 레벨이나 AUTO(11) 동작과 다르며, GATHER_PLAN_STATISTICS 힌트는 실행 통계 수집용이다. 테이블 크기가 버퍼 캐시보다 큰지 여부는 조건이 아니고, 동적 통계를 끄는 값은 0이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-DYN-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which columns of V$SQL show whether a child cursor is being managed by adaptive cursor sharing?",
+  "options": {
+   "A": "IS_BIND_SENSITIVE and IS_BIND_AWARE",
+   "B": "IS_OBSOLETE and IS_SHAREABLE",
+   "C": "LOADED_VERSIONS and OPEN_VERSIONS",
+   "D": "SQL_PROFILE and SQL_PLAN_BASELINE",
+   "E": "OPTIMIZER_COST and OPTIMIZER_MODE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "적응형 커서 공유 상태는 V$SQL의 IS_BIND_SENSITIVE(바인드 값에 따라 최적 계획이 달라질 수 있어 감시 대상인지)와 IS_BIND_AWARE(바인드 값별로 다른 자식 커서를 쓰는 상태인지)로 확인한다. IS_OBSOLETE/IS_SHAREABLE은 커서 재사용 가능성, LOADED/OPEN_VERSIONS는 버전 수, SQL_PROFILE/SQL_PLAN_BASELINE은 적용된 튜닝 객체, OPTIMIZER_COST/MODE는 비용과 모드를 나타낸다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ACS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of setting CURSOR_SHARING to FORCE?",
+  "options": {
+   "A": "All SQL statements are forced to use the same execution plan regardless of their text",
+   "B": "Bind variables in SQL statements are replaced with their literal values at parse time so that each value gets its own cursor",
+   "C": "Hard parsing is disabled, and statements that are not already in the shared pool fail with an error",
+   "D": "Literals are replaced with system-generated binds so that statements differing only in literals share a cursor",
+   "E": "SQL plan baselines are automatically created for every statement"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CURSOR_SHARING=FORCE는 SQL의 리터럴을 시스템 생성 바인드 변수로 치환해, 리터럴만 다른 문장들이 하나의 커서를 공유하도록 한다. 텍스트가 다른 모든 문장에 같은 계획을 강제하지 않으며, 반대로 바인드를 리터럴로 바꾸는 기능도 아니다. 하드 파싱을 금지하지 않고, SQL 계획 기준선 자동 생성은 OPTIMIZER_CAPTURE_SQL_PLAN_BASELINES가 담당한다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-CURSOR-SHARING"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A statement has an accepted SQL plan baseline. During a hard parse the optimizer generates a new, lower-cost plan that is not in the baseline. What happens by default?",
+  "options": {
+   "A": "The optimizer immediately uses the new lower-cost plan and marks it as accepted in the baseline",
+   "B": "An accepted baseline plan is used, and the new plan is added to the plan history as unaccepted",
+   "C": "The optimizer raises an error because the plan is not in the baseline",
+   "D": "The existing baseline is dropped and replaced by a new baseline containing only the new plan",
+   "E": "The new plan is discarded and never recorded"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SQL 계획 관리(SPM)에서는 기준선이 있으면 수락된(accepted) 계획 중에서 사용하고, 새로 발견된 계획은 계획 이력에 미수락 상태로 추가해 둔다. 이후 진화(evolve) 과정에서 성능이 검증되어야 수락된다. 새 계획을 즉시 사용·수락하거나 기존 기준선을 교체하지 않으며, 오류를 내거나 새 계획을 기록 없이 버리지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SPM-NEWPLAN"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which initialization parameter, when set to TRUE, enables automatic initial plan capture so that SQL plan baselines are created for repeatable SQL statements?",
+  "options": {
+   "A": "OPTIMIZER_USE_SQL_PLAN_BASELINES",
+   "B": "OPTIMIZER_USE_PENDING_STATISTICS",
+   "C": "OPTIMIZER_ADAPTIVE_PLANS",
+   "D": "OPTIMIZER_INDEX_COST_ADJ",
+   "E": "OPTIMIZER_CAPTURE_SQL_PLAN_BASELINES"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "OPTIMIZER_CAPTURE_SQL_PLAN_BASELINES=TRUE(기본값 FALSE)이면 반복 실행되는 SQL에 대해 계획 기준선을 자동 생성한다. OPTIMIZER_USE_SQL_PLAN_BASELINES는 이미 존재하는 기준선을 사용할지 여부(기본 TRUE)를 정할 뿐 생성하지 않는다. 보류 통계 사용, 적응형 계획, 인덱스 비용 조정 파라미터는 기준선 캡처와 무관하다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-SPM-CAPTURE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which subprogram creates SQL plan baselines from execution plans that are currently in the shared SQL area?",
+  "options": {
+   "A": "DBMS_SQLTUNE.ACCEPT_SQL_PROFILE",
+   "B": "DBMS_XPLAN.DISPLAY_SQL_PLAN_BASELINE",
+   "C": "DBMS_SPM.LOAD_PLANS_FROM_CURSOR_CACHE",
+   "D": "DBMS_STATS.SEED_COL_USAGE",
+   "E": "DBMS_WORKLOAD_REPOSITORY.ADD_COLORED_SQL"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DBMS_SPM.LOAD_PLANS_FROM_CURSOR_CACHE는 커서 캐시(공유 SQL 영역)에 있는 계획을 SQL 계획 기준선으로 적재한다. ACCEPT_SQL_PROFILE은 SQL 프로파일을 수락하고, DISPLAY_SQL_PLAN_BASELINE은 기준선 내용을 조회만 한다. SEED_COL_USAGE는 컬럼 사용 정보 수집, ADD_COLORED_SQL은 특정 SQL을 AWR 수집 대상으로 표시하는 기능이다.",
+  "reference": "Oracle Database 19c - PL/SQL Packages and Types Reference (검수 필요)",
+  "variant_group": "DB-PERF-SPM-LOAD"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does a SQL profile recommended by SQL Tuning Advisor primarily contain?",
+  "options": {
+   "A": "Auxiliary information, such as cardinality estimate corrections, that helps the optimizer pick a better plan",
+   "B": "A fixed set of accepted plans from which the optimizer must choose, regardless of the statistics",
+   "C": "The definition of a new index to be created",
+   "D": "A rewritten version of the SQL text that transparently replaces the original statement at parse time",
+   "E": "Initialization parameter changes applied to the whole instance"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SQL 프로파일은 특정 문장에 대한 보조 정보(카디널리티 보정 등)를 담아 옵티마이저가 더 나은 계획을 고르도록 돕는 객체로, 계획 자체를 고정하지는 않는다. 수락된 계획 집합을 강제하는 것은 SQL 계획 기준선이다. 인덱스 생성이나 SQL 재작성은 별도의 권고 사항이며 프로파일 자체가 아니고, 인스턴스 전체 파라미터를 바꾸지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SQL-PROFILE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which sequence of DBMS_SQLTUNE calls runs SQL Tuning Advisor manually for a specific SQL_ID and displays its findings?",
+  "options": {
+   "A": "EXECUTE_TUNING_TASK, then CREATE_TUNING_TASK, then ACCEPT_SQL_PROFILE",
+   "B": "REPORT_TUNING_TASK, then CREATE_TUNING_TASK, then EXECUTE_TUNING_TASK",
+   "C": "CREATE_SQLSET, then LOAD_PLANS_FROM_SQLSET, then REPORT_TUNING_TASK",
+   "D": "CREATE_TUNING_TASK, then EXECUTE_TUNING_TASK, then REPORT_TUNING_TASK",
+   "E": "ACCEPT_SQL_PROFILE, then EXECUTE_TUNING_TASK, then DROP_TUNING_TASK"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "수동 실행은 CREATE_TUNING_TASK로 작업을 만들고 EXECUTE_TUNING_TASK로 분석한 뒤 REPORT_TUNING_TASK로 결과를 확인하는 순서이다. 작업을 만들기 전에 실행하거나 보고서를 먼저 볼 수는 없다. LOAD_PLANS_FROM_SQLSET은 DBMS_SPM의 기준선 적재 기능이며, 프로파일 수락은 분석 결과를 확인한 다음에 하는 선택 단계이다.",
+  "reference": "Oracle Database 19c - PL/SQL Packages and Types Reference (검수 필요)",
+  "variant_group": "DB-PERF-STA-API"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which advisor analyzes a workload and recommends indexes, materialized views, materialized view logs, and partitioning?",
+  "options": {
+   "A": "Segment Advisor",
+   "B": "SQL Access Advisor",
+   "C": "Undo Advisor",
+   "D": "Memory Advisor",
+   "E": "Automatic Database Diagnostic Monitor"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "SQL Access Advisor는 워크로드 전체를 분석해 인덱스, 구체화된 뷰와 그 로그, 파티셔닝 등 접근 구조를 권고한다. Segment Advisor는 세그먼트 축소·공간 회수, Undo Advisor는 Undo 보존 크기, Memory Advisor는 SGA/PGA 크기를 권고한다. ADDM은 인스턴스 수준 성능 문제를 진단하며 접근 구조 설계를 종합적으로 권고하는 도구가 아니다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ACCESS-ADVISOR"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Without any hint, which SQL executions are automatically monitored by Real-Time SQL Monitoring?",
+  "options": {
+   "A": "Every SQL statement executed by any session, regardless of its elapsed time, resource usage, or degree of parallelism",
+   "B": "Only statements executed by the SYS user",
+   "C": "Only statements that have a SQL plan baseline",
+   "D": "Only statements that appear among the top SQL in the latest AWR report for the instance",
+   "E": "Parallel statements, or those consuming at least 5 seconds of combined CPU and I/O time in one execution"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "실시간 SQL 모니터링은 병렬로 실행되는 문장이나 한 번의 실행에서 CPU와 I/O 시간이 5초 이상 소비된 문장을 자동 모니터링하며, MONITOR 힌트로 강제할 수 있다(Tuning Pack 필요). 모든 문장을 감시하지는 않으며, SYS 사용자, 기준선 보유 여부, AWR 보고서 포함 여부는 자동 모니터링 조건이 아니다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SQL-MONITOR"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a hash join, which row source does the optimizer normally use to build the in-memory hash table?",
+  "options": {
+   "A": "The larger of the two row sources",
+   "B": "Always the table listed first in the FROM clause",
+   "C": "The smaller of the two row sources",
+   "D": "The row source that has an index on the join column",
+   "E": "Both row sources, each into its own hash table"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "해시 조인은 일반적으로 작은 쪽 행 소스로 메모리에 해시 테이블(빌드 입력)을 만들고, 큰 쪽 행 소스를 읽으며(프로브) 일치 행을 찾는다. 큰 쪽으로 빌드하면 메모리 사용이 커지고, FROM 절 순서나 인덱스 유무가 빌드 입력을 결정하지 않는다. 두 입력 각각에 해시 테이블을 만드는 방식도 아니다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-HASH-JOIN"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "The clustering factor of an index on ORDERS is close to the number of rows in the table rather than the number of table blocks. What does this indicate?",
+  "options": {
+   "A": "Table rows are poorly ordered relative to the index, so a range scan may visit many different table blocks",
+   "B": "The index is corrupted and must be rebuilt",
+   "C": "The table rows are stored in the same order as the index keys, so range scans read few table blocks",
+   "D": "The index has too many branch levels (a high BLEVEL) and should be coalesced or rebuilt to reduce its height",
+   "E": "The table has no optimizer statistics"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "클러스터링 팩터가 행 수에 가까우면 인덱스 키 순서와 테이블 행의 물리적 순서가 크게 어긋나 있다는 뜻으로, 인덱스 범위 스캔 시 행마다 다른 테이블 블록을 읽을 가능성이 크다. 반대로 블록 수에 가까우면 순서가 잘 맞는 것이다. 인덱스 손상이나 높이(레벨) 문제를 의미하지 않으며, 인덱스 재구성으로는 테이블 행 순서가 바뀌지 않는다. 클러스터링 팩터 값이 있다는 것은 통계가 수집되어 있다는 뜻이기도 하다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-CLUSTERING-FACTOR"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A composite index exists on (GENDER, EMP_ID), where GENDER has only two distinct values. A query filters only on EMP_ID. Which access method allows the optimizer to use this index efficiently?",
+  "options": {
+   "A": "INDEX UNIQUE SCAN",
+   "B": "BITMAP INDEX SINGLE VALUE",
+   "C": "INDEX RANGE SCAN DESCENDING on GENDER",
+   "D": "INDEX SKIP SCAN",
+   "E": "TABLE ACCESS BY USER ROWID"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "인덱스 스킵 스캔은 선두 컬럼이 조건에 없을 때 선두 컬럼의 고유 값마다 논리적 하위 인덱스로 나누어 탐색하는 방식으로, 선두 컬럼의 고유 값이 적을수록 효율적이다. 고유 스캔은 전체 고유 키에 대한 등치 조건이 필요하고, 비트맵 접근은 비트맵 인덱스가 있어야 한다. GENDER에 대한 내림차순 범위 스캔은 조건과 맞지 않으며, USER ROWID 접근은 ROWID를 직접 지정한 경우이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SKIP-SCAN"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is true about an index that has been altered to INVISIBLE?",
+  "options": {
+   "A": "It is no longer maintained by DML and must be rebuilt before being made visible",
+   "B": "DML still maintains it, but the optimizer ignores it unless OPTIMIZER_USE_INVISIBLE_INDEXES is TRUE",
+   "C": "Its index segment is dropped while its definition is kept in the data dictionary for later re-creation",
+   "D": "It can be used only by queries that include an INDEX hint naming it, regardless of any parameter settings",
+   "E": "It is automatically dropped after the next statistics gathering"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "INVISIBLE 인덱스는 DML 시 계속 유지되지만 옵티마이저는 OPTIMIZER_USE_INVISIBLE_INDEXES가 TRUE인 경우가 아니면 사용하지 않으므로, 인덱스 삭제 영향을 미리 시험하는 데 쓰인다. DML 유지가 중단되고 재구성이 필요한 것은 UNUSABLE 인덱스의 특징이다. 세그먼트가 삭제되지 않으며, 힌트만으로는 invisible 인덱스를 사용하지 않고, 통계 수집으로 자동 삭제되지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-PERF-INVISIBLE-IDX"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which wait event indicates that a session is waiting for another transaction to commit or roll back so that it can modify a row locked by that transaction?",
+  "options": {
+   "A": "enq: TM - contention",
+   "B": "latch: cache buffers chains",
+   "C": "library cache lock",
+   "D": "log file switch completion",
+   "E": "enq: TX - row lock contention"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "enq: TX - row lock contention은 다른 트랜잭션이 잠근 행을 수정하려는 세션이 그 트랜잭션의 커밋 또는 롤백을 기다릴 때 발생한다. enq: TM - contention은 테이블 수준 잠금(예: 인덱스 없는 외래 키) 대기, latch: cache buffers chains는 핫 블록 접근 경합, library cache lock은 라이브러리 캐시 객체 잠금, log file switch completion은 로그 스위치 완료 대기이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-WAIT-TX-ROW"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which section of an AWR report shows statistics such as DB time, DB CPU, parse time elapsed, and hard parse elapsed time?",
+  "options": {
+   "A": "Segments by Logical Reads",
+   "B": "Tablespace IO Stats",
+   "C": "Time Model Statistics",
+   "D": "Instance Efficiency Percentages",
+   "E": "Undo Segment Summary"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Time Model Statistics 섹션은 DB time, DB CPU, parse time elapsed, hard parse elapsed time, sql execute elapsed time 등 시간 모델 통계를 보여 준다. Segments by Logical Reads는 세그먼트별 논리 읽기, Tablespace IO Stats는 테이블스페이스별 I/O, Instance Efficiency Percentages는 각종 적중률, Undo Segment Summary는 Undo 사용 현황을 보여 준다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-TIME-MODEL"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which wait event belongs to the Idle wait class and is usually not a target for database tuning?",
+  "options": {
+   "A": "SQL*Net message from client",
+   "B": "db file sequential read",
+   "C": "log file sync",
+   "D": "buffer busy waits",
+   "E": "enq: TX - row lock contention"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SQL*Net message from client는 서버 프로세스가 클라이언트의 다음 요청을 기다리는 유휴(Idle) 대기로 DB time에 포함되지 않아 일반적으로 데이터베이스 튜닝 대상이 아니다. db file sequential read는 User I/O, log file sync는 Commit, buffer busy waits는 Concurrency, enq: TX - row lock contention은 Application 대기 클래스로 모두 실제 성능 영향을 줄 수 있는 대기이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-IDLE-WAIT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which DBMS_STATS function creates a column group so that the optimizer can account for correlation between columns used together in predicates?",
+  "options": {
+   "A": "DBMS_STATS.GATHER_SYSTEM_STATS",
+   "B": "DBMS_STATS.CREATE_STAT_TABLE",
+   "C": "DBMS_STATS.LOCK_SCHEMA_STATS",
+   "D": "DBMS_STATS.CREATE_EXTENDED_STATS",
+   "E": "DBMS_STATS.PURGE_STATS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CREATE_EXTENDED_STATS로 (컬럼1, 컬럼2) 형태의 컬럼 그룹이나 표현식 확장 통계를 정의한 뒤 통계를 수집하면, 옵티마이저가 상관관계가 있는 컬럼들의 결합 선택도를 더 정확히 추정한다. GATHER_SYSTEM_STATS는 시스템(CPU·I/O) 통계, CREATE_STAT_TABLE은 통계 내보내기용 테이블 생성, LOCK_SCHEMA_STATS는 스키마 통계 잠금, PURGE_STATS는 통계 이력 정리 기능이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-COLUMN-GROUP"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Users report that one application session is intermittently slow. You need a SQL trace of only that existing session, including wait events and bind values, without changing the application code. What should you use?",
+  "options": {
+   "A": "ALTER SYSTEM SET SQL_TRACE = TRUE for the whole instance until the slow period has been captured",
+   "B": "DBMS_MONITOR.SESSION_TRACE_ENABLE with the session's SID and serial#, WAITS => TRUE, BINDS => TRUE",
+   "C": "ALTER SYSTEM SET STATISTICS_LEVEL = ALL",
+   "D": "DBMS_WORKLOAD_REPOSITORY.CREATE_SNAPSHOT before and after the slow period, then compare the AWR reports",
+   "E": "DBMS_STATS.GATHER_SCHEMA_STATS for the application schema"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DBMS_MONITOR.SESSION_TRACE_ENABLE에 대상 세션의 SID와 SERIAL#를 주고 WAITS와 BINDS를 TRUE로 지정하면 애플리케이션 변경 없이 해당 세션만 대기 이벤트와 바인드 값을 포함해 추적할 수 있다. 인스턴스 전체 SQL_TRACE는 부하와 추적 파일이 과도하고 바인드 값도 포함하지 않는다. STATISTICS_LEVEL 변경은 추적 파일을 만들지 않으며, AWR 스냅샷은 인스턴스 수준 집계이고, 통계 수집은 진단 도구가 아니다.",
+  "reference": "Oracle Database 19c - PL/SQL Packages and Types Reference (검수 필요)",
+  "variant_group": "DB-PERF-DBMS-MONITOR"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A staging table that normally holds about 1,000 rows is loaded with 5 million rows each morning, and reports run immediately afterwards. The execution plans show E-Rows near 1,000 and use nested loops, and the reports are very slow. Statistics are gathered only by the nightly automatic task. What is the most appropriate fix?",
+  "options": {
+   "A": "Rebuild all indexes on the table every morning",
+   "B": "Increase the size of the buffer cache",
+   "C": "Flush the shared pool after each load so that the reports are hard parsed again, without gathering statistics",
+   "D": "Create bitmap indexes on all columns of the table",
+   "E": "Gather table statistics with DBMS_STATS immediately after the load, as part of the load job"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "적재 직후 통계가 실제 데이터량(500만 행)을 반영하지 못해 옵티마이저가 소량 데이터로 판단하고 중첩 루프를 선택한 것이다. 적재 작업 직후 DBMS_STATS로 통계를 수집하면 정확한 카디널리티로 계획이 결정된다. 인덱스 재구성이나 버퍼 캐시 증설은 잘못된 추정을 고치지 못하고, 통계 없이 공유 풀만 비우면 같은 오래된 통계로 다시 같은 계획이 나온다. 모든 컬럼에 비트맵 인덱스를 만드는 것은 원인과 무관하고 적재 성능까지 악화시킨다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-STALE-AFTER-LOAD"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Management wants to compare database performance across month-end periods, so AWR data must be kept for 45 days instead of the default. The snapshot interval should remain unchanged. What should you do?",
+  "options": {
+   "A": "Set the STATISTICS_LEVEL parameter to ALL",
+   "B": "Increase the size of the SYSTEM tablespace and restart the instance so that AWR keeps more data",
+   "C": "Call DBMS_WORKLOAD_REPOSITORY.MODIFY_SNAPSHOT_SETTINGS with RETENTION set to 45 days in minutes",
+   "D": "Call DBMS_WORKLOAD_REPOSITORY.CREATE_SNAPSHOT once a day in addition to the automatic snapshots",
+   "E": "Set CONTROL_MANAGEMENT_PACK_ACCESS to NONE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "AWR 보관 기간은 DBMS_WORKLOAD_REPOSITORY.MODIFY_SNAPSHOT_SETTINGS의 RETENTION 파라미터(분 단위, 45일은 64,800분)로 변경하며, INTERVAL을 지정하지 않으면 스냅샷 간격은 그대로 유지된다. 늘어난 데이터를 위해 SYSAUX 공간을 확인하는 것이 좋다. STATISTICS_LEVEL은 보관 기간을 정하지 않고, AWR은 SYSTEM이 아닌 SYSAUX에 저장된다. 수동 스냅샷 추가는 보관 기간과 무관하며, 관리 팩 접근을 NONE으로 하면 AWR 사용 자체가 불가능해진다.",
+  "reference": "Oracle Database 19c - PL/SQL Packages and Types Reference (검수 필요)",
+  "variant_group": "DB-PERF-AWR-RETENTION"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Performance between 10:00 and 11:00 today is much worse than during the same hour last week. Both periods are still in AWR. You want a single report that shows the two periods side by side with differences highlighted. Which script should you run?",
+  "options": {
+   "A": "awrddrpt.sql",
+   "B": "awrrpt.sql",
+   "C": "addmrpt.sql",
+   "D": "awrsqrpt.sql",
+   "E": "ashrpt.sql"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "awrddrpt.sql은 AWR Compare Periods 보고서를 생성해 두 스냅샷 구간의 지표를 나란히 비교하고 차이를 보여 준다. awrrpt.sql은 한 구간만 다루는 일반 AWR 보고서, addmrpt.sql은 한 구간에 대한 ADDM 진단, awrsqrpt.sql은 특정 SQL 하나에 대한 보고서, ashrpt.sql은 지정 시간대의 ASH 보고서이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-AWR-DIFF"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about Active Session History are true? (Choose two.)",
+  "options": {
+   "A": "All connected sessions, including idle ones, are sampled every 10 seconds",
+   "B": "ASH data is stored only in the alert log and in session trace files",
+   "C": "Only active sessions, those on CPU or waiting on a non-idle event, are sampled",
+   "D": "ASH sampling requires SQL trace to be enabled for each session that should be sampled",
+   "E": "About one in ten in-memory samples is persisted to DBA_HIST_ACTIVE_SESS_HISTORY"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "ASH는 CPU를 사용하거나 유휴가 아닌 이벤트를 기다리는 활성 세션만 매초 샘플링하며, 메모리 샘플 중 약 10개 중 1개를 AWR의 DBA_HIST_ACTIVE_SESS_HISTORY에 저장한다. 유휴 세션까지 10초마다 샘플링하는 방식이 아니고, alert log나 세션 추적 파일에만 기록하지도 않는다. SQL 추적을 켜지 않아도 ASH는 자동으로 동작한다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ASH-FACTS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "A B-tree index exists on the VARCHAR2 column ACCOUNT_NO. Which two predicates can prevent the optimizer from using this index for a range or unique scan? (Choose two.)",
+  "options": {
+   "A": "WHERE SUBSTR(account_no, 1, 4) = '1234'",
+   "B": "WHERE account_no = :acct with a VARCHAR2 bind variable of the same length",
+   "C": "WHERE account_no = '12345678'",
+   "D": "WHERE account_no = 12345678, forcing implicit conversion of the column",
+   "E": "WHERE account_no BETWEEN '1000' AND '2000' using character literals"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "인덱스 컬럼에 SUBSTR 같은 함수를 적용하거나, 문자 컬럼을 숫자와 비교해 컬럼 쪽에 암시적 형 변환(TO_NUMBER)이 일어나면 인덱스 키를 그대로 사용할 수 없어 범위·고유 스캔이 불가능해진다. 같은 문자 타입의 바인드 변수나 문자 리터럴과의 등치 비교, 문자 범위의 BETWEEN 조건은 인덱스를 정상적으로 사용할 수 있다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-IDX-NOT-USED"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about adaptive query optimization in Oracle Database 19c with default parameter settings are true? (Choose two.)",
+  "options": {
+   "A": "OPTIMIZER_ADAPTIVE_FEATURES is the parameter used to control adaptive behavior in 19c",
+   "B": "Adaptive plans are enabled because OPTIMIZER_ADAPTIVE_PLANS defaults to TRUE",
+   "C": "Adaptive plans require STATISTICS_LEVEL to be set to ALL",
+   "D": "Adaptive plans can change the join method only at hard parse time, never during execution",
+   "E": "Adaptive statistics are disabled because OPTIMIZER_ADAPTIVE_STATISTICS defaults to FALSE"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "19c 기본값에서 OPTIMIZER_ADAPTIVE_PLANS는 TRUE, OPTIMIZER_ADAPTIVE_STATISTICS는 FALSE이다. OPTIMIZER_ADAPTIVE_FEATURES는 12.2에서 이 두 파라미터로 대체되어 더 이상 사용되지 않는다. 적응형 계획은 STATISTICS_LEVEL=ALL을 요구하지 않으며, 첫 실행 중 통계 수집기(statistics collector)가 관측한 행 수에 따라 실행 시점에 중첩 루프와 해시 조인 사이에서 최종 조인 방식을 결정한다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-PERF-ADAPTIVE-DEFAULTS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two preferences can be set for a specific table with DBMS_STATS.SET_TABLE_PREFS? (Choose two.)",
+  "options": {
+   "A": "OPTIMIZER_MODE",
+   "B": "CURSOR_SHARING",
+   "C": "DB_FILE_MULTIBLOCK_READ_COUNT",
+   "D": "STALE_PERCENT",
+   "E": "INCREMENTAL"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "STALE_PERCENT(통계가 오래되었다고 판단하는 변경 비율)와 INCREMENTAL(파티션 테이블 증분 통계 수집)은 DBMS_STATS 테이블 수준 선호값이다. OPTIMIZER_MODE, CURSOR_SHARING, DB_FILE_MULTIBLOCK_READ_COUNT는 초기화 파라미터로 ALTER SYSTEM이나 ALTER SESSION으로 설정하며 테이블 통계 선호값이 아니다.",
+  "reference": "Oracle Database 19c - PL/SQL Packages and Types Reference (검수 필요)",
+  "variant_group": "DB-PERF-STATS-PREFS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about stale optimizer statistics are true with default settings? (Choose two.)",
+  "options": {
+   "A": "Statistics are considered stale when about 10 percent of the rows have changed since the last gathering",
+   "B": "The STALE_STATS column of DBA_TAB_STATISTICS indicates whether a table's statistics are stale",
+   "C": "Modification tracking, which determines staleness, works only when STATISTICS_LEVEL is set to BASIC",
+   "D": "Stale statistics are automatically regathered at every commit that modifies the table",
+   "E": "Statistics become stale only when the table is truncated"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "STALE_PERCENT 기본값은 10이므로 마지막 수집 이후 약 10%의 행이 변경되면 오래된 통계로 판단하며, DBA_TAB_STATISTICS의 STALE_STATS 컬럼으로 확인할 수 있다(필요하면 FLUSH_DATABASE_MONITORING_INFO로 변경 정보를 먼저 반영). 변경 추적은 STATISTICS_LEVEL이 TYPICAL 또는 ALL일 때 동작하고 BASIC에서는 꺼진다. 커밋마다 재수집되지 않으며, 일반 DML 누적으로도 통계가 오래될 수 있다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-STALE-STATS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two can be supplied as input to SQL Tuning Advisor? (Choose two.)",
+  "options": {
+   "A": "A tkprof output file produced from a 10046 trace",
+   "B": "A SQL tuning set",
+   "C": "The SQL_ID of a statement in the cursor cache",
+   "D": "The database alert log",
+   "E": "A Data Pump dump file"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "SQL Tuning Advisor는 SQL 텍스트, 커서 캐시의 SQL_ID, AWR에 저장된 SQL, SQL 튜닝 세트를 입력으로 받는다. tkprof 출력 파일, alert log, Data Pump 덤프 파일은 입력 소스로 사용할 수 없다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-STA-INPUT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two wait events are directly related to redo generation and writing? (Choose two.)",
+  "options": {
+   "A": "db file scattered read",
+   "B": "enq: TX - row lock contention",
+   "C": "log file sync",
+   "D": "log file parallel write",
+   "E": "SQL*Net message from client"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "log file sync는 커밋한 포그라운드 세션이 LGWR의 리두 기록 완료를 기다리는 대기이고, log file parallel write는 LGWR 자신이 리두 로그 파일에 쓰는 동안의 대기로 모두 리두와 직결된다. db file scattered read는 멀티블록 데이터 읽기, enq: TX - row lock contention은 행 잠금 대기, SQL*Net message from client는 유휴 대기이다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-REDO-WAITS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A statement has both an accepted SQL plan baseline and a SQL profile. The profile leads the optimizer to a plan that is not in the baseline. What happens?",
+  "options": {
+   "A": "The SQL profile always takes precedence and the baseline is ignored",
+   "B": "The SQL profile is automatically dropped because it conflicts with the baseline",
+   "C": "The baseline plan is automatically replaced by the profile's plan, which is then marked as accepted and fixed so that later executions always use it",
+   "D": "The profile guides plan generation, but the resulting unaccepted plan is only added to the plan history; an accepted baseline plan is used",
+   "E": "The statement fails with an error at hard parse time until either the SQL profile or the SQL plan baseline is disabled"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SQL 프로파일은 계획 생성 단계에서 옵티마이저에 보조 정보를 주고, SPM은 생성된 계획이 수락된 기준선 계획인지 확인하는 단계에서 동작한다. 프로파일로 만든 계획이 기준선에 없으면 수락된 기준선 계획을 사용하고 새 계획은 미수락 상태로 이력에 추가된다. 프로파일이 기준선을 무시하게 만들거나 자동 삭제되지 않고, 기준선이 자동 교체·고정되지 않으며, 오류가 발생하지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SPM-PROFILE-INTERACT"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement correctly distinguishes INDEX FAST FULL SCAN from INDEX FULL SCAN?",
+  "options": {
+   "A": "A fast full scan reads only the root and branch blocks, whereas a full scan reads the leaf blocks",
+   "B": "A fast full scan reads the whole index with multiblock reads in no key order, whereas a full scan reads it in key order",
+   "C": "A fast full scan can be used only for unique indexes, whereas a full scan works for any index",
+   "D": "A fast full scan always returns rows sorted, so it can eliminate ORDER BY sorts",
+   "E": "A fast full scan requires visiting the table for every index entry it reads, whereas a full scan never needs to visit the table"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "인덱스 빠른 전체 스캔은 인덱스 세그먼트 전체를 멀티블록 읽기로 물리적 순서대로 읽기 때문에 키 순서가 보장되지 않지만 병렬화가 가능하고 빠르다. 인덱스 전체 스캔은 리프 블록을 키 순서대로 읽어 정렬된 결과를 주므로 ORDER BY 정렬을 생략할 수 있다. 빠른 전체 스캔은 루트·브랜치만 읽는 방식이 아니고 고유 인덱스 전용도 아니다. 또한 필요한 컬럼이 모두 인덱스에 있을 때 테이블 대신 쓰이는 방식이므로 행마다 테이블을 방문하지 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-IFFS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In DBMS_XPLAN.DISPLAY_CURSOR output with the ALLSTATS LAST format, an index range scan under a NESTED LOOPS operation shows Starts = 1000, E-Rows = 1, and A-Rows = 1000. How should this be interpreted?",
+  "options": {
+   "A": "The optimizer underestimated the cardinality by a factor of 1000, so the NESTED LOOPS join was a poor choice",
+   "B": "The index returned 1000 rows on each of its 1000 executions",
+   "C": "The step was skipped because Starts is larger than E-Rows",
+   "D": "The statistics on the index are missing, so dynamic sampling was used to produce the estimate of 1 row",
+   "E": "The estimate is accurate: E-Rows is per execution of the step, whereas A-Rows is the total across all starts"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ALLSTATS 출력에서 E-Rows는 해당 단계 1회 실행당 예상 행 수이고, A-Rows는 모든 실행(Starts)에 걸친 실제 행 수의 합계이다. 1000회 실행해 총 1000행이면 실행당 1행으로 예측과 일치한다. 따라서 1000배 과소 추정으로 보면 잘못이며, 실행마다 1000행을 반환한 것도 아니다. 단계가 생략되었다는 해석이나 통계 누락 판단은 이 수치로부터 도출할 수 없다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-EROWS-AROWS"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A query filters CARS on MAKE = 'Toyota' AND MODEL = 'Corolla'. Statistics are current and accurate for each column individually, but the optimizer estimates far fewer rows than are returned because every Corolla is a Toyota. What is the most appropriate action?",
+  "options": {
+   "A": "Create separate bitmap indexes on MAKE and MODEL so that the optimizer can combine them with a BITMAP AND",
+   "B": "Lower STALE_PERCENT for the table to 1",
+   "C": "Create a (MAKE, MODEL) column group with DBMS_STATS.CREATE_EXTENDED_STATS and regather table statistics",
+   "D": "Set OPTIMIZER_MODE to FIRST_ROWS_1 for the session",
+   "E": "Lock the table statistics with DBMS_STATS.LOCK_TABLE_STATS to prevent further changes to the estimate"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "옵티마이저는 기본적으로 조건 간 독립을 가정해 두 컬럼의 선택도를 곱하므로, 상관관계가 강한 컬럼에서는 행 수를 크게 과소 추정한다. (MAKE, MODEL) 컬럼 그룹 확장 통계를 만들고 재수집하면 결합 선택도가 반영된다. 비트맵 인덱스 추가는 접근 경로만 바꿀 뿐 추정 오류를 고치지 못하고, STALE_PERCENT 조정은 이미 최신인 통계에 의미가 없다. FIRST_ROWS_1은 최적화 목표만 바꾸며, 통계 잠금은 문제를 고정시킬 뿐이다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-COLUMN-GROUP"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "STATUS is highly skewed: 'CLOSED' is in 95% of rows and 'ERROR' in 0.1%, and a histogram exists on the column. A query using WHERE status = :b1 was first hard-parsed with :b1 = 'ERROR' and chose an index range scan. Later executions with :b1 = 'CLOSED' are very slow and reuse the same plan. What is the most likely cause?",
+  "options": {
+   "A": "Bind peeking produced a plan optimal for the first peeked value, and the shared cursor was reused for a value of very different selectivity",
+   "B": "The histogram on STATUS prevents the optimizer from peeking at bind variable values, so every execution assumes a uniform data distribution",
+   "C": "The index on STATUS became unusable after the first execution",
+   "D": "CURSOR_SHARING was set to EXACT, which disables bind peeking",
+   "E": "The buffer cache was too small to hold the index blocks"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "하드 파싱 시 옵티마이저는 바인드 변수 값을 엿보고(bind peeking) 그 값의 선택도로 계획을 정한다. 'ERROR'처럼 희귀한 값으로 만든 인덱스 계획이 공유되면 95%를 차지하는 'CLOSED' 실행에도 그대로 쓰여 느려진다. 적응형 커서 공유가 이후 bind-aware 커서로 전환해 개선할 수 있다. 히스토그램은 바인드 피킹을 막지 않고, 인덱스가 실행 후 unusable이 되지 않는다. CURSOR_SHARING=EXACT는 기본값으로 바인드 피킹을 끄지 않으며, 버퍼 캐시 크기는 계획 선택 원인이 아니다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-BIND-PEEK"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "During peak load, hundreds of sessions insert into ORDERS, whose primary key is populated from a sequence. ASH shows heavy waits on enq: TX - index contention and buffer busy waits on the right-most leaf block of the primary key index. Range scans on the key are rarely used. Which change is most likely to reduce the contention?",
+  "options": {
+   "A": "Replace the primary key index with a bitmap index so that concurrent inserts lock fewer index entries",
+   "B": "Gather statistics on the ORDERS table more frequently",
+   "C": "Increase the redo log file size",
+   "D": "Rebuild the primary key index as a reverse key index or a hash-partitioned index to spread inserts across leaf blocks",
+   "E": "Increase DB_FILE_MULTIBLOCK_READ_COUNT so that each insert reads and modifies several leaf blocks in a single I/O call"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "시퀀스 값처럼 단조 증가하는 키는 모든 삽입이 인덱스의 가장 오른쪽 리프 블록에 몰려 index contention과 buffer busy waits를 유발한다. 리버스 키 인덱스나 해시 파티션 인덱스는 삽입을 여러 리프 블록으로 분산시키며, 범위 스캔을 거의 쓰지 않으므로 리버스 키의 단점도 문제가 적다. 비트맵 인덱스는 동시 DML에서 잠금 경합이 더 심하고 기본 키에 쓸 수 없다. 통계 수집, 리두 로그 크기, 멀티블록 읽기 수는 핫 리프 블록 경합과 무관하다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-RIGHT-GROWING-IDX"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "An AWR report shows log file sync as the top wait event with an average of 25 ms. The log file parallel write event averages 22 ms, the commit rate is normal for this application, and CPU utilization is low. What is the most likely cause?",
+  "options": {
+   "A": "The application commits far too frequently",
+   "B": "Slow I/O on the storage hosting the online redo log files",
+   "C": "Excessive hard parsing due to literal SQL",
+   "D": "Missing indexes causing full table scans",
+   "E": "Row lock contention between user transactions"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "log file sync 평균 시간의 대부분이 LGWR의 log file parallel write 시간과 비슷하다면 LGWR가 리두를 쓰는 I/O 자체가 느린 것이 주원인이므로 리두 로그 저장 장치의 성능을 점검해야 한다. 커밋 빈도는 정상이라고 했으므로 과도한 커밋이 원인이 아니다. 하드 파싱, 인덱스 누락, 행 잠금 경합은 log file sync 대기를 직접 늘리는 요인이 아니다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-LFS-DIAG"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A batch job updates 2 million rows in a PL/SQL loop and issues COMMIT after every row. Log file sync dominates the job's wait time, while log file parallel write averages under 1 ms and the redo log storage is fast. What is the best way to reduce the waits?",
+  "options": {
+   "A": "Move the online redo logs to faster storage with a lower write latency",
+   "B": "Add more DBWn processes so that dirty buffers are written to disk faster",
+   "C": "Increase the size of the shared pool",
+   "D": "Gather fresh statistics on the updated table before each run of the job",
+   "E": "Commit in larger batches, or once at the end, instead of after every row"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "LGWR의 쓰기(log file parallel write)는 빠른데 log file sync가 많다면 원인은 I/O가 아니라 과도한 커밋 횟수이다. 행마다 커밋하면 커밋마다 LGWR와 동기화해야 하므로 적절한 단위로 묶어 커밋하는 것이 효과적이다. 이미 빠른 저장 장치로 옮겨도 커밋 횟수는 줄지 않고, DBWn 추가는 데이터 파일 쓰기와 관련된다. 공유 풀 크기나 통계 수집은 커밋 대기와 무관하다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-LFS-DIAG"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a statistics refresh, a critical query (SQL_ID known) switched to a much slower plan. AWR shows that the previous good plan_hash_value was used until yesterday, but that plan is no longer in the cursor cache. You want the optimizer to use the old plan without changing the application. What should you do?",
+  "options": {
+   "A": "Load the old plan as an accepted SQL plan baseline with DBMS_SPM.LOAD_PLANS_FROM_CURSOR_CACHE, specifying its plan_hash_value",
+   "B": "Flush the shared pool and wait for the optimizer to choose the old plan",
+   "C": "Load the plan from AWR into a SQL tuning set, then into an accepted SQL plan baseline with DBMS_SPM.LOAD_PLANS_FROM_SQLSET",
+   "D": "Restart the instance so that the plans recorded in AWR are reloaded into the cursor cache at startup",
+   "E": "Delete the statistics of all tables in the schema"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "AWR에 남아 있는 과거 계획은 DBMS_SQLTUNE.SELECT_WORKLOAD_REPOSITORY 등으로 SQL 튜닝 세트에 담은 뒤 DBMS_SPM.LOAD_PLANS_FROM_SQLSET으로 수락된 기준선으로 적재하면 애플리케이션 변경 없이 해당 계획을 사용하게 할 수 있다. 커서 캐시에서 적재하는 방법은 그 계획이 캐시에 없으므로 불가능하다. 공유 풀 비우기나 재시작은 같은 통계로 다시 나쁜 계획을 만들 가능성이 크고, AWR 계획을 재적재하지도 않는다. 스키마 전체 통계 삭제는 더 큰 위험을 초래한다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SPM-FROM-AWR"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "An OLTP system shows a very high hard parse rate. V$SQL contains tens of thousands of nearly identical statements that differ only in literal values, and ASH shows waits on library cache mutexes and shared pool latches. What is the best long-term solution?",
+  "options": {
+   "A": "Change the application to use bind variables, using CURSOR_SHARING = FORCE only as a stopgap",
+   "B": "Increase SHARED_POOL_SIZE substantially so that all literal statements stay cached, and take no other action",
+   "C": "Flush the shared pool every few minutes",
+   "D": "Gather statistics on all application tables more often",
+   "E": "Create SQL profiles for every statement in V$SQL"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "리터럴만 다른 문장이 대량으로 하드 파싱되면 공유 풀과 라이브러리 캐시 경합이 생기므로, 근본 해결책은 애플리케이션이 바인드 변수를 사용하도록 고치는 것이다. 코드 수정 전까지 CURSOR_SHARING=FORCE를 임시로 쓸 수 있다. 공유 풀 확대만으로는 하드 파싱 자체가 줄지 않고, 주기적인 공유 풀 비우기는 오히려 하드 파싱을 늘린다. 통계 수집이나 문장마다 SQL 프로파일을 만드는 것은 리터럴 SQL 문제를 해결하지 못한다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-HARD-PARSE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The top wait event is db file scattered read. The top SQL by physical reads is SELECT * FROM orders WHERE order_ref = :b1, executed thousands of times per hour; each execution returns one row from a 50-million-row table, and the plan is TABLE ACCESS FULL. ORDER_REF is almost unique and has no index. What should you do?",
+  "options": {
+   "A": "Increase DB_FILE_MULTIBLOCK_READ_COUNT",
+   "B": "Create a bitmap index on ORDER_REF",
+   "C": "Add a FULL hint to the statement",
+   "D": "Create a B-tree index on ORDER_REF",
+   "E": "Gather system statistics with DBMS_STATS.GATHER_SYSTEM_STATS"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "고유에 가까운 컬럼으로 한 행을 찾는 문장이 인덱스가 없어 대용량 테이블 전체를 반복해 읽고 있으므로 ORDER_REF에 B-tree 인덱스를 만드는 것이 맞다. 멀티블록 읽기 수를 키우거나 FULL 힌트를 주면 전체 스캔이 유지된다. 비트맵 인덱스는 고카디널리티 컬럼과 동시 DML이 많은 OLTP에 부적합하며, 시스템 통계 수집은 인덱스가 없는 문제를 해결하지 못한다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-FTS-MISSING-IDX"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Users report a severe two-minute slowdown that occurred 15 minutes ago. The hourly AWR report for that period shows no significant problem because the spike is averaged over the full hour. What is the most appropriate next step?",
+  "options": {
+   "A": "Run awrrpt.sql again for the same hourly snapshot range",
+   "B": "Run an ASH report (ashrpt.sql) or query V$ACTIVE_SESSION_HISTORY for the exact two-minute window",
+   "C": "Increase the AWR snapshot interval to two hours",
+   "D": "Gather optimizer statistics for the entire database",
+   "E": "Enable SQL trace for all sessions and wait for the problem to reoccur"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "ASH는 매초 활성 세션을 샘플링하므로 최근 짧은 구간의 대기 이벤트, SQL, 세션을 정확한 시간 범위로 분석할 수 있다. 같은 1시간 AWR 보고서를 다시 만들어도 평균화 문제는 그대로이고, 스냅샷 간격을 늘리면 더 희석된다. 통계 수집은 진단이 아니며, 전체 세션 SQL 추적은 부하가 크고 이미 지나간 문제를 분석하지 못한다.",
+  "reference": "Oracle Database 19c - Database Performance Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-ASH-SPIKE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "In ALLSTATS LAST output, a TABLE ACCESS FULL step executed once shows E-Rows = 10 and A-Rows = 2,000,000. Which two are plausible causes of this misestimate? (Choose two.)",
+  "options": {
+   "A": "The table's statistics are stale after a large data load",
+   "B": "The buffer cache is too small to hold all of the table's blocks during the full scan",
+   "C": "The online redo log files are too small",
+   "D": "The table and its indexes are stored in different tablespaces with different block sizes",
+   "E": "The predicates reference correlated columns that the optimizer assumed were independent"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "Starts가 1인데 실제 행 수가 예상보다 수십만 배 많다면 카디널리티 추정 오류이다. 대량 적재 후 통계가 갱신되지 않았거나, 상관관계가 있는 컬럼 조건을 독립으로 가정해 선택도를 곱한 경우가 대표적 원인이다. 버퍼 캐시나 리두 로그 크기, 테이블스페이스 배치는 옵티마이저의 행 수 추정에 영향을 주지 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-CARD-MISEST"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about SQL plan baseline evolution in Oracle Database 19c are true? (Choose two.)",
+  "options": {
+   "A": "Unaccepted plans are used whenever their estimated cost is lower than that of every accepted plan in the baseline",
+   "B": "The automatic SYS_AUTO_SPM_EVOLVE_TASK runs in the maintenance window and can accept unaccepted plans verified to perform better",
+   "C": "Evolving a plan requires dropping the existing SQL plan baseline first and then reloading it from the cursor cache",
+   "D": "Evolution can be run manually with DBMS_SPM.CREATE_EVOLVE_TASK followed by DBMS_SPM.EXECUTE_EVOLVE_TASK",
+   "E": "Evolution permanently deletes all previously accepted plans for the statement"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "19c에서는 자동 유지보수 윈도우에 SYS_AUTO_SPM_EVOLVE_TASK가 실행되어 미수락 계획을 실제 실행으로 검증하고, 기존 수락 계획보다 성능이 좋으면 수락할 수 있다. 수동으로는 CREATE_EVOLVE_TASK, EXECUTE_EVOLVE_TASK(이후 IMPLEMENT_EVOLVE_TASK 등)로 진화를 수행한다. 미수락 계획은 비용이 낮아도 진화로 수락되기 전에는 사용되지 않으며, 진화를 위해 기준선을 삭제할 필요가 없고 기존 수락 계획을 지우지도 않는다.",
+  "reference": "Oracle Database 19c - SQL Tuning Guide (검수 필요)",
+  "variant_group": "DB-PERF-SPM-EVOLVE"
+ },
+ {
+  "domain": "DB_PERF",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about invisible and unusable indexes are true? (Choose two.)",
+  "options": {
+   "A": "An invisible unique index no longer enforces uniqueness, so duplicate keys can be inserted",
+   "B": "Making an index invisible drops its index segment until the index is made visible again",
+   "C": "An unusable index is not maintained by DML and must be rebuilt before it can be used again",
+   "D": "The optimizer uses an unusable index when an INDEX hint names it",
+   "E": "An invisible index continues to be maintained by DML even though the optimizer ignores it by default"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "UNUSABLE 인덱스는 DML로 유지되지 않으며 다시 사용하려면 재구성(REBUILD)해야 한다. INVISIBLE 인덱스는 옵티마이저가 기본적으로 무시하지만 DML로 계속 유지된다. invisible 고유 인덱스도 고유성 검사는 계속 수행하므로 고유성이 해제되지 않으며, invisible로 바꾼다고 세그먼트가 삭제되지 않는다. unusable 인덱스는 힌트를 주어도 사용되지 않는다.",
+  "reference": "Oracle Database 19c - SQL Language Reference (검수 필요)",
+  "variant_group": "DB-PERF-IDX-STATES"
+ }
+]

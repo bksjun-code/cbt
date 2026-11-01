@@ -1,0 +1,1419 @@
+[
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WebLogic Server 14.1.1, what is the default deployment staging mode for Managed Servers when no staging mode is specified for the deployment?",
+  "options": {
+   "A": "external_stage",
+   "B": "nostage",
+   "C": "stage",
+   "D": "exploded",
+   "E": "upload"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Managed Server의 기본 스테이징 모드는 stage로, Administration Server가 배포 파일을 각 대상 서버의 스테이징 디렉터리로 복사한다. nostage는 서버가 원본 경로를 직접 읽는 방식이고 external_stage는 관리자가 직접 파일을 복사해야 하는 방식이다. upload와 exploded는 스테이징 모드 값이 아니다(upload는 클라이언트 파일을 Admin Server로 올리는 Deployer 옵션, exploded는 압축을 푼 배포 형태).",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STAGE-DEFAULT"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which deployment staging mode causes each target server to read the deployment files directly from the specified source path, without any copy being made to the server's staging directory?",
+  "options": {
+   "A": "adminmode",
+   "B": "external_stage",
+   "C": "stage",
+   "D": "nostage",
+   "E": "distribute"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "nostage 모드에서는 파일을 복사하지 않고 각 대상 서버가 지정된 원본 경로에서 직접 배포 파일을 읽는다. stage는 Admin Server가 파일을 복사하고, external_stage는 관리자가 미리 스테이징 디렉터리에 파일을 복사해 두어야 한다. adminmode는 관리 모드 시작 옵션이고 distribute는 배포 명령으로 스테이징 모드가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-NOSTAGE-DEF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "With which staging mode must the administrator (or an external tool) copy the deployment files into each target server's staging directory before the deployment is performed?",
+  "options": {
+   "A": "external_stage",
+   "B": "upload",
+   "C": "remote",
+   "D": "stage",
+   "E": "nostage"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "external_stage 모드에서는 WebLogic Server가 파일을 복사하지 않으며, 관리자나 외부 도구가 각 대상 서버의 스테이징 디렉터리에 파일을 미리 복사해야 한다. stage는 Admin Server가 자동으로 복사하고, nostage는 복사 없이 공유 경로를 직접 읽는다. upload와 remote는 weblogic.Deployer의 옵션일 뿐 스테이징 모드가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-EXTSTAGE-DEF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which tools can be used to deploy an application to a WebLogic Server 14.1.1 domain? (Choose all that apply.)",
+  "options": {
+   "A": "OPatch utility",
+   "B": "WebLogic Scripting Tool (WLST)",
+   "C": "WebLogic Server Administration Console",
+   "D": "Oracle Universal Installer (OUI)",
+   "E": "weblogic.Deployer command-line utility"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "애플리케이션 배포는 Administration Console, weblogic.Deployer, WLST(deploy 등 명령)로 수행할 수 있다(Ant의 wldeploy 태스크도 가능). Oracle Universal Installer는 제품 설치 도구이고 OPatch는 패치 적용 도구이므로 애플리케이션 배포에 사용하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-TOOLS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Under which condition does the autodeploy directory of a WebLogic Server domain automatically deploy applications placed in it?",
+  "options": {
+   "A": "Only when Node Manager is configured for the Administration Server",
+   "B": "Only when the application is targeted to a cluster",
+   "C": "Only when the domain is running in production mode",
+   "D": "Only when the domain is running in development mode",
+   "E": "Only when the application is a shared library"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "autodeploy 디렉터리를 통한 자동 배포는 개발 모드 도메인에서만 동작하며, 프로덕션 모드에서는 비활성화된다. 공유 라이브러리 여부, Node Manager 구성, 클러스터 대상 여부는 자동 배포의 동작 조건과 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-AUTODEPLOY"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which Java class is invoked to run the WebLogic Server command-line deployment utility?",
+  "options": {
+   "A": "weblogic.appc",
+   "B": "weblogic.PlanGenerator",
+   "C": "weblogic.Deploy",
+   "D": "weblogic.Server",
+   "E": "weblogic.Deployer"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "명령줄 배포 도구는 java weblogic.Deployer 형태로 실행한다. weblogic.Server는 서버 인스턴스를 기동하는 클래스, weblogic.appc는 배포 전 컴파일·검증 도구, weblogic.PlanGenerator는 배포 계획 템플릿 생성 도구이며, weblogic.Deploy라는 배포 도구 클래스는 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-DEPLOYER-CLASS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the weblogic.Deployer -distribute command do?",
+  "options": {
+   "A": "It only validates the archive locally without contacting the Administration Server",
+   "B": "It copies the application to the targets and prepares it, but does not start it",
+   "C": "It deploys and immediately starts the application in production mode",
+   "D": "It removes the application from the domain configuration",
+   "E": "It creates a deployment plan template for the application"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "-distribute는 애플리케이션을 대상 서버에 배포(복사·준비)하지만 시작하지는 않는다. 이후 -start로 시작해야 요청을 처리한다. 즉시 시작까지 하는 것은 -deploy이고, 구성에서 제거하는 것은 -undeploy이다. 로컬 검증은 weblogic.appc, 계획 템플릿 생성은 weblogic.PlanGenerator의 역할이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-DISTRIBUTE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a WebLogic Server deployment plan?",
+  "options": {
+   "A": "An XML document that overrides deployment descriptor values for a specific environment without changing the archive",
+   "B": "A WLST script generated by the Configuration Wizard that creates a domain and its servers from a template for a target environment",
+   "C": "A binary file that contains the compiled classes of the application",
+   "D": "A log file recording the history of all deployments in the domain",
+   "E": "A shell script that starts the Managed Servers in a fixed order"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "배포 계획(plan.xml)은 애플리케이션 아카이브 안의 디스크립터를 수정하지 않고 환경별 구성 값을 재정의하거나 추가하는 XML 문서이다. 서버 기동 스크립트, 컴파일된 클래스, 도메인 생성 스크립트, 배포 이력 로그는 배포 계획이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-DEF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which weblogic.Deployer option is used to deploy an archive as a shared Java EE library rather than as an application?",
+  "options": {
+   "A": "-classpath",
+   "B": "-module",
+   "C": "-library",
+   "D": "-shared",
+   "E": "-optional"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "공유 라이브러리로 배포할 때는 -library 옵션을 사용한다(-libspecver, -libimplver로 버전 지정 가능). -shared, -optional, -classpath, -module은 라이브러리 배포를 지정하는 weblogic.Deployer 옵션이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-FLAG"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which MANIFEST.MF attribute defines the version identifier of an application for WebLogic Server production redeployment?",
+  "options": {
+   "A": "Main-Class",
+   "B": "Created-By",
+   "C": "Implementation-Title",
+   "D": "Class-Path",
+   "E": "Weblogic-Application-Version"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "애플리케이션 버전 식별자는 META-INF/MANIFEST.MF의 Weblogic-Application-Version 속성으로 지정한다. Implementation-Title, Main-Class, Class-Path, Created-By는 일반 JAR 매니페스트 속성으로 WebLogic 애플리케이션 버전을 정의하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-VERSION-MANIFEST"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which MANIFEST.MF attributes are used to identify the name and version of a WebLogic shared Java EE library? (Choose all that apply.)",
+  "options": {
+   "A": "Specification-Version",
+   "B": "Extension-Name",
+   "C": "Premain-Class",
+   "D": "Implementation-Version",
+   "E": "Automatic-Module-Name"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "D"
+  ],
+  "explanation": "공유 라이브러리의 이름은 Extension-Name, 버전은 Specification-Version과 Implementation-Version으로 식별한다. Automatic-Module-Name은 JPMS 자동 모듈 이름 지정용, Premain-Class는 Java 에이전트 지정용 속성으로 라이브러리 식별과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-MANIFEST"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the weblogic.Deployer -upload option?",
+  "options": {
+   "A": "It changes the staging mode of all Managed Servers to nostage",
+   "B": "It copies the deployment files directly from the Administration Server to an FTP server that each Managed Server polls for updates",
+   "C": "It sends the deployment files from the client machine running weblogic.Deployer to the Administration Server",
+   "D": "It uploads the server logs to Oracle Support",
+   "E": "It publishes the application to a Maven repository"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "-upload는 weblogic.Deployer를 실행하는 클라이언트 머신의 배포 파일을 Administration Server(업로드 디렉터리)로 전송한 뒤 배포를 진행하게 한다. FTP 전송, 로그 업로드, 스테이징 모드 일괄 변경, Maven 저장소 게시 기능은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-UPLOAD"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the difference between stopping and undeploying an application in WebLogic Server?",
+  "options": {
+   "A": "Stopping is possible only in development mode, while undeploying is possible only in production mode",
+   "B": "Stopping deletes the archive file from every target server's disk, while undeploying only pauses request processing until the next start",
+   "C": "There is no difference; both commands are aliases",
+   "D": "Undeploying keeps the application active for administration requests only",
+   "E": "A stopped application remains in the domain configuration and can be restarted; undeploying removes it from the configuration"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "중지(stop)된 애플리케이션은 도메인 구성에 남아 있어 다시 시작할 수 있지만, 배포 해제(undeploy)는 애플리케이션을 도메인 구성에서 제거한다. 중지가 파일을 삭제하지 않으며 두 명령은 별칭 관계가 아니고 도메인 모드에 따라 제한되지도 않는다. 관리 요청만 받는 상태는 관리 모드(admin mode)이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STOP-UNDEPLOY"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the primary purpose of the weblogic.appc utility?",
+  "options": {
+   "A": "To compile and validate an application (for example, precompiling JSPs) before deployment",
+   "B": "To start and stop applications on remote Managed Servers",
+   "C": "To monitor deployed applications in real time",
+   "D": "To create a new WebLogic domain from a template",
+   "E": "To generate a deployment plan template from an existing domain configuration and the application descriptors"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "weblogic.appc는 배포 전에 애플리케이션을 컴파일하고 검증하는 도구로, JSP 사전 컴파일과 EJB 관련 클래스 생성 등을 수행해 배포 시 오류를 미리 찾는다. 도메인 생성은 Configuration Wizard, 애플리케이션 시작·중지는 weblogic.Deployer나 WLST, 계획 템플릿 생성은 weblogic.PlanGenerator의 역할이며 실시간 모니터링 도구도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-APPC"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In stage mode, where are deployment files copied on each target server by default?",
+  "options": {
+   "A": "To the JDK lib/ext directory of each server",
+   "B": "To DOMAIN_HOME/config/jdbc",
+   "C": "To the Oracle Inventory directory",
+   "D": "To the server's staging directory, DOMAIN_HOME/servers/<server_name>/stage",
+   "E": "To the DOMAIN_HOME/autodeploy directory on every target server, where they are picked up automatically"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "stage 모드에서는 배포 파일이 각 서버의 스테이징 디렉터리, 기본값 DOMAIN_HOME/servers/<서버 이름>/stage 아래로 복사된다. autodeploy는 개발 모드 자동 배포용 디렉터리이고, JDK 확장 디렉터리나 config/jdbc(JDBC 모듈 구성), Oracle Inventory는 배포 파일 저장 위치가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STAGE-DIR"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which utility can generate a template deployment plan from an application archive, exposing configurable properties as variables?",
+  "options": {
+   "A": "weblogic.WLST",
+   "B": "weblogic.PlanGenerator",
+   "C": "weblogic.Server",
+   "D": "weblogic.appc",
+   "E": "weblogic.Deployer -listapps"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "weblogic.PlanGenerator는 애플리케이션 아카이브를 분석해 구성 가능한 속성을 변수로 노출한 배포 계획 템플릿을 생성한다. weblogic.appc는 컴파일·검증 도구, weblogic.Server는 서버 기동 클래스, weblogic.WLST는 스크립팅 도구이며, weblogic.Deployer의 -listapps는 배포된 애플리케이션 목록을 보여 줄 뿐이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLANGEN"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is production redeployment in WebLogic Server?",
+  "options": {
+   "A": "Deploying an application only to Managed Servers that are running in production mode",
+   "B": "Converting a development mode domain into a production mode domain",
+   "C": "Deploying a new version alongside the active version so existing clients keep using the old version while new clients use the new one",
+   "D": "Restarting every Managed Server in the domain one at a time",
+   "E": "Replacing the application files immediately on all targets, which interrupts existing clients until the application has restarted with the new code"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "프로덕션 재배포는 새 버전을 기존 활성 버전과 나란히(side-by-side) 배포해, 기존 클라이언트는 이전 버전을 계속 사용하고 새 클라이언트는 새 버전을 사용하게 하는 방식이다. 서버 순차 재시작이나 도메인 모드 전환과는 무관하며, 파일을 즉시 교체해 기존 클라이언트를 중단시키는 것은 in-place 재배포에 해당한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PROD-REDEPLOY-DEF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In which deployment descriptor does an enterprise application (EAR) declare a reference to a shared Java EE library?",
+  "options": {
+   "A": "config.xml, using an app-deployment element",
+   "B": "weblogic-application.xml, using a library-ref element",
+   "C": "persistence.xml, using a jar-file element",
+   "D": "plan.xml, using a config-root element that points to the library",
+   "E": "web.xml, using a context-param element"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "EAR은 weblogic-application.xml의 library-ref 요소로 공유 라이브러리를 참조한다(WAR는 weblogic.xml의 library-ref 사용). config.xml의 app-deployment는 도메인의 배포 구성 기록이고, web.xml의 context-param이나 persistence.xml의 jar-file은 라이브러리 참조 방법이 아니며, 배포 계획의 config-root는 외부 디스크립터 위치를 가리킨다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-EAR-LIBREF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the Administration Console Install Application Assistant, selecting \"Copy this application onto every target for me\" for source accessibility corresponds to which staging mode?",
+  "options": {
+   "A": "nostage",
+   "B": "adminmode",
+   "C": "external_stage",
+   "D": "stage",
+   "E": "autodeploy"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "\"Copy this application onto every target for me\"는 Admin Server가 각 대상에 파일을 복사하는 stage 모드에 해당한다. 지정 위치에서 접근하도록 하는 선택은 nostage에 해당하며, external_stage는 관리자가 직접 복사하는 방식이다. adminmode와 autodeploy는 스테이징 모드가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-CONSOLE-SOURCE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which archive types can be deployed to WebLogic Server 14.1.1 as Java EE modules or applications? (Choose all that apply.)",
+  "options": {
+   "A": "Enterprise application archive (EAR)",
+   "B": "Java heap dump file (HPROF) of a server JVM",
+   "C": "Operating system RPM package (.rpm file)",
+   "D": "Web application archive (WAR)",
+   "E": "Resource adapter archive (RAR)"
+  },
+  "correct_keys": [
+   "A",
+   "D",
+   "E"
+  ],
+  "explanation": "WebLogic Server는 EAR, WAR, RAR(리소스 어댑터), EJB JAR 등 Java EE 모듈과 애플리케이션을 배포할 수 있다. 운영체제 RPM 패키지와 힙 덤프 파일(HPROF)은 배포 가능한 Java EE 아카이브가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-ARCHIVE-TYPES"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "All Managed Servers of a cluster mount the same NFS file system at the identical path /u01/apps. The team wants to avoid copying a large EAR to every server during deployment and keep a single copy of the files. Which staging mode should be used?",
+  "options": {
+   "A": "stage combined with -upload",
+   "B": "stage, so that the Administration Server copies the EAR to each server",
+   "C": "nostage, specifying the source path on the shared file system",
+   "D": "external_stage, leaving the staging directories empty",
+   "E": "autodeploy, by placing the EAR in the domain autodeploy directory"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "모든 서버가 같은 경로로 공유 스토리지에 접근할 수 있으면 nostage 모드로 공유 경로를 원본으로 지정해 복사 없이 단일 사본을 사용할 수 있다. stage(-upload 포함)는 각 서버로 복사가 발생하고, external_stage는 스테이징 디렉터리에 파일이 있어야 하므로 비워 두면 배포가 실패한다. autodeploy는 개발 모드 전용 기능이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-NOSTAGE-SHARED"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A Managed Server's default staging mode is stage. An administrator deploys an application with weblogic.Deployer and specifies -nostage. Which staging mode applies to this deployment?",
+  "options": {
+   "A": "nostage, because the mode specified for the deployment overrides the server default",
+   "B": "The deployment fails because the two settings conflict",
+   "C": "external_stage, because conflicting settings fall back to external staging",
+   "D": "stage, because the server default always takes precedence",
+   "E": "stage for the Administration Server and external_stage for the Managed Servers, because the settings are split by server role"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "배포 시 지정한 스테이징 모드(-stage, -nostage, -external_stage)는 서버의 기본 StagingMode 설정보다 우선한다. 따라서 이 배포에는 nostage가 적용된다. 서버 기본값이 항상 우선하거나, 충돌로 실패하거나, external_stage로 바뀌는 동작은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STAGE-OVERRIDE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application is deployed in nostage mode with -source /home/admin/build/app.ear. The deployment succeeds on the Administration Server, but the Managed Servers on other hosts report that the application files cannot be found. What is the most likely cause?",
+  "options": {
+   "A": "The Managed Servers are running in development mode",
+   "B": "nostage mode requires the files to be uploaded with -upload to every Managed Server before each server can activate the application",
+   "C": "The Managed Servers' staging directories are full",
+   "D": "The application lacks a deployment plan",
+   "E": "The source path exists only on the Administration Server host, not on the Managed Server hosts"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "nostage 모드에서는 각 대상 서버가 지정된 원본 경로에서 직접 파일을 읽으므로, 그 경로가 모든 대상 호스트에서 동일하게 접근 가능해야 한다. 경로가 Admin Server 호스트에만 있으면 Managed Server는 파일을 찾지 못한다. 도메인 모드나 배포 계획 유무는 원인이 아니며, -upload는 Admin Server로만 전송한다. nostage는 스테이징 디렉터리를 사용하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-NOSTAGE-PATH"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When is the external_stage staging mode most appropriate?",
+  "options": {
+   "A": "When the application is a shared library",
+   "B": "When the files must be distributed to the target servers by a separate tool instead of WebLogic Server",
+   "C": "When the administrator wants the Administration Server to copy the files automatically to each target server's staging directory",
+   "D": "When all servers can read the files from a shared file system path",
+   "E": "When the application must be deployed through the autodeploy directory"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "external_stage는 WebLogic Server가 아닌 별도 프로세스나 외부 배포 도구로 각 서버 스테이징 디렉터리에 파일을 배포하려는 경우에 적합하다. 공유 경로에서 직접 읽는 것은 nostage, Admin Server가 자동 복사하는 것은 stage이다. autodeploy나 공유 라이브러리 여부는 external_stage 선택 기준이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-EXTSTAGE-USE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "WebLogic Server uses a two-phase deployment model. What is the benefit of this model?",
+  "options": {
+   "A": "Each phase uses a different staging mode",
+   "B": "It allows two different versions of a library to be merged into one",
+   "C": "The application is compiled in the first phase and the domain is restarted in the second phase",
+   "D": "The first phase deploys to the Administration Server and the second phase deploys to Node Manager on each machine",
+   "E": "Activation proceeds only after preparation succeeds on all targets, avoiding partially activated deployments"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "2단계 배포 모델에서는 먼저 모든 대상에서 준비(prepare) 단계를 수행하고, 준비가 성공해야 활성화(activate) 단계를 진행하므로 일부 서버에만 활성화되는 불일치를 줄인다. 도메인 재시작, Node Manager 배포, 단계별 스테이징 모드 변경, 라이브러리 버전 병합은 이 모델과 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-TWO-PHASE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A new application is deployed to Managed Servers MS1 and MS2. MS2 is shut down at that time, and the domain does not enforce cluster constraints. What happens?",
+  "options": {
+   "A": "MS2 is permanently removed from the application's targets",
+   "B": "The Administration Server starts MS2 automatically through Node Manager to complete the deployment",
+   "C": "The application is deployed to the Administration Server instead of MS2",
+   "D": "The deployment proceeds on MS1, and MS2 deploys the application when it is next started",
+   "E": "The deployment is rejected on every target until MS2 is running"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "클러스터 제약이 강제되지 않으면 사용 가능한 대상에는 배포가 진행되고, 중지되어 있던 MS2는 다음 기동 시 해당 애플리케이션을 배포받는다. 모든 대상이 거부되거나, Admin Server가 MS2를 자동 기동하거나, 대상에서 영구 제거되거나, 대신 Admin Server에 배포되는 동작은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-DOWN-SERVER"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which elements are part of the WebLogic Server deployment plan (plan.xml) schema? (Choose all that apply.)",
+  "options": {
+   "A": "module-override",
+   "B": "variable-definition",
+   "C": "variable-assignment",
+   "D": "server-template",
+   "E": "jdbc-driver-params"
+  },
+  "correct_keys": [
+   "A",
+   "B",
+   "C"
+  ],
+  "explanation": "배포 계획은 variable-definition(변수 이름과 값 정의), module-override(모듈별 재정의), 그 안의 variable-assignment(변수를 디스크립터 위치에 적용) 등으로 구성된다. jdbc-driver-params는 JDBC 모듈 디스크립터 요소이고 server-template는 config.xml의 동적 클러스터 관련 요소로 배포 계획 요소가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-ELEMENTS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application is deployed with a deployment plan that changes the session timeout defined in its weblogic.xml. What happens to the weblogic.xml file inside the WAR?",
+  "options": {
+   "A": "It is deleted and replaced by plan.xml",
+   "B": "It is ignored entirely, and only plan.xml is used as the descriptor",
+   "C": "It remains unchanged; the plan values are applied on top of it at deployment time",
+   "D": "It is copied into config.xml and removed from the archive",
+   "E": "It is permanently rewritten inside the archive with the plan values when the application is next deployed"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "배포 계획은 아카이브 안의 원본 디스크립터를 수정하지 않고, 배포 시점에 디스크립터 값 위에 계획의 값을 적용(재정의)한다. 따라서 아카이브를 그대로 둔 채 환경별 계획만 바꿀 수 있다. 아카이브 재작성, 삭제·대체, config.xml로 이동, 원본 디스크립터 무시는 일어나지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-NO-MODIFY"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator modifies the deployment plan of a running application and runs weblogic.Deployer -update with the new plan. What is the result?",
+  "options": {
+   "A": "All Managed Servers are restarted automatically",
+   "B": "The application is undeployed and must be deployed again manually",
+   "C": "A new version of the application is created and the old version is retired",
+   "D": "The plan is saved but is ignored until the domain is restarted in development mode and the application is redeployed",
+   "E": "The new plan is applied without a full redeployment; non-dynamic property changes require a redeployment"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "-update는 실행 중인 애플리케이션에 새 배포 계획을 재배포 없이 적용한다. 동적으로 변경 가능한 속성은 바로 반영되지만 비동적 속성은 애플리케이션을 재배포해야 반영된다. 서버 자동 재시작, 자동 배포 해제, 개발 모드 재시작 필요, 새 버전 생성과 이전 버전 은퇴는 일어나지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-UPDATE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the directory structure recommended by Oracle for an application installation directory that holds both the application and its deployment plan?",
+  "options": {
+   "A": "The archive in DOMAIN_HOME/config/deployments and plan.xml in DOMAIN_HOME/bin next to the start scripts",
+   "B": "An application root with an app subdirectory for the archive and a plan subdirectory for plan.xml",
+   "C": "plan.xml stored in the server's logs directory",
+   "D": "The archive and plan.xml placed in the JDK home directory",
+   "E": "plan.xml stored inside the WEB-INF directory of the archive"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "권장 애플리케이션 설치 디렉터리는 애플리케이션 루트 아래에 아카이브를 두는 app 하위 디렉터리와 plan.xml을 두는 plan 하위 디렉터리로 구성된다. 이렇게 하면 루트 디렉터리를 배포할 때 계획을 함께 인식할 수 있다. config나 bin, 아카이브 내부 WEB-INF, JDK 홈, logs 디렉터리는 권장 위치가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-DIR"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The same EAR must be deployed to test and production domains. The two environments need different data source JNDI references and different session timeout values. The team does not want to rebuild the EAR for each environment. What should they do?",
+  "options": {
+   "A": "Edit the descriptors inside the EAR before each deployment",
+   "B": "Use production redeployment to switch values between environments",
+   "C": "Deploy the EAR in external_stage mode so that each server can use different descriptors",
+   "D": "Keep a single EAR and create a separate deployment plan for each environment",
+   "E": "Deploy the EAR as a shared library in both domains"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "환경마다 다른 구성 값이 필요하면 EAR은 하나로 유지하고 환경별 배포 계획을 만들어 적용하는 것이 배포 계획의 목적이다. 매번 디스크립터를 수정하는 방식은 재빌드와 같아 요구에 맞지 않는다. 공유 라이브러리 배포, 프로덕션 재배포, external_stage는 환경별 구성 값을 분리하는 수단이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-ENV"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application was deployed without a deployment plan. An administrator changes one of its deployment descriptor values through the Administration Console and saves the change. How does the console persist this change?",
+  "options": {
+   "A": "It creates a deployment plan (Plan.xml) for the application and stores the change there",
+   "B": "It writes the change to the server's boot.properties file",
+   "C": "It creates a new version of the application with a new version identifier and retires the old one",
+   "D": "It rewrites the descriptor inside the application archive",
+   "E": "It stores the change only in memory until the server restarts"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "배포 계획이 없는 애플리케이션의 디스크립터 값을 콘솔에서 변경해 저장하면 콘솔은 배포 계획(Plan.xml)을 생성하고 변경 내용을 그곳에 저장한다. 원본 아카이브를 다시 쓰지 않으며, 메모리에만 두거나 boot.properties에 기록하지 않고, 새 애플리케이션 버전을 만들지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-CONSOLE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What must be true for an application to successfully reference a shared Java EE library on a set of servers?",
+  "options": {
+   "A": "The library must be deployed with the external_stage mode",
+   "B": "The library must be deployed to the same servers or clusters as the referencing application",
+   "C": "The library must be targeted only to the Administration Server",
+   "D": "The library must be packaged inside every referencing application's EAR so each application has its own copy",
+   "E": "The library must have the same name as the referencing application"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "공유 라이브러리는 참조하는 애플리케이션과 같은 서버나 클러스터를 대상으로 배포되어 있어야 하며, 애플리케이션 배포 시 해당 대상에서 라이브러리를 찾을 수 있어야 한다. Admin Server에만 배포하면 Managed Server에서 찾을 수 없다. 라이브러리를 애플리케이션 안에 넣을 필요도, 특정 스테이징 모드나 동일 이름이 필요하지도 않다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-TARGET"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application and a shared Java EE library it references both contain a file with the same path. Which file is used at run time?",
+  "options": {
+   "A": "The file in the library always takes precedence, because library classes are loaded before application classes",
+   "B": "The deployment fails because of the duplicate file",
+   "C": "The file in the referencing application takes precedence over the file in the library",
+   "D": "WebLogic Server merges the two files line by line",
+   "E": "The file with the most recent timestamp is used"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "애플리케이션과 참조 라이브러리에 같은 경로의 파일이 있으면 참조하는 애플리케이션 쪽 파일이 우선한다. 라이브러리가 항상 우선하거나, 수정 시각으로 결정되거나, 배포가 실패하거나, 파일이 줄 단위로 병합되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-PRECEDENCE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In which descriptor does a web application (WAR) reference a shared library?",
+  "options": {
+   "A": "weblogic-ejb-jar.xml, using a library-ref element",
+   "B": "application.xml, using a module element",
+   "C": "web.xml, using a library-ref element",
+   "D": "plan.xml, using a module-override element",
+   "E": "weblogic.xml, using a library-ref element"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "웹 애플리케이션은 WebLogic 전용 디스크립터인 weblogic.xml의 library-ref 요소로 공유 라이브러리를 참조한다. web.xml은 표준 디스크립터로 library-ref를 지원하지 않고, application.xml의 module은 EAR 모듈 선언, weblogic-ejb-jar.xml은 EJB 디스크립터이다. 배포 계획의 module-override는 모듈 디스크립터 재정의를 위한 것이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-WAR-REF"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does a Java EE module reference a WebLogic optional package?",
+  "options": {
+   "A": "By listing the package in the Extension-List attribute of the module's MANIFEST.MF",
+   "B": "By defining a variable-assignment in the deployment plan",
+   "C": "By placing the JAR in the server's staging directory",
+   "D": "By adding a library-ref element to config.xml",
+   "E": "By setting the CLASSPATH environment variable in setDomainEnv for every server that hosts the module"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "옵셔널 패키지는 참조하는 모듈의 MANIFEST.MF에 있는 Extension-List 속성으로 참조한다. config.xml에 library-ref를 추가하는 방법은 없고, CLASSPATH 환경 변수는 시스템 클래스패스를 바꾸는 것이다. 배포 계획의 variable-assignment나 스테이징 디렉터리에 JAR를 두는 것은 옵셔널 패키지 참조 방법이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-OPTPKG"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements correctly describe the difference between Java EE libraries and optional packages in WebLogic Server? (Choose two.)",
+  "options": {
+   "A": "A Java EE library can be referenced only through the CLASSPATH environment variable of each server that hosts the application",
+   "B": "A Java EE library can be an EAR, WAR, or EJB JAR whose descriptors are merged with the referencing application's",
+   "C": "An optional package can be deployed only through the autodeploy directory",
+   "D": "An optional package is a plain JAR referenced through the Extension-List manifest attribute",
+   "E": "An optional package must be packaged as an EAR file"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "Java EE 라이브러리는 EAR·WAR·EJB JAR 형태일 수 있고 그 디스크립터가 참조 애플리케이션의 디스크립터와 병합된다. 옵셔널 패키지는 일반 JAR 파일로 모듈 매니페스트의 Extension-List로 참조한다. 옵셔널 패키지가 EAR이어야 한다는 설명, Java EE 라이브러리를 CLASSPATH로만 참조한다는 설명, autodeploy로만 배포할 수 있다는 설명은 틀리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-VS-OPTPKG"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Two versions of the same shared library (implementation versions 1.0 and 2.0) are deployed to the same cluster. Is this allowed, and how does an application choose a version?",
+  "options": {
+   "A": "Yes; an application selects the version with specification-version and implementation-version in library-ref",
+   "B": "No; the second version replaces the first automatically",
+   "C": "Yes; the version is selected by the deployment order value of the library",
+   "D": "No; only one version of a library can exist in a domain",
+   "E": "Yes; but every application automatically uses the version that was deployed first, regardless of its library-ref settings"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "같은 라이브러리의 여러 버전을 동시에 배포할 수 있으며, 애플리케이션은 library-ref의 specification-version과 implementation-version 값으로 사용할 버전을 지정한다. 한 버전만 허용된다거나 새 버전이 자동 대체된다는 설명은 틀리다. 먼저 배포된 버전 사용이나 배포 순서 값으로 선택하는 방식도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-MULTI-VERSION"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WebLogic Server production redeployment, how many versions of the same application can be deployed and serving at the same time?",
+  "options": {
+   "A": "Three: active, retiring, and administration-mode versions",
+   "B": "It depends on the number of Managed Servers in the cluster",
+   "C": "Two: the active version and the version being retired",
+   "D": "One: the old version is always undeployed first",
+   "E": "Unlimited, as long as each has a unique version identifier"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "프로덕션 재배포에서 동시에 존재할 수 있는 애플리케이션 버전은 최대 두 개(활성 버전과 은퇴 중인 버전)이다. 하나만 허용되거나, 세 개 이상 또는 무제한이거나, 클러스터 서버 수에 따라 달라지지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-VERSION-MAX"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "During production redeployment, what does the weblogic.Deployer -retiretimeout option control?",
+  "options": {
+   "A": "The HTTP session timeout of the new version",
+   "B": "The interval at which the autodeploy directory is polled",
+   "C": "The time allowed for copying files in stage mode",
+   "D": "The seconds after which the old version is retired, even if sessions are still active",
+   "E": "The number of seconds the new version waits before it starts accepting requests from new clients"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "-retiretimeout은 이전 버전을 은퇴시키기까지의 시간(초)을 지정하며, 시간이 지나면 남아 있는 세션이 있어도 이전 버전이 은퇴된다. 새 버전의 시작 대기 시간, HTTP 세션 타임아웃, stage 복사 시간, autodeploy 폴링 주기를 지정하는 옵션이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-RETIRE-TIMEOUT"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A new version of a web application is deployed with production redeployment and no retirement timeout is specified. When is the old version retired?",
+  "options": {
+   "A": "Never; it must be retired manually by editing config.xml",
+   "B": "After exactly 24 hours",
+   "C": "Only when the administrator restarts the cluster",
+   "D": "Immediately, when the new version is activated, and existing sessions are moved to the new version",
+   "E": "After all in-flight work and existing HTTP sessions on the old version have completed"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "은퇴 타임아웃을 지정하지 않으면 이전 버전은 처리 중인 작업과 기존 HTTP 세션이 모두 끝난 뒤에 은퇴한다(graceful retirement). 새 버전 활성화와 동시에 즉시 은퇴하거나, 고정된 24시간 후에 은퇴하거나, 클러스터 재시작이나 config.xml 수정이 필요하지 않다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-RETIRE-DEFAULT"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application is started with weblogic.Deployer -start -adminmode. Who can access the application?",
+  "options": {
+   "A": "No one; the application is stopped",
+   "B": "All clients, through any network channel",
+   "C": "Only clients connecting from the same host as the Administration Server, regardless of the port they use",
+   "D": "Only clients connecting through the default HTTP port",
+   "E": "Only clients using the administration channel, such as the domain-wide administration port"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "관리 모드(administration mode)로 시작된 애플리케이션은 관리 채널(예: 도메인 전체 관리 포트)을 통해서만 접근할 수 있어 운영 투입 전 테스트에 쓰인다. 모든 채널이나 기본 HTTP 포트로 접근할 수 없고, 접속 호스트로 제한하는 방식도 아니며, 중지 상태도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-ADMINMODE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two conditions must be met to perform production redeployment of an application? (Choose two.)",
+  "options": {
+   "A": "The application must be packaged as a standalone RAR module",
+   "B": "Both the currently deployed version and the new version have version identifiers",
+   "C": "The application must be deployed in external_stage mode",
+   "D": "The new version is deployed with the same application name as the deployed version",
+   "E": "The deployed version must be stopped before the new version is distributed to the same targets"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "프로덕션 재배포를 하려면 현재 배포 버전과 새 버전 모두 버전 식별자를 가져야 하고, 새 버전을 같은 애플리케이션 이름으로 배포해야 한다. 이전 버전을 먼저 중지하면 무중단 재배포의 의미가 없고, 특정 스테이징 모드가 필요하지 않으며, 독립형 RAR 모듈은 오히려 프로덕션 재배포가 지원되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PROD-REDEPLOY-REQ"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "During production redeployment of a web application, how are client requests handled while both versions are present?",
+  "options": {
+   "A": "Clients with existing sessions keep using the old version; new clients go to the new version",
+   "B": "All clients are immediately moved to the new version and their HTTP sessions are migrated to it",
+   "C": "New clients are rejected until the old version is retired",
+   "D": "Requests are distributed randomly between the two versions",
+   "E": "All clients continue to use the old version until it is undeployed manually"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "프로덕션 재배포 중에는 기존 세션을 가진 클라이언트는 이전 버전을 계속 사용하고, 새 클라이언트는 새 버전으로 연결된다. 모든 클라이언트가 즉시 새 버전으로 옮겨지거나, 모두 이전 버전에 남거나, 무작위로 분산되거나, 새 클라이언트가 거부되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PROD-SESSION"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application without a version identifier is redeployed with weblogic.Deployer -redeploy. What type of redeployment occurs?",
+  "options": {
+   "A": "Side-by-side redeployment in administration mode",
+   "B": "Partial redeployment of static files only",
+   "C": "In-place redeployment: the running application is replaced and clients may be interrupted",
+   "D": "Production redeployment with automatic version numbering",
+   "E": "No redeployment; the command is rejected because unversioned applications can only be undeployed and deployed again"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "버전 식별자가 없는 애플리케이션을 재배포하면 in-place 재배포가 수행되어 실행 중인 애플리케이션이 교체되며 그동안 클라이언트가 서비스 중단을 겪을 수 있다. 버전이 자동 부여되는 프로덕션 재배포나 관리 모드 side-by-side 배포가 되지 않으며, 파일 목록 없이 정적 파일만 재배포하는 것도 아니고, 명령이 거부되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-INPLACE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An application is deployed as an exploded archive. Only a few JSP and HTML files have changed. Which approach updates just these files?",
+  "options": {
+   "A": "Use weblogic.Deployer -redeploy with the application name and the list of changed files",
+   "B": "Use production redeployment with a new version identifier assigned to each changed JSP and HTML file",
+   "C": "Restart the Administration Server so that it rescans the files",
+   "D": "Use weblogic.Deployer -update with a new deployment plan",
+   "E": "Undeploy the application and deploy the archived (non-exploded) version"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "압축을 푼(exploded) 아카이브로 배포된 경우 -redeploy에 애플리케이션 이름과 변경된 파일 목록을 지정해 해당 정적 파일만 부분 재배포할 수 있다. -update는 배포 계획 적용용이고, 파일마다 버전을 붙이는 방식은 없으며, 배포 해제 후 재배포나 Admin Server 재시작은 필요하지 않다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PARTIAL-STATIC"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the effect of stopping an application with weblogic.Deployer -stop -graceful?",
+  "options": {
+   "A": "The application is undeployed and its files are deleted",
+   "B": "It waits for in-flight work and existing HTTP sessions to complete before stopping, unless -ignoresessions is set",
+   "C": "The application is moved to another cluster",
+   "D": "The application is stopped immediately and all in-flight requests are aborted, even if HTTP sessions are still active",
+   "E": "The Managed Servers hosting the application are shut down"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "-graceful로 중지하면 처리 중인 작업과 기존 HTTP 세션이 끝날 때까지 기다린 뒤 중지한다. -ignoresessions를 함께 지정하면 세션 완료는 기다리지 않는다. 즉시 강제 중단, 배포 해제와 파일 삭제, 서버 종료, 다른 클러스터로 이동은 이 옵션의 동작이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-GRACEFUL"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Two applications are deployed to the same server. Application ORDERS depends on application COMMON being available when it starts. How can the administrator ensure COMMON is deployed first when the server starts?",
+  "options": {
+   "A": "Deploy COMMON in administration mode",
+   "B": "Assign the same version identifier to both applications",
+   "C": "Deploy COMMON in nostage mode and ORDERS in stage mode",
+   "D": "Give COMMON a higher deployment order value than ORDERS",
+   "E": "Give COMMON a lower deployment order value than ORDERS"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "서버 기동 시 애플리케이션은 배포 순서(Deployment Order) 값이 낮은 것부터 배포되므로 COMMON에 더 낮은 값을 주면 된다(기본값은 100). 더 높은 값을 주면 오히려 나중에 배포된다. 스테이징 모드, 관리 모드, 버전 식별자는 기동 시 배포 순서를 결정하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-DEPLOY-ORDER"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which WLST commands can be used to manage application deployments? (Choose all that apply.)",
+  "options": {
+   "A": "installApplication",
+   "B": "activateLibrary",
+   "C": "updateApplication",
+   "D": "deploy",
+   "E": "startApplication"
+  },
+  "correct_keys": [
+   "C",
+   "D",
+   "E"
+  ],
+  "explanation": "WLST에는 애플리케이션 배포 관리를 위한 deploy, redeploy, undeploy, distributeApplication, startApplication, stopApplication, updateApplication 등의 명령이 있다. installApplication과 activateLibrary는 WLST 명령이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - WLST Command Reference for WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-WLST-CMDS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a typical drawback of using stage mode for a very large application deployed to many Managed Servers?",
+  "options": {
+   "A": "All servers must mount a shared file system at the same path",
+   "B": "The application cannot be redeployed",
+   "C": "The administrator must manually copy the files to each server's staging directory before deployment",
+   "D": "Each target server keeps its own copy of the files, increasing disk usage and copy time",
+   "E": "The application can be accessed only through the administration port"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "stage 모드에서는 Admin Server가 대상 서버마다 파일을 복사하므로 서버별 사본으로 디스크 사용량이 늘고 대용량일수록 배포 시 복사 시간이 길어진다. 공유 파일 시스템 요구는 nostage, 수동 복사는 external_stage의 특성이다. 재배포 불가나 관리 포트 전용 접근은 stage 모드와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STAGE-DISK"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two methods can be used to assign a version identifier to an application for production redeployment? (Choose two.)",
+  "options": {
+   "A": "Set the JVM system property -Dweblogic.app.version on each Managed Server",
+   "B": "Specify the -appversion option of weblogic.Deployer",
+   "C": "Define the Weblogic-Application-Version attribute in the archive's MANIFEST.MF",
+   "D": "Define a version variable in the variable-definition section of the deployment plan",
+   "E": "Append the version number to the name of the domain directory"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "버전 식별자는 MANIFEST.MF의 Weblogic-Application-Version 속성으로 지정하거나 weblogic.Deployer의 -appversion 옵션으로 지정한다. 배포 계획의 변수 정의는 디스크립터 값 재정의용이며 애플리케이션 버전을 지정하지 않는다. 그런 JVM 시스템 속성이나 도메인 디렉터리 이름 규칙은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-VERSION-SPECIFY"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A company deploys a 2 GB EAR to 20 Managed Servers in a remote data center. Its release team already distributes files with an in-house tool that verifies checksums and throttles bandwidth, and wants WebLogic Server not to copy the files itself. Each server does not share a file system. Which staging mode fits best?",
+  "options": {
+   "A": "external_stage",
+   "B": "nostage",
+   "C": "stage",
+   "D": "autodeploy",
+   "E": "stage with -upload"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "자체 도구로 파일을 각 서버에 배포하고 WebLogic이 복사하지 않기를 원하며 공유 파일 시스템도 없으므로 external_stage가 적합하다. stage와 -upload를 사용한 stage는 WebLogic이 복사를 수행하고, nostage는 모든 서버가 같은 경로로 공유 접근할 수 있어야 한다. autodeploy는 개발 모드 전용이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-EXTSTAGE-USE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Operations must take an application offline for maintenance, but users currently working in the application should be allowed to finish their sessions before it stops. Which command is most appropriate?",
+  "options": {
+   "A": "weblogic.Deployer -stop -graceful -name <app>",
+   "B": "weblogic.Deployer -undeploy -name <app>",
+   "C": "weblogic.Deployer -distribute -name <app>",
+   "D": "weblogic.Deployer -stop -ignoresessions -name <app>",
+   "E": "weblogic.Deployer -update -name <app>"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "-stop -graceful은 처리 중인 작업과 기존 세션이 끝난 뒤 애플리케이션을 중지하므로 사용자 작업을 보호하면서 점검을 위해 내릴 수 있다. -undeploy는 구성에서 제거하고, -ignoresessions는 세션 완료를 기다리지 않으며, -distribute는 배포 준비, -update는 배포 계획 적용 명령이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-GRACEFUL"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator copies a WAR file into the autodeploy directory of a domain, but the application is never deployed. The domain was created with production mode enabled. What is the cause?",
+  "options": {
+   "A": "The Managed Servers must be restarted in nostage mode",
+   "B": "The autodeploy directory only accepts EAR files",
+   "C": "The WAR file must first be compiled with weblogic.PlanGenerator before the autodeploy scan accepts it",
+   "D": "A deployment plan must exist in the autodeploy directory",
+   "E": "Automatic deployment from the autodeploy directory is disabled in production mode"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "autodeploy 디렉터리 자동 배포는 개발 모드에서만 동작하며 프로덕션 모드 도메인에서는 비활성화된다. weblogic.PlanGenerator는 컴파일 도구가 아니고, autodeploy가 EAR만 받는 것도 아니며, 서버 재시작이나 배포 계획 존재 여부는 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-AUTODEPLOY"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about the stage deployment mode are true? (Choose two.)",
+  "options": {
+   "A": "Each target server reads the files directly from the original source path",
+   "B": "Each target server keeps its own copy of the files in its staging directory",
+   "C": "All target servers must mount a shared file system at the same path",
+   "D": "The Administration Server copies the deployment files to each target server",
+   "E": "The administrator must manually copy the files to each server before deployment"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "stage 모드에서는 Admin Server가 배포 파일을 각 대상 서버로 복사하고, 각 서버는 자신의 스테이징 디렉터리에 사본을 보관한다. 공유 파일 시스템과 원본 경로 직접 읽기는 nostage의 특성이고, 수동 복사는 external_stage의 특성이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-STAGE-FACTS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a domain with cluster constraints enabled (ClusterConstraintsEnabled = true), an application is deployed to a cluster while one member is unreachable. What is the result?",
+  "options": {
+   "A": "The unreachable member is automatically removed from the cluster",
+   "B": "The deployment succeeds on the reachable members and the unreachable member receives it when it rejoins the cluster",
+   "C": "The deployment fails, because with cluster constraints enabled all cluster members must be reachable",
+   "D": "The application is deployed in administration mode on the reachable members",
+   "E": "The Administration Server deploys the application to itself instead"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "클러스터 제약(ClusterConstraintsEnabled)이 활성화되면 클러스터를 대상으로 한 배포는 모든 멤버에 접근 가능할 때만 성공하므로, 한 멤버라도 도달할 수 없으면 배포가 실패한다. 도달 가능한 멤버에만 배포하고 나중에 전달하는 것은 제약이 없을 때의 동작이다. 멤버 자동 제거, 관리 모드 배포, Admin Server 대체 배포는 일어나지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-CLUSTER-CONSTRAINTS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Version 2.0 of a shared library is deployed alongside version 1.0. Application APP1's library-ref does not specify a version, and APP1 was deployed while only 1.0 existed. After 2.0 is deployed, APP1 still uses 1.0. What must be done for APP1 to use 2.0?",
+  "options": {
+   "A": "Undeploy version 1.0 while APP1 is running so that APP1 reloads",
+   "B": "Restart only the Administration Server",
+   "C": "Change the staging mode of the library to nostage",
+   "D": "Redeploy APP1, because an application binds to a library version when the application is deployed",
+   "E": "Nothing; APP1 switches to 2.0 automatically within a few minutes"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "애플리케이션은 배포될 때 참조할 라이브러리 버전에 바인딩되므로 새 라이브러리 버전을 사용하려면 참조 애플리케이션을 재배포해야 한다. 자동 전환은 일어나지 않고, Admin Server 재시작이나 라이브러리 스테이징 모드 변경으로는 바인딩이 바뀌지 않는다. 실행 중인 애플리케이션이 참조하는 라이브러리를 먼저 제거하는 것은 올바른 절차가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-NEW-VERSION"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A production redeployment of version v2 of an application has just activated v2, and v1 is still retiring. Users report a serious defect in v2. What is the recommended way to roll back?",
+  "options": {
+   "A": "Restart all cluster members so that v1 is reloaded",
+   "B": "Edit config.xml to change the active version back to v1",
+   "C": "Run weblogic.Deployer -update with the v1 deployment plan",
+   "D": "Undeploy both versions and redeploy v1 using in-place redeployment",
+   "E": "Redeploy the original version v1, which makes v1 active again and causes v2 to begin retiring"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "프로덕션 재배포 중 새 버전에 문제가 있으면 원래 버전(v1)을 다시 재배포해 롤백한다. 그러면 v1이 다시 활성화되고 v2가 은퇴 과정에 들어간다. 서버 재시작이나 config.xml 직접 수정은 지원되는 롤백 절차가 아니고, -update는 배포 계획만 갱신한다. 두 버전 모두 제거하면 서비스 중단이 발생한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-ROLLBACK"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A team wants to verify version v2 of an application in production before users can reach it, while v1 continues to serve all users. Which sequence is most appropriate?",
+  "options": {
+   "A": "Distribute v2, start it in administration mode, test it through the administration channel, and then start it to transition it to production so v1 retires",
+   "B": "Deploy v2 to a new cluster and change the DNS records after testing",
+   "C": "Deploy v2 as a shared library and reference it from v1",
+   "D": "Stop v1, deploy v2 normally, test it, and then restart v1 if a problem is found",
+   "E": "Deploy v2 with in-place redeployment during low traffic"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "새 버전을 distribute한 뒤 관리 모드로 시작하면 관리 채널로만 접근할 수 있어 v1이 계속 서비스하는 동안 운영 환경에서 테스트할 수 있다. 검증 후 v2를 시작해 운영으로 전환하면 v1은 은퇴한다. v1 중지나 in-place 재배포는 서비스 중단을 유발하고, 별도 클러스터와 DNS 변경은 WebLogic 버전 관리 기능을 활용하지 않으며, 애플리케이션을 라이브러리로 배포하는 방식은 맞지 않다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-ADMINMODE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Production redeployment is NOT supported for which two kinds of deployments? (Choose two.)",
+  "options": {
+   "A": "A standalone web application (WAR) module",
+   "B": "A standalone EJB JAR module",
+   "C": "A standalone resource adapter (RAR) module",
+   "D": "An enterprise application whose clients access it through a web module over HTTP",
+   "E": "An enterprise application accessed by inbound JMS messages from a global JMS destination"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "독립형 EJB 모듈과 독립형 RAR 모듈은 프로덕션 재배포를 지원하지 않으며 요청 시 거부된다. 독립형 WAR, HTTP 웹 모듈로 접근하는 EAR, 글로벌 JMS 대상으로부터 인바운드 JMS 메시지를 받는 EAR은 프로덕션 재배포를 지원한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PROD-REDEPLOY-UNSUP"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a deployment plan, how is a value applied to a specific element of a WebLogic deployment descriptor?",
+  "options": {
+   "A": "A variable is defined with a name and value in variable-definition, and a variable-assignment in the module-descriptor references that variable and uses an XPath expression to locate the descriptor element",
+   "B": "The descriptor file is embedded inside plan.xml as a CDATA section",
+   "C": "The value is set in config.xml under the app-deployment element",
+   "D": "The value is written as a Java system property in the server start script",
+   "E": "A library-ref element replaces the value at run time"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "배포 계획은 variable-definition에 변수 이름과 값을 정의하고, module-override의 module-descriptor 안 variable-assignment에서 그 변수 이름을 참조하며 XPath로 디스크립터의 대상 요소를 지정해 값을 적용한다. 시작 스크립트의 시스템 속성, 디스크립터를 CDATA로 포함하는 방식, library-ref, config.xml의 app-deployment는 디스크립터 값 재정의 방법이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-VARIABLE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Two applications reference the same shared Java EE library that contains a class with a static field. How is this class loaded at run time?",
+  "options": {
+   "A": "The class is loaded only when the library is started independently",
+   "B": "The class is loaded once by the system class loader, and the static field is shared by both applications that reference the library",
+   "C": "The class is loaded by the Administration Server and accessed remotely",
+   "D": "Each referencing application loads the library classes in its own class loader, so the static field is not shared",
+   "E": "The second application fails to deploy because the class is already loaded"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "공유 라이브러리는 배포 시 참조 애플리케이션에 병합되어 각 애플리케이션의 클래스 로더가 라이브러리 클래스를 따로 로드한다. 따라서 static 필드는 애플리케이션 간에 공유되지 않는다. 시스템 클래스 로더 단일 로드, Admin Server 원격 접근, 두 번째 애플리케이션 배포 실패, 라이브러리 독립 시작은 모두 틀린 설명이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-CLASSLOADER"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Application APP1 is targeted to cluster CL1 (members ms1 and ms2). Its deployment succeeds on ms1 but fails on ms2 with an error that a referenced library cannot be found. The library was deployed earlier with ms1 as its only target. What is the correct fix?",
+  "options": {
+   "A": "Add the library JAR to the CLASSPATH of the Administration Server",
+   "B": "Copy the library JAR into the staging directory of ms2 only",
+   "C": "Retarget the library to CL1 (or to both ms1 and ms2) and then redeploy APP1",
+   "D": "Change APP1's staging mode to nostage",
+   "E": "Restart ms2 in administration mode"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "공유 라이브러리는 참조 애플리케이션과 같은 대상에 배포되어 있어야 하므로 라이브러리 대상을 CL1(또는 ms1과 ms2 모두)으로 바꾼 뒤 애플리케이션을 다시 배포한다. 스테이징 디렉터리에 파일만 복사하면 라이브러리 배포 구성이 생기지 않으며, 스테이징 모드 변경, 관리 모드 재시작, Admin Server CLASSPATH 추가는 ms2에서 라이브러리를 등록하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-TARGET"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are advantages of nostage mode compared with stage mode when all servers share a file system? (Choose two.)",
+  "options": {
+   "A": "The files do not need to be accessible from the target servers",
+   "B": "Only one copy of the deployment files needs to be maintained",
+   "C": "The Administration Server distributes the files automatically to every server",
+   "D": "Each server is guaranteed an isolated private copy of the files",
+   "E": "No file copy is made to each server, which shortens deployment of large applications"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "nostage는 각 서버로 복사하지 않으므로 대용량 애플리케이션 배포 시간이 줄고, 공유 위치에 단일 사본만 유지하면 된다. 서버별 독립 사본 보장과 Admin Server의 자동 배포 복사는 stage의 특성이며, nostage에서는 대상 서버가 원본 경로에 반드시 접근할 수 있어야 하므로 접근이 필요 없다는 설명은 틀리다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-NOSTAGE-ADV"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An application is deployed with -external_stage to Managed Servers ms1 and ms2. The deployment succeeds on ms1 but fails on ms2 because the application files cannot be found. The administrator had copied the files to ms1 only. What is the cause?",
+  "options": {
+   "A": "ms2 was expected to read the files from the Administration Server's upload directory",
+   "B": "ms2 must be started in development mode for external_stage",
+   "C": "external_stage requires all servers to run on the same machine",
+   "D": "external_stage can be used only with shared libraries",
+   "E": "With external_stage, WebLogic Server does not copy the files, so they must also be placed in the staging directory of ms2"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "external_stage 모드에서는 WebLogic Server가 파일을 복사하지 않으므로 관리자가 모든 대상 서버(ms2 포함)의 스테이징 디렉터리에 파일을 직접 배치해야 한다. 서버들이 같은 머신에 있을 필요가 없고, 대상 서버가 Admin Server의 업로드 디렉터리에서 읽는 방식도 아니다. 라이브러리 전용 제약이나 개발 모드 요구도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-EXTSTAGE-FAIL"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator runs weblogic.Deployer -update with a revised deployment plan. Some changed values take effect immediately, but one changed property does not, and the console indicates that the change requires the application to be redeployed. What should be done?",
+  "options": {
+   "A": "Redeploy the application, because the property is not dynamic and cannot be applied by an update alone",
+   "B": "Convert the deployment plan into a shared library",
+   "C": "Run -update again with the -nowait option",
+   "D": "Restart Node Manager on every machine",
+   "E": "Change the server's staging mode to external_stage"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "-update는 동적으로 변경 가능한 속성만 즉시 반영하며, 비동적 속성 변경은 애플리케이션을 재배포해야 적용된다. -nowait로 다시 실행해도 결과는 같고, 스테이징 모드 변경, Node Manager 재시작, 배포 계획을 라이브러리로 바꾸는 것은 해결책이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-PLAN-UPDATE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A versioned web application must be upgraded during business hours without interrupting users who are in the middle of their sessions. Which redeployment strategy satisfies this requirement?",
+  "options": {
+   "A": "Stopping the application gracefully and starting the new archive",
+   "B": "Undeploying the application and deploying the new archive",
+   "C": "Production redeployment of a new version with a different version identifier",
+   "D": "In-place redeployment using the same version identifier",
+   "E": "Partial redeployment of the class files in an archived WAR"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "기존 세션을 끊지 않고 업그레이드하려면 다른 버전 식별자로 새 버전을 프로덕션 재배포해야 한다. 같은 버전의 in-place 재배포, 배포 해제 후 재배포, 정상 중지 후 시작은 모두 서비스 중단이 생긴다. 부분 재배포는 exploded 아카이브의 정적 파일 갱신용이며 클래스 변경에 의한 무중단 업그레이드 수단이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-INPLACE"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about WebLogic Server shared Java EE libraries are true? (Choose two.)",
+  "options": {
+   "A": "A library must be packaged inside every application that uses it",
+   "B": "A library must be deployed before an application that references it can be deployed successfully",
+   "C": "Only one application in a domain can reference a given library version",
+   "D": "Multiple applications can reference the same deployed library",
+   "E": "A library can be started independently to serve client requests on its own"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "하나의 배포된 공유 라이브러리를 여러 애플리케이션이 참조할 수 있으며, 참조 애플리케이션을 성공적으로 배포하려면 라이브러리가 먼저 배포되어 있어야 한다. 라이브러리는 독립적으로 요청을 처리하는 애플리케이션이 아니고, 각 애플리케이션 안에 포함할 필요가 없으며, 한 버전을 한 애플리케이션만 참조할 수 있다는 제약도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LIB-FACTS"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "In a production-mode domain, another administrator has acquired the configuration edit lock in the Administration Console and has not released it. A deployment started with weblogic.Deployer by a different user fails. What should be done?",
+  "options": {
+   "A": "Have the lock owner activate or release the pending changes (or wait for the lock to be released), then rerun the deployment",
+   "B": "Restart all Managed Servers in the domain",
+   "C": "Delete the server's staging directory",
+   "D": "Rerun the deployment with the -nostage option",
+   "E": "Rerun the deployment with the -library option"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "프로덕션 모드에서 배포는 구성 변경이므로 편집 잠금이 필요하며, 다른 사용자가 잠금을 보유하면 배포가 실패할 수 있다. 잠금 소유자가 변경을 활성화하거나 해제한 뒤 다시 배포해야 한다. 스테이징 모드 변경, Managed Server 재시작, 스테이징 디렉터리 삭제, -library 지정은 잠금 충돌을 해결하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-LOCK"
+ },
+ {
+  "domain": "WLS_DEPLOY",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Version v1 of an application is retiring and v2 is active. An administrator tries to deploy v3 with production redeployment before v1 has finished retiring. Based on the version limit, which statement is correct?",
+  "options": {
+   "A": "v3 is deployed as a shared library",
+   "B": "v3 is automatically deployed in administration mode alongside v1 and v2 and is activated once v1 has finished retiring",
+   "C": "v3 becomes active and both v1 and v2 continue retiring in parallel",
+   "D": "v3 replaces v1 in the retiring state",
+   "E": "At most two versions of an application can exist at once, so v3 cannot be added while v1 and v2 remain"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WebLogic Server는 한 애플리케이션의 버전을 동시에 최대 두 개까지만 호스팅하므로, v1(은퇴 중)과 v2(활성)가 모두 남아 있는 동안에는 v3를 추가할 수 없다. 세 버전 동시 운영, 관리 모드 자동 배포, 은퇴 중 버전 대체, 라이브러리 배포는 일어나지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Deploying Applications to Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-DEPLOY-VERSION-MAX"
+ }
+]

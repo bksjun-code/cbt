@@ -1,0 +1,1416 @@
+[
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In Oracle WebLogic Server 14.1.1, what is a WebLogic Server domain?",
+  "options": {
+   "A": "A logically related group of WebLogic Server resources managed as a single unit through one Administration Server",
+   "B": "A single JVM process that hosts deployed applications",
+   "C": "A group of Managed Servers that replicate HTTP session state to one another to provide failover for applications",
+   "D": "A physical host computer on which WebLogic Server is installed",
+   "E": "A directory that contains only the WebLogic Server product binaries and is created by the installer rather than the Configuration Wizard"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "도메인은 하나의 Administration Server를 통해 하나의 단위로 관리되는 WebLogic Server 리소스(서버, 클러스터, 머신, 서비스 등)의 논리적 묶음이다. 단일 JVM 프로세스는 서버 인스턴스, 세션을 복제하는 서버 묶음은 클러스터, 물리 호스트는 머신 개념에 해당한다. 제품 바이너리만 담은 디렉터리는 Oracle Home이며 도메인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-DOMAIN-DEF"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How many Administration Servers can a single WebLogic Server domain have?",
+  "options": {
+   "A": "One per machine in the domain",
+   "B": "Exactly one",
+   "C": "One per cluster in the domain",
+   "D": "Two, configured as an active-passive pair",
+   "E": "None; any Managed Server can act as the Administration Server at any time"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WebLogic 도메인에는 Administration Server가 정확히 하나만 존재한다. 머신이나 클러스터마다 Admin Server를 두는 구조는 없으며, 같은 도메인에 Admin Server 두 대를 active-passive로 구성하는 기능도 없다. Managed Server가 임의로 Admin Server 역할을 맡지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-COUNT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which server instance hosts the WebLogic Server Administration Console for a domain?",
+  "options": {
+   "A": "Every Managed Server in the domain",
+   "B": "Node Manager",
+   "C": "The Administration Server",
+   "D": "The first Managed Server started in each cluster",
+   "E": "Whichever server is assigned to the first machine in config.xml"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Administration Console은 Administration Server에 배포되어 동작하는 웹 애플리케이션이다. Managed Server나 Node Manager는 콘솔을 호스팅하지 않으며, 클러스터나 머신 순서에 따라 콘솔 위치가 정해지지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-ROLE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which file is the central configuration file of a WebLogic Server domain?",
+  "options": {
+   "A": "nodemanager.properties",
+   "B": "boot.properties",
+   "C": "weblogic.xml in each application",
+   "D": "config.xml in the DOMAIN_HOME/config directory",
+   "E": "setDomainEnv.sh in the DOMAIN_HOME/bin directory"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "도메인 구성의 중심 파일은 DOMAIN_HOME/config/config.xml이며 서버, 클러스터, 머신 등 도메인 구성이 기록된다. nodemanager.properties는 Node Manager 설정, boot.properties는 서버 기동 자격 증명, weblogic.xml은 웹 애플리케이션 배포 설명자, setDomainEnv.sh는 환경 변수 스크립트이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-CONFIG-XML"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the primary role of a Managed Server in a WebLogic Server domain?",
+  "options": {
+   "A": "Storing the master copy of the domain configuration and distributing configuration changes to every other server in the domain",
+   "B": "Starting and stopping other server instances on the same host on behalf of the Administration Server",
+   "C": "Representing a physical computer for Node Manager communication",
+   "D": "Serving only the Administration Console",
+   "E": "Hosting business applications, application components, and resources such as JDBC data sources and JMS servers"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Managed Server는 업무 애플리케이션과 JDBC 데이터 소스, JMS 같은 리소스를 호스팅하는 서버이다. 구성 원본 보관과 변경 배포는 Administration Server의 역할이고, 서버 기동·중지는 Node Manager의 역할이다. 물리 컴퓨터를 나타내는 것은 머신이며, 콘솔은 Admin Server에서 동작한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MANAGED-ROLE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is Node Manager in Oracle WebLogic Server?",
+  "options": {
+   "A": "A utility that remotely starts, stops, and restarts Administration Server and Managed Server instances",
+   "B": "A special Managed Server that stores the domain configuration and replaces the Administration Server when it fails",
+   "C": "A load balancer that distributes HTTP requests across clustered servers according to their current load",
+   "D": "A WLST command used to deploy applications",
+   "E": "A database that stores the runtime state of all servers"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Node Manager는 원격에서 Administration Server와 Managed Server 인스턴스를 기동·중지·재시작하고 상태를 감시하는 유틸리티이다. 도메인 구성을 저장하는 서버나 로드 밸런서가 아니며, 배포용 WLST 명령이나 상태 저장 데이터베이스도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-DEF"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In a WebLogic Server domain configuration, what does a machine represent?",
+  "options": {
+   "A": "A group of servers that provides failover for applications",
+   "B": "The physical or virtual computer that hosts one or more WebLogic Server instances",
+   "C": "A JVM that runs exactly one application",
+   "D": "A template used to create new domains",
+   "E": "A security realm assigned to a server"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "머신은 하나 이상의 WebLogic Server 인스턴스를 호스팅하는 물리 또는 가상 컴퓨터를 구성상 표현한 것이다. 장애 조치를 제공하는 서버 묶음은 클러스터, 도메인 생성용 틀은 도메인 템플릿이며, 머신은 JVM이나 보안 영역과도 다른 개념이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MACHINE-DEF"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In which lifecycle state does a WebLogic Server instance fully accept and process client requests for applications?",
+  "options": {
+   "A": "STANDBY",
+   "B": "ADMIN",
+   "C": "RUNNING",
+   "D": "STARTING",
+   "E": "SHUTDOWN"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "RUNNING 상태에서만 서버가 모든 클라이언트 요청을 받아 처리한다. STANDBY는 일반 리슨 포트를 닫고 대기하는 상태, ADMIN은 관리 작업만 허용하는 상태, STARTING은 기동 중인 전이 상태, SHUTDOWN은 서버가 실행 중이 아닌 상태이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-RUNNING"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about WebLogic Server instances and domains is true?",
+  "options": {
+   "A": "A Managed Server can belong to several domains at the same time",
+   "B": "All servers of a domain must run on the same machine",
+   "C": "A domain must contain at least one cluster",
+   "D": "A server instance belongs to exactly one domain",
+   "E": "Managed Servers cannot exist in a domain unless they are clustered"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "각 서버 인스턴스는 정확히 하나의 도메인에만 속한다. 도메인은 여러 머신에 걸칠 수 있고, 클러스터가 없어도 되며, 클러스터에 속하지 않은 독립(standalone) Managed Server도 둘 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-SERVER-DOMAIN-MEMBERSHIP"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the default non-SSL listen port of the Administration Server in a newly created WebLogic Server domain?",
+  "options": {
+   "A": "7002",
+   "B": "5556",
+   "C": "9002",
+   "D": "1521",
+   "E": "7001"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "새 도메인에서 Administration Server의 기본(non-SSL) 리슨 포트는 7001이다. 7002는 기본 SSL 리슨 포트, 5556은 Node Manager 기본 포트, 9002는 도메인 관리 포트의 기본값, 1521은 Oracle Database 리스너의 관례적 포트이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-DEFAULT-PORTS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When SSL is enabled for the Administration Server of a new WebLogic Server domain, what is its default SSL listen port?",
+  "options": {
+   "A": "7002",
+   "B": "7001",
+   "C": "5556",
+   "D": "443",
+   "E": "8001"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Administration Server의 기본 SSL 리슨 포트는 7002이다. 7001은 non-SSL 기본 포트, 5556은 Node Manager 기본 포트이다. 443은 일반 HTTPS 관례 포트일 뿐 WebLogic 기본값이 아니며, 8001은 Managed Server 예시에서 자주 쓰이는 값일 뿐 Admin Server SSL 기본값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-DEFAULT-PORTS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the default listen port of the Java-based Node Manager?",
+  "options": {
+   "A": "7001",
+   "B": "5556",
+   "C": "7002",
+   "D": "9002",
+   "E": "5555"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Java 기반 Node Manager의 기본 리슨 포트는 5556이다. 7001과 7002는 Administration Server의 기본 리슨/SSL 포트, 9002는 도메인 관리 포트 기본값이며 5555는 Node Manager 기본값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-PORT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What characterizes the ADMIN lifecycle state of a WebLogic Server instance?",
+  "options": {
+   "A": "The server process has exited after a crash",
+   "B": "The server accepts all client and administrative requests without restriction on its regular listen port",
+   "C": "The server is up, but only administrative operations are allowed and applications are accessible only to administrators",
+   "D": "The server JVM is starting and its subsystems and services are not yet initialized, so no requests of any kind are accepted",
+   "E": "The server has finished shutting down and accepts no commands"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ADMIN 상태의 서버는 실행 중이지만 관리 작업만 허용되고 애플리케이션은 관리자만 접근할 수 있다. 유지보수를 위해 사용하는 상태이다. 프로세스가 비정상 종료된 상태나 모든 요청을 처리하는 RUNNING, 기동 초기의 STARTING, 종료 완료된 SHUTDOWN과는 다르다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-ADMIN"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which Node Manager implementation is available on both UNIX and Windows platforms?",
+  "options": {
+   "A": "Script-based Node Manager using SSH",
+   "B": "Script-based Node Manager using RSH",
+   "C": "Node Manager embedded in the Administration Server JVM",
+   "D": "Java-based Node Manager",
+   "E": "Node Manager running inside each Managed Server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Java 기반 Node Manager는 UNIX와 Windows 모두에서 사용할 수 있다. 스크립트 기반 Node Manager(SSH/RSH)는 UNIX 계열 전용이다. Node Manager는 Admin Server나 Managed Server 내부가 아닌 별도 프로세스로 동작한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-TYPES"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WebLogic Server 14.1.1, which Node Manager configuration is created by default for a new domain?",
+  "options": {
+   "A": "A per-host Node Manager shared by all domains on the host",
+   "B": "No Node Manager configuration; it must always be created manually with WLST after the domain is created",
+   "C": "A Node Manager embedded inside each Managed Server",
+   "D": "A script-based Node Manager that uses RSH",
+   "E": "A per-domain Node Manager whose configuration resides under the domain directory"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "12.1.2 이후(14.1.1 포함) 새 도메인의 기본 Node Manager 구성은 per-domain 방식이며 설정 파일이 도메인 디렉터리 아래(nodemanager 디렉터리)에 생성된다. per-host 방식은 별도로 구성해야 하며, Node Manager는 Managed Server 안에 내장되지 않는다. RSH 스크립트 방식은 기본값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-PER-DOMAIN"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "If the Administration Server stops while Managed Servers are running, what happens to the Managed Servers?",
+  "options": {
+   "A": "They continue running and serving their deployed applications",
+   "B": "They shut down immediately",
+   "C": "They automatically transition to the ADMIN state",
+   "D": "They suspend until the Administration Server is restarted",
+   "E": "They elect one Managed Server as the new Administration Server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Administration Server가 중지되어도 실행 중인 Managed Server는 계속 동작하며 배포된 애플리케이션을 서비스한다. 즉시 종료되거나 ADMIN 상태로 바뀌거나 일시 중지되지 않으며, Managed Server 중 하나가 새 Admin Server로 선출되는 기능도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-DOWN-BASIC"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When a Managed Server starts and the Administration Server is available, from where does it obtain its configuration?",
+  "options": {
+   "A": "Only from the nodemanager.properties file of Node Manager",
+   "B": "From the Administration Server, which provides the current domain configuration to the Managed Server",
+   "C": "From a database repository shared by all servers",
+   "D": "From the deployment descriptors of the deployed applications",
+   "E": "From multicast messages sent by other cluster members"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Managed Server는 기동 시 Administration Server에 접속하여 현재 도메인 구성을 받아온다. nodemanager.properties는 Node Manager 자체 설정이고, 도메인 구성을 공유 데이터베이스나 애플리케이션 배포 설명자, 클러스터 멀티캐스트 메시지에서 가져오지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MANAGED-START-CONFIG"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which task requires Node Manager to be configured and running?",
+  "options": {
+   "A": "Deploying an application to a running Managed Server",
+   "B": "Creating a JDBC data source while the Administration Server is running",
+   "C": "Starting a Managed Server from the WebLogic Server Administration Console",
+   "D": "Viewing the domain configuration in the Administration Console",
+   "E": "Starting the Administration Server with its start script"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Administration Console에서 Managed Server를 기동하려면 Admin Server가 해당 머신의 Node Manager에 요청을 보내야 하므로 Node Manager가 필요하다. 실행 중인 서버에 대한 배포, 데이터 소스 생성, 구성 조회는 Admin Server만으로 가능하고, 시작 스크립트로 Admin Server를 기동하는 데에도 Node Manager는 필요 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-CONSOLE-START"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two functions are performed by the Administration Server? (Choose two.)",
+  "options": {
+   "A": "Hosting the Administration Console",
+   "B": "Restarting failed Managed Servers automatically without Node Manager",
+   "C": "Managing the domain configuration and distributing changes to Managed Servers",
+   "D": "Replicating HTTP session state for clustered applications",
+   "E": "Acting as the HTTP load balancer for all Managed Servers"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Administration Server는 Administration Console을 호스팅하고 도메인 구성을 관리하며 변경 사항을 Managed Server에 배포한다. 실패한 서버의 자동 재시작은 Node Manager의 기능이고, 세션 복제는 클러스터 멤버 사이에서 이루어지며, 부하 분산은 프록시나 외부 로드 밸런서가 담당한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-FUNCTIONS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two of the following are transitional server lifecycle states? (Choose two.)",
+  "options": {
+   "A": "RUNNING",
+   "B": "STARTING",
+   "C": "SHUTDOWN",
+   "D": "SHUTTING_DOWN",
+   "E": "STANDBY"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "STARTING과 SHUTTING_DOWN은 다른 상태로 넘어가는 도중의 전이 상태이다. RUNNING, SHUTDOWN, STANDBY는 서버가 머무를 수 있는 안정 상태이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATES-TRANSITIONAL"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When a Managed Server is started normally until it reaches RUNNING, which sequence of lifecycle states does it pass through?",
+  "options": {
+   "A": "SHUTDOWN, STANDBY, STARTING, RUNNING, ADMIN, RESUMING",
+   "B": "SHUTDOWN, ADMIN, STARTING, STANDBY, RUNNING",
+   "C": "SHUTDOWN, STARTING, SUSPENDING, ADMIN, RUNNING",
+   "D": "SHUTDOWN, STARTING, STANDBY, ADMIN, RESUMING, RUNNING",
+   "E": "SHUTDOWN, STARTING, RUNNING, STANDBY, ADMIN"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "정상 기동 시 서버는 SHUTDOWN에서 STARTING, STANDBY, ADMIN, RESUMING을 차례로 거쳐 RUNNING에 도달한다. SUSPENDING은 RUNNING에서 ADMIN으로 내려갈 때의 상태이므로 기동 순서에 없고, RUNNING 이후에 STANDBY나 ADMIN이 오는 순서도 정상 기동이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-SEQ"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which MBean server is available only on the Administration Server and provides access to the runtime MBeans of all servers in the domain?",
+  "options": {
+   "A": "Runtime MBean Server",
+   "B": "Edit MBean Server",
+   "C": "JVM platform MBean server of each Managed Server",
+   "D": "Node Manager MBean Server",
+   "E": "Domain Runtime MBean Server"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Domain Runtime MBean Server는 Admin Server에만 있으며 도메인 전체 서버의 런타임 MBean에 접근하는 단일 지점이다. Runtime MBean Server는 각 서버가 자기 자신의 MBean만 제공하고, Edit MBean Server는 구성 변경용이다. 각 JVM의 platform MBean server는 해당 JVM 정보만 제공하며, Node Manager MBean Server라는 것은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Custom Management Utilities Using JMX for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MBEAN-SERVERS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which MBean server is used to modify the domain configuration and exists only on the Administration Server?",
+  "options": {
+   "A": "Edit MBean Server",
+   "B": "Runtime MBean Server",
+   "C": "Domain Runtime MBean Server",
+   "D": "JVM platform MBean server of each Managed Server",
+   "E": "Node Manager MBean Server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "도메인 구성을 변경할 때는 Admin Server에만 존재하는 Edit MBean Server를 사용한다. Domain Runtime MBean Server도 Admin Server에만 있지만 런타임 모니터링용이다. Runtime MBean Server와 platform MBean server는 각 서버에 있으며 구성 편집용이 아니고, Node Manager MBean Server는 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Custom Management Utilities Using JMX for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MBEAN-SERVERS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is Managed Server Independence (MSI) mode?",
+  "options": {
+   "A": "A mode in which a Managed Server runs without belonging to any domain",
+   "B": "A mode in which a Managed Server starts from its local copy of the configuration when the Administration Server is unavailable",
+   "C": "A mode in which a Managed Server takes over the role of the Administration Server while the Administration Server is unavailable",
+   "D": "A mode in which a Managed Server starts without any configuration and deploys no applications until the Administration Server returns",
+   "E": "A mode in which Node Manager hosts the domain configuration for Managed Servers"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "MSI 모드는 Administration Server에 접속할 수 없을 때 Managed Server가 자신의 호스트에 있는 구성 사본을 사용해 기동하는 방식이다. 도메인 없이 동작하거나 Admin Server 역할을 대신하지 않으며, 구성 없이 빈 상태로 뜨는 것도 아니다. Node Manager는 도메인 구성을 호스팅하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MSI-DEF"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A Managed Server is running in Managed Server Independence mode. Which statement is true?",
+  "options": {
+   "A": "It can be used to lock, edit, and activate domain-wide configuration changes while the Administration Server is down",
+   "B": "It temporarily hosts the Administration Console",
+   "C": "Its configuration cannot be changed through domain change management until the Administration Server is available again",
+   "D": "It automatically promotes itself to Administration Server",
+   "E": "It refuses all application requests until the Administration Server returns and its configuration is synchronized again"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "MSI 모드에서 Managed Server는 애플리케이션을 정상 서비스하지만, 구성 변경은 Administration Server를 통해서만 가능하므로 Admin Server가 복구될 때까지 구성을 바꿀 수 없다. MSI 서버가 구성 변경을 활성화하거나 콘솔을 호스팅하거나 Admin Server로 승격되지 않으며, 요청을 거부하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MSI-LIMITS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator saves configuration changes in an edit session but does not activate them. What is the effect on the running servers?",
+  "options": {
+   "A": "The changes are immediately applied to all Managed Servers",
+   "B": "The changes are discarded as soon as they are saved",
+   "C": "The changes are applied only to the runtime of the Administration Server",
+   "D": "The changes remain pending and are not applied to the running servers",
+   "E": "The changes are applied automatically at the next restart without activation"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "저장만 하고 활성화(activate)하지 않은 변경은 pending 상태로 남으며 실행 중인 서버에 적용되지 않는다. 활성화해야 구성 파일에 반영되고 도메인의 서버들에 배포된다. 저장 즉시 적용되거나 폐기되지 않으며, 활성화 없이 재기동만으로 적용되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-CHANGE-ACTIVATE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about the configuration edit lock in a WebLogic Server domain is true?",
+  "options": {
+   "A": "Each Managed Server has its own independent edit lock",
+   "B": "Multiple administrators can hold the lock simultaneously and their changes are merged automatically",
+   "C": "The edit lock is owned and managed by Node Manager",
+   "D": "The edit lock is required only for viewing runtime monitoring data",
+   "E": "Only one user at a time can hold the edit lock and make configuration changes"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "도메인 구성 변경은 Admin Server의 편집 잠금을 통해 이루어지며, 한 번에 한 사용자만 잠금을 보유하고 변경할 수 있다. 서버별 잠금이나 동시 보유·자동 병합은 없고, Node Manager는 잠금과 무관하다. 런타임 모니터링 조회에는 잠금이 필요 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-CHANGE-LOCK"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "After activating changes, the Administration Console reports that some changes require a server restart. What does this mean?",
+  "options": {
+   "A": "The changed attributes are non-dynamic and take effect only after the affected servers are restarted",
+   "B": "The activation failed and the changes were rolled back",
+   "C": "Node Manager will restart the affected servers immediately and automatically",
+   "D": "The changes were written only to the Managed Servers' local disks and will be lost when those servers are restarted",
+   "E": "The Administration Server must be restarted in MSI mode"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "재시작 필요 표시는 변경한 속성이 비동적(non-dynamic) 속성이라 활성화는 되었지만 해당 서버를 재기동해야 실제로 적용된다는 뜻이다. 활성화 실패나 롤백이 아니며, Node Manager가 자동으로 재기동하지도 않는다. 변경은 도메인 구성에 반영되므로 재시작 시 사라지지 않으며, Admin Server의 MSI 모드라는 개념은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-CHANGE-RESTART"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A Managed Server was started through Node Manager and its Auto Restart setting is enabled. What happens if the server process terminates unexpectedly?",
+  "options": {
+   "A": "The Administration Server restarts the server process without using Node Manager",
+   "B": "Node Manager restarts the server, up to the configured maximum number of restart attempts",
+   "C": "Node Manager starts a new Administration Server on the same host",
+   "D": "Another Managed Server in the domain takes over the failed server's listen port",
+   "E": "Node Manager deletes the server's state files and leaves it stopped"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Node Manager로 기동되고 Auto Restart가 켜진 서버가 비정상 종료되면 Node Manager가 설정된 최대 재시작 횟수 안에서 서버를 다시 기동한다. Admin Server는 Node Manager 없이 프로세스를 직접 재시작할 수 없고, 다른 서버가 리슨 포트를 넘겨받거나 새 Admin Server가 기동되는 동작도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-AUTO-RESTART"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which servers can Node Manager automatically restart after an unexpected failure?",
+  "options": {
+   "A": "Any server on the host, including servers started with start scripts outside Node Manager",
+   "B": "Only the Administration Server",
+   "C": "Only servers that were started by Node Manager",
+   "D": "Only servers that are members of a cluster",
+   "E": "Servers of any domain on the host, even if the domain is not registered with Node Manager"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Node Manager는 자신이 기동한 서버만 감시하고 자동 재시작할 수 있다. Node Manager를 거치지 않고 시작 스크립트로 직접 띄운 서버는 감시 대상이 아니다. Admin Server 전용이거나 클러스터 멤버 전용인 기능이 아니며, Node Manager에 등록되지 않은 도메인의 서버는 관리할 수 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-ONLY-STARTED"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the CrashRecoveryEnabled property in nodemanager.properties control?",
+  "options": {
+   "A": "Whether Node Manager restarts its own JVM after it crashes",
+   "B": "Whether the Administration Server takes a heap dump when a Managed Server crashes",
+   "C": "Whether servers write crash information to their log files",
+   "D": "Whether Node Manager, when it starts, restarts servers that were running before a system crash",
+   "E": "Whether Managed Servers switch to MSI mode after a crash"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CrashRecoveryEnabled는 시스템 장애(예: 호스트 재부팅) 후 Node Manager가 다시 기동될 때, 장애 전에 실행 중이던 서버를 복구(재기동)할지 결정한다. Node Manager 자신의 재시작이나 힙 덤프, 로그 기록, MSI 모드와는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-CRASH-RECOVERY"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In nodemanager.properties, what does SecureListener=true specify?",
+  "options": {
+   "A": "Node Manager accepts connections only from localhost",
+   "B": "Node Manager requires the Administration Server to be running",
+   "C": "Node Manager encrypts the server log files it manages",
+   "D": "Node Manager uses SSH to start remote servers",
+   "E": "Node Manager listens for requests using SSL"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SecureListener=true이면 Node Manager가 SSL 리스너로 동작한다(false이면 평문 리스너). 접속 호스트 제한, Admin Server 실행 여부, 로그 암호화와는 무관하며, SSH는 스크립트 기반 Node Manager의 방식이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-SECURE-LISTENER"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the Node Manager settings of a machine definition, which type value is used for a Java-based Node Manager that listens without SSL?",
+  "options": {
+   "A": "Plain",
+   "B": "SSL",
+   "C": "SSH",
+   "D": "RSH",
+   "E": "HTTP"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "머신의 Node Manager Type에서 SSL 없이 동작하는 Java 기반 Node Manager는 Plain이다. SSL은 SSL 리스너를 쓰는 Java 기반 Node Manager, SSH와 RSH는 스크립트 기반 Node Manager에 해당한다. HTTP라는 Node Manager 유형은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-MACHINE-TYPE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about Node Manager credentials in a WebLogic Server domain is true?",
+  "options": {
+   "A": "Node Manager always authenticates with the operating system root account of the host on which it runs",
+   "B": "Node Manager credentials are defined per domain and can differ from the domain administrator credentials",
+   "C": "Node Manager accepts commands without any authentication",
+   "D": "Node Manager credentials must match a database schema user",
+   "E": "Node Manager credentials are stored in each application's deployment plan and applied when the application is deployed"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Node Manager 사용자 이름과 비밀번호는 도메인 보안 구성에 도메인 단위로 정의되며 도메인 관리자 계정과 다르게 설정할 수 있다. OS root 계정을 쓰지 않고, 인증 없이 명령을 받지도 않는다. 데이터베이스 사용자나 배포 계획(Deployment Plan)과는 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-CREDENTIALS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST command establishes a connection from WLST to Node Manager?",
+  "options": {
+   "A": "connect",
+   "B": "nmEnroll",
+   "C": "nmConnect",
+   "D": "startServer",
+   "E": "nmGenBootStartupProps"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "nmConnect는 WLST를 Node Manager에 연결하는 명령이다. connect는 실행 중인 WebLogic 서버에 연결하고, nmEnroll은 머신을 도메인에 등록한다. startServer는 Node Manager 없이 서버를 기동하는 명령이며, nmGenBootStartupProps는 부트·시작 속성 파일을 생성하는 명령이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-NMCONNECT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of the WLST nmEnroll command?",
+  "options": {
+   "A": "It starts Node Manager as a background process",
+   "B": "It creates a new Managed Server in the domain configuration and assigns it to the machine on which WLST is running",
+   "C": "It kills all server processes on the machine",
+   "D": "It registers the domain with the Node Manager on the current machine so that Node Manager can manage its servers",
+   "E": "It upgrades Node Manager on the current machine to a newer release and migrates its existing configuration"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "nmEnroll은 Admin Server에 연결된 WLST에서 실행하여 현재 머신의 Node Manager에 도메인을 등록(Node Manager 비밀 정보와 도메인 등록 정보 기록)하므로, 이후 Node Manager가 그 도메인의 서버를 관리할 수 있게 한다. Node Manager 기동, 서버 생성, 프로세스 종료, 업그레이드 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-ENROLL"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the purpose of configuring a UNIX machine with a post-bind UID and GID?",
+  "options": {
+   "A": "To keep Node Manager permanently running as root",
+   "B": "To set the file ownership of config.xml",
+   "C": "To control which operating system users and groups can log in to the Administration Console on that machine",
+   "D": "To define the multicast group used by a cluster",
+   "E": "To have the server switch to a less-privileged user and group after it binds to privileged ports"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "UNIX 머신의 post-bind UID/GID는 서버가 1024 미만 같은 특권 포트에 바인딩한 뒤 권한이 낮은 사용자·그룹으로 전환되도록 하는 설정이다. Node Manager를 root로 유지하거나 config.xml 소유권, 콘솔 로그인 사용자, 클러스터 멀티캐스트 설정과는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MACHINE-UNIX"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Why must a Managed Server be assigned to a machine before it can be started from the Administration Console?",
+  "options": {
+   "A": "The machine identifies the Node Manager that the Administration Server contacts to start the server",
+   "B": "The machine definition stores the server's deployed applications and copies them to the server at startup",
+   "C": "The machine definition sets the server's JVM heap size",
+   "D": "The machine definition is required for Managed Server Independence when the Administration Server is unavailable",
+   "E": "The machine definition determines the server's security realm"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "콘솔에서 서버를 기동할 때 Admin Server는 서버가 할당된 머신의 Node Manager 설정(주소, 포트, 유형)을 사용해 Node Manager에 접속한다. 머신은 애플리케이션 저장, 힙 크기, MSI, 보안 영역을 결정하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MACHINE-ASSIGN"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement describes the STANDBY lifecycle state?",
+  "options": {
+   "A": "The server processes requests from administrators through its regular listen port only, while applications remain accessible to administrators",
+   "B": "Services are initialized, but the regular listen port is closed and the server responds only to administrative requests",
+   "C": "The server has failed a health check and is waiting to be killed and restarted by Node Manager",
+   "D": "The server process has not yet been started by Node Manager",
+   "E": "The server is migrating its services to another machine"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "STANDBY 상태의 서버는 서비스 초기화를 마쳤지만 애플리케이션 요청을 처리하지 않고, 일반 리슨 포트를 닫은 채 관리 요청에만 응답하며 다음 단계로 전환되기를 기다린다. 관리자 요청만 처리하는 상태는 ADMIN이고, 헬스 체크 실패는 FAILED, 프로세스 미기동은 SHUTDOWN에 해당한다. 서비스 마이그레이션은 생명주기 상태가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-STANDBY"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How can an administrator make a Managed Server stop at the ADMIN state instead of RUNNING when it is started?",
+  "options": {
+   "A": "Disable Node Manager crash recovery",
+   "B": "Remove the server from its machine definition",
+   "C": "Set the server's startup mode to ADMIN, for example with -Dweblogic.management.startupMode=ADMIN",
+   "D": "Set the server's listen port to 0",
+   "E": "Enable Managed Server Independence for the server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "서버의 기동 모드(startup mode)를 ADMIN으로 지정하면(예: -Dweblogic.management.startupMode=ADMIN) 서버가 RUNNING까지 가지 않고 ADMIN 상태에서 멈춘다. 크래시 복구, 머신 할당, 리슨 포트, MSI 설정은 기동 후 도달 상태를 결정하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STARTUP-MODE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What happens when an administrator gracefully suspends a server that is in the RUNNING state?",
+  "options": {
+   "A": "The server transitions directly to SHUTDOWN",
+   "B": "The server transitions to STANDBY and closes all ports including the administration port",
+   "C": "The server transitions to FAILED",
+   "D": "The server transitions through SUSPENDING to ADMIN, allowing in-flight work to complete",
+   "E": "The server transitions to RESUMING"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "graceful suspend를 하면 서버는 SUSPENDING을 거쳐 ADMIN 상태가 되며, 그 과정에서 진행 중인 작업이 완료되도록 기다린다. suspend는 종료가 아니므로 SHUTDOWN으로 가지 않고, FAILED는 장애 상태이다. RESUMING은 ADMIN에서 RUNNING으로 돌아갈 때의 상태이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-SUSPEND-RESUME"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does a force shutdown differ from a graceful shutdown of a WebLogic Server instance?",
+  "options": {
+   "A": "A force shutdown waits for all HTTP sessions to time out before stopping, while a graceful shutdown does not",
+   "B": "A force shutdown leaves the server in the ADMIN state",
+   "C": "A graceful shutdown kills the JVM immediately",
+   "D": "A force shutdown can be performed only by Node Manager",
+   "E": "A force shutdown does not wait for in-flight work to complete; in-flight requests are abandoned"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "force shutdown은 진행 중인 작업이나 세션의 완료를 기다리지 않고 즉시 종료 절차를 수행하므로 처리 중인 요청이 버려진다. 세션 완료를 기다리는 것은 graceful shutdown이며, force shutdown 후 서버는 ADMIN이 아닌 SHUTDOWN이 된다. force shutdown은 콘솔이나 WLST에서도 수행할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-FORCE-SHUTDOWN"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which lifecycle operation moves a server from the ADMIN state to the RUNNING state?",
+  "options": {
+   "A": "Resume",
+   "B": "Suspend",
+   "C": "Force suspend",
+   "D": "Kill through Node Manager",
+   "E": "Restart the Administration Server"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ADMIN 상태의 서버를 RUNNING으로 전환하는 작업은 resume이며, 이때 RESUMING 상태를 거친다. suspend와 force suspend는 RUNNING에서 ADMIN으로 내리는 작업이고, Node Manager의 kill은 프로세스를 강제 종료한다. Admin Server 재기동은 Managed Server 상태를 바꾸지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-SUSPEND-RESUME"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "During a graceful shutdown, what is the effect of enabling Ignore Sessions During Shutdown for a server?",
+  "options": {
+   "A": "The server writes all HTTP sessions into config.xml before shutting down",
+   "B": "The server does not wait for active HTTP sessions to complete or time out before shutting down",
+   "C": "The server refuses new administrative connections during shutdown",
+   "D": "The server replicates its HTTP sessions to the Administration Server",
+   "E": "The server rejects all graceful shutdown requests"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Ignore Sessions During Shutdown을 켜면 graceful shutdown 시 활성 HTTP 세션이 완료되거나 만료되기를 기다리지 않고 세션을 버린 채 종료한다. 끄면 세션이 끝날 때까지 기다린다. 세션을 config.xml에 쓰거나 Admin Server로 복제하지 않으며, 관리 연결 거부나 종료 요청 거부와는 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-IGNORE-SESSIONS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The host running the Administration Server fails at night, while all Managed Servers keep running. An operator wants to permanently change a configuration attribute of a data source targeted to the Managed Servers before the Administration Server is repaired. What is true?",
+  "options": {
+   "A": "The change can be made in an Administration Console hosted by any Managed Server",
+   "B": "Node Manager can lock, edit, and activate the change on behalf of the Administration Server",
+   "C": "The change cannot be made through the normal configuration change process until the Administration Server runs again",
+   "D": "The Managed Servers will shut down automatically if any of their configuration is changed while the Administration Server is down",
+   "E": "Editing config.xml on one Managed Server host propagates the change to the entire domain"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "도메인 구성 변경은 Administration Server의 편집·활성화 절차를 통해서만 이루어지므로 Admin Server가 복구될 때까지 정상적인 방법으로 변경할 수 없다. Managed Server는 콘솔을 호스팅하지 않고, Node Manager에는 구성 편집 기능이 없다. Managed Server 호스트의 config.xml을 직접 고쳐도 도메인 전체에 전파되지 않으며, Admin Server가 복구되면 Admin Server의 구성으로 다시 맞춰진다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-DOWN-CHANGE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The Administration Server is down for maintenance. Managed Server ms1 on host2 has been started successfully many times before, and Managed Server Independence is enabled (the default). An operator must restart ms1 now. What happens when ms1 is started?",
+  "options": {
+   "A": "ms1 fails to start because the Administration Server is required for every startup",
+   "B": "ms1 waits in the STARTING state until the Administration Server returns",
+   "C": "ms1 starts as the new Administration Server of the domain",
+   "D": "ms1 starts in MSI mode by using its local copy of the domain configuration",
+   "E": "ms1 starts with an empty configuration and no applications"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MSI가 활성화되어 있고 호스트에 구성 사본이 있으면 Admin Server에 접속하지 못해도 Managed Server는 로컬 구성을 사용해 MSI 모드로 기동한다. 기동 실패나 STARTING 상태로 무한 대기하지 않으며, Admin Server로 승격되거나 빈 구성으로 기동하지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MSI-START"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An administrator clicks Start for Managed Server ms1 in the Administration Console. The task fails with a message that the Administration Server could not connect to Node Manager on machine1, the machine to which ms1 is assigned. What is the most likely cause?",
+  "options": {
+   "A": "ms1 has no applications deployed to it",
+   "B": "Managed Servers cannot be started from the Administration Console at all when the domain runs in production mode",
+   "C": "ms1 is not a member of a cluster",
+   "D": "Managed Server Independence is disabled for ms1, so the Administration Server cannot reach its Node Manager",
+   "E": "Node Manager is not running or is not reachable at the address and port configured for machine1"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "콘솔의 Start는 Admin Server가 머신에 설정된 Node Manager 주소·포트로 접속해 요청하는 방식이므로, Node Manager가 기동되어 있지 않거나 설정된 주소·포트로 도달할 수 없는 것이 가장 유력한 원인이다. 배포 애플리케이션 유무, 클러스터 소속, MSI 설정은 Node Manager 접속과 무관하며, 운영 모드 도메인에서도 콘솔로 기동할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-START-ERROR"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An operator must perform maintenance on Managed Server ms2. The JVM should stay up, new client work should stop after current requests complete, and afterwards the server should be reopened to clients without a restart. Which approach meets these requirements?",
+  "options": {
+   "A": "Gracefully suspend ms2 to the ADMIN state, perform the maintenance, and then resume it",
+   "B": "Kill ms2 through Node Manager and start it again after maintenance",
+   "C": "Shut down the Administration Server during the maintenance",
+   "D": "Force shut down ms2 and then start it in STANDBY",
+   "E": "Remove ms2 from its machine definition during the maintenance"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "graceful suspend로 진행 중 작업이 끝나기를 기다려 ADMIN 상태로 내리면 JVM은 유지된 채 클라이언트 요청만 막을 수 있고, 작업 후 resume으로 재기동 없이 RUNNING으로 되돌릴 수 있다. Node Manager kill이나 force shutdown은 JVM을 종료하므로 요구 사항에 맞지 않는다. Admin Server 종료나 머신 할당 해제는 ms2의 요청 처리를 막지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-ADMIN-MAINT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Graceful shutdown of Managed Server ms3 sometimes takes a very long time because of long-running in-flight work. The administrator wants future graceful shutdowns to switch to a forced shutdown automatically after a fixed period. What should be configured?",
+  "options": {
+   "A": "CrashRecoveryEnabled=true in nodemanager.properties",
+   "B": "A Graceful Shutdown Timeout for ms3",
+   "C": "A higher maximum restart count for ms3",
+   "D": "Managed Server Independence for ms3",
+   "E": "A post-bind UID for the machine that hosts ms3"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Graceful Shutdown Timeout을 설정하면 graceful shutdown이 지정 시간을 넘길 때 강제 종료로 전환된다. 크래시 복구와 최대 재시작 횟수는 Node Manager의 재기동 동작, MSI는 Admin Server 부재 시 기동, post-bind UID는 권한 전환에 관한 설정이라 종료 시간과 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-GRACEFUL-TIMEOUT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two operations can Node Manager perform on a WebLogic Server instance? (Choose two.)",
+  "options": {
+   "A": "Deploy applications to the server",
+   "B": "Modify attributes in config.xml",
+   "C": "Start a server instance",
+   "D": "Replicate HTTP sessions between servers",
+   "E": "Kill a server process that is not responding"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "Node Manager는 서버 인스턴스를 기동·중지하고, 응답하지 않는 서버 프로세스를 kill하며, 장애 시 재시작할 수 있다. 애플리케이션 배포와 config.xml 구성 변경은 Admin Server의 기능이고, HTTP 세션 복제는 클러스터 멤버들이 수행한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-CAPABILITIES"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements are true while the Administration Server of a domain is unavailable? (Choose two.)",
+  "options": {
+   "A": "Running Managed Servers continue to serve their applications",
+   "B": "All clustered Managed Servers suspend to the ADMIN state",
+   "C": "Node Manager processes on all machines stop",
+   "D": "Domain configuration changes cannot be activated",
+   "E": "Managed Servers undeploy their applications"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "Admin Server가 없어도 실행 중인 Managed Server는 애플리케이션을 계속 서비스하지만, 구성 변경을 활성화할 주체가 없으므로 도메인 구성은 변경할 수 없다. 클러스터 서버가 ADMIN으로 내려가거나, Node Manager가 멈추거나, 애플리케이션이 배포 해제되는 일은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-DOWN-BASIC"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two settings are configured in the nodemanager.properties file? (Choose two.)",
+  "options": {
+   "A": "The JDBC URL of the domain's data sources",
+   "B": "ListenPort",
+   "C": "The messaging mode of a cluster",
+   "D": "The list of applications deployed to each server",
+   "E": "CrashRecoveryEnabled"
+  },
+  "correct_keys": [
+   "B",
+   "E"
+  ],
+  "explanation": "nodemanager.properties에는 ListenAddress, ListenPort, SecureListener, CrashRecoveryEnabled 등 Node Manager 자체의 동작 설정이 들어간다. 데이터 소스 URL, 클러스터 메시징 모드, 배포 애플리케이션 목록은 도메인 구성(config.xml 및 관련 모듈 파일)에 속한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-PROPERTIES"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "An administrator gracefully suspends a RUNNING server and later resumes it. Which lifecycle states does the server pass through during these operations? (Choose all that apply.)",
+  "options": {
+   "A": "SUSPENDING",
+   "B": "STANDBY",
+   "C": "ADMIN",
+   "D": "SHUTTING_DOWN",
+   "E": "RESUMING"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "E"
+  ],
+  "explanation": "graceful suspend 시 서버는 RUNNING에서 SUSPENDING을 거쳐 ADMIN이 되고, resume 시 RESUMING을 거쳐 다시 RUNNING이 된다. STANDBY는 기동 과정의 상태이고 SHUTTING_DOWN은 종료 과정의 상태라 suspend/resume 경로에 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-SUSPEND-RESUME"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two MBean servers exist only on the Administration Server? (Choose two.)",
+  "options": {
+   "A": "Edit MBean Server",
+   "B": "Runtime MBean Server",
+   "C": "JVM platform MBean server",
+   "D": "Node Manager MBean Server",
+   "E": "Domain Runtime MBean Server"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "Edit MBean Server(구성 변경)와 Domain Runtime MBean Server(도메인 전체 런타임 조회)는 Admin Server에만 있다. Runtime MBean Server와 JVM platform MBean server는 모든 서버 인스턴스에 존재하고, Node Manager MBean Server는 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Custom Management Utilities Using JMX for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MBEAN-SERVERS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about machines in a WebLogic Server domain are true? (Choose two.)",
+  "options": {
+   "A": "A server instance can be assigned to several machines at the same time",
+   "B": "A machine can host multiple server instances",
+   "C": "A machine definition includes the settings of the Node Manager that controls its servers",
+   "D": "Every server must be assigned to a machine even when Node Manager is never used",
+   "E": "A machine definition sets the multicast address of the cluster running on it"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "하나의 머신에는 여러 서버 인스턴스를 할당할 수 있고, 머신 정의에는 Node Manager 연결 설정(유형, 주소, 포트)이 포함된다. 서버는 한 번에 하나의 머신에만 할당되며, Node Manager를 쓰지 않으면 머신 할당은 필수가 아니다. 클러스터 멀티캐스트 주소는 클러스터 구성 항목이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MACHINE-ATTRS"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about WebLogic Server versions within a single domain is true?",
+  "options": {
+   "A": "Managed Servers may run a newer major version than the Administration Server if they are restarted after the upgrade",
+   "B": "The Administration Server may run an older major version than the Managed Servers if it has the latest patches applied",
+   "C": "All servers need the same major and minor version, and the Administration Server needs the same or a later patch level",
+   "D": "Any mix of major and minor versions is allowed as long as the servers are members of the same cluster",
+   "E": "Each machine in the domain must run a different WebLogic Server version so that patches can be applied one machine at a time"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "한 도메인 안의 모든 서버는 같은 major/minor 버전이어야 하며, 유지보수(패치) 수준은 다를 수 있지만 Admin Server가 Managed Server와 같거나 더 높은 수준이어야 한다. Managed Server가 더 높은 major 버전이거나 Admin Server가 더 낮은 major 버전인 구성은 허용되지 않고, 클러스터 여부로 이 규칙이 완화되지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-VERSION-CONSISTENCY"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A domain-wide administration port has been enabled. Which statement is true?",
+  "options": {
+   "A": "The Administration Console remains reachable over plain HTTP on the default listen port 7001 for backward compatibility",
+   "B": "Applications are served only through the administration port",
+   "C": "Node Manager communicates with servers only through the administration port",
+   "D": "All administrative traffic must use the SSL administration port, so SSL must be configured on every server in the domain",
+   "E": "The Administration Server is disabled, and Managed Servers accept administrative requests directly on their own administration ports"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "도메인 관리 포트를 활성화하면 모든 관리 트래픽은 SSL을 사용하는 관리 포트로만 받으므로 도메인의 모든 서버에 SSL이 구성되어 있어야 한다. 콘솔도 일반 리슨 포트로는 접근할 수 없다. 애플리케이션 트래픽은 일반 포트를 사용하고, Node Manager 통신 방식이나 Admin Server의 역할이 바뀌는 것은 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-DOMAIN-ADMIN-PORT"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which prerequisite must be met to start a WebLogic Server instance in the STANDBY state?",
+  "options": {
+   "A": "The server must be a member of a cluster",
+   "B": "Node Manager crash recovery must be enabled",
+   "C": "Managed Server Independence must be disabled",
+   "D": "The server's machine must have a post-bind UID configured",
+   "E": "The domain-wide administration port must be enabled"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "STANDBY 상태에서는 일반 리슨 포트가 닫히고 관리 포트로만 관리 요청을 받으므로, 서버를 STANDBY로 기동하려면 도메인 관리 포트가 활성화되어 있어야 한다. 클러스터 소속, 크래시 복구, MSI, post-bind UID는 STANDBY 기동 조건과 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STANDBY-REQ"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "The host of the Administration Server fails permanently. The domain directory, including its config and security files, is backed up, and the Managed Servers reference the Administration Server through a DNS name rather than an IP address. What is the best way to restore administrative capability?",
+  "options": {
+   "A": "Restore the domain directory on another host, point the DNS name to it, and start the Administration Server there",
+   "B": "Use nmConnect to promote one of the running Managed Servers to Administration Server for the existing domain",
+   "C": "Ask Node Manager to elect a new Administration Server from the Managed Servers",
+   "D": "Create a new empty domain with the same name and Administration Server name so that the Managed Servers join it automatically",
+   "E": "Restart each Managed Server with its own address as the Administration Server URL"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "도메인 구성·보안 파일 백업을 다른 호스트에 복원하고 DNS 이름을 새 호스트로 바꾼 뒤 Admin Server를 기동하면, 같은 이름으로 Admin Server를 찾는 Managed Server들이 다시 연결된다. Managed Server를 Admin Server로 승격하거나 Node Manager가 선출하는 기능은 없다. 같은 이름의 빈 도메인은 구성·보안 정보가 달라 기존 서버가 합류할 수 없고, 자기 자신을 Admin Server URL로 지정해도 Admin Server가 되지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-RECOVER-HOST"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Managed Server ms3 was started through Node Manager with automatic restart enabled. It crashes repeatedly shortly after each start. After several restarts, Node Manager stops trying and the console shows the state FAILED_NOT_RESTARTABLE. What is the explanation?",
+  "options": {
+   "A": "Managed Server Independence is disabled for ms3",
+   "B": "The server exceeded the configured maximum number of restart attempts within the restart interval",
+   "C": "The Administration Server was unavailable during the restarts",
+   "D": "CrashRecoveryEnabled is set to false in nodemanager.properties",
+   "E": "The machine's Node Manager type is Plain instead of SSL"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Node Manager는 정해진 재시작 간격 안에서 최대 재시작 횟수까지만 재기동을 시도하고, 이를 초과하면 더 이상 재시작하지 않으며 서버는 FAILED_NOT_RESTARTABLE로 표시된다. MSI나 Admin Server 가용성은 이 판단과 무관하다. CrashRecoveryEnabled는 Node Manager 기동 시 복구에 관한 설정이고, Plain/SSL 유형은 통신 방식일 뿐 재시작 횟수와 관계없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-FAILED-NOT-RESTARTABLE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An operator starts Managed Server ms4 directly with startManagedWebLogic.sh. Node Manager is running on the same machine and Auto Restart is enabled for ms4. Later the operating system kills the ms4 process because of memory pressure, and Node Manager does not restart it. Why?",
+  "options": {
+   "A": "Auto Restart applies only to the Administration Server",
+   "B": "Node Manager restarts servers only after the whole host reboots",
+   "C": "Node Manager restarts only servers it started, and ms4 was started outside Node Manager",
+   "D": "ms4 must be a member of a cluster for Node Manager to restart it",
+   "E": "Node Manager cannot restart a server whose process was killed by the operating system"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Node Manager는 자신이 기동한 서버만 감시하므로 시작 스크립트로 직접 띄운 ms4는 감시·재시작 대상이 아니다. Auto Restart는 Managed Server에도 적용되고, 호스트 재부팅 시에만 동작하는 기능도 아니다. 클러스터 소속은 조건이 아니며, Node Manager가 기동한 서버라면 OS가 프로세스를 종료한 경우에도 재시작할 수 있다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-ONLY-STARTED"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A host is rebooted after a power failure. Node Manager is configured to start automatically as an operating system service, but the Managed Servers that were running on the host before the failure do not come back. The administrator wants these servers to be restarted automatically in this situation. What should be configured?",
+  "options": {
+   "A": "Enable Managed Server Independence on each Managed Server",
+   "B": "Set SecureListener=false in nodemanager.properties",
+   "C": "Enable the domain-wide administration port",
+   "D": "Set CrashRecoveryEnabled=true in nodemanager.properties",
+   "E": "Increase the Graceful Shutdown Timeout of each server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CrashRecoveryEnabled=true이면 Node Manager가 기동될 때 시스템 장애 전에 실행 중이던 서버를 확인하여 다시 기동한다. MSI는 Admin Server 없이 기동하는 기능이고, SecureListener는 SSL 사용 여부, 도메인 관리 포트는 관리 트래픽 분리, Graceful Shutdown Timeout은 종료 시간 제한으로 재부팅 후 자동 복구와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-CRASH-RECOVERY"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Administrator Kim acquired the configuration edit lock, made several unactivated changes, and left for the day. Administrator Lee, who also has the Admin role, must make an urgent configuration change. What can Lee do?",
+  "options": {
+   "A": "Edit config.xml directly on the Administration Server host while the servers are running, then wait for the change to be picked up",
+   "B": "Restart Node Manager to release the edit lock",
+   "C": "Activate the change from one of the Managed Servers",
+   "D": "Open a second, parallel edit session that ignores Kim's lock and activate only Lee's own changes",
+   "E": "Take over the edit lock (or undo Kim's pending changes and release the lock) and then make and activate the change"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Admin 역할을 가진 다른 관리자는 다른 사용자가 보유한 편집 잠금을 넘겨받거나 그 pending 변경을 취소하고 잠금을 해제한 뒤 자신의 변경을 진행할 수 있다. 서버 실행 중 config.xml을 직접 수정하는 것은 지원되지 않는 방법이다. 잠금은 Node Manager와 무관하고, Managed Server에서 활성화할 수 없으며, 잠금을 무시하는 병렬 편집 세션은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-CHANGE-LOCK-TAKEOVER"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Managed Server ms5 has been added to the domain configuration but has never been started, and its host does not yet have any copy of the domain directory. The Administration Server is currently unavailable. An operator tries to start ms5 on that host. What is the expected outcome?",
+  "options": {
+   "A": "ms5 cannot start, because it has no connection to the Administration Server and no local configuration copy for MSI mode",
+   "B": "ms5 starts in MSI mode and downloads its configuration from the Node Manager running on its host",
+   "C": "ms5 starts normally because Managed Servers never need the domain configuration at startup and receive it later",
+   "D": "ms5 becomes the Administration Server of the domain because it is the first server to start while the original one is down",
+   "E": "ms5 starts in STANDBY and waits indefinitely without any error"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "MSI 모드로 기동하려면 호스트에 도메인 구성과 보안 파일 사본이 있어야 한다. ms5는 Admin Server에도 접속할 수 없고 로컬 사본도 없으므로 기동할 수 없다. Node Manager는 구성을 제공하지 않으며, Managed Server는 기동 시 구성이 반드시 필요하다. 먼저 뜬 서버가 Admin Server가 되는 동작도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MSI-START"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After a firewall change between the Administration Server host and host4, the Administration Console shows Managed Server ms6 in the UNKNOWN state. At the same time, users report that applications on ms6 work normally. What is the most likely explanation?",
+  "options": {
+   "A": "ms6 has been suspended to the ADMIN state by the firewall",
+   "B": "The Administration Server cannot reach ms6 to determine its state, although ms6 itself is still running",
+   "C": "ms6 completed a force shutdown after the firewall change, and users are still hitting pages cached by their browsers",
+   "D": "Node Manager killed ms6 after the firewall change blocked its listen port and marked the process as unresponsive",
+   "E": "ms6 is in STANDBY and processes requests only from users"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "UNKNOWN은 Admin Server가 해당 서버와 통신할 수 없어 상태를 판단하지 못할 때 표시된다. 사용자 요청이 정상 처리되므로 ms6은 실제로 실행 중이며 Admin Server와의 통신 경로만 막힌 것이다. 방화벽이 서버를 ADMIN으로 바꾸지 않고, 강제 종료나 Node Manager kill이었다면 서비스가 중단되었을 것이다. STANDBY 서버는 애플리케이션 요청을 처리하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-UNKNOWN-STATE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "An organization runs three WebLogic Server domains on the same host and wants a single Node Manager process to control the servers of all three domains. Which configuration meets this requirement?",
+  "options": {
+   "A": "Keep the default per-domain Node Manager of one domain, which automatically manages every domain on the host",
+   "B": "Run Node Manager inside the Administration Server of the first domain",
+   "C": "Configure a per-host Node Manager and enroll each of the three domains with it",
+   "D": "Define a single machine in one config.xml that is shared by all three domains",
+   "E": "Use a script-based Node Manager, which is the only type that supports multiple domains"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "여러 도메인을 하나의 Node Manager 프로세스로 관리하려면 per-host Node Manager를 구성하고 각 도메인을 등록(enroll)해야 한다. 기본 per-domain Node Manager는 자기 도메인만 관리한다. Node Manager는 Admin Server 안에서 동작하지 않고, config.xml은 도메인마다 별개이므로 머신 정의를 공유할 수 없다. 여러 도메인 관리가 스크립트 기반 방식만의 기능도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-PER-HOST"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements reflect Oracle's recommendations for the Administration Server in a production domain? (Choose two.)",
+  "options": {
+   "A": "Run an Administration Server on every machine of the domain",
+   "B": "Host all applications on the Administration Server to reduce the number of JVMs",
+   "C": "Configure two Administration Servers in the same domain for high availability",
+   "D": "Deploy business applications to Managed Servers rather than to the Administration Server",
+   "E": "Do not make the Administration Server a member of a cluster"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "운영 도메인에서는 업무 애플리케이션을 Managed Server에 배포하고 Admin Server는 관리 전용으로 두며, Admin Server를 클러스터에 포함하지 않는 것이 권장된다. 도메인에는 Admin Server가 하나뿐이므로 머신마다 두거나 두 대를 구성할 수 없고, Admin Server에 애플리케이션을 몰아넣는 것은 권장 구성에 반한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-ADMIN-BEST-PRACTICE"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "The Administration Server is down. Which two actions can still be performed by using WLST connected directly to Node Manager with nmConnect? (Choose two.)",
+  "options": {
+   "A": "Start a Managed Server with nmStart",
+   "B": "Check a server's status with nmServerStatus",
+   "C": "Activate pending configuration changes",
+   "D": "Deploy a new application to a cluster",
+   "E": "Create a new machine definition in the domain"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "nmConnect로 Node Manager에 직접 연결하면 Admin Server가 없어도 nmStart로 서버를 기동하고(Managed Server는 MSI 모드로 기동) nmServerStatus로 상태를 확인할 수 있다. 구성 변경 활성화, 애플리케이션 배포, 머신 정의 생성은 Admin Server가 있어야 가능하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Node Manager for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-NM-ADMIN-DOWN-WLST"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which of the following are valid WebLogic Server lifecycle states? (Choose all that apply.)",
+  "options": {
+   "A": "DEPLOYING",
+   "B": "STANDBY",
+   "C": "FORCE_SUSPENDING",
+   "D": "FAILED_NOT_RESTARTABLE",
+   "E": "PAUSED"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "STANDBY, FORCE_SUSPENDING, FAILED_NOT_RESTARTABLE은 모두 WebLogic 서버 생명주기 상태이다. DEPLOYING과 PAUSED라는 서버 생명주기 상태는 없다(배포 진행은 애플리케이션 배포 상태로 다룬다).",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Server Startup and Shutdown for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-STATE-LIST"
+ },
+ {
+  "domain": "WLS_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two conditions are required for a Managed Server to start in Managed Server Independence mode while the Administration Server is unavailable? (Choose two.)",
+  "options": {
+   "A": "Node Manager crash recovery is enabled on the host so that it can restart the server after a failure",
+   "B": "The server is a member of a cluster",
+   "C": "Managed Server Independence is enabled for the server",
+   "D": "The server's host has a local copy of the domain configuration and security files, such as config.xml and SerializedSystemIni.dat",
+   "E": "The domain-wide administration port is enabled so that the server can accept requests without the Administration Server"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "MSI 기동에는 해당 서버의 MSI 설정이 활성화되어 있어야 하고, 호스트에 config.xml과 SerializedSystemIni.dat 같은 도메인 구성·보안 파일 사본이 있어야 한다. 크래시 복구, 클러스터 소속, 도메인 관리 포트는 MSI 기동 조건이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Understanding Domain Configuration for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-ARCH-MSI-REQS"
+ }
+]

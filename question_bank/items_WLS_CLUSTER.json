@@ -1,0 +1,1416 @@
+[
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In Oracle WebLogic Server 14.1.1, what is a cluster?",
+  "options": {
+   "A": "A group of Managed Servers in one domain that work together for scalability and reliability",
+   "B": "A group of Administration Servers that replicate config.xml to each other for redundancy",
+   "C": "A set of machines that share one Node Manager process for starting and stopping servers",
+   "D": "A collection of data sources that share one connection pool across several servers",
+   "E": "A group of domains that share a single Administration Server and one configuration repository"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "클러스터는 같은 도메인에 속한 여러 Managed Server 인스턴스가 동시에 실행되면서 하나의 서버처럼 협력하여 확장성과 가용성을 제공하는 구성이다. 여러 도메인을 묶는 구조나 Administration Server 묶음이 아니며, Node Manager나 데이터소스 커넥션 풀과도 다른 개념이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DEF"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement about WebLogic Server cluster membership is correct?",
+  "options": {
+   "A": "A Managed Server can be a member of up to two clusters at the same time",
+   "B": "All server instances in a cluster must belong to the same domain",
+   "C": "The Administration Server must be the first member of every cluster",
+   "D": "Every Managed Server in a domain must belong to a cluster",
+   "E": "A cluster can include Managed Servers from several domains if they run the same version"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클러스터의 모든 서버 인스턴스는 같은 도메인에 속해야 하며 클러스터는 도메인 경계를 넘을 수 없다. 서버 하나는 하나의 클러스터에만 속할 수 있고, 클러스터에 속하지 않는 독립 Managed Server도 허용된다. Administration Server는 클러스터 구성원으로 두지 않는 것이 권장 사항이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MEMBERSHIP"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two capabilities are the main reasons for configuring a WebLogic Server cluster? (Choose two.)",
+  "options": {
+   "A": "Removing the need for an Administration Server in the domain",
+   "B": "Automatic upgrade of the WebLogic Server version on all members",
+   "C": "Scalability by adding server instances to handle more load",
+   "D": "High availability through failover when a server instance fails",
+   "E": "Automatic tuning of SQL statements issued by applications"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "클러스터의 핵심 목적은 서버 인스턴스를 추가하여 처리 용량을 늘리는 확장성과, 한 인스턴스가 실패해도 다른 인스턴스가 처리를 이어받는 고가용성(장애 조치)이다. SQL 자동 튜닝은 데이터베이스 기능이고, 클러스터가 있어도 도메인 관리를 위해 Administration Server는 필요하며, 버전 업그레이드는 클러스터가 자동으로 수행하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-BENEFITS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which pair lists the cluster messaging modes that WebLogic Server 14.1.1 supports for communication among cluster members?",
+  "options": {
+   "A": "Unicast and broadcast",
+   "B": "Broadcast and anycast",
+   "C": "Synchronous and asynchronous",
+   "D": "Point-to-point and publish/subscribe",
+   "E": "Unicast and multicast"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WebLogic 클러스터 구성원 간 통신(하트비트, JNDI 갱신 등)은 유니캐스트 또는 멀티캐스트 메시징 모드로 설정한다. 브로드캐스트·애니캐스트는 지원 모드가 아니며, 동기·비동기 구분이나 point-to-point·publish/subscribe는 JMS 메시징 모델의 용어로 클러스터 메시징 모드와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MSG-MODES"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which persistent-store-type value in weblogic.xml enables in-memory session replication when the web application is deployed to a cluster and uses plain in-memory sessions otherwise?",
+  "options": {
+   "A": "memory",
+   "B": "jdbc",
+   "C": "cookie",
+   "D": "file",
+   "E": "replicated_if_clustered"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "replicated_if_clustered는 애플리케이션이 클러스터에 배포되면 인메모리 복제를 사용하고, 단일 서버에 배포되면 일반 메모리 세션을 사용한다. memory는 복제 없이 해당 서버 메모리에만 세션을 두고, file과 jdbc는 각각 파일 시스템과 데이터베이스에 세션을 저장하며, cookie는 세션 데이터를 클라이언트 쿠키에 저장하는 방식이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PST-IF-CLUSTERED"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where is the HTTP session persistence type of a web application configured?",
+  "options": {
+   "A": "In the session-descriptor element of weblogic.xml",
+   "B": "In the mod_wl_ohs.conf file of Oracle HTTP Server",
+   "C": "In the boot.properties file of each Managed Server",
+   "D": "In a JDBC system module targeted to the cluster",
+   "E": "In the nodemanager.properties file of each machine"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "세션 지속성 유형(persistent-store-type)은 웹 애플리케이션의 weblogic.xml 안 session-descriptor 요소에서 지정한다. nodemanager.properties는 Node Manager 설정, mod_wl_ohs.conf는 프록시 플러그인 설정, boot.properties는 서버 기동 자격 증명 파일이며, JDBC 모듈은 데이터소스 정의이므로 세션 유형을 정하는 곳이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SESSION-DESCRIPTOR"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the default load-balancing algorithm that WebLogic Server uses for clustered EJB and RMI objects?",
+  "options": {
+   "A": "Fastest response time",
+   "B": "Round-robin",
+   "C": "Random",
+   "D": "Weight-based",
+   "E": "Least connections"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클러스터된 EJB·RMI 객체의 기본 로드밸런싱 알고리즘은 라운드 로빈이다. 가중치 기반과 랜덤은 선택해서 설정할 수 있는 다른 알고리즘이고, 최소 연결 수나 응답 시간 기반 방식은 WebLogic 클러스터가 제공하는 알고리즘이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LB-DEFAULT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When the weight-based load-balancing algorithm is used in a cluster, what determines the share of requests each server receives?",
+  "options": {
+   "A": "The network latency measured by the client for each server",
+   "B": "The number of active HTTP sessions held by each server",
+   "C": "The Cluster Weight assigned to each server, from 1 to 100",
+   "D": "The current CPU usage that each server reports to the cluster",
+   "E": "The number of applications deployed to each server"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "가중치 기반 알고리즘은 관리자가 각 서버에 지정한 Cluster Weight 값(1~100)의 비율에 따라 요청을 나눈다. CPU 사용률, 활성 세션 수, 네트워크 지연, 배포된 애플리케이션 수 같은 실시간 지표를 측정해 분배하는 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LB-WEIGHT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the main purpose of the Oracle WebLogic Server Proxy Plug-In?",
+  "options": {
+   "A": "To let WebLogic Server serve static content directly without needing any web server",
+   "B": "To encrypt the config.xml file of the Administration Server with a web server key",
+   "C": "To collect diagnostic images from all cluster members and store them on the web server's local disk",
+   "D": "To let a web server such as Oracle HTTP Server forward requests to WebLogic servers or clusters",
+   "E": "To replicate HTTP sessions between WebLogic clusters that belong to different domains"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "WebLogic 프록시 플러그인은 Oracle HTTP Server, Apache HTTP Server, IIS 같은 웹 서버에 설치되어 요청을 WebLogic 서버나 클러스터로 전달하고 로드밸런싱과 장애 조치를 수행한다. 도메인 간 세션 복제, 설정 파일 암호화, 진단 이미지 수집과는 관계가 없으며, 정적 콘텐츠 제공을 위한 기능도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-PURPOSE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WebLogic Proxy Plug-In parameter specifies the list of clustered server instances, in host:port form, to which requests are proxied?",
+  "options": {
+   "A": "MatchExpression",
+   "B": "WLIOTimeoutSecs",
+   "C": "WebLogicHost",
+   "D": "WLLogFile",
+   "E": "WebLogicCluster"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WebLogicCluster는 요청을 보낼 클러스터 구성원 목록을 host:port 형식으로 지정한다. WebLogicHost는 단일 서버로 프록시할 때 쓰는 호스트이고, MatchExpression은 프록시할 요청 패턴, WLLogFile은 디버그 로그 파일 위치, WLIOTimeoutSecs는 응답 대기 시간을 지정하는 파라미터이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-WLCLUSTER"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is HttpClusterServlet?",
+  "options": {
+   "A": "A servlet on a WebLogic Server proxy instance that forwards HTTP requests to a cluster",
+   "B": "A servlet filter that compresses HTTP responses returned by clustered applications",
+   "C": "A servlet that copies session state from the primary server to the secondary server",
+   "D": "A Node Manager component that starts every member of a cluster in the correct order",
+   "E": "A WLST command that creates a new cluster and assigns Managed Servers to it"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "HttpClusterServlet은 클러스터 밖의 WebLogic Server 인스턴스(프록시 서버)에 배포되어 외부 웹 서버 플러그인 대신 클러스터로 요청을 전달하고 로드밸런싱하는 서블릿이다. 세션 복제는 클러스터 서버 자체가 수행하고, 서버 기동은 Node Manager의 역할이며, WLST 명령이나 응답 압축 필터와는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-HCS-DEF"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which statement correctly distinguishes whole server migration from service migration?",
+  "options": {
+   "A": "Service migration requires every server in the cluster to be restarted before services can move",
+   "B": "Whole server migration moves an entire server to another machine; service migration moves pinned services such as JMS to another running server",
+   "C": "Whole server migration copies deployed applications from one domain to another domain",
+   "D": "Whole server migration moves only JMS servers and their stores to another machine; service migration restarts an entire server instance on a different machine",
+   "E": "Both features move the Administration Server to a standby host when the primary host fails"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "서버 전체 마이그레이션은 장애가 난 서버 인스턴스 자체를 다른 머신에서 다시 기동하는 것이고, 서비스 마이그레이션은 JMS 서버나 JTA 트랜잭션 복구 서비스처럼 한 서버에 고정된 서비스를 이미 실행 중인 다른 서버로 옮기는 것이다. 두 기능의 범위를 반대로 설명한 내용은 틀리며, Administration Server 이동이나 도메인 간 애플리케이션 복사 기능이 아니고, 서비스 마이그레이션에 클러스터 전체 재기동이 필요하지도 않다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MIG-TYPES"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which of the following is a pinned service that can be protected by service migration?",
+  "options": {
+   "A": "An application deployed homogeneously to all cluster members",
+   "B": "A stateless servlet deployed to the cluster",
+   "C": "The JTA Transaction Recovery Service",
+   "D": "A clustered stateless session bean",
+   "E": "A static HTML page in a clustered web module"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "JTA 트랜잭션 복구 서비스는 서버마다 하나씩 존재하는 고정(pinned) 서비스로 서비스 마이그레이션 대상이다. 클러스터에 동일하게 배포된 서블릿, 무상태 세션 빈, 정적 페이지, 애플리케이션은 모든 구성원에서 동시에 실행되므로 로드밸런싱과 장애 조치로 가용성을 얻으며 마이그레이션이 필요 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PINNED-SERVICE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a dynamic cluster in WebLogic Server 14.1.1?",
+  "options": {
+   "A": "A cluster that switches between unicast and multicast messaging at runtime based on load",
+   "B": "A cluster that automatically adds any Managed Server that starts anywhere in the domain, without a template",
+   "C": "A cluster whose members obtain their listen addresses dynamically from a DHCP server",
+   "D": "A cluster whose servers are generated from one server template, with the count set by the cluster size",
+   "E": "A cluster that exists only while the Administration Server of the domain is running"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "동적 클러스터는 서버 템플릿 하나를 바탕으로 동적 서버 인스턴스를 생성하고, 클러스터 크기 설정으로 서버 수를 조절하는 클러스터이다. 도메인에서 기동하는 아무 서버나 자동으로 편입하지 않으며, DHCP 주소 할당, 메시징 모드 전환, Administration Server 실행 여부와는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-DEF"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "An administrator wants to change a startup argument for every dynamic server in a dynamic cluster. What should be modified?",
+  "options": {
+   "A": "The multicast address of the cluster",
+   "B": "The nodemanager.properties file on every machine",
+   "C": "The WebLogicCluster parameter of the proxy plug-in",
+   "D": "Each dynamic server entry in config.xml, one at a time",
+   "E": "The server template used by the dynamic cluster"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "동적 서버의 설정은 동적 클러스터가 참조하는 서버 템플릿에서 파생되므로 템플릿을 변경하면 모든 동적 서버에 반영된다. 동적 서버는 config.xml에 서버별로 개별 정의되지 않으며, 프록시 플러그인 목록, nodemanager.properties, 멀티캐스트 주소는 서버 기동 인수를 정하는 곳이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-TEMPLATE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is required of objects stored as HTTP session attributes so that WebLogic Server can replicate them in a cluster?",
+  "options": {
+   "A": "They must be serializable",
+   "B": "They must implement java.lang.Cloneable",
+   "C": "They must be EJB home references",
+   "D": "They must be smaller than one kilobyte",
+   "E": "They must be declared in weblogic.xml"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "인메모리 복제 등 세션 지속성을 사용하려면 세션 속성 객체가 직렬화(Serializable) 가능해야 한다. Cloneable 구현, weblogic.xml 선언, EJB 참조 형식, 고정된 크기 제한은 세션 복제의 요구 조건이 아니다. 다만 세션이 클수록 복제 비용이 커지므로 작게 유지하는 것이 좋다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SERIALIZABLE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "With in-memory HTTP session replication in a cluster, where is the session state kept?",
+  "options": {
+   "A": "A full copy on every server instance in the cluster, updated after each request",
+   "B": "A primary copy on the server handling the session and one secondary replica on another member",
+   "C": "A primary copy and two secondary replicas placed on two other cluster members on different machines",
+   "D": "A copy held inside the proxy plug-in of the web server in front of the cluster",
+   "E": "A primary copy in memory and a backup copy written to a database table"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "인메모리 복제에서는 세션을 처리하는 서버가 주(primary) 상태를 가지고, 클러스터의 다른 서버 하나에 보조(secondary) 복제본이 유지된다. 모든 서버에 복사하거나 보조 복제본을 둘 이상 두지 않으며, 데이터베이스에 저장하는 것은 jdbc 지속성 방식이다. 프록시 플러그인은 세션 데이터를 저장하지 않고 쿠키 정보로 라우팅만 한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PRIMARY-SECONDARY"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In the mod_wl_ohs.conf file of Oracle HTTP Server, which directive inside a Location block causes matching requests to be handled by the WebLogic Proxy Plug-In?",
+  "options": {
+   "A": "WLForward On",
+   "B": "JkMount /* weblogic",
+   "C": "SetHandler weblogic-handler",
+   "D": "AddType application/weblogic-cluster",
+   "E": "ProxyPass weblogic://cluster"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "OHS와 Apache 플러그인 설정에서는 Location 블록 안에 SetHandler weblogic-handler를 지정하여 해당 경로의 요청을 WebLogic 플러그인이 처리하게 한다. ProxyPass는 mod_proxy의 지시어이고 JkMount는 mod_jk(Tomcat 커넥터)의 지시어이며, AddType이나 WLForward로는 플러그인 처리를 지정하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-SETHANDLER"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which component must be running on each machine that is a candidate for hosting a migrated server in whole server migration?",
+  "options": {
+   "A": "A WebLogic proxy server running HttpClusterServlet",
+   "B": "An Administration Server instance",
+   "C": "Oracle HTTP Server",
+   "D": "Node Manager",
+   "E": "A Coherence cache server"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "서버 전체 마이그레이션은 대상 머신의 Node Manager가 서버를 기동하고 부동 IP를 옮기는 방식으로 동작하므로 후보 머신마다 Node Manager가 실행 중이어야 한다. 머신마다 Administration Server를 둘 필요는 없으며, 웹 서버, 프록시 서버, Coherence 캐시 서버는 마이그레이션 수행 주체가 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-WSM-NM"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which two leasing types can a WebLogic Server cluster use as the basis for automatic server and service migration?",
+  "options": {
+   "A": "Multicast leasing and unicast leasing",
+   "B": "Machine leasing and domain leasing",
+   "C": "JMS leasing and JTA leasing",
+   "D": "File leasing and LDAP leasing",
+   "E": "Database leasing and consensus leasing"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "자동 서버·서비스 마이그레이션의 기반이 되는 리싱(leasing)은 클러스터의 Migration Basis로 데이터베이스 리싱 또는 합의(consensus) 리싱 중 하나를 선택한다. 파일·LDAP, 멀티캐스트·유니캐스트, JMS·JTA, 머신·도메인 리싱이라는 유형은 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LEASING-TYPES"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A clustered application uses in-memory session replication. The code calls session.getAttribute(\"cart\"), adds an item to the returned object, and never calls setAttribute again. After the primary server fails, users see that the latest items are missing from their carts. What is the most likely cause?",
+  "options": {
+   "A": "Changes are replicated when setAttribute is called, so changing the object in place did not update the secondary",
+   "B": "The cart class does not implement java.lang.Cloneable, so the secondary could not copy it",
+   "C": "In-memory replication copies sessions only when a server shuts down normally, not each time the session is updated",
+   "D": "The proxy plug-in stores only the first version of each session and returns it after failover",
+   "E": "The load-balancing algorithm is round-robin instead of weight-based for the web tier"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "WebLogic은 setAttribute(또는 removeAttribute) 호출을 기준으로 변경된 세션 속성을 보조 서버에 복제하므로, 꺼낸 객체를 직접 수정하고 setAttribute를 다시 호출하지 않으면 보조 복제본이 갱신되지 않을 수 있다. Cloneable 구현이나 로드밸런싱 알고리즘은 복제 여부와 무관하고, 플러그인은 세션을 저장하지 않으며, 복제는 정상 종료 시점에만 일어나는 것이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SETATTRIBUTE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When in-memory replication is used, what information does WebLogic Server add to the session ID in the session cookie so that a proxy can route requests correctly?",
+  "options": {
+   "A": "The complete serialized session data, compressed to fit in the cookie",
+   "B": "Identifiers of the primary and secondary servers that hold the session",
+   "C": "The URL of the Administration Server that manages the cluster",
+   "D": "A hash of the authenticated user's password for re-authentication",
+   "E": "The multicast address and port used by the cluster for messaging"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "인메모리 복제를 사용하면 세션 ID 뒤에 주 서버와 보조 서버를 식별하는 JVM ID가 붙어 쿠키에 기록되며, 프록시 플러그인이나 로드밸런서는 이를 보고 주 서버로 요청을 보내고 장애 시 보조 서버로 보낸다. 세션 데이터 전체는 서버 메모리에 있고, 멀티캐스트 주소, Administration Server URL, 비밀번호 정보는 쿠키에 들어가지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-COOKIE-JVMID"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When no replication groups are configured, which server does WebLogic Server prefer as the secondary for a session's replica?",
+  "options": {
+   "A": "A cluster member on the same machine as the primary, to reduce network latency",
+   "B": "The cluster member with the most free heap at that moment",
+   "C": "A cluster member on a different machine from the primary server",
+   "D": "The cluster member with the lowest listen port",
+   "E": "The Administration Server of the domain"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "보조 서버를 고를 때 WebLogic은 주 서버와 다른 머신에 있는 서버를 우선한다. 머신 하나가 통째로 실패해도 세션을 잃지 않기 위해서이며, 이 판단을 위해 서버를 머신에 할당해 두어야 한다. 리슨 포트 순서나 순간적인 힙 여유는 기준이 아니고, Administration Server는 클러스터 구성원이 아니며, 같은 머신을 우선하는 것은 반대 설명이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SECONDARY-MACHINE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the Preferred Secondary Group attribute of a clustered server specify?",
+  "options": {
+   "A": "The cluster in another domain to which this server's sessions fail over",
+   "B": "The candidate machines to which this server can be moved during automatic whole server migration",
+   "C": "The group leader that relays this server's unicast cluster messages",
+   "D": "The replication group preferred for the secondary of sessions whose primary is this server",
+   "E": "The servers that the proxy plug-in tries first when it receives new sessions"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Preferred Secondary Group은 이 서버가 주 서버인 세션의 보조 복제본을 둘 때 우선 고려할 복제 그룹(Replication Group)을 지정한다. 도메인 간 장애 조치, 플러그인의 신규 세션 분배 순서, 유니캐스트 그룹 리더, 서버 마이그레이션 후보 머신과는 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-REPL-GROUP"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does the async-replicated session persistence type differ from synchronous in-memory replication?",
+  "options": {
+   "A": "Each session update is replicated synchronously to two secondary servers instead of one",
+   "B": "Sessions are written asynchronously to a database table instead of to a secondary server",
+   "C": "Only session creation is replicated, and later attribute updates are ignored by the cluster until the session ends",
+   "D": "Replication happens only when the primary server shuts down gracefully",
+   "E": "Updates are queued and replicated in batches, improving response time but risking loss of recent updates"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "async-replicated는 세션 변경을 바로 복제하지 않고 모아서 일괄 전송하므로 요청 응답 시간이 짧아지지만, 전송 전에 주 서버가 실패하면 최근 변경이 유실될 수 있다. 보조 서버 수를 늘리는 방식이 아니며, 데이터베이스에 비동기 저장하는 것은 async-jdbc 방식이다. 생성 시점이나 종료 시점에만 복제하는 것도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-ASYNC-REPL"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two persistent-store-type values allow a clustered web application's sessions to survive the failure of the server that was handling them? (Choose two.)",
+  "options": {
+   "A": "replicated_if_clustered",
+   "B": "jdbc",
+   "C": "memory",
+   "D": "local",
+   "E": "heap"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "replicated_if_clustered는 클러스터에서 보조 서버에 복제본을 두고, jdbc는 모든 서버가 접근하는 데이터베이스에 세션을 저장하므로 처리 서버가 실패해도 세션이 유지된다. memory는 복제 없이 해당 서버 메모리에만 세션을 두므로 서버 실패 시 세션이 사라지며, local과 heap은 유효한 persistent-store-type 값이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PST-FAILOVER"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a limitation of cookie-based session persistence (persistent-store-type cookie)?",
+  "options": {
+   "A": "It requires a data source for the session table",
+   "B": "It works only when requests come through the proxy plug-in",
+   "C": "Only String values can be stored as session attributes",
+   "D": "It always replicates the session to a secondary server as well",
+   "E": "It requires a shared file system accessible by all servers"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "쿠키 기반 지속성은 세션 데이터를 클라이언트 쿠키에 저장하므로 문자열(String) 속성만 저장할 수 있다. 공유 파일 시스템은 file 방식, 데이터소스는 jdbc 방식의 요구 사항이고, 프록시 플러그인 사용 여부와는 무관하며, 보조 서버 복제는 인메모리 복제 방식의 특징이다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-COOKIE-PST"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A clustered application uses file-based session persistence. What is required for sessions to be available after the original server fails?",
+  "options": {
+   "A": "Each server must use a different local directory for its own session files",
+   "B": "The proxy plug-in must have DynamicServerList set to OFF so that file-based sessions stay on one server",
+   "C": "The cluster must use multicast messaging so file changes are announced to members",
+   "D": "persistent-store-dir must be on a shared file system that all cluster members can access",
+   "E": "Node Manager must copy the session files to the other servers after every request"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "file 지속성에서 다른 서버가 세션을 읽으려면 persistent-store-dir가 클러스터의 모든 서버가 접근할 수 있는 공유 파일 시스템에 있어야 한다. 서버마다 로컬 디렉터리를 따로 쓰면 다른 서버가 세션을 찾을 수 없고, 메시징 모드, Node Manager의 파일 복사, 플러그인의 DynamicServerList 설정은 이 요구 사항과 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-FILE-PST"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "After an application is moved to a cluster with persistent-store-type set to replicated_if_clustered, the server log shows errors whenever a session is replicated, and users lose their login state after failover. The session holds an instance of a custom class that does not implement java.io.Serializable. What should be done?",
+  "options": {
+   "A": "Set DynamicServerList to ON in the proxy plug-in",
+   "B": "Increase WLIOTimeoutSecs in the proxy plug-in",
+   "C": "Switch the cluster messaging mode to multicast",
+   "D": "Make the session attribute classes implement java.io.Serializable",
+   "E": "Change the cluster load-balancing algorithm to weight-based"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "세션을 보조 서버로 복제하려면 속성 객체를 직렬화해야 하므로, 직렬화할 수 없는 클래스는 복제 오류를 일으키고 장애 조치 후 세션이 유지되지 않는다. 해당 클래스가 Serializable을 구현하도록 고쳐야 한다. 로드밸런싱 알고리즘, 플러그인 타임아웃, 메시징 모드, DynamicServerList는 직렬화 문제를 해결하지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Web Applications, Servlets, and JSPs for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-NOT-SERIALIZABLE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are valid load-balancing algorithms that can be configured for clustered EJB and RMI objects in WebLogic Server? (Choose two.)",
+  "options": {
+   "A": "weight-based",
+   "B": "least-connections",
+   "C": "response-time",
+   "D": "ip-hash",
+   "E": "random-affinity"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "WebLogic 클러스터의 EJB·RMI 로드밸런싱 알고리즘은 round-robin, weight-based, random과 각각의 서버 선호(affinity) 변형인 round-robin-affinity, weight-based-affinity, random-affinity이다. least-connections, ip-hash, response-time은 일부 웹 서버나 하드웨어 로드밸런서에서 쓰는 이름으로 WebLogic 클러스터 알고리즘이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LB-ALGORITHMS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A servlet running on Managed Server ms1 looks up and calls a clustered EJB. The EJB is deployed to every member of the cluster, including ms1. The administrator notices that the calls are not spread across the other members. What explains this behavior?",
+  "options": {
+   "A": "Clustered EJBs can be load balanced only for calls made by remote stand-alone Java clients",
+   "B": "WebLogic Server uses the local replica on ms1 rather than load balancing the call to another member",
+   "C": "Load balancing is disabled because ms1 currently holds the cluster master role for migration",
+   "D": "The EJB was deployed with the random algorithm, which always selects the calling server",
+   "E": "The cluster uses unicast messaging, which disables load balancing of EJB calls between members of the cluster"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "호출하는 쪽과 같은 서버에 객체 복제본이 있으면 WebLogic은 네트워크 비용을 피하려고 로드밸런싱 대신 로컬 복제본을 사용한다(collocation 최적화). 클러스터 마스터 여부는 마이그레이션과 관련된 역할이고, 랜덤 알고리즘이라도 다른 서버로 분산되며, 서버 내부 클라이언트도 클러스터 EJB를 호출할 수 있다. 유니캐스트 메시징은 EJB 로드밸런싱을 끄지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-COLLOCATION"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "When can a replica-aware stub automatically retry a failed method call on another cluster member, even if the failure occurred after the call reached the server?",
+  "options": {
+   "A": "Only while the Administration Server is running",
+   "B": "Only for methods that take no parameters",
+   "C": "When the method is declared idempotent",
+   "D": "Only when the round-robin algorithm is used",
+   "E": "Always, regardless of the method definition"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "호출이 서버에 도달한 뒤 실패하면 메서드가 이미 일부 실행되었을 수 있으므로, WebLogic은 반복 실행해도 안전하다고 선언된(idempotent) 메서드에 대해서만 다른 서버로 재시도한다. 항상 재시도하면 중복 처리가 일어날 수 있으며, 로드밸런싱 알고리즘 종류, 파라미터 유무, Administration Server 실행 여부는 재시도 조건이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Enterprise JavaBeans for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-IDEMPOTENT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is a replica-aware stub for a clustered EJB or RMI object?",
+  "options": {
+   "A": "A copy of the object's conversational state that is stored on the secondary server",
+   "B": "A database table that maps clustered object names to the servers hosting them",
+   "C": "A client-side stub that knows which servers host the object and load balances and fails over among them",
+   "D": "A proxy plug-in module that routes RMI calls through an external web server",
+   "E": "A JNDI entry that exists only on the Administration Server and redirects lookups to the hosting servers"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "레플리카 인식 스텁(replica-aware stub)은 객체를 호스팅하는 서버 목록과 로드밸런싱·장애 조치 로직을 함께 가진 클라이언트 측 스텁이다. 세션 보조 복제본, Administration Server 전용 JNDI 항목, 웹 서버 플러그인 모듈, 데이터베이스 매핑 테이블은 레플리카 인식 스텁이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-REPLICA-STUB"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How is the cluster-wide JNDI tree maintained in a WebLogic Server cluster?",
+  "options": {
+   "A": "Only the cluster master holds the JNDI tree, and the other members query it on each lookup",
+   "B": "The Administration Server holds the only JNDI tree, and every lookup in the cluster is sent to it for resolution",
+   "C": "Each server keeps an isolated JNDI tree whose bindings are never shared with other members",
+   "D": "Each server keeps a local copy of the cluster-wide JNDI tree, with clustered bindings replicated to members",
+   "E": "The JNDI tree is stored in a database table that is shared by all servers of the cluster"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "클러스터의 각 서버는 클러스터 전체 JNDI 트리 사본을 로컬에 유지하고, 클러스터된 객체의 바인딩은 다른 구성원에게 전파된다. Administration Server나 클러스터 마스터 한 곳에만 트리를 두거나 데이터베이스에 저장하는 구조가 아니며, 서버마다 완전히 고립된 트리를 두는 것도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-CLUSTER-JNDI"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WebLogic Server 14.1.1, what is the default cluster messaging mode for a newly created cluster?",
+  "options": {
+   "A": "Broadcast",
+   "B": "Anycast",
+   "C": "Multicast with automatic fallback to broadcast",
+   "D": "Multicast",
+   "E": "Unicast"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WebLogic Server 12c 이후 새로 만드는 클러스터의 기본 메시징 모드는 유니캐스트이며 14.1.1도 같다. 멀티캐스트는 선택해서 설정할 수 있는 다른 모드이고, 브로드캐스트와 애니캐스트는 지원 모드가 아니며 자동 전환 기능도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MSG-DEFAULT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How do members of a WebLogic Server cluster detect that another member has failed?",
+  "options": {
+   "A": "Members exchange periodic heartbeats; a member that misses a set number of them is considered failed",
+   "B": "Each incoming request checks the database leasing table before it is processed by a member",
+   "C": "The Administration Server sends ICMP pings to each member and notifies the others of failures",
+   "D": "The proxy plug-in reports servers that time out to every remaining member of the cluster",
+   "E": "Node Manager broadcasts a failure notice to every machine in the domain when a process exits"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "클러스터 구성원은 주기적으로 하트비트를 주고받으며, 정해진 횟수만큼 하트비트를 받지 못한 서버를 실패한 것으로 판단하고 클러스터 구성에서 제외한다. Administration Server의 ping, 요청마다 리싱 테이블 조회, 플러그인의 실패 보고, Node Manager의 알림은 구성원 실패 감지 방식이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-HEARTBEAT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A cluster is configured to use multicast messaging. Which requirement applies?",
+  "options": {
+   "A": "A proxy plug-in must be configured in front of the cluster to forward multicast packets",
+   "B": "All members must use the same multicast address and port, on a network that passes multicast traffic",
+   "C": "The Administration Server must be running to relay all multicast messages between the members of the cluster",
+   "D": "Multicast can be used only when every cluster member runs on one physical machine",
+   "E": "Each cluster member must be configured with a different multicast address and port"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "멀티캐스트 모드에서는 클러스터의 모든 구성원이 같은 멀티캐스트 주소와 포트를 사용해야 하며, 구성원 사이의 네트워크(스위치·라우터)가 멀티캐스트 패킷을 전달해야 한다. 서버마다 다른 주소를 쓰면 같은 클러스터로 통신할 수 없고, Administration Server 중계나 단일 머신 제한, 프록시 플러그인은 요구 사항이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MULTICAST-REQ"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the effect of setting DynamicServerList to ON in the WebLogic Proxy Plug-In configuration?",
+  "options": {
+   "A": "The plug-in rotates its log file each time the list of cluster members changes",
+   "B": "The plug-in discovers cluster members by listening to the cluster's multicast heartbeat traffic on the local network",
+   "C": "The plug-in updates its member list from information returned by WebLogic Server, without configuration edits",
+   "D": "The plug-in reads the server list directly from config.xml on the Administration Server",
+   "E": "The plug-in asks Node Manager to create new Managed Servers when the load increases"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DynamicServerList가 ON이면 플러그인은 WebLogicCluster로 받은 초기 목록을 바탕으로 연결한 뒤, WebLogic이 응답과 함께 돌려주는 클러스터 구성원 정보로 목록을 갱신한다. 멀티캐스트를 수신하거나 config.xml을 직접 읽는 방식이 아니며, 서버를 생성하거나 로그를 회전하는 기능도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-DYNLIST"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What does the WLIOTimeoutSecs parameter of the WebLogic Proxy Plug-In define?",
+  "options": {
+   "A": "How long an HTTP session can remain idle before WebLogic Server invalidates it",
+   "B": "How long the plug-in waits to establish a TCP connection to a WebLogic Server instance",
+   "C": "How often the plug-in refreshes its dynamic list of cluster members from the servers",
+   "D": "How long the plug-in waits for a response from WebLogic Server after sending a request",
+   "E": "How long idle keep-alive connections from browsers to the web server are kept open"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "WLIOTimeoutSecs는 요청을 보낸 뒤 WebLogic의 응답을 기다리는 시간으로, 이 시간을 넘기면 요청 실패로 처리한다. TCP 연결 수립 대기 시간은 ConnectTimeoutSecs가 정하고, 세션 유효 시간은 웹 애플리케이션 설정이며, 서버 목록 갱신 주기나 클라이언트 keep-alive 유지 시간을 정하는 파라미터도 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-IOTIMEOUT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Requests reach a WebLogic cluster through Oracle HTTP Server with the WebLogic Proxy Plug-In. The application logs request.getRemoteAddr(), but every entry shows the IP address of the OHS host instead of the end user's address. What should be configured?",
+  "options": {
+   "A": "Increase WLIOTimeoutSecs in mod_wl_ohs.conf so the plug-in has time to resolve client addresses",
+   "B": "Set DynamicServerList to OFF so the plug-in sends the original client address with each request",
+   "C": "Switch the cluster load-balancing algorithm to random-affinity so clients keep their own address",
+   "D": "Change the session persistent-store-type to jdbc so the client address is stored with the session in the database",
+   "E": "Enable WebLogic Plug-In Enabled on the cluster or servers so the client address sent by the plug-in is used"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "플러그인은 원래 클라이언트 주소를 WL-Proxy-Client-IP 같은 전용 헤더로 전달하며, 클러스터나 서버에서 WebLogic Plug-In Enabled를 켜야 WebLogic이 이 헤더를 신뢰하여 getRemoteAddr에 실제 클라이언트 주소를 돌려준다. 서버 목록 갱신, 세션 저장 방식, 로드밸런싱 알고리즘, 응답 타임아웃은 원격 주소 표시와 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-ENABLED"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A cluster sits behind a hardware load balancer at www.example.com. When the application issues a redirect, browsers are sent to the internal host name and port of an individual Managed Server, which users cannot reach. What should the administrator configure?",
+  "options": {
+   "A": "Set the cluster's Frontend Host and Frontend HTTP or HTTPS Port to the load balancer's address",
+   "B": "Change the session persistent-store-type to cookie so redirects keep the original host",
+   "C": "Set the Cluster Address to the multicast address so redirects use a shared cluster name instead of a host name",
+   "D": "Enable Calculated Listen Ports so every server uses the same port as the load balancer",
+   "E": "Assign a different Cluster Weight to each server so redirects favor the load balancer"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Frontend Host와 Frontend HTTP/HTTPS Port를 지정하면 WebLogic이 리다이렉트 등 URL을 만들 때 개별 서버 주소 대신 로드밸런서 주소를 사용한다. 멀티캐스트 주소, 리슨 포트 계산, 세션 저장 방식, 서버 가중치는 생성되는 URL의 호스트 이름을 바꾸지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-FRONTEND-HOST"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "A cluster uses in-memory session replication behind the WebLogic Proxy Plug-In. Which two statements are true? (Choose two.)",
+  "options": {
+   "A": "Session failover works only while the Administration Server is running",
+   "B": "The plug-in reads the session cookie to send each request to the primary server for that session",
+   "C": "If the primary server is unavailable, the plug-in sends the request to the secondary server recorded in the cookie",
+   "D": "Every cluster member holds a copy of every session, so the plug-in ignores the session cookie when routing requests",
+   "E": "The plug-in keeps a backup copy of each session in the web server's memory"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "플러그인은 세션 쿠키에 기록된 주 서버 정보로 요청을 주 서버에 보내고, 주 서버에 연결할 수 없으면 쿠키에 기록된 보조 서버로 요청을 보낸다. 플러그인은 세션 데이터를 보관하지 않으며, 세션은 모든 서버가 아니라 주·보조 두 서버에만 있고, 세션 장애 조치는 Administration Server 실행 여부와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-FAILOVER"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "With which web servers can the Oracle WebLogic Server Proxy Plug-In be used to front WebLogic Server 14.1.1? (Choose all that apply.)",
+  "options": {
+   "A": "Oracle HTTP Server",
+   "B": "Nginx HTTP Server",
+   "C": "Lighttpd",
+   "D": "Apache HTTP Server",
+   "E": "Microsoft IIS"
+  },
+  "correct_keys": [
+   "A",
+   "D",
+   "E"
+  ],
+  "explanation": "WebLogic 프록시 플러그인은 Oracle HTTP Server(mod_wl_ohs), Apache HTTP Server(mod_wl), Microsoft IIS용으로 제공된다. Nginx와 Lighttpd용 WebLogic 프록시 플러그인은 제공되지 않으며, 이런 웹 서버는 자체 리버스 프록시 기능으로 구성해야 한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-WEBSERVERS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is the default service migration policy of a migratable target?",
+  "options": {
+   "A": "Auto-Migrate Exactly-Once Services",
+   "B": "Manual Service Migration Only",
+   "C": "Always Migrate",
+   "D": "Auto-Migrate Failure-Recovery Services",
+   "E": "Shutdown Recovery"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "마이그레이션 대상(migratable target)의 기본 정책은 Manual Service Migration Only로, 관리자가 직접 마이그레이션을 수행해야 한다. Exactly-Once와 Failure-Recovery는 자동 마이그레이션을 위해 선택하는 정책이고, Shutdown Recovery와 Always Migrate는 마이그레이션 대상의 서비스 마이그레이션 정책 이름이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MT-DEFAULT-POLICY"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does the Auto-Migrate Exactly-Once Services policy of a migratable target behave?",
+  "options": {
+   "A": "The services are migrated only when an administrator triggers the migration manually",
+   "B": "The services start only on the user-preferred server and are never migrated to another server, even when it fails",
+   "C": "The services run simultaneously on every candidate server and are load balanced among them",
+   "D": "The services are stopped on all servers whenever the Administration Server is unavailable",
+   "E": "The services stay active on one candidate server while any candidate runs, even if the preferred server is down"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Exactly-Once 정책은 후보 서버 중 하나라도 실행 중이면 서비스가 정확히 한 곳에서 활성화되도록 보장하므로, 사용자 선호 서버가 기동하지 않아도 다른 후보 서버에서 서비스를 시작한다. 선호 서버에서만 실행하거나 모든 후보 서버에서 동시에 실행하는 것이 아니며, 수동 마이그레이션은 Manual 정책의 동작이고, Administration Server 상태에 따라 서비스를 멈추지도 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MT-EXACTLY-ONCE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "How does the Auto-Migrate Failure-Recovery Services policy of a migratable target behave?",
+  "options": {
+   "A": "The services start only if the user-preferred server starts, and migrate automatically only if it later fails",
+   "B": "The services migrate back and forth between candidate servers on a fixed schedule",
+   "C": "The services run on every candidate server at once and fail over through load balancing",
+   "D": "The services start on any candidate server even if the user-preferred server is never started",
+   "E": "The services are never migrated automatically, even when the hosting server fails and other candidates are running"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Failure-Recovery 정책에서는 사용자 선호 서버가 기동해야 서비스가 시작되고, 그 서버가 이후 실패했을 때만 다른 후보 서버로 자동 마이그레이션된다. 선호 서버 없이 다른 후보에서 시작하는 것은 Exactly-Once 정책의 동작이고, 자동 마이그레이션이 없는 것은 Manual 정책이며, 모든 후보에서 동시 실행하거나 일정에 따라 이동하는 정책은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MT-FAILURE-RECOVERY"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which services can be moved between cluster members by WebLogic Server service migration? (Choose all that apply.)",
+  "options": {
+   "A": "Generic data sources targeted to the cluster",
+   "B": "JMS servers and their persistent stores",
+   "C": "The JTA Transaction Recovery Service",
+   "D": "User-defined singleton services",
+   "E": "Web applications deployed homogeneously to the cluster"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "D"
+  ],
+  "explanation": "서비스 마이그레이션 대상은 JMS 서버와 영구 저장소, SAF 에이전트, 경로 서비스, JTA 트랜잭션 복구 서비스, 사용자 정의 싱글톤 서비스처럼 한 서버에 고정된 서비스이다. 클러스터에 동일하게 배포된 웹 애플리케이션과 클러스터에 타깃된 데이터소스는 모든 구성원에서 동시에 실행되므로 마이그레이션 대상이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MIGRATABLE-SERVICES"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A JMS server is targeted to the migratable target ms1 (migratable), and its file store uses a directory on the local disk of ms1's machine. When ms1's machine fails, the JMS server migrates to ms2, but the pending persistent messages are not available on ms2. What is the most likely cause?",
+  "options": {
+   "A": "The migration policy should have been Manual Service Migration Only to preserve the messages",
+   "B": "The cluster must use multicast messaging for persistent messages to move during JMS migration",
+   "C": "The store files were on ms1's local disk, which ms2 cannot access; use shared storage or a JDBC store",
+   "D": "JMS servers cannot be targeted to migratable targets, so the messages were discarded at migration",
+   "E": "ms2 must run on the same machine as ms1 for JMS service migration to keep persistent messages"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "JMS 서비스가 다른 서버로 옮겨 가도 메시지를 이어서 처리하려면 영구 저장소를 모든 후보 서버가 접근할 수 있는 공유 스토리지에 두거나 JDBC 저장소를 사용해야 한다. JMS 서버는 마이그레이션 대상에 타깃할 수 있으며, 수동 정책이나 멀티캐스트 모드로 바꿔도 저장소 접근 문제는 해결되지 않는다. 같은 머신에 두는 것은 머신 장애 대비라는 목적에 맞지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JMS Resources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-JMS-STORE-LOCAL"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are required when a cluster uses database leasing as its migration basis? (Choose two.)",
+  "options": {
+   "A": "A separate Coherence cluster for storing lease records",
+   "B": "Multicast cluster messaging",
+   "C": "A proxy plug-in configured in front of the cluster to route lease renewal requests",
+   "D": "A highly available database that all cluster members can reach",
+   "E": "A data source set as the cluster's Data Source for Automatic Migration, with the leasing table created"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "데이터베이스 리싱은 데이터베이스의 리싱 테이블(leasing.ddl로 생성하는 ACTIVE 테이블)에 리스 정보를 기록하므로, 모든 구성원이 접근할 수 있는 고가용성 데이터베이스와 클러스터의 Data Source for Automatic Migration으로 지정한 데이터소스가 필요하다. 멀티캐스트 메시징, 프록시 플러그인, 별도의 Coherence 클러스터는 데이터베이스 리싱의 요구 사항이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LEASE-DB-REQ"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Where does consensus leasing keep lease information?",
+  "options": {
+   "A": "In memory within the cluster, managed by the cluster leader, without a leasing database",
+   "B": "In the session cookies of HTTP clients that are routed by the proxy plug-in",
+   "C": "In the config.xml file of the Administration Server, updated at each renewal",
+   "D": "In a lock file on a shared disk that every cluster member must be able to write",
+   "E": "In the ACTIVE table of a leasing database reached through a data source"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "합의 리싱은 리스 정보를 클러스터 리더가 관리하는 메모리 안에 유지하므로 리싱용 데이터베이스가 필요 없으며, 서버 상태 확인에 Node Manager를 사용한다. ACTIVE 테이블은 데이터베이스 리싱이 사용하는 테이블이고, config.xml, 공유 디스크 잠금 파일, 클라이언트 쿠키에 리스 정보를 저장하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LEASE-CONSENSUS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two are requirements for whole server migration of a clustered Managed Server? (Choose two.)",
+  "options": {
+   "A": "Node Manager running on each candidate machine",
+   "B": "A floating IP address used as the listen address of the migratable server",
+   "C": "The cluster must use multicast messaging",
+   "D": "DynamicServerList must be set to OFF in the proxy plug-in",
+   "E": "The migratable server must be the Administration Server"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "서버 전체 마이그레이션은 후보 머신의 Node Manager가 서버를 기동하고, 서버의 리슨 주소인 부동(가상) IP를 새 머신으로 옮겨 클라이언트가 같은 주소로 접속하게 한다. 마이그레이션 대상은 클러스터의 Managed Server이고 Administration Server가 아니며, 멀티캐스트 모드나 플러그인 설정은 요구 사항이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-WSM-REQ"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In whole server migration, what is the role of the cluster master?",
+  "options": {
+   "A": "It hosts the Administration Console and applies configuration changes for the whole cluster",
+   "B": "It monitors migratable servers' leases and restarts a server whose lease expires on another machine",
+   "C": "It holds the primary copy of every HTTP session created by applications in the cluster",
+   "D": "It is the only server that receives requests from the proxy plug-in and forwards them",
+   "E": "It assigns calculated listen ports to dynamic servers each time the cluster scales up"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클러스터 마스터는 클러스터 구성원 중 하나가 맡는 역할로, 마이그레이션 가능한 서버들의 리스를 감시하다가 리스가 만료된 서버를 다른 후보 머신의 Node Manager를 통해 기동한다. 관리 콘솔 호스팅, 세션 주 복제본 보관, 플러그인 요청 독점 수신, 동적 서버 포트 계산은 클러스터 마스터의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-CLUSTER-MASTER"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two settings can a dynamic cluster calculate automatically for each generated dynamic server? (Choose two.)",
+  "options": {
+   "A": "Session persistent-store-type",
+   "B": "Deployment plans",
+   "C": "Listen ports",
+   "D": "Machine assignments",
+   "E": "Data source passwords"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "동적 클러스터는 Calculated Listen Ports와 Calculated Machine Names 설정으로 각 동적 서버의 리슨 포트와 머신 배정을 자동으로 계산할 수 있다. 세션 저장 방식은 웹 애플리케이션 설정이고, 배포 계획과 데이터소스 비밀번호는 서버별로 계산되는 항목이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-CALCULATED"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Which WLST online command increases the number of running dynamic servers in a dynamic cluster and can start the new servers?",
+  "options": {
+   "A": "addDynamicServer",
+   "B": "growCluster",
+   "C": "expandCluster",
+   "D": "migrate",
+   "E": "scaleUp"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "WLST의 scaleUp 명령은 동적 클러스터의 크기를 늘리고 새 동적 서버를 Node Manager로 기동하며, 반대 작업은 scaleDown 명령이다. migrate는 서비스·서버 마이그레이션용 명령이고, addDynamicServer, expandCluster, growCluster라는 WLST 명령은 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Elasticity in Dynamic Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-SCALEUP"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two methods can be used to scale a dynamic cluster in WebLogic Server 14.1.1? (Choose two.)",
+  "options": {
+   "A": "Running the WLST scaleUp and scaleDown commands",
+   "B": "Editing the WebLogicCluster list in mod_wl_ohs.conf",
+   "C": "Raising the Cluster Weight of the existing servers",
+   "D": "Changing the session persistent-store-type to async-replicated",
+   "E": "Using WLDF policies with scale-up and scale-down actions"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "동적 클러스터는 WLST scaleUp·scaleDown 명령으로 수동 확장·축소하거나, WLDF 정책과 스케일 업·다운 액션을 결합한 정책 기반 탄력성(elasticity)으로 자동 확장·축소할 수 있다. 플러그인 서버 목록 편집, Cluster Weight 조정, 세션 저장 방식 변경은 실행 중인 서버 수를 바꾸지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Configuring Elasticity in Dynamic Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-ELASTICITY"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A cluster has four Managed Servers: ms1 and ms2 run on host1, and ms3 and ms4 run on host2. No machines are defined in the domain. In-memory session replication is used. When host1 loses power, some users lose their sessions even though host2 is healthy. What is the most likely cause?",
+  "options": {
+   "A": "The proxy plug-in must be restarted on the web server before any session failover can occur",
+   "B": "Without machine definitions, WebLogic Server could not place each secondary on a different host from its primary",
+   "C": "Sessions are replicated only to servers whose names sort alphabetically after the primary server",
+   "D": "In-memory replication never protects sessions against the failure of a whole host, even when machines are defined",
+   "E": "Unicast messaging prevents session replication between servers that run on different hosts"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WebLogic은 서버가 어느 머신에 속하는지로 물리 호스트를 판단하므로, 머신을 정의하지 않으면 주 서버와 같은 호스트의 서버(예: ms1의 보조로 ms2)가 보조로 선택될 수 있고 호스트 전체 장애 시 두 복제본을 함께 잃는다. 머신을 올바르게 정의하면 호스트 장애에도 세션을 보호할 수 있다. 유니캐스트도 호스트 간 복제를 막지 않으며, 서버 이름 순서나 플러그인 재기동은 원인이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-NO-MACHINES"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A cluster spans two racks, and the administrator wants every session's secondary replica to be placed on a server in the other rack. What should be configured?",
+  "options": {
+   "A": "Set a different multicast address for each rack so that replicas cross between the racks",
+   "B": "Give the servers in one rack a higher Cluster Weight so they are always chosen as secondaries",
+   "C": "Give each rack's servers a Replication Group and set each server's Preferred Secondary Group to the other rack",
+   "D": "Configure each rack as a separate dynamic cluster in the same domain and replicate sessions between the two clusters",
+   "E": "Set DynamicServerList to OFF so that the plug-in sends requests to only one of the racks"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Replication Group으로 랙별 서버를 묶고 Preferred Secondary Group을 반대편 랙 그룹으로 지정하면, 보조 서버 선택 시 다른 랙의 서버가 우선된다. 랙별로 멀티캐스트 주소를 다르게 하면 같은 클러스터로 통신할 수 없고, Cluster Weight는 EJB·RMI 로드밸런싱 비율이며, 플러그인 목록 제한이나 클러스터 분리는 랙 간 복제를 만들지 못한다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-REPL-GROUP"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Replication groups are configured. Which candidate server receives the highest rank when WebLogic Server chooses the secondary for a session?",
+  "options": {
+   "A": "A server on a different machine from the primary that is not a member of the primary's preferred secondary group",
+   "B": "A server on the same machine that is not a member of the preferred secondary group",
+   "C": "The server with the lowest Cluster Weight, regardless of machine or group",
+   "D": "A server on a different machine from the primary that is a member of the primary's preferred secondary group",
+   "E": "A server on the same machine as the primary that is a member of the primary's preferred secondary group"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "보조 서버 순위는 다른 머신이면서 선호 보조 그룹에 속한 서버가 가장 높고, 그다음이 같은 머신이면서 선호 그룹에 속한 서버, 다른 머신이지만 선호 그룹이 아닌 서버, 같은 머신이면서 선호 그룹이 아닌 서버 순이다. Cluster Weight는 EJB·RMI 로드밸런싱 설정으로 보조 서버 선택 순위와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SECONDARY-RANK"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A JMS server is targeted to a migratable target whose user-preferred server is ms1. During a planned maintenance window ms1 must stay shut down, but the JMS server must still be active on another candidate server as soon as any candidate is running. Which migration policy meets this requirement?",
+  "options": {
+   "A": "Manual Service Migration Only",
+   "B": "Raising the Cluster Weight of ms1",
+   "C": "Setting DynamicServerList to ON in the proxy plug-in",
+   "D": "Auto-Migrate Exactly-Once Services",
+   "E": "Auto-Migrate Failure-Recovery Services"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Exactly-Once 정책은 사용자 선호 서버가 기동하지 않아도 후보 서버 중 하나가 실행 중이면 그 서버에서 서비스를 활성화하므로 요구 사항에 맞다. Failure-Recovery 정책은 선호 서버가 기동해야 서비스가 시작되므로 ms1이 내려가 있는 동안 JMS 서버가 시작되지 않고, Manual 정책은 자동 활성화가 없다. Cluster Weight와 플러그인 설정은 서비스 배치와 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-MT-EXACTLY-ONCE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A cluster uses database leasing for automatic migration. Why must the leasing database be highly available?",
+  "options": {
+   "A": "Because HTTP sessions of all clustered applications are always stored in the leasing database",
+   "B": "Because applications are staged to the Managed Servers from the leasing database at startup",
+   "C": "Because the proxy plug-in reads the current server list from the leasing table on each request",
+   "D": "Because the leasing database stores the domain's config.xml and distributes it to members",
+   "E": "Servers that cannot renew their leases can shut themselves down, so an outage can affect the whole cluster"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "데이터베이스 리싱에서 서버는 주기적으로 데이터베이스의 리스를 갱신해야 하며, 갱신하지 못하면 리스를 잃은 것으로 판단해 스스로 종료할 수 있다. 따라서 리싱 데이터베이스가 중단되면 클러스터 전체가 영향을 받으므로 고가용성 데이터베이스가 필요하다. 세션 저장, 플러그인 서버 목록, 배포 스테이징, config.xml 보관은 리싱 데이터베이스의 역할이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-LEASE-DB-OUTAGE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "Whole server migration moves ms1 from machine1 to machine2 after machine1 fails. ms1 starts on machine2 and is reachable at its floating IP address, but pending JMS messages and in-flight transaction records are missing. ms1's default persistent store is in the domain directory on machine1's local disk. What is the most likely cause?",
+  "options": {
+   "A": "The default store and transaction log were on machine1's local disk rather than on shared storage",
+   "B": "Consensus leasing deletes the persistent stores of a server while it is being migrated",
+   "C": "The cluster must use multicast messaging so that persistent data is copied to the new machine during migration",
+   "D": "Whole server migration always discards JMS messages and transaction logs by design",
+   "E": "The floating IP address should have been replaced with machine2's physical IP address"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "서버 전체 마이그레이션은 서버를 다른 머신에서 다시 기동할 뿐 로컬 디스크의 데이터를 옮기지 않으므로, 기본 저장소와 트랜잭션 로그(TLOG)는 모든 후보 머신이 접근할 수 있는 공유 스토리지(또는 JDBC 저장소)에 있어야 한다. 마이그레이션이 데이터를 일부러 버리는 것은 아니며, 부동 IP는 정상적인 구성이고, 리싱 방식이나 메시징 모드는 저장소 데이터와 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-WSM-SHARED-STORE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "SSL is terminated at Oracle HTTP Server, which forwards requests over plain HTTP to a WebLogic cluster through the proxy plug-in. The application checks request.isSecure() and incorrectly redirects users who already use HTTPS back to an HTTPS URL in a loop. Which configuration fixes this?",
+  "options": {
+   "A": "Set DynamicServerList OFF so that the plug-in forwards requests only to SSL-enabled servers",
+   "B": "Set WLProxySSL ON in the plug-in and enable WebLogic Plug-In Enabled on the cluster or servers",
+   "C": "Increase ConnectTimeoutSecs so the plug-in can complete the SSL handshake with WebLogic Server",
+   "D": "Change the session persistent-store-type to async-replicated so redirects are not repeated",
+   "E": "Configure each Managed Server with a separate multicast address for its SSL listen port"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "WLProxySSL을 ON으로 설정하면 플러그인이 원래 요청이 HTTPS였다는 정보를 헤더로 전달하고, WebLogic Plug-In Enabled가 켜져 있어야 WebLogic이 이를 신뢰하여 isSecure()가 true를 돌려준다. 서버 목록 갱신 방식, 세션 저장 방식, 멀티캐스트 주소, 연결 타임아웃은 요청의 보안 여부 판단에 영향을 주지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-SSL-OFFLOAD"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A fifth Managed Server, ms5, is added to a cluster and started, but Oracle HTTP Server never forwards requests to it. The plug-in configuration sets DynamicServerList OFF, and WebLogicCluster lists only ms1 through ms4. What is the cause?",
+  "options": {
+   "A": "The cluster must switch to multicast messaging before new members are recognized",
+   "B": "The plug-in adds new servers only after the Administration Server is restarted",
+   "C": "With DynamicServerList OFF, the plug-in uses only its static WebLogicCluster list",
+   "D": "ms5 cannot receive HTTP traffic until an existing session fails over to it",
+   "E": "ms5 must first be assigned a higher Cluster Weight than the other cluster members"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DynamicServerList가 OFF이면 플러그인은 서버의 동적 목록을 무시하고 WebLogicCluster에 정적으로 적힌 서버로만 요청을 보내므로, 목록에 ms5를 추가하거나 DynamicServerList를 ON으로 바꿔야 한다. Cluster Weight는 EJB·RMI 로드밸런싱 설정이고, 세션 장애 조치, 메시징 모드, Administration Server 재기동은 플러그인 라우팅 목록에 영향을 주지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Using Oracle WebLogic Server Proxy Plug-Ins (검수 필요)",
+  "variant_group": "WLS-CLUSTER-PLUGIN-DYNLIST"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "Several dynamic servers of a dynamic cluster can be placed on the same machine, and the server template defines a single listen port. Which dynamic cluster setting prevents the dynamic servers on one machine from failing to start because of a port conflict?",
+  "options": {
+   "A": "A higher Cluster Weight in the server template so that conflicts are retried",
+   "B": "A larger Dynamic Cluster Size, which spreads the dynamic servers over more ports",
+   "C": "Unicast cluster messaging, which lets dynamic servers share one listen port",
+   "D": "Calculated Listen Ports, which gives each dynamic server its own port derived from the template",
+   "E": "The replicated_if_clustered session persistence type in the server template"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Calculated Listen Ports를 켜면 템플릿의 리슨 포트를 기준으로 서버 번호에 따라 서로 다른 포트가 계산되므로 같은 머신의 동적 서버끼리 포트가 겹치지 않는다. 클러스터 크기를 늘리면 오히려 서버가 더 생기고, 메시징 모드, 세션 저장 방식, Cluster Weight는 리슨 포트 할당과 관계가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-DYN-PORTS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "14c",
+  "stem": "A remote client calls the transferFunds method of a clustered stateless session bean. The server crashes while the method is executing, and the client receives a RemoteException instead of having the call retried on another member. The method is not declared idempotent. Why did WebLogic Server not retry the call?",
+  "options": {
+   "A": "The round-robin load-balancing algorithm disables failover for all EJB method calls",
+   "B": "The Administration Server must approve every failover, and it rejected this request",
+   "C": "Stateless session beans cannot be deployed to a cluster, so no other member hosts the bean",
+   "D": "Replica-aware stubs never perform failover for calls that come from remote Java clients outside the cluster",
+   "E": "The call may already have partly run, and WebLogic Server retries such calls only for idempotent methods"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "서버가 메서드 실행 도중 실패하면 작업이 이미 일부 반영되었을 수 있으므로, WebLogic은 idempotent로 선언된 메서드만 다른 서버에서 재시도한다. 송금처럼 중복 실행되면 안 되는 메서드는 애플리케이션이 결과를 확인하고 처리해야 한다. 무상태 세션 빈은 클러스터에 배포할 수 있고, 스텁은 조건에 맞으면 장애 조치를 수행하며, 알고리즘 종류나 Administration Server 승인과는 무관하다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing Enterprise JavaBeans for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-IDEMPOTENT"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "What is achieved by migrating the JTA Transaction Recovery Service of a failed cluster member to another member?",
+  "options": {
+   "A": "Another server reads the failed server's transaction log and completes or rolls back its pending transactions",
+   "B": "The Administration Server takes over coordination of all transactions in the domain",
+   "C": "The failed server's data sources are moved permanently to the other server with their pools",
+   "D": "The failed server's HTTP sessions are restored on another member from the transaction log records",
+   "E": "New transactions from the failed server's clients are automatically resubmitted from the beginning on that member"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "JTA 트랜잭션 복구 서비스를 마이그레이션하면 다른 서버가 실패한 서버의 트랜잭션 로그(TLOG)를 읽어 미완료 트랜잭션을 커밋하거나 롤백하여 정리한다. 이를 위해 TLOG는 공유 스토리지나 JDBC 저장소처럼 다른 서버가 접근할 수 있어야 한다. 클라이언트 요청을 다시 제출하거나, 세션을 복원하거나, 데이터소스를 영구 이동하거나, Administration Server가 트랜잭션 조정을 맡는 기능이 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Developing JTA Applications for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-JTA-TRS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "In WebLogic Server 14.1.1, a JMS server and its persistent store are targeted directly to a cluster. The store's Distribution Policy is Distributed and its Migration Policy is On-Failure. What is the resulting behavior?",
+  "options": {
+   "A": "All members share one instance that is load balanced across the cluster like a servlet",
+   "B": "Each member hosts its own store and JMS server instance, and a failed member's instance migrates to a running member",
+   "C": "Instances move between members on a fixed schedule even when no server has failed",
+   "D": "Instances are created only on the Administration Server and proxied to the cluster members",
+   "E": "A single instance runs on the cluster master and is never moved to another member"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "클러스터 타깃 JMS에서 Distribution Policy가 Distributed이면 클러스터 구성원마다 저장소·JMS 서버 인스턴스가 하나씩 생기고, Migration Policy가 On-Failure이면 서버가 실패했을 때 그 인스턴스가 실행 중인 다른 구성원으로 마이그레이션된다. 클러스터에 인스턴스 하나만 두는 것은 Singleton 정책이며, 서블릿처럼 공유 인스턴스를 로드밸런싱하거나 Administration Server에 두거나 일정에 따라 이동하는 동작은 아니다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering JMS Resources for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-CLUSTER-TARGETED-JMS"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "14c",
+  "stem": "A developer writes a user-defined singleton service that must run on exactly one cluster member at a time. Which interface and methods does the class implement?",
+  "options": {
+   "A": "weblogic.cluster.ClusterMember, with join() and leave()",
+   "B": "javax.ejb.SessionBean, with ejbCreate() and ejbRemove()",
+   "C": "weblogic.cluster.singleton.SingletonService, with activate() and deactivate()",
+   "D": "javax.servlet.ServletContextListener, with contextInitialized() and contextDestroyed()",
+   "E": "java.lang.Runnable, with run() only"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "사용자 정의 싱글톤 서비스는 weblogic.cluster.singleton.SingletonService 인터페이스를 구현하며, 서비스가 해당 서버에서 활성화될 때 activate()가, 다른 서버로 옮겨지거나 중지될 때 deactivate()가 호출된다. 세션 빈, Runnable, 서블릿 컨텍스트 리스너 인터페이스는 클러스터 싱글톤 보장을 제공하지 않으며, ClusterMember라는 인터페이스는 이 용도로 존재하지 않는다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-SINGLETON-SERVICE"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about whole server migration are true? (Choose two.)",
+  "options": {
+   "A": "The migrated server receives a new server name generated by the cluster master",
+   "B": "It works without any leasing configuration for the cluster",
+   "C": "It requires the Administration Server to be a member of the cluster",
+   "D": "It can restart a server on another machine when the server's original machine becomes unavailable",
+   "E": "The migrated server keeps its own name and configuration on the new machine"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "서버 전체 마이그레이션은 원래 머신이 사용 불가능해졌을 때 같은 서버(이름·설정·부동 IP 그대로)를 다른 후보 머신에서 다시 기동한다. 새 이름이 부여되지 않으며, 자동 마이그레이션에는 데이터베이스 또는 합의 리싱 설정이 필요하고, Administration Server는 클러스터 구성원일 필요가 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-WSM-IDENTITY"
+ },
+ {
+  "domain": "WLS_CLUSTER",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "14c",
+  "stem": "Which two statements about unicast cluster messaging in WebLogic Server are true? (Choose two.)",
+  "options": {
+   "A": "Cluster members are organized into groups, and a group leader relays messages between groups",
+   "B": "The network does not need to support multicast traffic",
+   "C": "All cluster members must run on the same machine",
+   "D": "Unicast mode disables in-memory session replication",
+   "E": "Each cluster member must be given its own multicast address"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "유니캐스트 모드에서는 구성원을 여러 그룹으로 나누고 그룹 리더가 다른 그룹과 메시지를 중계하는 방식으로 클러스터 통신을 수행하므로, 네트워크가 멀티캐스트를 지원하지 않아도 된다. 멀티캐스트 주소는 유니캐스트 모드에서 사용하지 않고, 세션 복제는 메시징 모드와 관계없이 동작하며, 구성원이 한 머신에 있어야 한다는 제약도 없다.",
+  "reference": "Oracle WebLogic Server 14.1.1 - Administering Clusters for Oracle WebLogic Server (검수 필요)",
+  "variant_group": "WLS-CLUSTER-UNICAST"
+ }
+]

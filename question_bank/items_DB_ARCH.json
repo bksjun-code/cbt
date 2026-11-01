@@ -1,0 +1,1416 @@
+[
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, what does an Oracle database instance consist of?",
+  "options": {
+   "A": "The System Global Area (SGA) and a set of background processes",
+   "B": "The listener process and the tnsnames.ora configuration",
+   "C": "The server parameter file and the password file",
+   "D": "Only the Program Global Areas (PGAs) of all server processes",
+   "E": "The data files, control files, and online redo log files"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "인스턴스는 공유 메모리 영역인 SGA와 백그라운드 프로세스의 집합으로 구성된다. 데이터 파일·컨트롤 파일·온라인 리두 로그는 인스턴스가 아니라 데이터베이스(물리 파일)에 속한다. 리스너와 tnsnames.ora는 Oracle Net 구성 요소이고, PGA만으로는 인스턴스가 되지 않으며, 파라미터 파일과 패스워드 파일은 인스턴스 시작·인증에 쓰이는 파일일 뿐 인스턴스 자체가 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-INSTANCE-DEF"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which background process writes modified (dirty) buffers from the database buffer cache to the data files?",
+  "options": {
+   "A": "Log writer (LGWR)",
+   "B": "Database writer (DBWn)",
+   "C": "System monitor (SMON)",
+   "D": "Archiver (ARCn)",
+   "E": "Checkpoint process (CKPT)"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "데이터베이스 버퍼 캐시의 변경된(dirty) 버퍼를 데이터 파일에 기록하는 것은 DBWn이다. LGWR은 리두 로그 버퍼를 온라인 리두 로그 파일에 기록하고, CKPT는 체크포인트 정보를 컨트롤 파일과 데이터 파일 헤더에 갱신할 뿐 데이터 블록을 쓰지 않는다. SMON은 인스턴스 복구 등을 담당하고, ARCn은 온라인 리두 로그를 아카이브 위치로 복사한다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-DBWR-ROLE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the primary responsibility of the log writer process (LGWR)?",
+  "options": {
+   "A": "Copying filled online redo log files to archive destinations",
+   "B": "Writing dirty buffers from the database buffer cache to the data files at each checkpoint",
+   "C": "Writing redo entries from the redo log buffer to the online redo log files",
+   "D": "Rolling back uncommitted transactions after an instance failure",
+   "E": "Registering the instance with the listener"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "LGWR는 SGA의 리두 로그 버퍼에 쌓인 리두 항목을 온라인 리두 로그 파일에 순차적으로 기록한다. 더티 버퍼를 데이터 파일에 쓰는 것은 DBWn, 채워진 로그를 아카이브하는 것은 ARCn, 리스너 등록은 LREG의 역할이다. 인스턴스 장애 후 미커밋 트랜잭션 롤백은 인스턴스 복구 과정(SMON 등)에서 이루어지며 LGWR의 역할이 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-LGWR-ROLE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the checkpoint process (CKPT) do when a checkpoint occurs?",
+  "options": {
+   "A": "Performs instance recovery using the online redo logs",
+   "B": "Writes the redo log buffer to the online redo log files",
+   "C": "Writes all dirty buffers from the buffer cache to the data files itself, instead of DBWn",
+   "D": "Records checkpoint data in the control file and data file headers and signals DBWn",
+   "E": "Copies the control file to the fast recovery area"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CKPT는 체크포인트 시 컨트롤 파일과 각 데이터 파일 헤더에 체크포인트 정보(SCN 등)를 갱신하고 DBWn에 블록 기록을 요청한다. 실제 더티 버퍼 기록은 CKPT가 아니라 DBWn이 수행한다. 리두 로그 버퍼 기록은 LGWR의 일이고, 컨트롤 파일을 복사하거나 인스턴스 복구를 수행하는 기능은 CKPT에 없다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-CKPT-ROLE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which background process is responsible for performing instance recovery when an instance is restarted after a failure?",
+  "options": {
+   "A": "Process monitor (PMON)",
+   "B": "Listener registration process (LREG)",
+   "C": "Recoverer process (RECO)",
+   "D": "Manageability monitor (MMON)",
+   "E": "System monitor (SMON)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "인스턴스 장애 후 재시작 시 인스턴스 복구를 수행하는 것은 SMON이며, 사용하지 않는 임시 세그먼트 정리 같은 시스템 수준 정리도 담당한다. PMON은 비정상 종료된 사용자 프로세스를 정리하고, RECO는 분산 트랜잭션의 in-doubt 상태를 해결한다. LREG는 리스너 등록, MMON은 AWR 등 관리 작업용 프로세스다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-SMON-ROLE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, which background process registers instance and service information with the Oracle Net listener?",
+  "options": {
+   "A": "LREG",
+   "B": "DBW0",
+   "C": "CKPT",
+   "D": "SMON",
+   "E": "PMON"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "12c부터 리스너에 인스턴스와 서비스 정보를 등록하는 작업은 전용 백그라운드 프로세스인 LREG(listener registration process)가 담당한다. 이전 버전에서는 PMON이 이 역할을 했지만 19c에서는 PMON이 프로세스 정리를 담당한다. SMON, CKPT, DBW0은 리스너 등록과 관계가 없다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-LREG"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which SGA component contains the library cache, where parsed SQL statements and execution plans are cached for reuse?",
+  "options": {
+   "A": "Redo log buffer",
+   "B": "Shared pool",
+   "C": "Java pool",
+   "D": "Large pool",
+   "E": "Database buffer cache"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "라이브러리 캐시는 공유 풀(shared pool)의 일부로, 파싱된 SQL과 실행 계획 등을 저장해 재사용한다. 데이터베이스 버퍼 캐시는 데이터 블록 사본을, 리두 로그 버퍼는 리두 항목을 저장한다. 라지 풀은 RMAN 버퍼나 공유 서버 세션 메모리 같은 대용량 할당용이고, 자바 풀은 JVM 내 자바 코드와 데이터용이다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-SHARED-POOL"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement correctly describes the Program Global Area (PGA)?",
+  "options": {
+   "A": "It is the part of the SGA that holds the library cache",
+   "B": "It is a disk area used to store sort results permanently",
+   "C": "It is a nonshared memory region reserved for a single server or background process",
+   "D": "It is allocated only when the database runs in shared server mode",
+   "E": "It is a shared memory region that all server processes use to cache data blocks read from disk"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PGA는 하나의 서버 프로세스 또는 백그라운드 프로세스가 전용으로 사용하는 비공유 메모리 영역이며, 정렬·해시 조인 작업 영역 등을 포함한다. 데이터 블록을 공유 캐시하는 것은 SGA의 버퍼 캐시이고, 라이브러리 캐시는 SGA의 공유 풀에 있다. PGA는 디스크 영역이 아니며, 전용 서버와 공유 서버 모두에서 프로세스마다 할당된다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-PGA-CONTENT"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "During database startup, at which stage does the instance read the control files to locate the data files and online redo log files?",
+  "options": {
+   "A": "SHUTDOWN",
+   "B": "NOMOUNT",
+   "C": "OPEN",
+   "D": "MOUNT",
+   "E": "RESTRICT"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MOUNT 단계에서 인스턴스는 CONTROL_FILES 파라미터에 지정된 컨트롤 파일을 열어 데이터 파일과 온라인 리두 로그의 위치를 파악한다. NOMOUNT 단계는 파라미터 파일을 읽고 SGA를 할당하며 백그라운드 프로세스를 시작하는 단계이고, OPEN 단계는 데이터 파일과 리두 로그를 실제로 여는 단계다. SHUTDOWN은 시작 단계가 아니며, RESTRICT는 접속 제한 옵션일 뿐 별도의 시작 단계가 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-STARTUP-STAGE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a multitenant container database (CDB), which container is a read-only template that Oracle uses to create new PDBs?",
+  "options": {
+   "A": "The application root",
+   "B": "The SYSAUX tablespace of the root",
+   "C": "The first user-created PDB",
+   "D": "CDB$ROOT",
+   "E": "PDB$SEED"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "PDB$SEED는 모든 CDB에 존재하는 시스템 제공 템플릿 PDB로 읽기 전용이며, CREATE PLUGGABLE DATABASE로 새 PDB를 만들 때 원본으로 사용된다. CDB$ROOT는 공통 메타데이터와 공통 사용자를 담는 루트 컨테이너다. 사용자가 만든 PDB나 애플리케이션 루트는 시드 역할을 하지 않으며, SYSAUX 테이블스페이스는 컨테이너가 아니다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-PDB-SEED"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which shutdown mode requires instance recovery the next time the database is started?",
+  "options": {
+   "A": "SHUTDOWN ABORT",
+   "B": "SHUTDOWN followed by STARTUP RESTRICT after a clean close",
+   "C": "SHUTDOWN IMMEDIATE",
+   "D": "SHUTDOWN TRANSACTIONAL",
+   "E": "SHUTDOWN NORMAL"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SHUTDOWN ABORT는 체크포인트 없이 인스턴스를 즉시 종료하므로 다음 시작 시 SMON이 인스턴스 복구를 수행해야 한다. NORMAL, IMMEDIATE, TRANSACTIONAL은 데이터베이스를 일관된 상태로 닫으므로(체크포인트 수행) 인스턴스 복구가 필요 없다. 정상 종료 후 RESTRICT 모드로 시작하는 경우도 일관된 종료 이후이므로 인스턴스 복구가 필요하지 않다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SHUTDOWN-ABORT"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which SGA structure is a circular buffer that stores redo entries describing changes made to the database?",
+  "options": {
+   "A": "Database buffer cache",
+   "B": "Redo log buffer",
+   "C": "Large pool",
+   "D": "Shared pool",
+   "E": "Streams pool"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "리두 로그 버퍼는 데이터베이스 변경 내용을 기록한 리두 항목을 저장하는 SGA의 순환(circular) 버퍼이며, LGWR이 이를 온라인 리두 로그에 기록한다. 버퍼 캐시는 데이터 블록, 공유 풀은 SQL·딕셔너리 정보를 캐시한다. 라지 풀과 스트림 풀은 각각 대용량 할당과 Data Pump·GoldenGate 등의 용도로 쓰이며 리두 항목을 저장하지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-REDO-BUFFER"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a dedicated server configuration, how are server processes assigned to client connections?",
+  "options": {
+   "A": "All client connections share a small pool of server processes through dispatchers",
+   "B": "A single server process serves all connections from the same operating system user",
+   "C": "Each client connection is served by its own dedicated server process",
+   "D": "Background processes such as SMON execute client SQL statements",
+   "E": "The listener process executes SQL on behalf of all clients"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "전용 서버 구성에서는 각 클라이언트 연결마다 전용 서버 프로세스가 하나씩 할당된다. 디스패처를 통해 소수의 서버 프로세스를 공유하는 것은 공유 서버 구성이다. 리스너는 연결을 넘겨줄 뿐 SQL을 실행하지 않으며, SMON 같은 백그라운드 프로세스도 클라이언트 SQL을 처리하지 않는다. 같은 OS 사용자라고 해서 서버 프로세스를 공유하지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-DEDICATED-SERVER"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In the V$ and CDB_ views of a multitenant container database, which container does CON_ID value 2 identify?",
+  "options": {
+   "A": "The application root",
+   "B": "CDB$ROOT",
+   "C": "The first user-created PDB",
+   "D": "PDB$SEED",
+   "E": "The entire CDB"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CDB에서 CON_ID 0은 CDB 전체(또는 비CDB), 1은 CDB$ROOT, 2는 PDB$SEED를 의미하며, 사용자 PDB는 3 이상의 값을 갖는다. 따라서 CON_ID 2를 루트, CDB 전체, 첫 사용자 PDB로 보는 것은 틀리다. 애플리케이션 루트도 고정된 값 2를 갖지 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CON-ID"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which optional SGA component is intended for large memory allocations such as RMAN I/O buffers and session memory (UGA) for shared server connections?",
+  "options": {
+   "A": "Database buffer cache KEEP pool",
+   "B": "Java pool",
+   "C": "Fixed SGA",
+   "D": "Redo log buffer",
+   "E": "Large pool"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "라지 풀은 선택적 SGA 영역으로 RMAN I/O 버퍼, 공유 서버의 UGA(세션 메모리), 병렬 실행 메시지 버퍼 같은 대용량 할당에 사용되어 공유 풀의 단편화를 줄인다. 자바 풀은 JVM용, 리두 로그 버퍼는 리두 항목용이다. KEEP 풀은 자주 쓰는 블록을 유지하기 위한 버퍼 캐시 영역이고, 고정 SGA는 인스턴스 내부 상태 정보를 담는 작은 영역이다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-LARGE-POOL"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are components of the System Global Area (SGA)? (Choose two.)",
+  "options": {
+   "A": "Database buffer cache",
+   "B": "Online redo log files",
+   "C": "Sort work area of a dedicated server session",
+   "D": "Shared pool",
+   "E": "Stack space of a server process"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "데이터베이스 버퍼 캐시와 공유 풀은 SGA의 대표 구성 요소다. 전용 서버 세션의 정렬 작업 영역과 서버 프로세스의 스택 공간은 프로세스 전용 메모리인 PGA에 속한다. 온라인 리두 로그 파일은 메모리가 아니라 디스크에 있는 데이터베이스 파일이다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-SGA-COMPONENTS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which background processes are always started in every Oracle Database 19c instance, regardless of configuration? (Choose all that apply.)",
+  "options": {
+   "A": "Dispatcher (Dnnn)",
+   "B": "LGWR",
+   "C": "SMON",
+   "D": "ARCn",
+   "E": "CKPT"
+  },
+  "correct_keys": [
+   "B",
+   "C",
+   "E"
+  ],
+  "explanation": "LGWR, SMON, CKPT는 PMON, DBWn 등과 함께 모든 인스턴스에서 필수로 시작되는 백그라운드 프로세스다. ARCn은 ARCHIVELOG 모드에서 아카이빙이 필요할 때 사용되므로 항상 있는 것은 아니다. 디스패처는 공유 서버를 구성한 경우에만 시작된다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-MANDATORY-BG"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two containers exist in every multitenant container database (CDB)? (Choose two.)",
+  "options": {
+   "A": "CDB$ROOT",
+   "B": "PDB$SEED",
+   "C": "An application root container",
+   "D": "A container named SYSAUX$ROOT",
+   "E": "A user-created PDB named ORCLPDB"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "모든 CDB에는 루트 컨테이너인 CDB$ROOT와 시드 PDB인 PDB$SEED가 반드시 존재한다. ORCLPDB 같은 사용자 PDB는 설치 시 선택적으로 만드는 것이며, 애플리케이션 루트도 필요할 때만 생성하는 선택 사항이다. SYSAUX$ROOT라는 컨테이너는 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CDB-CONTAINERS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are part of the physical database rather than the instance? (Choose two.)",
+  "options": {
+   "A": "The System Global Area",
+   "B": "The Program Global Area",
+   "C": "Data files",
+   "D": "Control files",
+   "E": "Background processes"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "데이터베이스는 디스크에 있는 물리 파일(데이터 파일, 컨트롤 파일, 온라인 리두 로그 파일)의 집합이다. SGA와 백그라운드 프로세스는 인스턴스를 구성하는 요소이고, PGA는 각 프로세스의 전용 메모리로 역시 디스크의 데이터베이스 파일이 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-DB-VS-INSTANCE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "With the default commit behavior in Oracle Database 19c, what must occur before a COMMIT is reported as successful to the user?",
+  "options": {
+   "A": "LGWR writes the redo entries, including the commit record, to the online redo log",
+   "B": "SMON coalesces the undo segments used by the transaction",
+   "C": "DBWn writes all blocks modified by the transaction to the data files",
+   "D": "CKPT updates all data file headers with the commit SCN",
+   "E": "ARCn archives the current online redo log"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "기본 커밋 동작에서는 LGWR이 커밋 레코드를 포함한 리두를 온라인 리두 로그에 기록해야 커밋 완료가 반환된다(fast commit). 변경 블록을 데이터 파일에 쓰는 DBWn 작업은 커밋과 독립적으로 나중에 이루어진다. 커밋마다 CKPT가 데이터 파일 헤더를 갱신하거나 ARCn이 아카이브하지 않으며, SMON의 undo 정리도 커밋 성공 조건이 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-COMMIT-LGWR"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which rule describes the relationship between DBWn and LGWR when DBWn writes a modified buffer to disk?",
+  "options": {
+   "A": "LGWR must wait until DBWn has written the buffer to the data file before it writes the corresponding redo",
+   "B": "The redo for the buffer's changes must reach the online redo log before DBWn writes the buffer",
+   "C": "DBWn must wait until the transaction that modified the buffer commits",
+   "D": "The buffer must be archived by ARCn before DBWn can write it",
+   "E": "DBWn writes the redo records itself together with the data block"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Oracle은 write-ahead 규칙에 따라 DBWn이 더티 버퍼를 쓰기 전에 그 변경을 설명하는 리두가 먼저 온라인 리두 로그에 기록되도록 하며, 필요하면 DBWn이 LGWR에 기록을 요청한다. DBWn은 커밋되지 않은 변경도 디스크에 쓸 수 있으므로 커밋을 기다린다는 설명은 틀리다. LGWR이 DBWn을 기다리는 것은 순서가 반대이고, DBWn은 리두를 쓰지 않으며, ARCn의 아카이브는 블록 기록 조건이 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-WRITE-AHEAD"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which configuration enables Automatic Shared Memory Management (ASMM) without enabling Automatic Memory Management (AMM)?",
+  "options": {
+   "A": "Set SGA_MAX_SIZE equal to MEMORY_MAX_TARGET",
+   "B": "Set MEMORY_TARGET to a nonzero value and SGA_TARGET to 0",
+   "C": "Set SGA_TARGET to a nonzero value and leave MEMORY_TARGET at 0",
+   "D": "Set SHARED_POOL_SIZE and DB_CACHE_SIZE to 0 with SGA_TARGET at 0",
+   "E": "Set PGA_AGGREGATE_TARGET to 0"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ASMM은 SGA_TARGET을 0이 아닌 값으로 설정하고 MEMORY_TARGET을 0(미사용)으로 두면 활성화되며, 공유 풀·버퍼 캐시·라지 풀 등 SGA 구성 요소 크기를 자동 조정한다. MEMORY_TARGET을 설정하면 SGA와 PGA를 함께 관리하는 AMM이 된다. PGA_AGGREGATE_TARGET을 0으로 두는 것은 SGA 자동 관리와 무관하고, SGA_TARGET이 0이면 ASMM이 꺼진다. SGA_MAX_SIZE와 MEMORY_MAX_TARGET을 맞추는 것도 ASMM 활성화 방법이 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-ASMM"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of setting MEMORY_TARGET to a nonzero value in Oracle Database 19c?",
+  "options": {
+   "A": "The SGA is allocated from operating system HugePages automatically",
+   "B": "Each PDB receives an equal, fixed share of the SGA",
+   "C": "The PGA_AGGREGATE_LIMIT parameter is disabled permanently",
+   "D": "Memory is automatically redistributed between the SGA and the instance PGA within the target",
+   "E": "Only the buffer cache is resized automatically within the target; the shared pool and PGA stay fixed"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "MEMORY_TARGET을 설정하면 AMM이 활성화되어 지정된 전체 메모리 안에서 SGA와 인스턴스 PGA 사이에 메모리를 자동으로 재분배한다. 버퍼 캐시만 조정한다는 설명은 틀리며, PGA_AGGREGATE_LIMIT이 영구 비활성화되는 것도 아니다. PDB별 균등 고정 분배는 없으며, Linux에서 AMM은 HugePages와 함께 사용할 수 없으므로 HugePages 자동 사용은 틀린 설명이다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-AMM"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, what is the difference between PGA_AGGREGATE_TARGET and PGA_AGGREGATE_LIMIT?",
+  "options": {
+   "A": "PGA_AGGREGATE_LIMIT applies only to shared server sessions",
+   "B": "Both parameters are hard limits, and the lower one is enforced",
+   "C": "PGA_AGGREGATE_TARGET sizes the large pool, and PGA_AGGREGATE_LIMIT sizes the PGA",
+   "D": "PGA_AGGREGATE_TARGET is a hard limit on total PGA usage, while PGA_AGGREGATE_LIMIT is only an advisory goal",
+   "E": "PGA_AGGREGATE_TARGET is a goal for tunable work areas; PGA_AGGREGATE_LIMIT is a hard cap on total PGA"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "PGA_AGGREGATE_TARGET은 정렬·해시 등 조정 가능한 작업 영역의 목표치로, 실제 PGA 사용량이 이를 넘을 수 있다. PGA_AGGREGATE_LIMIT은 인스턴스 전체 PGA 사용량의 하드 한도이며, 초과하면 조정 불가능한 메모리를 가장 많이 쓰는 세션의 호출이 중단되거나 세션이 종료된다. 두 값 모두 하드 한도라거나 역할이 반대라는 설명은 틀리고, 공유 서버 전용이거나 라지 풀 크기와 관련된 파라미터도 아니다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-ARCH-PGA-LIMIT"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a shared server configuration, where is the User Global Area (UGA) of a session stored?",
+  "options": {
+   "A": "In the SGA, in the large pool if it is configured",
+   "B": "In a temporary tablespace",
+   "C": "In the PGA of the shared server process currently serving the session",
+   "D": "In the PGA of the dispatcher process",
+   "E": "In the client process memory"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "공유 서버에서는 어떤 공유 서버 프로세스든 세션 요청을 처리할 수 있어야 하므로 UGA가 SGA에 저장되며, 라지 풀이 구성되어 있으면 라지 풀에, 아니면 공유 풀에 할당된다. 디스패처나 특정 공유 서버 프로세스의 PGA에 두면 다른 프로세스가 접근할 수 없다. 임시 테이블스페이스나 클라이언트 메모리에 UGA를 두지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-SHARED-SERVER-UGA"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a shared server architecture, what is the role of a dispatcher process (Dnnn)?",
+  "options": {
+   "A": "It executes SQL statements on behalf of client sessions",
+   "B": "It places client requests on a common queue in the SGA and returns responses to clients",
+   "C": "It registers shared server services with the listener on behalf of LREG",
+   "D": "It writes the redo entries generated by shared server sessions directly to the online redo log files",
+   "E": "It spawns a dedicated server process for each new client connection"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "디스패처는 클라이언트 요청을 SGA의 공통 요청 큐에 넣고, 공유 서버가 처리해 디스패처 응답 큐에 넣은 결과를 클라이언트에 돌려준다. SQL 실행은 공유 서버 프로세스가 수행한다. 연결마다 전용 서버를 띄우는 것은 전용 서버 방식이며, 리두 기록은 LGWR, 리스너 등록은 LREG의 역할이다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-DISPATCHER"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which operation requires the database to be mounted but not open?",
+  "options": {
+   "A": "Re-creating the control file with CREATE CONTROLFILE",
+   "B": "Creating a new database user",
+   "C": "Enabling ARCHIVELOG mode with ALTER DATABASE ARCHIVELOG",
+   "D": "Creating a new tablespace",
+   "E": "Querying the DBA_TABLES view"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ALTER DATABASE ARCHIVELOG는 데이터베이스가 MOUNT 상태이고 열려 있지 않을 때 수행한다. 사용자 생성, DBA_TABLES 조회, 테이블스페이스 생성은 데이터 딕셔너리에 접근해야 하므로 OPEN 상태가 필요하다. CREATE CONTROLFILE은 컨트롤 파일이 없는 상태를 전제로 하므로 NOMOUNT 상태에서 수행한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-MOUNT-USE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which task is performed with the instance started in NOMOUNT state?",
+  "options": {
+   "A": "Opening a PDB in READ WRITE mode",
+   "B": "Renaming a data file of the SYSTEM tablespace",
+   "C": "Performing complete media recovery of the whole database",
+   "D": "Creating a new database with CREATE DATABASE",
+   "E": "Gathering optimizer statistics for a schema"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CREATE DATABASE는 아직 컨트롤 파일이 없으므로 인스턴스만 시작된 NOMOUNT 상태에서 실행한다(컨트롤 파일 재생성도 마찬가지). SYSTEM 데이터 파일 이름 변경과 전체 데이터베이스 미디어 복구는 컨트롤 파일 정보가 필요하므로 MOUNT 상태에서 한다. PDB를 READ WRITE로 열거나 통계를 수집하는 작업은 CDB가 OPEN되어 있어야 한다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-NOMOUNT-USE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What happens when a database moves from the MOUNT state to the OPEN state?",
+  "options": {
+   "A": "All archived redo log files are applied to the data files to bring them up to date before opening",
+   "B": "The parameter file is read and the SGA is allocated",
+   "C": "Background processes such as PMON and SMON are started",
+   "D": "The control files are opened for the first time",
+   "E": "Online data files and online redo log files are opened, with instance recovery if needed"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "OPEN 단계에서는 온라인 데이터 파일과 온라인 리두 로그 파일을 열고, 직전 종료가 비정상이었다면 인스턴스 복구가 수행된다. 파라미터 파일 읽기, SGA 할당, 백그라운드 프로세스 시작은 NOMOUNT 단계에서 이루어진다. 컨트롤 파일은 MOUNT 단계에서 이미 열린다. 아카이브 로그 적용은 미디어 복구에서 하는 작업이며 일반적인 OPEN 과정이 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-OPEN-STAGE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the key difference between SHUTDOWN IMMEDIATE and SHUTDOWN TRANSACTIONAL?",
+  "options": {
+   "A": "IMMEDIATE rolls back active transactions and disconnects; TRANSACTIONAL waits for them to finish first",
+   "B": "IMMEDIATE waits for all users to log off on their own, while TRANSACTIONAL disconnects all users at once",
+   "C": "IMMEDIATE requires instance recovery at the next startup, while TRANSACTIONAL does not",
+   "D": "IMMEDIATE allows new connections during shutdown, while TRANSACTIONAL does not",
+   "E": "IMMEDIATE does not perform a checkpoint, while TRANSACTIONAL does"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "SHUTDOWN IMMEDIATE는 진행 중인 트랜잭션을 롤백하고 세션을 끊은 뒤 일관되게 종료하며, TRANSACTIONAL은 진행 중 트랜잭션이 끝날 때까지 기다린 후 세션을 끊는다. 모든 사용자의 로그오프를 기다리는 것은 NORMAL이다. 두 모드 모두 체크포인트를 수행하고 다음 시작 시 인스턴스 복구가 필요 없으며, 둘 다 새 연결을 허용하지 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SHUTDOWN-MODES"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Database 19c, how can you make a PDB open automatically in its current open mode whenever the CDB is restarted?",
+  "options": {
+   "A": "Add the PDB to the CONTROL_FILES parameter",
+   "B": "Open the PDB and run ALTER PLUGGABLE DATABASE pdb_name SAVE STATE",
+   "C": "Create the PDB with the KEEP OPEN clause",
+   "D": "Run ALTER DATABASE OPEN in PDB$SEED",
+   "E": "Set the PDB_AUTOSTART initialization parameter to TRUE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "PDB를 원하는 모드로 연 뒤 ALTER PLUGGABLE DATABASE ... SAVE STATE를 실행하면 CDB 재시작 시 저장된 상태로 자동으로 열린다(DBA_PDB_SAVED_STATES로 확인). PDB_AUTOSTART라는 초기화 파라미터나 KEEP OPEN 절은 존재하지 않는다. PDB$SEED는 읽기 전용 템플릿이므로 그곳에서 작업하는 것은 의미가 없고, CONTROL_FILES는 컨트롤 파일 위치를 지정하는 파라미터다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SAVE-STATE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After a DBA runs ALTER PLUGGABLE DATABASE pdb1 CLOSE IMMEDIATE in a running CDB, what is the open mode of PDB1 shown in V$PDBS?",
+  "options": {
+   "A": "READ ONLY",
+   "B": "SHUTDOWN",
+   "C": "MOUNTED",
+   "D": "NOMOUNT",
+   "E": "MIGRATE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PDB를 닫으면 V$PDBS의 OPEN_MODE가 MOUNTED로 바뀐다. PDB에는 별도의 인스턴스가 없으므로 NOMOUNT나 SHUTDOWN 같은 상태가 없다. READ ONLY는 읽기 전용으로 열린 상태이고, MIGRATE는 업그레이드용으로 열린 상태다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-PDB-CLOSE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a CDB, which of the following is shared by all containers and is never owned by an individual PDB?",
+  "options": {
+   "A": "The SYSTEM tablespace data files",
+   "B": "The undo tablespace of a PDB when local undo mode is enabled",
+   "C": "Application user tablespaces",
+   "D": "The online redo log files",
+   "E": "The SYSAUX tablespace data files"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "온라인 리두 로그 파일은 CDB 전체에 하나의 세트만 있으며 모든 컨테이너가 공유한다(컨트롤 파일도 마찬가지). SYSTEM과 SYSAUX 테이블스페이스는 PDB마다 각자 가지고 있고, 로컬 undo 모드에서는 PDB별 undo 테이블스페이스가 있다. 애플리케이션 사용자 테이블스페이스도 각 PDB에 속한다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CDB-SHARED"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How can a DBA check whether a 19c CDB is running in local undo mode?",
+  "options": {
+   "A": "Query V$BGPROCESS for a process named UNDO",
+   "B": "Query V$PDBS for the column UNDO_MODE",
+   "C": "Check whether the UNDO_MANAGEMENT parameter is set to LOCAL",
+   "D": "Check whether PDB$SEED is open READ WRITE",
+   "E": "Query DATABASE_PROPERTIES for the property LOCAL_UNDO_ENABLED"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "CDB의 undo 모드는 DATABASE_PROPERTIES 뷰의 LOCAL_UNDO_ENABLED 속성값(TRUE/FALSE)으로 확인한다. V$PDBS에는 UNDO_MODE 컬럼이 없고, UNDO_MANAGEMENT 파라미터는 AUTO/MANUAL 값으로 자동 undo 관리 여부를 정할 뿐 LOCAL 값이 없다. PDB$SEED의 오픈 모드는 undo 모드와 관계없으며, UNDO라는 백그라운드 프로세스도 없다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-LOCAL-UNDO"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A common user with the SET CONTAINER privilege is connected to CDB$ROOT. How can the user switch the current session to PDB1 without opening a new connection?",
+  "options": {
+   "A": "ALTER SESSION SET CONTAINER = pdb1",
+   "B": "ALTER PLUGGABLE DATABASE pdb1 CONNECT",
+   "C": "ALTER SYSTEM SET CONTAINER = pdb1",
+   "D": "ALTER SESSION SET CURRENT_SCHEMA = pdb1",
+   "E": "ALTER DATABASE SWITCH TO pdb1"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "공통 사용자는 SET CONTAINER 권한이 있으면 ALTER SESSION SET CONTAINER로 현재 세션의 컨테이너를 바꿀 수 있다. ALTER SYSTEM SET CONTAINER, ALTER PLUGGABLE DATABASE ... CONNECT, ALTER DATABASE SWITCH TO 같은 구문은 존재하지 않는다. CURRENT_SCHEMA는 기본 스키마만 바꿀 뿐 컨테이너를 바꾸지 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SET-CONTAINER"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "When queried from CDB$ROOT, how does a CDB_ view (for example CDB_TABLES) differ from the corresponding DBA_ view?",
+  "options": {
+   "A": "The CDB_ view returns rows only from PDB$SEED",
+   "B": "The CDB_ view returns rows from the root and all open PDBs, identified by a CON_ID column",
+   "C": "The CDB_ view returns only common objects and never local objects",
+   "D": "The CDB_ view is identical to the DBA_ view and exists only for backward compatibility with non-CDBs",
+   "E": "The CDB_ view returns rows only from closed PDBs"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "루트에서 CDB_ 뷰를 조회하면 루트와 열려 있는 모든 PDB의 정보가 CON_ID 컬럼과 함께 반환되며, DBA_ 뷰는 현재 컨테이너의 정보만 보여 준다. PDB$SEED나 닫힌 PDB만 보여 준다는 설명은 틀리고(닫힌 PDB는 조회 대상이 아니다), 호환성용 동일 뷰도 아니다. 로컬 객체도 해당 PDB의 행으로 포함된다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CDB-VIEWS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In the database buffer cache, what is a dirty buffer?",
+  "options": {
+   "A": "A buffer reserved for the redo log",
+   "B": "A buffer currently being read by a session and therefore pinned",
+   "C": "A buffer containing a block that has been modified but not yet written to disk",
+   "D": "A buffer containing a corrupted block that must be recovered",
+   "E": "A buffer whose block is identical to the version on disk"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "더티 버퍼는 메모리에서 변경되었으나 아직 데이터 파일에 기록되지 않은 블록을 담은 버퍼로, DBWn이 디스크에 기록해야 재사용할 수 있다. 손상 블록을 뜻하는 용어가 아니며, 디스크와 동일한 버퍼는 클린 버퍼다. 세션이 사용 중인 버퍼는 pinned 버퍼이고, 버퍼 캐시는 리두 로그용 버퍼를 예약하지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-BUFFER-STATE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which background process automatically resolves failures involving in-doubt distributed transactions?",
+  "options": {
+   "A": "Job queue coordinator (CJQ0)",
+   "B": "Checkpoint process (CKPT)",
+   "C": "Process monitor (PMON)",
+   "D": "Recoverer process (RECO)",
+   "E": "System monitor (SMON)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "RECO는 분산 데이터베이스 환경에서 네트워크나 시스템 장애로 in-doubt 상태가 된 분산 트랜잭션을 원격 노드와 통신해 자동으로 해결한다. PMON은 실패한 프로세스 정리, SMON은 인스턴스 복구와 시스템 정리를 담당한다. CJQ0은 스케줄러 작업을 조정하고, CKPT는 체크포인트 정보를 갱신한다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-RECO"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "When automatic memory management or automatic shared memory management is used, which background process performs the resizing of memory components?",
+  "options": {
+   "A": "Database writer (DBWn)",
+   "B": "Manageability monitor (MMON)",
+   "C": "Listener registration process (LREG)",
+   "D": "Process monitor (PMON)",
+   "E": "Memory manager (MMAN)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "MMAN(memory manager)은 AMM·ASMM 환경에서 메모리 구성 요소 간 크기 조정을 실제로 수행하는 프로세스다. MMON은 AWR 스냅샷과 경고 등 관리 작업을 담당하며 메모리 크기 조정 주체가 아니다. PMON, DBWn, LREG는 각각 프로세스 정리, 데이터 파일 기록, 리스너 등록을 담당한다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-MMAN"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the effect of starting a database with STARTUP RESTRICT?",
+  "options": {
+   "A": "Only users with the RESTRICTED SESSION privilege can connect",
+   "B": "The database is opened in read-only mode",
+   "C": "Only the SYS user can connect, and only through a bequeath connection",
+   "D": "All PDBs are opened in restricted mode, but CDB$ROOT remains closed",
+   "E": "The database is mounted but not opened"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "STARTUP RESTRICT로 시작하면 데이터베이스는 열리지만 RESTRICTED SESSION 권한을 가진 사용자만 접속할 수 있어 유지보수 작업에 사용된다. 읽기 전용 오픈은 별도의 READ ONLY 옵션이며, SYS만 접속 가능하다는 것은 틀리다. RESTRICT는 데이터베이스를 연 상태이므로 MOUNT 상태와 다르고, 루트가 닫힌 채 PDB만 열리는 구성은 불가능하다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-STARTUP-RESTRICT"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does STARTUP FORCE do when an instance is already running?",
+  "options": {
+   "A": "It forces a checkpoint and keeps the instance running",
+   "B": "It performs the equivalent of SHUTDOWN ABORT and then starts the instance again",
+   "C": "It returns an error because the instance is already started",
+   "D": "It opens all closed PDBs without restarting the instance",
+   "E": "It performs SHUTDOWN IMMEDIATE and then starts the instance again"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "STARTUP FORCE는 실행 중인 인스턴스를 SHUTDOWN ABORT와 동일하게 강제로 종료한 뒤 다시 시작한다. 따라서 IMMEDIATE 종료가 아니며, 재시작 시 인스턴스 복구가 수행된다. 이미 시작된 인스턴스에서 오류를 반환하는 것은 일반 STARTUP이다. PDB를 여는 기능이나 체크포인트만 강제하는 기능이 아니다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-STARTUP-FORCE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Immediately after CREATE PLUGGABLE DATABASE pdb2 ADMIN USER ... completes successfully, what is the open mode of PDB2?",
+  "options": {
+   "A": "MIGRATE",
+   "B": "READ WRITE",
+   "C": "MOUNTED",
+   "D": "READ ONLY",
+   "E": "RESTRICTED READ WRITE"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "CREATE PLUGGABLE DATABASE로 새로 만든 PDB는 MOUNTED 상태이며, 사용하려면 ALTER PLUGGABLE DATABASE ... OPEN으로 열어야 한다. 생성 직후 자동으로 READ WRITE나 READ ONLY로 열리지 않는다. MIGRATE는 업그레이드용 모드이고, 제한 모드는 별도로 OPEN RESTRICTED를 지정해야 한다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CREATE-PDB-STATE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about the PGA are true? (Choose two.)",
+  "options": {
+   "A": "The PGA contains the library cache and the data dictionary cache for each session",
+   "B": "The size of the PGA is fixed by the SGA_TARGET parameter and cannot change at run time",
+   "C": "All server processes read and write a single shared PGA",
+   "D": "Sort and hash join work areas are allocated in the PGA of a dedicated server process",
+   "E": "A PGA is allocated for each server process and each background process"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "PGA는 서버 프로세스와 백그라운드 프로세스마다 하나씩 할당되며, 전용 서버에서는 정렬·해시 조인 등 SQL 작업 영역이 PGA에 위치한다. 라이브러리 캐시는 SGA의 공유 풀에 있고, PGA는 프로세스 전용이라 공유되지 않는다. PGA 크기는 SGA_TARGET이 아니라 PGA_AGGREGATE_TARGET 등으로 관리한다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-PGA-FACTS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two actions take place when an instance is started in NOMOUNT state? (Choose two.)",
+  "options": {
+   "A": "The control files are opened",
+   "B": "The online data files and online redo log files are opened",
+   "C": "The SGA is allocated and the background processes are started",
+   "D": "Instance recovery is performed",
+   "E": "The initialization parameter file is read"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "NOMOUNT 단계에서는 초기화 파라미터 파일을 읽고, SGA를 할당하며, 백그라운드 프로세스를 시작한다. 컨트롤 파일은 MOUNT 단계에서 열리고, 데이터 파일은 OPEN 단계에서 열린다. 인스턴스 복구도 데이터 파일과 리두 로그가 필요하므로 OPEN 과정에서 수행된다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-NOMOUNT-TASKS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about the physical structure of a 19c CDB are true? (Choose two.)",
+  "options": {
+   "A": "Each PDB has its own SYSTEM and SYSAUX tablespaces",
+   "B": "All containers share a single set of control files",
+   "C": "Users can open PDB$SEED in READ WRITE mode to add application data",
+   "D": "Each PDB runs its own instance with a separate SGA",
+   "E": "Each PDB has its own set of online redo log files"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "각 PDB는 고유한 SYSTEM·SYSAUX 테이블스페이스(자체 데이터 딕셔너리)를 가지며, 컨트롤 파일은 CDB 전체가 하나의 세트를 공유한다. 온라인 리두 로그도 CDB 수준에서 공유되므로 PDB별로 존재하지 않는다. 하나의 CDB 인스턴스(단일 인스턴스 기준)가 모든 PDB를 서비스하므로 PDB마다 별도의 SGA가 없다. PDB$SEED는 읽기 전용 템플릿으로 사용자가 데이터를 넣을 수 없다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CDB-STRUCTURE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two actions cause a full checkpoint in which all dirty buffers in the buffer cache are written to disk? (Choose two.)",
+  "options": {
+   "A": "SHUTDOWN ABORT",
+   "B": "A user COMMIT",
+   "C": "A query that performs a full table scan",
+   "D": "ALTER SYSTEM CHECKPOINT",
+   "E": "SHUTDOWN IMMEDIATE"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "ALTER SYSTEM CHECKPOINT와 일관된 종료(NORMAL, IMMEDIATE, TRANSACTIONAL)는 모든 더티 버퍼를 디스크에 기록하는 전체 체크포인트를 일으킨다. SHUTDOWN ABORT는 체크포인트 없이 종료하므로 다음 시작 시 인스턴스 복구가 필요하다. 커밋은 LGWR의 리두 기록만 요구하고, 전체 테이블 스캔 조회는 체크포인트를 유발하지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-CHECKPOINT-EVENTS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "In which situations does LGWR write the contents of the redo log buffer to disk? (Choose all that apply.)",
+  "options": {
+   "A": "The listener accepts a new client connection",
+   "B": "A user commits a transaction",
+   "C": "A user runs a query that only reads data",
+   "D": "An online redo log switch occurs",
+   "E": "DBWn must write modified buffers whose redo has not yet been written to disk"
+  },
+  "correct_keys": [
+   "B",
+   "D",
+   "E"
+  ],
+  "explanation": "LGWR은 사용자 커밋, 로그 스위치, 그리고 DBWn이 아직 리두가 기록되지 않은 더티 버퍼를 쓰려 할 때(write-ahead) 리두 로그 버퍼를 디스크에 기록한다. 읽기 전용 조회는 리두를 생성하지 않으며, 리스너의 새 연결 수락도 LGWR 기록과 관계가 없다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-LGWR-TRIGGER"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two memory structures are located in the shared pool? (Choose two.)",
+  "options": {
+   "A": "Library cache",
+   "B": "Sort work areas of dedicated server sessions",
+   "C": "Data dictionary cache",
+   "D": "Redo log buffer",
+   "E": "Database buffer cache"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "공유 풀에는 SQL·PL/SQL 공유 영역을 담는 라이브러리 캐시와 딕셔너리 정보를 담는 데이터 딕셔너리 캐시(row cache)가 있다. 리두 로그 버퍼와 데이터베이스 버퍼 캐시는 공유 풀과 별개의 SGA 구성 요소다. 전용 서버 세션의 정렬 작업 영역은 PGA에 있다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-SHARED-POOL"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA issues SHUTDOWN at night, but the command does not return for over an hour. Several application connection pool sessions are still connected but idle. The DBA wants the database closed consistently as soon as possible. What should the DBA do?",
+  "options": {
+   "A": "Use STARTUP NOMOUNT to cancel the shutdown",
+   "B": "Run ALTER SYSTEM CHECKPOINT to make SHUTDOWN NORMAL complete",
+   "C": "Use SHUTDOWN TRANSACTIONAL, which also waits until all sessions log off",
+   "D": "Use SHUTDOWN IMMEDIATE to disconnect the sessions and close the database consistently",
+   "E": "Wait, because SHUTDOWN NORMAL will disconnect idle sessions automatically after a timeout"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "옵션 없는 SHUTDOWN은 NORMAL 모드로 모든 사용자가 스스로 로그오프할 때까지 기다리므로, 커넥션 풀 세션이 남아 있으면 끝나지 않는다. SHUTDOWN IMMEDIATE는 세션을 끊고 미커밋 트랜잭션을 롤백한 뒤 일관되게 종료한다. NORMAL에는 유휴 세션 타임아웃이 없고, TRANSACTIONAL은 트랜잭션 완료 후 세션을 끊으므로 로그오프를 기다린다는 설명이 틀리다. 체크포인트로 NORMAL 종료가 끝나지는 않으며, 종료 중인 인스턴스에 STARTUP을 실행해 취소할 수도 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SHUTDOWN-NORMAL"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Before maintenance, a DBA must shut down a database consistently. Users are running short OLTP transactions that must not be rolled back, but no new transactions should be started. Which shutdown mode best meets this requirement?",
+  "options": {
+   "A": "SHUTDOWN IMMEDIATE",
+   "B": "SHUTDOWN ABORT",
+   "C": "SHUTDOWN NORMAL followed by STARTUP RESTRICT",
+   "D": "STARTUP FORCE",
+   "E": "SHUTDOWN TRANSACTIONAL"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SHUTDOWN TRANSACTIONAL은 새 트랜잭션 시작을 막고, 진행 중인 트랜잭션이 끝나면 해당 클라이언트를 끊은 뒤 일관되게 종료하므로 트랜잭션 롤백 없이 종료할 수 있다. ABORT는 즉시 종료해 인스턴스 복구가 필요하고, IMMEDIATE는 진행 중 트랜잭션을 롤백한다. NORMAL은 모든 사용자의 로그오프를 기다려 끝나지 않을 수 있으며, STARTUP FORCE는 강제 종료 후 재시작하는 명령이다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SHUTDOWN-MODES"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA connects to PDB1 as a user with SYSDBA privilege (the session's current container is PDB1) and issues SHUTDOWN IMMEDIATE. What is the result?",
+  "options": {
+   "A": "Only PDB1 is closed and placed in MOUNTED state; the CDB instance and other PDBs keep running",
+   "B": "The command fails because SHUTDOWN can be issued only in CDB$ROOT",
+   "C": "All PDBs are closed, but CDB$ROOT remains open",
+   "D": "The entire CDB instance shuts down, closing all PDBs",
+   "E": "PDB1 is unplugged from the CDB automatically"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "PDB에 접속한 상태에서 SHUTDOWN IMMEDIATE를 실행하면 해당 PDB만 닫혀 MOUNTED 상태가 되고, CDB 인스턴스와 다른 PDB에는 영향이 없다(ALTER PLUGGABLE DATABASE CLOSE IMMEDIATE와 같은 효과). CDB 전체 종료는 루트에서 실행할 때만 일어난다. PDB 안에서도 SHUTDOWN이 허용되며, 언플러그나 다른 PDB 종료는 일어나지 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-PDB-SHUTDOWN"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a planned restart of a 19c CDB, application teams report that they cannot connect to PDB_SALES. V$PDBS shows PDB_SALES in MOUNTED state, although it was open READ WRITE before the restart. The DBA wants this PDB to open automatically after future restarts. What should the DBA do?",
+  "options": {
+   "A": "Unplug and plug in PDB_SALES again",
+   "B": "Open PDB_SALES READ WRITE and then run ALTER PLUGGABLE DATABASE pdb_sales SAVE STATE",
+   "C": "Re-create the control file so that it records the PDB open mode",
+   "D": "Set PDB$SEED to READ WRITE so that new PDBs inherit the open state",
+   "E": "Restart the CDB with STARTUP FORCE"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "CDB 재시작 후 PDB는 저장된 상태가 없으면 MOUNTED로 남는다. PDB를 READ WRITE로 연 뒤 SAVE STATE를 실행하면 이후 재시작 시 자동으로 같은 모드로 열린다. PDB$SEED의 모드는 다른 PDB의 시작 상태와 무관하며, 컨트롤 파일 재생성이나 STARTUP FORCE는 이 문제를 해결하지 않는다. 언플러그·플러그인도 자동 오픈 설정과는 관계가 없다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SAVE-STATE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "PDB_REP is currently open READ WRITE. For an audit, the DBA must make it available only for queries until further notice, without affecting other PDBs. What should the DBA do?",
+  "options": {
+   "A": "Run ALTER PLUGGABLE DATABASE pdb_rep OPEN READ ONLY (without the FORCE keyword) while it is still open READ WRITE",
+   "B": "Restart the whole CDB with STARTUP READ ONLY",
+   "C": "Close PDB_REP and then open it with ALTER PLUGGABLE DATABASE pdb_rep OPEN READ ONLY",
+   "D": "Run ALTER DATABASE OPEN READ ONLY while connected to CDB$ROOT",
+   "E": "Revoke the CREATE SESSION privilege from all users of every PDB"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PDB의 오픈 모드를 READ WRITE에서 READ ONLY로 바꾸려면 먼저 PDB를 닫은 다음 OPEN READ ONLY로 다시 열어야 하며, 다른 PDB에는 영향이 없다. CDB 전체를 읽기 전용으로 재시작하거나 루트에서 ALTER DATABASE OPEN READ ONLY를 실행하면 다른 PDB까지 영향을 받는다. 이미 열린 PDB에 FORCE 없이 OPEN READ ONLY를 실행하면 이미 열려 있다는 오류가 발생한다(FORCE 절을 쓰면 닫지 않고 모드를 바꿀 수 있지만 이 보기는 FORCE 없이 실행하는 경우다). 모든 PDB 사용자 권한 회수는 요구사항과 맞지 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-PDB-OPEN-RO"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "With SGA_TARGET set to a nonzero value (ASMM enabled), a DBA also sets SHARED_POOL_SIZE to a nonzero value. How is this SHARED_POOL_SIZE value interpreted?",
+  "options": {
+   "A": "As a fixed size that ASMM is not allowed to change in either direction while SGA_TARGET is set",
+   "B": "As a maximum size that ASMM can never exceed",
+   "C": "As the size of the shared pool in each PDB",
+   "D": "As a minimum size; ASMM can grow the shared pool above it but not shrink it below",
+   "E": "It is ignored entirely while SGA_TARGET is set"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "ASMM 환경에서 자동 조정 대상 구성 요소(공유 풀, 버퍼 캐시 등)에 값을 지정하면 그 값은 최소 크기로 취급된다. ASMM은 필요에 따라 더 크게 늘릴 수는 있지만 지정 값 아래로 줄이지 않는다. 고정 크기나 최대 크기로 해석된다는 설명은 틀리고, 값이 완전히 무시되지도 않는다. PDB별 공유 풀 크기를 의미하지도 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-ASMM-MIN"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An instance uses ASMM with SGA_TARGET=8G and SGA_MAX_SIZE=10G, and MEMORY_TARGET=0. The DBA runs ALTER SYSTEM SET SGA_TARGET=12G SCOPE=MEMORY. What happens?",
+  "options": {
+   "A": "SGA_TARGET is raised to 12G, and the extra memory is taken from the PGA",
+   "B": "SGA_TARGET is raised to 12G immediately, and SGA_MAX_SIZE is raised automatically to match it",
+   "C": "The command succeeds, but the change is applied only after the next restart",
+   "D": "The instance switches to Automatic Memory Management to satisfy the request",
+   "E": "The command fails, because SGA_TARGET cannot be set above SGA_MAX_SIZE dynamically"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "SGA_MAX_SIZE는 인스턴스 수명 동안 SGA가 커질 수 있는 상한이며 정적 파라미터다. 따라서 SGA_TARGET은 SGA_MAX_SIZE 이하에서만 동적으로 변경할 수 있고, 이를 넘는 값을 SCOPE=MEMORY로 지정하면 오류가 발생한다. SGA_MAX_SIZE가 자동으로 커지거나 PGA에서 메모리를 가져오는 동작은 없으며, SCOPE=MEMORY는 다음 재시작에 반영되는 설정도 아니다. AMM으로 자동 전환되지도 않는다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SGA-MAX-SIZE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A long-running transaction has modified many blocks and has not yet committed. DBWn writes some of those modified blocks to the data files to free buffers, and then the instance crashes. What happens during instance recovery?",
+  "options": {
+   "A": "Changes are rolled forward from redo, then rolled back with undo because the transaction never committed",
+   "B": "Instance recovery fails and media recovery from backup is required",
+   "C": "PMON re-executes the transaction from the beginning",
+   "D": "The blocks written by DBWn are left as they are, so the uncommitted changes persist after the database opens",
+   "E": "The changes are discarded because DBWn never writes uncommitted changes to disk"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "DBWn은 버퍼 확보를 위해 미커밋 변경도 데이터 파일에 쓸 수 있으며, write-ahead 규칙에 따라 해당 리두는 이미 디스크에 있다. 인스턴스 복구는 리두로 롤포워드(캐시 복구)한 뒤 undo로 미커밋 트랜잭션을 롤백(트랜잭션 복구)하므로 미커밋 변경은 남지 않는다. 미커밋 변경이 그대로 남는다는 설명, 백업으로 미디어 복구가 필요하다는 설명은 틀리다. DBWn이 미커밋 변경을 쓰지 않는다는 전제도 틀리고, 트랜잭션을 재실행하는 프로세스는 없다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-WRITE-AHEAD"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a 19c CDB with local undo enabled, a DBA needs a copy of PDB1 for testing while PDB1 remains open READ WRITE for users. Which approach is supported?",
+  "options": {
+   "A": "Copy the CDB control file and rename it for the new PDB",
+   "B": "Run CREATE PLUGGABLE DATABASE pdb1_test FROM pdb1 while PDB1 stays open READ WRITE (hot clone)",
+   "C": "Open PDB1 in MIGRATE mode and copy its data files manually",
+   "D": "Clone PDB$SEED, because PDB1 cannot be a clone source while it is open",
+   "E": "Unplug PDB1 while it is open and plug the XML file in twice"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "로컬 undo 모드에서는 원본 PDB가 READ WRITE로 열린 상태에서도 CREATE PLUGGABLE DATABASE ... FROM으로 핫 클론을 만들 수 있다. 언플러그는 PDB를 닫아야 가능하고, CDB 컨트롤 파일을 복사해도 PDB가 만들어지지 않는다. 시드 클론은 원본 데이터가 없는 빈 PDB를 만들 뿐이며, MIGRATE 모드로 열고 수동 복사하는 것은 지원되는 복제 절차가 아니다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-HOT-CLONE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA runs ALTER PLUGGABLE DATABASE pdb_hr UNPLUG INTO '/u01/pdb_hr.xml' and receives an error. PDB_HR is currently open READ WRITE. What is the cause?",
+  "options": {
+   "A": "A PDB can be unplugged only into a .pdb archive file, not an XML file",
+   "B": "Only PDB$SEED can be unplugged",
+   "C": "A PDB must be closed before it can be unplugged",
+   "D": "The PDB must first be opened in MIGRATE mode",
+   "E": "The CDB must be in NOMOUNT state to unplug a PDB"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "PDB를 언플러그하려면 먼저 닫아야(MOUNTED) 하므로 READ WRITE로 열린 상태에서는 오류가 발생한다. 언플러그 대상은 XML 매니페스트 파일 또는 .pdb 아카이브 파일 모두 가능하다. CDB를 NOMOUNT로 내릴 필요는 없고, PDB$SEED는 오히려 언플러그할 수 없다. MIGRATE 모드로 열 필요도 없다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-UNPLUG"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A client application crashed while its dedicated server session held row locks from an uncommitted update. Shortly afterward the locks were released and the transaction's changes were rolled back, without any DBA action. Which part of the instance performed this cleanup?",
+  "options": {
+   "A": "LGWR, by discarding the uncommitted transaction's redo from the redo log buffer and online redo log",
+   "B": "SMON, through instance recovery",
+   "C": "RECO, by resolving the transaction as an in-doubt distributed transaction",
+   "D": "The process monitor (PMON) group, which detects the failed process and frees its resources",
+   "E": "CKPT, by updating the data file headers"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "비정상 종료된 프로세스의 정리는 PMON 그룹(PMON과 정리 보조 프로세스)이 담당하며, 세션 자원을 해제하고 락을 풀고 미커밋 트랜잭션을 정리한다. SMON의 인스턴스 복구는 인스턴스 장애 후 재시작 시에만 수행된다. LGWR은 리두를 버리지 않고, RECO는 분산 트랜잭션 전용이다. CKPT는 체크포인트 정보만 갱신한다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-PMON-CLEANUP"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A server lost power while the database was processing transactions. After power is restored, the DBA runs STARTUP. The alert log shows that crash recovery completed and the database opened, but no backups or archived logs were restored. Which statement best explains what happened?",
+  "options": {
+   "A": "The database opened without any recovery because SHUTDOWN ABORT was performed automatically at power loss",
+   "B": "LGWR rewrote the online redo logs from the control file",
+   "C": "RMAN automatically restored the data files from the last backup",
+   "D": "PMON applied archived redo logs to recover the data files",
+   "E": "SMON performed instance recovery using the online redo logs and undo, without backups"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "전원 장애 같은 인스턴스 장애 후 STARTUP 시 SMON이 온라인 리두 로그로 롤포워드하고 undo로 미커밋 트랜잭션을 롤백하는 인스턴스(크래시) 복구를 자동 수행하므로 백업이나 아카이브 로그가 필요 없다. RMAN이 자동 복원하지 않으며, PMON은 아카이브 로그를 적용하지 않는다. 전원 장애는 복구가 필요 없는 정상 종료가 아니고, LGWR이 컨트롤 파일에서 리두를 재작성하는 동작도 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-SMON-ROLE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A DBA runs STARTUP. The instance starts, but the command fails with ORA-00205: error in identifying control file. Which statement correctly describes the situation?",
+  "options": {
+   "A": "The instance reached NOMOUNT but could not mount; check CONTROL_FILES and the alert log",
+   "B": "The listener cannot find the service for the database",
+   "C": "The instance failed to read the parameter file, so no SGA was allocated and no background process started",
+   "D": "The database is open, but the control file copy is not multiplexed",
+   "E": "The database mounted successfully but a data file is missing"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "ORA-00205는 MOUNT 단계에서 컨트롤 파일을 식별하지 못할 때 발생하므로 인스턴스는 NOMOUNT까지 시작된 상태다. CONTROL_FILES 파라미터 경로와 경고 로그를 확인해 누락되거나 손상된 컨트롤 파일을 복구해야 한다. 파라미터 파일을 읽지 못했다면 인스턴스 자체가 시작되지 않는다. 데이터 파일 누락은 MOUNT 이후 OPEN 단계 오류이고, 데이터베이스가 열린 것도 아니다. 리스너 문제는 시작 단계와 관련이 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CONTROLFILE-MISSING"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "During STARTUP, the database fails with ORA-01157: cannot identify/lock data file 7. V$INSTANCE shows the instance STATUS as MOUNTED. What does this indicate?",
+  "options": {
+   "A": "The online redo logs are fine and the database is open in restricted mode",
+   "B": "The control files were read successfully, but a data file could not be opened during the OPEN stage",
+   "C": "The parameter file is missing, so the instance could not reach NOMOUNT",
+   "D": "The listener failed to register the database service",
+   "E": "The control files are corrupted, so the database could not be mounted"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "STATUS가 MOUNTED라면 컨트롤 파일은 정상적으로 읽힌 것이며, ORA-01157은 OPEN 단계에서 데이터 파일을 찾거나 잠그지 못했다는 뜻이다. 파라미터 파일 문제라면 NOMOUNT도 되지 않고, 컨트롤 파일 손상이라면 MOUNT에 도달하지 못한다. 데이터베이스는 열리지 않았으므로 제한 모드로 열렸다는 설명도 틀리며, 리스너 등록은 이 오류와 무관하다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-DATAFILE-MISSING"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "On Linux, a 19c instance is configured with MEMORY_TARGET=24G. The system administrator configured HugePages, but HugePages_Free does not decrease after the instance starts. The DBA wants the SGA to use HugePages. What should the DBA do?",
+  "options": {
+   "A": "Increase MEMORY_MAX_TARGET above MEMORY_TARGET",
+   "B": "Set PGA_AGGREGATE_TARGET to 0 so that the PGA memory is placed in HugePages along with the SGA",
+   "C": "Set MEMORY_TARGET to 0 and use SGA_TARGET and PGA_AGGREGATE_TARGET (ASMM) instead",
+   "D": "Increase the number of DBWn processes",
+   "E": "Enable shared server so that the UGA is placed in HugePages"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Linux에서 AMM(MEMORY_TARGET)은 HugePages와 호환되지 않으므로 HugePages를 사용하려면 MEMORY_TARGET을 0으로 두고 SGA_TARGET과 PGA_AGGREGATE_TARGET을 사용하는 ASMM으로 전환해야 한다. MEMORY_MAX_TARGET을 늘려도 AMM이 유지되므로 해결되지 않는다. PGA는 HugePages 대상이 아니며, 공유 서버 구성이나 DBWn 수 증가도 HugePages 사용 여부와 관계가 없다.",
+  "reference": "Oracle Database 19c - Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-AMM-HUGEPAGES"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A database uses shared server, and RMAN backups are configured with I/O slaves. The DBA sees intermittent ORA-04031 errors reporting failure to allocate memory in the shared pool, and LARGE_POOL_SIZE is 0 with SGA_TARGET also set to 0. Which change most directly addresses the cause?",
+  "options": {
+   "A": "Increase DB_KEEP_CACHE_SIZE",
+   "B": "Increase the redo log buffer",
+   "C": "Increase PGA_AGGREGATE_TARGET so that shared server session memory is allocated in the PGA",
+   "D": "Configure a large pool to hold shared server session memory and RMAN I/O buffers",
+   "E": "Add more online redo log groups"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "라지 풀이 없으면 공유 서버의 UGA와 RMAN I/O 버퍼 같은 대용량 할당이 공유 풀에서 이루어져 단편화와 ORA-04031을 유발할 수 있다. 라지 풀을 구성하면 이런 할당이 공유 풀에서 분리된다. 리두 로그 버퍼, KEEP 캐시, 온라인 리두 로그 그룹은 공유 풀 메모리 부족과 관계가 없다. 공유 서버의 UGA는 SGA에 있으므로 PGA 목표치를 늘려도 해결되지 않는다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-ORA4031-LARGE-POOL"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A 19c instance has PGA_AGGREGATE_TARGET=4G and PGA_AGGREGATE_LIMIT=8G. A runaway PL/SQL procedure keeps filling large collections, and total PGA usage reaches the limit. What does the database do?",
+  "options": {
+   "A": "It ignores the limit because PGA_AGGREGATE_TARGET is set",
+   "B": "It crashes the instance to protect the operating system",
+   "C": "It automatically increases PGA_AGGREGATE_LIMIT to fit the demand and records a warning in the alert log",
+   "D": "It moves the PL/SQL collections to the shared pool",
+   "E": "It aborts calls or ends sessions using the most untunable PGA until usage drops below the limit"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "PGA_AGGREGATE_LIMIT을 초과하면 오라클은 조정 불가능한(untunable) PGA 메모리를 가장 많이 사용하는 세션의 호출을 중단하거나 세션을 종료해 사용량을 한도 아래로 낮춘다. 인스턴스를 중단시키거나 한도를 자동으로 늘리지 않는다. PL/SQL 컬렉션을 공유 풀로 옮기는 동작은 없고, PGA_AGGREGATE_TARGET이 설정되어 있어도 하드 한도는 적용된다.",
+  "reference": "Oracle Database 19c - Database Reference (검수 필요)",
+  "variant_group": "DB-ARCH-PGA-LIMIT"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "During heavy batch loads, sessions periodically hang and the alert log repeatedly shows 'Thread 1 cannot allocate new log' followed by 'Checkpoint not complete'. The database is in NOARCHIVELOG mode. What is the most likely cause?",
+  "options": {
+   "A": "LGWR needs to reuse a log group whose checkpoint is incomplete because DBWn has not finished writing",
+   "B": "The control file cannot be updated because it is not multiplexed",
+   "C": "The shared pool is too small to hold the redo entries",
+   "D": "PMON is busy cleaning up failed sessions",
+   "E": "ARCn cannot archive the online redo log because the archive destination is full, so the log cannot be reused"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "'Checkpoint not complete'는 LGWR이 순환 재사용하려는 로그 그룹을 보호하던 더티 버퍼를 DBWn이 아직 다 쓰지 못해 체크포인트가 끝나지 않았을 때 발생하며, 그동안 리두 생성이 멈춘다. 로그 그룹 추가나 크기 확대로 완화한다. NOARCHIVELOG 모드이므로 아카이브 대상 부족은 원인이 될 수 없다. 컨트롤 파일 다중화 여부, PMON 정리 작업은 이 메시지와 무관하고, 리두 항목은 공유 풀이 아니라 리두 로그 버퍼에 저장된다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-CHECKPOINT-NOT-COMPLETE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about instance recovery in Oracle Database 19c are true? (Choose two.)",
+  "options": {
+   "A": "It requires archived redo log files, so it can be performed only when the database runs in ARCHIVELOG mode",
+   "B": "The database can be opened before rollback of all uncommitted transactions has finished",
+   "C": "It uses the online redo logs to roll forward changes not yet written to the data files",
+   "D": "It requires the DBA to restore the data files from an RMAN backup",
+   "E": "It is performed by PMON when the instance is restarted"
+  },
+  "correct_keys": [
+   "B",
+   "C"
+  ],
+  "explanation": "인스턴스 복구는 온라인 리두 로그로 데이터 파일에 기록되지 않은 변경을 롤포워드(캐시 복구)한 뒤 undo로 미커밋 트랜잭션을 롤백하며, 롤백은 데이터베이스가 열린 뒤에도 진행될 수 있어(fast-start/on-demand rollback) 오픈이 지연되지 않는다. 백업 복원은 미디어 복구에서 필요한 작업이고, 인스턴스 복구는 온라인 리두만 사용하므로 NOARCHIVELOG 모드에서도 동작한다. 수행 주체는 PMON이 아니라 SMON이다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-INSTANCE-RECOVERY"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about when DBWn writes buffers to disk are true? (Choose two.)",
+  "options": {
+   "A": "DBWn writes all buffers modified by a transaction at the moment the transaction commits",
+   "B": "DBWn writes buffers only when the database is shut down",
+   "C": "DBWn writes dirty buffers to advance the checkpoint position",
+   "D": "DBWn writes dirty buffers when a server process cannot find enough clean, reusable buffers",
+   "E": "DBWn writes dirty buffers to the online redo log files"
+  },
+  "correct_keys": [
+   "C",
+   "D"
+  ],
+  "explanation": "DBWn은 서버 프로세스가 재사용할 클린 버퍼를 충분히 찾지 못할 때, 그리고 체크포인트 위치를 앞당기기 위해 더티 버퍼를 기록한다. 커밋 시에는 LGWR만 리두를 기록하며 DBWn이 즉시 블록을 쓰지 않는다(지연 기록). DBWn은 데이터 파일에 쓰며 리두 로그에는 쓰지 않고, 종료 시에만 쓰는 것도 아니다.",
+  "reference": "Oracle Database 19c - Database Concepts (검수 필요)",
+  "variant_group": "DB-ARCH-DBWR-TRIGGERS"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A 19c CDB with no saved PDB states is started with STARTUP. What is the state of the containers immediately afterward?",
+  "options": {
+   "A": "CDB$ROOT and PDB$SEED are both open READ WRITE, and user PDBs are closed in NOMOUNT state",
+   "B": "CDB$ROOT is open READ WRITE, PDB$SEED is open READ ONLY, and user PDBs are MOUNTED",
+   "C": "All containers, including user PDBs, are open READ WRITE",
+   "D": "CDB$ROOT is MOUNTED and all PDBs are open READ WRITE",
+   "E": "Only CDB$ROOT exists in memory until each PDB is created again"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "저장된 상태가 없는 CDB를 STARTUP하면 CDB$ROOT는 READ WRITE로 열리고, PDB$SEED는 READ ONLY로 열리며, 사용자 PDB는 MOUNTED 상태로 남는다. 사용자 PDB가 자동으로 READ WRITE로 열리려면 SAVE STATE가 필요하다. 루트가 MOUNTED인 채 PDB가 열릴 수 없고, PDB$SEED는 READ WRITE로 열리지 않으며, PDB에는 NOMOUNT 상태가 없다. PDB를 다시 생성할 필요도 없다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-CDB-STARTUP-STATE"
+ },
+ {
+  "domain": "DB_ARCH",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How do client applications typically connect to a specific PDB in a 19c CDB over Oracle Net?",
+  "options": {
+   "A": "By using a separate listener that each PDB starts automatically",
+   "B": "By connecting to the PDB$SEED service",
+   "C": "By specifying a PDB service name, such as the default service named after the PDB",
+   "D": "By specifying the SID of the PDB in the connect descriptor instead of a service name",
+   "E": "By connecting to CDB$ROOT and then restarting the session inside the PDB"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "각 PDB는 PDB 이름과 같은 기본 서비스를 가지며, 클라이언트는 연결 기술자에 해당 PDB의 서비스 이름을 지정해 직접 접속한다. PDB에는 별도의 SID가 없으므로 SID로 PDB를 지정할 수 없다. 루트에 접속한 뒤 세션을 재시작하는 방식은 일반 애플리케이션 접속 방식이 아니고, PDB$SEED는 사용자 접속 대상이 아니다. PDB마다 리스너가 자동으로 생기지도 않는다.",
+  "reference": "Oracle Database 19c - Multitenant Administrator's Guide (검수 필요)",
+  "variant_group": "DB-ARCH-PDB-SERVICE"
+ }
+]

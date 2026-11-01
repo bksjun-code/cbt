@@ -1,0 +1,1415 @@
+[
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Clusterware 19c, which component records node membership information and is used by Cluster Synchronization Services to resolve split-brain situations?",
+  "options": {
+   "A": "Oracle Local Registry (OLR)",
+   "B": "Voting files",
+   "C": "Oracle Cluster Registry (OCR)",
+   "D": "Server parameter file (SPFILE)",
+   "E": "Database control files"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Voting file(voting disk)은 노드 멤버십 정보를 기록하며 CSS가 네트워크·디스크 하트비트를 통해 split-brain 시 어느 노드를 축출할지 판단하는 데 사용한다. OCR은 클러스터 리소스 구성 정보, OLR은 노드 로컬 구성 정보를 저장하며 멤버십 판정용이 아니다. SPFILE과 컨트롤 파일은 데이터베이스 파일로 Clusterware 멤버십과 무관하다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-VOTING-FILE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Clusterware component stores the cluster-wide configuration of resources such as databases, instances, services, and VIPs?",
+  "options": {
+   "A": "Oracle Local Registry (OLR)",
+   "B": "Grid Plug and Play profile only",
+   "C": "Automatic Diagnostic Repository (ADR)",
+   "D": "Voting files",
+   "E": "Oracle Cluster Registry (OCR)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "OCR(Oracle Cluster Registry)은 데이터베이스·인스턴스·서비스·VIP 등 클러스터 리소스의 구성 정보를 클러스터 전체에서 공유하도록 저장한다. Voting file은 멤버십 판정용이고, OLR은 각 노드의 로컬 정보만 담는다. GPnP 프로필은 클러스터 시작에 필요한 최소 프로필 정보일 뿐 리소스 구성 전체를 담지 않으며, ADR은 진단 정보 저장소이다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-OCR-ROLE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which registry resides on each cluster node and is used by the Oracle High Availability Services daemon (OHASD) during startup, before the OCR stored in Oracle ASM is accessible?",
+  "options": {
+   "A": "Oracle Inventory (oraInventory)",
+   "B": "Voting files",
+   "C": "Oracle Local Registry (OLR)",
+   "D": "Oracle Cluster Registry (OCR)",
+   "E": "Database password file"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "OLR은 각 노드의 로컬 디스크에 위치하며 OHASD가 스택을 기동할 때 사용한다. ASM에 저장된 OCR은 ASM이 기동되기 전에는 읽을 수 없으므로 시작 단계에서는 OLR이 필요하다. oraInventory는 설치 정보, voting file은 멤버십, 패스워드 파일은 인증용이다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-OLR"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle RAC background process is primarily responsible for shipping data blocks between instances over the interconnect as part of Cache Fusion?",
+  "options": {
+   "A": "LMS (Global Cache Service process)",
+   "B": "LMON (Global Enqueue Service Monitor)",
+   "C": "LMD (Global Enqueue Service Daemon)",
+   "D": "LCK0 (Instance Enqueue process)",
+   "E": "DBW0 (Database Writer)"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "LMS(Global Cache Service process)는 캐시 퓨전에서 블록 요청을 처리하고 인터커넥트를 통해 블록을 다른 인스턴스로 전송한다. LMON은 글로벌 리소스 재구성과 멤버십 감시, LMD는 글로벌 enqueue 요청 처리, LCK0는 비-캐시 퓨전 리소스(라이브러리·로우 캐시 등) 요청을 처리한다. DBW0는 디스크로 블록을 기록할 뿐 인스턴스 간 전송을 하지 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-LMS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle RAC background process monitors global enqueues and resources across the cluster and performs global resource reconfiguration when instances join or leave?",
+  "options": {
+   "A": "LGWR",
+   "B": "SMON",
+   "C": "LMS",
+   "D": "LMON",
+   "E": "RECO"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "LMON(Global Enqueue Service Monitor)은 클러스터 전체의 글로벌 enqueue와 리소스를 감시하고 인스턴스가 합류하거나 이탈할 때 GRD 재구성을 수행한다. LMS는 블록 전송, LGWR은 리두 기록, SMON은 인스턴스 복구 등 시스템 모니터링, RECO는 분산 트랜잭션 복구를 담당한다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-LMON"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "For a production Oracle RAC 19c cluster using DNS, how many IP addresses does Oracle recommend that the SCAN name resolve to?",
+  "options": {
+   "A": "One",
+   "B": "Three",
+   "C": "One per cluster node",
+   "D": "Two",
+   "E": "Five"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Oracle은 SCAN 이름이 DNS에서 라운드로빈으로 3개의 IP 주소로 해석되도록 구성할 것을 권장한다. 노드 수와 관계없이 3개를 권장하므로 노드당 1개라는 설명은 틀리며, 1개·2개·5개도 권장값이 아니다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SCAN-COUNT"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which utility is the recommended tool for starting, stopping, and configuring Oracle RAC databases, instances, and services that are registered with Oracle Clusterware?",
+  "options": {
+   "A": "dbca -silent -startService",
+   "B": "tnsping",
+   "C": "lsnrctl",
+   "D": "orapwd",
+   "E": "srvctl"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "srvctl은 Clusterware에 등록된 데이터베이스·인스턴스·서비스 등을 관리하는 권장 도구이다. lsnrctl은 리스너 제어, orapwd는 패스워드 파일 생성, tnsping은 Net 서비스 이름 해석 확인용이다. dbca에는 서비스를 시작하는 그런 옵션이 없다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SRVCTL"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which command checks the status of the Oracle Clusterware stack (CRS, CSS, EVM) on the local node?",
+  "options": {
+   "A": "ocrcheck -crs",
+   "B": "cluvfy status crs",
+   "C": "crsctl check crs",
+   "D": "lsnrctl status crs",
+   "E": "srvctl status crs"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "crsctl check crs는 로컬 노드에서 CRS, CSS, EVM 등 Clusterware 스택의 상태를 확인한다. srvctl에는 crs라는 객체가 없고, ocrcheck는 OCR 무결성 확인 도구이며, lsnrctl은 리스너 도구이다. cluvfy에는 그런 status 명령이 없다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CRSCTL-CHECK"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Over which network are Cache Fusion block transfers and global cache messages sent between Oracle RAC instances?",
+  "options": {
+   "A": "The private interconnect",
+   "B": "The storage area network (SAN)",
+   "C": "The public network used by client connections",
+   "D": "The SCAN VIP network",
+   "E": "The Oracle Net listener port on each node"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "캐시 퓨전의 블록 전송과 GCS/GES 메시지는 노드 간 전용 사설 네트워크인 private interconnect를 통해 이루어진다. 퍼블릭 네트워크와 SCAN VIP는 클라이언트 접속용이고, SAN은 공유 스토리지 접근용이며, 리스너 포트는 클라이언트 연결 수립용이다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-INTERCONNECT"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "In an Oracle RAC database using automatic undo management, which two are maintained separately for each instance? (Choose two.)",
+  "options": {
+   "A": "The database name (DB_NAME)",
+   "B": "An undo tablespace",
+   "C": "The control files",
+   "D": "A redo thread (its own online redo log groups)",
+   "E": "The data files of the SYSTEM tablespace"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "RAC에서 각 인스턴스는 자신의 리두 스레드(온라인 리두 로그 그룹)와 자신의 undo 테이블스페이스를 사용한다. 컨트롤 파일과 데이터 파일(SYSTEM 포함)은 모든 인스턴스가 공유 스토리지에서 함께 사용하며, DB_NAME은 데이터베이스 전체에서 동일해야 한다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-PER-INSTANCE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which method keeps an Oracle Data Guard physical standby database synchronized with the primary database?",
+  "options": {
+   "A": "Trigger-based replication",
+   "B": "SQL Apply (LogMiner-based SQL statements executed on the standby)",
+   "C": "Oracle GoldenGate replication",
+   "D": "Redo Apply (media recovery of received redo)",
+   "E": "Periodic RMAN incremental backups only"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "물리 standby는 primary에서 받은 리두를 미디어 복구 방식으로 적용하는 Redo Apply로 블록 단위 동일성을 유지한다. SQL Apply는 논리 standby 방식이다. RMAN 증분 백업은 롤포워드 등 보조 용도일 뿐 기본 동기화 방식이 아니며, GoldenGate와 트리거 기반 복제는 Data Guard 물리 standby의 동기화 방식이 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-REDO-APPLY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How does an Oracle Data Guard logical standby database apply changes received from the primary database?",
+  "options": {
+   "A": "Data Pump imports are run at each log switch",
+   "B": "SQL Apply converts redo into SQL statements and executes them",
+   "C": "Redo Apply performs block-level media recovery",
+   "D": "Archived logs are copied and restored by RMAN",
+   "E": "The primary sends SQL statements directly over a database link"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "논리 standby는 SQL Apply를 사용하며, LogMiner 기술로 리두를 SQL 문으로 변환해 standby에서 실행한다. 블록 단위 미디어 복구는 물리 standby의 Redo Apply이다. RMAN 복원, DB 링크로 SQL 직접 전송, Data Pump 임포트는 논리 standby의 적용 방식이 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-SQL-APPLY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which process applies redo data to a physical standby database?",
+  "options": {
+   "A": "LSP0 (Logical Standby coordinator)",
+   "B": "DMON (Data Guard Broker monitor)",
+   "C": "RFS (Remote File Server)",
+   "D": "NSS (redo transport network server)",
+   "E": "MRP0 (Managed Recovery Process)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "물리 standby에서 리두를 적용하는 것은 MRP0(Managed Recovery Process)이다. RFS는 standby에서 리두를 수신하고, LSP0는 논리 standby의 SQL Apply 프로세스, NSS는 primary에서 SYNC 전송을 수행하는 프로세스, DMON은 Broker 모니터 프로세스이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MRP"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "On a standby database, which type of log file receives redo from the primary and enables real-time apply?",
+  "options": {
+   "A": "Flashback logs",
+   "B": "Online redo log files of the standby",
+   "C": "Standby redo log files",
+   "D": "Alert log",
+   "E": "Archived redo logs only"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Standby redo log는 primary로부터 전송된 리두를 실시간으로 기록하며, 이를 통해 로그 스위치를 기다리지 않는 real-time apply가 가능하다. standby의 온라인 리두 로그는 standby가 primary 역할일 때 사용하고, alert log와 flashback log는 리두 수신 용도가 아니다. 아카이브 로그만으로는 로그가 완료되어야 적용되므로 real-time apply가 되지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-SRL"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Data Guard protection mode guarantees zero data loss by shutting down the primary database if it cannot write redo to at least one synchronized standby?",
+  "options": {
+   "A": "Maximum Protection",
+   "B": "Maximum Durability",
+   "C": "Maximum Performance",
+   "D": "Maximum Consistency",
+   "E": "Maximum Availability"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Maximum Protection은 최소 하나의 동기화된 standby에 리두가 기록되지 않으면 primary를 종료해 데이터 손실이 없음을 보장한다. Maximum Availability는 standby와 동기화가 깨지면 primary가 계속 동작하고, Maximum Performance는 비동기 전송이다. Maximum Durability와 Maximum Consistency는 존재하지 않는 모드이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MAX-PROTECTION"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the default protection mode of a newly created Oracle Data Guard configuration?",
+  "options": {
+   "A": "Fast-Start Protection",
+   "B": "Maximum Throughput",
+   "C": "Maximum Protection",
+   "D": "Maximum Performance",
+   "E": "Maximum Availability"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Data Guard 구성의 기본 보호 모드는 Maximum Performance이며, 일반적으로 ASYNC 전송으로 primary 성능에 영향을 최소화한다. Maximum Availability와 Maximum Protection은 명시적으로 상향해야 하며, Maximum Throughput과 Fast-Start Protection은 존재하지 않는 모드이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-DEFAULT-MODE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which command-line interface is used to manage a Data Guard Broker configuration?",
+  "options": {
+   "A": "RMAN",
+   "B": "DGMGRL",
+   "C": "ASMCMD",
+   "D": "CRSCTL",
+   "E": "ADRCI"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "DGMGRL은 Data Guard Broker 구성을 생성하고 관리하는 명령줄 인터페이스이다. RMAN은 백업·복구, ASMCMD는 ASM 관리, ADRCI는 진단 저장소 조회, CRSCTL은 Clusterware 관리 도구이다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-DGMGRL"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are valid Oracle Data Guard protection modes? (Choose two.)",
+  "options": {
+   "A": "Maximum Durability",
+   "B": "Maximum Safety",
+   "C": "Maximum Consistency",
+   "D": "Maximum Availability",
+   "E": "Maximum Performance"
+  },
+  "correct_keys": [
+   "D",
+   "E"
+  ],
+  "explanation": "Data Guard 보호 모드는 Maximum Protection, Maximum Availability, Maximum Performance 세 가지이므로 Maximum Availability와 Maximum Performance가 정답이다. Maximum Safety, Maximum Durability, Maximum Consistency는 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-PROT-MODE-NAMES"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which three are types of standby databases supported by Oracle Data Guard 19c? (Choose all that apply.)",
+  "options": {
+   "A": "Logical standby",
+   "B": "Hybrid standby",
+   "C": "Snapshot standby",
+   "D": "Physical standby",
+   "E": "Incremental standby"
+  },
+  "correct_keys": [
+   "A",
+   "C",
+   "D"
+  ],
+  "explanation": "Data Guard가 지원하는 standby 유형은 물리 standby, 논리 standby, 스냅샷 standby이다. Incremental standby와 Hybrid standby라는 유형은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-STANDBY-TYPES"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "LOW",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which process on a standby database receives redo data sent from the primary database and writes it to standby redo logs or archived redo logs?",
+  "options": {
+   "A": "ARC0 of the primary",
+   "B": "PMON of the standby",
+   "C": "LGWR of the standby",
+   "D": "MRP0 (Managed Recovery Process)",
+   "E": "RFS (Remote File Server)"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "RFS(Remote File Server) 프로세스는 standby에서 primary가 보낸 리두를 수신해 standby redo log나 아카이브 로그에 기록한다. MRP0는 수신된 리두를 적용할 뿐 수신하지 않는다. standby의 LGWR은 리두 수신 역할이 없고, primary의 ARC0는 송신 측 프로세스이며, PMON은 프로세스 정리 담당이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-RFS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A client connects to an Oracle RAC 19c database through the SCAN. What does the SCAN listener do with the connection request?",
+  "options": {
+   "A": "It forwards the request to the voting files to choose an instance",
+   "B": "It always connects the client to the first node in the cluster",
+   "C": "It redirects the request to a local listener on the least loaded node that offers the requested service",
+   "D": "It rejects the request unless the client specifies both an instance name and a node VIP in the connect string",
+   "E": "It executes the session itself and proxies all SQL traffic for the life of the session"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "SCAN 리스너는 서비스를 제공하는 노드 중 부하가 가장 적은 노드의 로컬 리스너로 접속 요청을 리디렉션하며, 이후 세션은 해당 노드와 직접 연결된다. SCAN 리스너가 세션 트래픽을 계속 중계하지 않고, 항상 첫 노드로 보내지도 않는다. Voting file은 멤버십 판정용이며, 인스턴스 이름을 지정하지 않아도 서비스 이름으로 접속할 수 있다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SCAN-LISTENER"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "An administrator-managed service OLTP is defined with orcl1 as the preferred instance and orcl2 as the available instance. What happens when instance orcl1 fails?",
+  "options": {
+   "A": "Oracle Clusterware starts the service on orcl2",
+   "B": "Clients must reconnect using the instance name orcl2",
+   "C": "The service stops and remains down until orcl1 restarts",
+   "D": "The service is deleted from the OCR",
+   "E": "The service starts on every instance of the database"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "관리자 관리 서비스는 preferred 인스턴스가 실패하면 Clusterware가 available 인스턴스로 서비스를 재배치해 시작한다. 따라서 서비스가 orcl1 재기동까지 중단되지 않으며, 모든 인스턴스에서 시작되거나 OCR에서 삭제되지도 않는다. 클라이언트는 인스턴스 이름이 아니라 동일한 서비스 이름으로 다시 접속하면 된다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SVC-FAILOVER"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle RAC feature publishes UP and DOWN events for services, instances, and nodes so that clients and connection pools can quickly clean up and rebalance connections?",
+  "options": {
+   "A": "Transparent Application Failover (TAF) of type SELECT",
+   "B": "Grid Naming Service (GNS)",
+   "C": "Oracle Cluster Registry (OCR)",
+   "D": "Fast Application Notification (FAN)",
+   "E": "Single Client Access Name (SCAN)"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "FAN은 ONS 등을 통해 서비스·인스턴스·노드의 UP/DOWN 이벤트를 게시하여 클라이언트와 커넥션 풀이 죽은 연결을 즉시 정리하고 재분산하도록 한다. TAF는 OCI 기반 세션 재연결 기능이지 이벤트 게시 기능이 아니다. SCAN은 접속 이름, GNS는 동적 이름 해석, OCR은 구성 저장소이다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-FAN"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A service uses Transparent Application Failover (TAF) with TYPE=SELECT. Which statement describes the behavior when the instance serving a session fails?",
+  "options": {
+   "A": "In-flight DML transactions are automatically replayed on the surviving instance and committed, so the application needs no error handling",
+   "B": "The session reconnects to a surviving instance and open queries can continue fetching, but uncommitted transactions are rolled back",
+   "C": "The session is not reconnected; only new sessions use the surviving instance",
+   "D": "All committed transactions of the session are rolled back",
+   "E": "The session is moved to the surviving instance without any reconnection"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "TAF TYPE=SELECT는 생존 인스턴스로 재연결한 뒤 진행 중이던 SELECT 커서를 이어서 페치할 수 있게 하지만, 커밋되지 않은 트랜잭션은 롤백되므로 애플리케이션이 다시 수행해야 한다. 진행 중 DML을 자동 재실행하는 것은 Application Continuity의 기능이다. TAF는 기존 세션을 재연결하며, 커밋된 트랜잭션이 롤백되지 않고, 재연결 없이 세션이 이동하지도 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-TAF-SELECT"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which srvctl service attribute value enables Application Continuity (with replay of in-flight requests) for a service in Oracle RAC 19c?",
+  "options": {
+   "A": "-clbgoal LONG",
+   "B": "-failovertype NONE",
+   "C": "-failovertype SESSION",
+   "D": "-failovertype SELECT",
+   "E": "-failovertype TRANSACTION"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Application Continuity는 서비스의 -failovertype을 TRANSACTION으로 설정해 활성화한다. SELECT와 SESSION은 TAF 방식이며 진행 중 트랜잭션을 재실행하지 않는다. NONE은 장애 조치를 사용하지 않으며, -clbgoal은 연결 로드 밸런싱 목표로 장애 조치와 무관하다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-AC-FAILOVERTYPE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Instance 1 holds a modified (dirty) current version of a block in exclusive mode. Instance 2 requests the same block to modify it. How is the request satisfied with Cache Fusion?",
+  "options": {
+   "A": "Both instances modify their own copies and the changes are merged at checkpoint",
+   "B": "The request waits until instance 1 commits and checkpoints",
+   "C": "Instance 1 ships the block over the interconnect without first writing it to disk and keeps a past image",
+   "D": "Instance 1 must write the block to disk first so that instance 2 can then read the current version from disk",
+   "E": "Instance 2 reads an older version from disk and applies redo from instance 1"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "캐시 퓨전에서는 변경된(dirty) 블록을 디스크에 먼저 쓰지 않고 인터커넥트로 요청 인스턴스에 전송하며, 보낸 쪽은 past image를 보관한다. 디스크에 먼저 쓰고 다시 읽는 방식(disk ping)은 캐시 퓨전 이전의 방식이다. 디스크의 과거 버전에 리두를 적용하거나, 커밋·체크포인트를 기다리거나, 양쪽에서 각각 수정 후 병합하는 방식은 존재하지 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CF-DIRTY-BLOCK"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Wait events such as gc cr request and gc current block busy belong to which wait class?",
+  "options": {
+   "A": "Cluster",
+   "B": "Configuration",
+   "C": "Network",
+   "D": "User I/O",
+   "E": "Concurrency"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "gc로 시작하는 글로벌 캐시 대기 이벤트는 Cluster 대기 클래스에 속하며, 다른 인스턴스로부터 블록을 기다리는 시간을 나타낸다. Concurrency는 래치·버퍼 비지 등 내부 경합, User I/O는 사용자 I/O, Network는 SQL*Net 통신, Configuration은 로그 파일 스위치 등 구성 관련 대기이다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CLUSTER-WAITCLASS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "After creating online redo log groups for thread 3 to support a new RAC instance, which statement makes the thread available for use?",
+  "options": {
+   "A": "ALTER DATABASE ADD THREAD 3;",
+   "B": "ALTER SYSTEM SWITCH THREAD 3;",
+   "C": "CREATE REDO THREAD 3;",
+   "D": "ALTER DATABASE ENABLE THREAD 3;",
+   "E": "ALTER SYSTEM ENABLE THREAD 3;"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "새 리두 스레드는 해당 스레드의 로그 그룹을 추가한 뒤 ALTER DATABASE ENABLE [PUBLIC] THREAD n 으로 활성화한다. ALTER SYSTEM ENABLE THREAD, ALTER DATABASE ADD THREAD, ALTER SYSTEM SWITCH THREAD, CREATE REDO THREAD는 존재하지 않는 구문이다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-ENABLE-THREAD"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In an Oracle RAC database, one instance fails while the other instances keep running. How is instance recovery performed for the failed instance?",
+  "options": {
+   "A": "The failed instance must be restarted to recover its own changes",
+   "B": "A surviving instance reads the failed instance's redo thread and recovers it",
+   "C": "Media recovery from the most recent backup is required",
+   "D": "All instances must be shut down and the database restarted",
+   "E": "No recovery is needed because RAC writes every change synchronously to the data files"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "RAC에서는 생존 인스턴스(SMON)가 실패한 인스턴스의 리두 스레드를 읽어 인스턴스 복구를 수행하므로 실패한 인스턴스를 재기동할 필요가 없다. 백업을 이용한 미디어 복구나 전체 종료는 필요 없으며, RAC도 변경을 즉시 디스크에 기록하지 않으므로 복구가 필요하다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-INSTANCE-RECOVERY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Voting files are stored in an Oracle ASM disk group with NORMAL redundancy. How many voting files does Oracle Clusterware create?",
+  "options": {
+   "A": "Two",
+   "B": "One",
+   "C": "One per node",
+   "D": "Five",
+   "E": "Three"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "ASM 디스크 그룹에 voting file을 둘 때 External 중복성은 1개, Normal 중복성은 3개, High 중복성은 5개를 생성하며 각각 별도의 failure group이 필요하다. 따라서 Normal 중복성에서는 3개이며, 노드 수와는 무관하다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-VOTING-REDUNDANCY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about Oracle Cluster Registry (OCR) backups are true? (Choose two.)",
+  "options": {
+   "A": "The ocrcheck -backup command creates an OCR backup",
+   "B": "Oracle Clusterware automatically creates OCR backups periodically",
+   "C": "OCR backups are created with the RMAN BACKUP OCR command",
+   "D": "The ocrconfig -manualbackup command creates an on-demand OCR backup",
+   "E": "OCR can be backed up only while Oracle Clusterware is stopped on all nodes"
+  },
+  "correct_keys": [
+   "B",
+   "D"
+  ],
+  "explanation": "Clusterware는 OCR을 주기적으로(4시간마다) 자동 백업하며, ocrconfig -manualbackup으로 필요할 때 수동 백업을 만들 수 있다(목록은 ocrconfig -showbackup). RMAN에는 BACKUP OCR 명령이 없고, ocrcheck는 무결성 확인 도구이다. OCR 백업은 Clusterware가 실행 중일 때 수행한다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-OCR-BACKUP"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle Clusterware daemon manages cluster node membership through network and disk heartbeats and can evict a node from the cluster?",
+  "options": {
+   "A": "Cluster Time Synchronization Service daemon (octssd)",
+   "B": "Event Manager daemon (evmd)",
+   "C": "Cluster Synchronization Services daemon (ocssd)",
+   "D": "Grid Plug and Play daemon (gpnpd)",
+   "E": "Cluster Ready Services daemon (crsd)"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "ocssd(CSS)는 네트워크·디스크 하트비트로 노드 멤버십을 관리하며 필요 시 노드를 축출한다. crsd는 리소스 관리, evmd는 이벤트 게시, octssd는 시간 동기화, gpnpd는 GPnP 프로필 관리를 담당한다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CSSD"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which Oracle Clusterware daemon manages high availability operations (start, stop, monitor, failover) for resources registered in the OCR, such as databases, services, and listeners?",
+  "options": {
+   "A": "crsd",
+   "B": "evmd",
+   "C": "octssd",
+   "D": "gpnpd",
+   "E": "mdnsd"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "crsd(Cluster Ready Services)는 OCR에 등록된 데이터베이스·서비스·리스너 등의 리소스를 시작·중지·모니터링하고 장애 시 재시작이나 재배치를 수행한다. evmd는 이벤트, octssd는 시간 동기화, gpnpd는 GPnP 프로필, mdnsd는 멀티캐스트 DNS 해석을 담당한다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CRSD"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "NTP is configured and running on all nodes of an Oracle Clusterware 19c cluster. In which mode does the Cluster Time Synchronization Service (CTSS) run?",
+  "options": {
+   "A": "Active mode",
+   "B": "Exclusive mode",
+   "C": "Master mode on the first node only",
+   "D": "Observer mode",
+   "E": "Disabled and deconfigured"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "CTSS는 NTP 등 외부 시간 동기화가 구성되어 있으면 Observer 모드로 동작해 시간을 조정하지 않고, 없으면 Active 모드로 노드 간 시간을 동기화한다. 따라서 NTP가 있으면 Active 모드가 아니며, Master·Exclusive 모드라는 CTSS 모드는 없고, 비활성화되어 제거되지도 않는다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CTSS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two srvctl add service options determine where an administrator-managed service runs? (Choose two.)",
+  "options": {
+   "A": "-serverpool",
+   "B": "-clbgoal",
+   "C": "-available",
+   "D": "-role",
+   "E": "-preferred"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "관리자 관리 서비스는 -preferred(평소 실행할 인스턴스)와 -available(preferred 실패 시 사용할 인스턴스)로 실행 위치를 정한다. -serverpool은 정책 관리 데이터베이스용이며, -clbgoal은 연결 로드 밸런싱 목표, -role은 Data Guard 역할에 따른 시작 조건을 지정한다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SVC-PREF-AVAIL"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are valid values for the runtime load balancing goal (-rlbgoal) of a service? (Choose two.)",
+  "options": {
+   "A": "CONNECTIONS",
+   "B": "LONG",
+   "C": "SERVICE_TIME",
+   "D": "SHORT",
+   "E": "THROUGHPUT"
+  },
+  "correct_keys": [
+   "C",
+   "E"
+  ],
+  "explanation": "런타임 로드 밸런싱 목표(-rlbgoal)는 SERVICE_TIME 또는 THROUGHPUT(또는 NONE)이다. SHORT와 LONG은 연결 로드 밸런싱 목표(-clbgoal)의 값이며, CONNECTIONS는 유효한 값이 아니다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-RLB-GOAL"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A two-node RAC database ORCL runs service OLTP on instance orcl1. Before maintenance on node 1, the DBA wants to move OLTP to instance orcl2 without restarting any instance and without changing the service configuration. What should the DBA do?",
+  "options": {
+   "A": "Run srvctl stop database -db orcl and then start only orcl2",
+   "B": "Run srvctl relocate service -db orcl -service oltp -oldinst orcl1 -newinst orcl2",
+   "C": "Run ALTER SYSTEM SET SERVICE_NAMES on orcl2 and restart orcl1",
+   "D": "Run crsctl delete resource for the service on node 1",
+   "E": "Run srvctl remove service and recreate it with orcl2 as preferred"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "srvctl relocate service는 서비스 구성을 바꾸지 않고 실행 중인 서비스를 다른 인스턴스로 옮기는 명령이다. SERVICE_NAMES 직접 변경은 Clusterware 관리 서비스에 권장되지 않고 재시작을 동반한다. 데이터베이스 전체 중지는 불필요한 중단이며, 리소스 삭제나 서비스 제거·재생성은 구성을 변경하므로 요구 사항에 맞지 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SVC-RELOCATE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "In a two-node Oracle Clusterware cluster, the private interconnect between the nodes fails, but both nodes are still running and can access the shared storage and voting files. What does Oracle Clusterware do?",
+  "options": {
+   "A": "The OCR is switched to read-only mode and the database continues on both nodes",
+   "B": "Both nodes are shut down permanently and must be restarted manually",
+   "C": "Cache Fusion traffic is automatically rerouted over the SCAN VIP network",
+   "D": "Both nodes continue to run the database independently, and Cache Fusion resynchronizes the caches when the network is restored",
+   "E": "CSS detects missed network heartbeats and evicts one node so that only one sub-cluster survives"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "인터커넥트가 끊겨 네트워크 하트비트가 누락되면 CSS는 split-brain을 막기 위해 voting file을 이용해 한쪽 노드를 축출하고 하나의 서브클러스터만 남긴다. 두 노드가 독립적으로 계속 동작하면 데이터 손상 위험이 있어 허용되지 않는다. 캐시 퓨전은 SCAN VIP 네트워크로 자동 우회되지 않으며, 두 노드 모두를 영구 종료하거나 OCR을 읽기 전용으로 바꾸는 동작은 없다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-SPLIT-BRAIN"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which redo transport attribute must be configured for at least one standby destination to operate in Maximum Availability mode?",
+  "options": {
+   "A": "COMPRESSION",
+   "B": "DELAY",
+   "C": "SYNC",
+   "D": "MAX_FAILURE",
+   "E": "ASYNC"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Maximum Availability(및 Maximum Protection) 모드는 최소 하나의 standby에 SYNC 전송이 구성되어야 한다. ASYNC는 Maximum Performance용이다. DELAY는 적용 지연, COMPRESSION은 리두 압축, MAX_FAILURE는 재시도 횟수 관련 속성으로 보호 모드 요건이 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MAXAVAIL-SYNC"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A Data Guard configuration runs in Maximum Performance mode with ASYNC redo transport. When does a transaction commit complete on the primary?",
+  "options": {
+   "A": "As soon as the redo is written to the primary's online redo log, without waiting for any standby",
+   "B": "Only after the standby writes the redo to its standby redo log",
+   "C": "Only after the redo is archived on the primary",
+   "D": "Only after the standby acknowledges receipt of the redo",
+   "E": "Only after the standby has applied the redo"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Maximum Performance(ASYNC)에서는 리두가 primary의 온라인 리두 로그에 기록되면 커밋이 완료되고, standby 전송은 비동기로 진행된다. standby의 수신 확인이나 standby redo log 기록을 기다리는 것은 SYNC 방식이며, standby 적용이나 primary 아카이빙을 기다리는 모드는 없다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MAXPERF-COMMIT"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In Oracle Data Guard 19c, what is the effect of configuring a destination with SYNC NOAFFIRM (FastSync) in Maximum Availability mode?",
+  "options": {
+   "A": "Redo is sent asynchronously and the commit never waits for the standby",
+   "B": "Redo transport is disabled until the next log switch",
+   "C": "The primary waits for the standby to receive the redo and apply it to the standby data files before committing",
+   "D": "The primary waits for the standby to acknowledge receipt of redo in memory, not for the disk write",
+   "E": "The primary waits for the redo to be archived on the standby"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "SYNC NOAFFIRM(FastSync)에서는 standby가 리두를 메모리에 수신했다는 확인만 받으면 커밋이 진행되며, standby redo log에 디스크 기록 완료를 기다리지 않는다. 디스크 기록까지 기다리는 것은 SYNC AFFIRM이다. 적용이나 아카이빙을 기다리는 모드는 없고, 비동기 전송은 ASYNC이며, 전송이 비활성화되지도 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-FASTSYNC"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which requirement must be met on a physical standby database for Redo Apply to use real-time apply?",
+  "options": {
+   "A": "The Active Data Guard option must be licensed",
+   "B": "Standby redo log files must be configured",
+   "C": "The standby must be opened in read/write mode",
+   "D": "Flashback Database must be enabled",
+   "E": "The protection mode must be Maximum Protection"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Real-time apply는 standby redo log에 기록 중인 리두를 바로 적용하는 방식이므로 standby redo log가 반드시 있어야 한다. Flashback Database나 Active Data Guard 라이선스는 필요 없고, 물리 standby는 읽기/쓰기로 열 수 없다. 보호 모드와 관계없이 real-time apply를 사용할 수 있다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-REALTIME-APPLY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Which statement about a snapshot standby database is true?",
+  "options": {
+   "A": "Local changes made on it are preserved after conversion back to a physical standby, because the redo is applied on top of them",
+   "B": "It does not receive redo from the primary while it is a snapshot standby",
+   "C": "It applies redo from the primary in real time while open read/write",
+   "D": "It is a logical standby that allows DML on all tables",
+   "E": "It is updatable and keeps receiving redo from the primary, but applies it only after conversion back to a physical standby"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "스냅샷 standby는 읽기/쓰기가 가능하며 primary로부터 리두를 계속 수신·보관하지만, 물리 standby로 되돌릴 때까지 적용하지 않는다. 되돌릴 때 복원 지점으로 플래시백되어 로컬 변경은 버려진다. 논리 standby와는 다른 유형이며, 리두를 적용하면서 읽기/쓰기로 열리는 것은 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-SNAPSHOT-STANDBY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two capabilities require the Oracle Active Data Guard option? (Choose two.)",
+  "options": {
+   "A": "Using a far sync instance",
+   "B": "Running the configuration in Maximum Availability mode",
+   "C": "Opening a physical standby read-only while Redo Apply is active (real-time query)",
+   "D": "Performing a switchover with Data Guard Broker",
+   "E": "Converting a physical standby to a snapshot standby"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Redo Apply가 동작 중인 상태로 물리 standby를 읽기 전용으로 여는 real-time query와 Far Sync 인스턴스는 Active Data Guard 옵션 기능이다. 스냅샷 standby 변환, Broker를 통한 switchover, Maximum Availability 모드는 Enterprise Edition의 Data Guard 기본 기능이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-ADG-LICENSE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "How must DB_NAME and DB_UNIQUE_NAME be set for a primary database and its physical standby database?",
+  "options": {
+   "A": "Different DB_NAME, same DB_UNIQUE_NAME",
+   "B": "Different DB_NAME and different DB_UNIQUE_NAME",
+   "C": "Same DB_NAME, different DB_UNIQUE_NAME",
+   "D": "DB_UNIQUE_NAME must be left unset on the standby",
+   "E": "Same DB_NAME and same DB_UNIQUE_NAME"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "물리 standby는 primary와 동일한 데이터베이스이므로 DB_NAME은 같아야 하고, Data Guard 구성 안에서 각 데이터베이스를 구분하기 위해 DB_UNIQUE_NAME은 서로 달라야 한다. 나머지 조합은 이 규칙에 맞지 않으며, DB_UNIQUE_NAME을 비워 두면 DB_NAME과 같아져 primary와 구분되지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-DB-UNIQUE-NAME"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What does the DG_CONFIG attribute of the LOG_ARCHIVE_CONFIG parameter specify?",
+  "options": {
+   "A": "The DB_UNIQUE_NAME of each database in the Data Guard configuration",
+   "B": "The name of the Broker configuration file",
+   "C": "The protection mode of the configuration",
+   "D": "The directory where standby redo logs are created",
+   "E": "The network service names used for redo transport"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "LOG_ARCHIVE_CONFIG='DG_CONFIG=(...)'는 Data Guard 구성에 속한 각 데이터베이스의 DB_UNIQUE_NAME 목록을 지정해 리두 송수신을 허용한다. 리두 전송 대상 서비스 이름은 LOG_ARCHIVE_DEST_n의 SERVICE 속성, 보호 모드는 ALTER DATABASE SET STANDBY DATABASE TO MAXIMIZE 구문, Broker 설정 파일은 DG_BROKER_CONFIG_FILEn 파라미터로 지정한다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-DG-CONFIG"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A primary database has LOG_ARCHIVE_DEST_2='SERVICE=stby ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQUE_NAME=stby'. What does the VALID_FOR attribute ensure?",
+  "options": {
+   "A": "The destination is used in every role and for every log file type",
+   "B": "Redo is sent only after the standby redo logs are full",
+   "C": "The destination is valid only when the standby is open read-only",
+   "D": "The destination is used only when the database is in the primary role and is archiving online redo log files",
+   "E": "The destination is used only during a switchover"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE)는 데이터베이스가 primary 역할이고 온라인 리두 로그를 대상으로 할 때만 해당 목적지를 사용하도록 한다. 모든 역할·로그 유형에서 사용하려면 ALL_LOGFILES,ALL_ROLES를 지정한다. standby redo log 상태, standby의 open 모드, switchover 수행 여부와는 무관하다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-VALID-FOR"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "What is the purpose of the FAL_SERVER initialization parameter on a physical standby database?",
+  "options": {
+   "A": "It defines the archive destination on the standby",
+   "B": "It identifies the database from which the standby fetches missing archived redo logs to resolve gaps",
+   "C": "It specifies the listener that the Broker uses for health checks",
+   "D": "It specifies the primary database that the standby fails over to",
+   "E": "It identifies the observer host for Fast-Start Failover"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "FAL_SERVER는 아카이브 로그 갭이 발생했을 때 standby가 누락된 로그를 가져올 대상(보통 primary 또는 다른 standby)의 Net 서비스 이름을 지정한다. Observer와 Fast-Start Failover는 Broker 설정이며, standby가 primary로 failover하는 대상 지정이나 Broker 점검 리스너, 아카이브 목적지 지정과는 무관하다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-FAL-SERVER"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A DBA adds a new data file to a tablespace on the primary database. Which setting on the physical standby causes the corresponding data file to be created automatically on the standby?",
+  "options": {
+   "A": "STANDBY_ARCHIVE_DEST=AUTO",
+   "B": "DB_CREATE_FILE_DEST=AUTO",
+   "C": "LOG_ARCHIVE_TRACE=AUTO",
+   "D": "FAL_CLIENT=AUTO",
+   "E": "STANDBY_FILE_MANAGEMENT=AUTO"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "STANDBY_FILE_MANAGEMENT=AUTO이면 primary에서 추가한 데이터 파일이 Redo Apply 중 standby에도 자동으로 생성된다. DB_CREATE_FILE_DEST는 OMF 위치를 지정하는 파라미터로 AUTO 값이 없다. LOG_ARCHIVE_TRACE는 추적 수준, FAL_CLIENT는 갭 해결용 클라이언트 이름이며, STANDBY_ARCHIVE_DEST는 과거 버전 파라미터로 데이터 파일 생성과 무관하다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-STBY-FILE-MGMT"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "Setting DG_BROKER_START=TRUE starts which background process that manages the Data Guard Broker configuration on each database?",
+  "options": {
+   "A": "RFS",
+   "B": "LSP0",
+   "C": "DMON",
+   "D": "MRP0",
+   "E": "NSA"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "DG_BROKER_START=TRUE로 설정하면 각 데이터베이스에서 Broker 모니터 프로세스인 DMON이 시작되어 Broker 구성과 속성을 관리한다. MRP0는 Redo Apply, RFS는 리두 수신, LSP0는 SQL Apply, NSA는 비동기 리두 전송 프로세스이다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-DMON"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about a Data Guard switchover are true? (Choose two.)",
+  "options": {
+   "A": "The former primary database becomes a standby database in the configuration",
+   "B": "The former primary must be re-created from a backup after the switchover",
+   "C": "It is a planned role reversal that involves no data loss",
+   "D": "It requires Flashback Database to be enabled on the primary database",
+   "E": "It can be performed only when the configuration is in Maximum Protection mode"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Switchover는 계획된 역할 전환으로 데이터 손실이 없으며, 기존 primary는 standby로 전환되어 구성에 남는다. Flashback Database는 failover 후 reinstate에 필요할 뿐 switchover 요건이 아니다. 어떤 보호 모드에서도 수행할 수 있으며, 기존 primary를 백업에서 재생성할 필요가 없다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-SWITCHOVER-FACTS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two statements about an Oracle Data Guard logical standby database are true? (Choose two.)",
+  "options": {
+   "A": "Additional indexes and materialized views can be created on it to support reporting",
+   "B": "It is open read/write while SQL Apply is running",
+   "C": "It supports every data type and storage attribute that the primary supports",
+   "D": "It is maintained by Redo Apply",
+   "E": "It is a block-for-block identical copy of the primary database"
+  },
+  "correct_keys": [
+   "A",
+   "B"
+  ],
+  "explanation": "논리 standby는 SQL Apply가 동작하는 동안 읽기/쓰기로 열려 있으며(database guard가 SQL Apply가 관리하는 테이블 변경을 막음), 보고용 인덱스나 materialized view를 추가할 수 있다. 블록 단위 동일 복제본이며 Redo Apply로 유지되는 것은 물리 standby이다. 논리 standby는 일부 데이터 유형·저장 속성을 지원하지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-LOGICAL-FACTS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "After a NOLOGGING direct-path load on the primary database, queries on the physical standby return errors indicating that blocks were marked as corrupt by a NOLOGGING operation. The DBA wants to prevent this from happening again for all future operations. What should the DBA do on the primary database?",
+  "options": {
+   "A": "Run ALTER DATABASE FORCE LOGGING",
+   "B": "Change the protection mode to Maximum Performance",
+   "C": "Set STANDBY_FILE_MANAGEMENT=AUTO",
+   "D": "Enable Flashback Database",
+   "E": "Increase the size of the standby redo logs"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "FORCE LOGGING을 설정하면 NOLOGGING으로 지정된 작업도 강제로 리두를 생성하므로 standby에 해당 변경이 전달되어 손상 블록이 생기지 않는다. STANDBY_FILE_MANAGEMENT는 데이터 파일 자동 생성, standby redo log 크기는 리두 수신과 관련될 뿐 NOLOGGING을 막지 못한다. Flashback Database나 보호 모드 변경도 리두 생성 여부와 무관하다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-FORCE-LOGGING"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Users report that reports on an Active Data Guard standby show stale data. The DBA wants to see the current transport lag and apply lag on the standby. Which view should the DBA query on the standby database?",
+  "options": {
+   "A": "V$ARCHIVE_DEST",
+   "B": "V$DATABASE_INCARNATION",
+   "C": "DBA_LOGSTDBY_LOG",
+   "D": "V$DATAGUARD_STATS",
+   "E": "V$LOGFILE"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "V$DATAGUARD_STATS는 standby에서 transport lag, apply lag 등의 지표를 제공한다. V$ARCHIVE_DEST는 아카이브 목적지 설정과 상태 정보로 지연 시간 지표를 제공하지 않는다. DBA_LOGSTDBY_LOG는 논리 standby용, V$LOGFILE은 로그 파일 목록, V$DATABASE_INCARNATION은 incarnation 정보이다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-DG-STATS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "MID",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A Data Guard configuration is managed by the Broker. A DBA changed a redo transport setting directly with ALTER SYSTEM in SQL*Plus, but later found the change had been reverted and the Broker reports an inconsistency. How should the setting be changed?",
+  "options": {
+   "A": "Edit the Broker configuration files with a text editor",
+   "B": "Change the corresponding Broker property with DGMGRL EDIT DATABASE ... SET PROPERTY",
+   "C": "Change the parameter only in the primary's PFILE and restart",
+   "D": "Recreate the standby database from a backup",
+   "E": "Disable the Broker permanently and use only SQL*Plus"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "Broker가 관리하는 구성에서는 설정을 DGMGRL의 EDIT DATABASE ... SET PROPERTY(또는 EDIT CONFIGURATION)로 변경해야 Broker와 데이터베이스 파라미터가 일치한다. Broker를 영구 비활성화하는 것은 문제를 회피할 뿐이고, Broker 설정 파일은 바이너리이므로 직접 편집할 수 없다. standby 재생성이나 PFILE만 수정하는 방법은 불필요하거나 Broker와 다시 불일치를 만든다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-BROKER-PROPERTY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "The primary database BOSTON failed and the DBA performed a failover to the physical standby CHICAGO using DGMGRL. Flashback Database had been enabled on BOSTON before the failure. BOSTON has now been repaired and mounted. What is the most efficient way to make BOSTON a standby database for CHICAGO?",
+  "options": {
+   "A": "Open BOSTON read/write and resynchronize it with Data Pump",
+   "B": "Run SWITCHOVER TO 'BOSTON' in DGMGRL",
+   "C": "Run CONVERT DATABASE 'BOSTON' TO SNAPSHOT STANDBY",
+   "D": "Re-create BOSTON from a full RMAN backup of CHICAGO",
+   "E": "Run REINSTATE DATABASE 'BOSTON' in DGMGRL"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "Failover 전에 이전 primary에 Flashback Database가 활성화되어 있었다면, Broker의 REINSTATE DATABASE로 이전 primary를 standby 전환 시점 이전으로 플래시백해 새 primary의 standby로 복귀시킬 수 있다. 백업에서 재생성하는 방법은 가능하지만 훨씬 비효율적이다. 이전 primary는 아직 구성에 사용할 수 없는 상태이므로 SWITCHOVER 대상이 될 수 없고, Data Pump 재동기화나 스냅샷 standby 변환은 standby 복귀 방법이 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-REINSTATE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A Data Guard configuration runs in Maximum Protection mode with a single physical standby. The network link to the standby fails and the primary cannot write redo to the standby. What happens on the primary database?",
+  "options": {
+   "A": "The primary switches to ASYNC transport until the network is restored",
+   "B": "The protection mode is automatically lowered to Maximum Performance",
+   "C": "The primary database shuts down rather than continue without a synchronized standby",
+   "D": "Commits are buffered on the primary and confirmed when the network returns, with no other effect",
+   "E": "The primary continues processing and resynchronizes the standby later"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Maximum Protection 모드는 데이터 손실 0을 보장하기 위해 리두를 최소 하나의 동기화된 standby에 쓸 수 없으면 primary를 종료한다. 그래서 standby를 2개 이상 두는 것이 권장된다. primary가 계속 처리하고 나중에 재동기화하는 것은 Maximum Availability의 동작이며, 보호 모드 자동 하향이나 ASYNC 전환은 일어나지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MAXPROT-FAILURE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A configuration runs in Maximum Availability mode with SYNC transport to one physical standby. The standby becomes unreachable for longer than the NET_TIMEOUT period. Which statement describes the result?",
+  "options": {
+   "A": "The primary continues processing transactions, and zero data loss is not guaranteed until the standby is resynchronized",
+   "B": "The primary shuts down to prevent any data loss",
+   "C": "The standby is automatically removed from the Data Guard configuration",
+   "D": "A failover to the standby is triggered automatically even without Fast-Start Failover",
+   "E": "All transactions on the primary hang until the standby becomes reachable again"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "Maximum Availability에서는 SYNC standby가 응답하지 않아 NET_TIMEOUT을 넘으면 primary가 해당 standby를 제외하고 계속 처리하며, standby가 다시 동기화될 때까지 데이터 손실 0은 보장되지 않는다. primary 종료는 Maximum Protection의 동작이다. 트랜잭션이 무기한 멈추지 않고, standby가 구성에서 자동 제거되지 않으며, Fast-Start Failover 없이 자동 failover는 일어나지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-MAXAVAIL-UNSYNC"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A cluster stores three voting files in an ASM disk group with NORMAL redundancy. Because of a storage path problem, node 1 can access only one of the three voting files, while node 2 can access all three. What is the expected result?",
+  "options": {
+   "A": "Node 2 is evicted because node 1 holds the lowest node number",
+   "B": "Both nodes continue to run normally because access to a single voting file is sufficient for each node",
+   "C": "Both nodes are evicted and the cluster stops",
+   "D": "Node 1 is evicted from the cluster because it cannot access a majority of the voting files",
+   "E": "The cluster automatically converts the disk group to EXTERNAL redundancy"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "노드가 클러스터에 남으려면 voting file의 과반수(3개 중 2개 이상)에 접근할 수 있어야 한다. 노드 1은 1개만 접근 가능하므로 축출되고, 과반수에 접근 가능한 노드 2는 계속 동작한다. 1개만으로 충분하다는 설명은 틀리며, 디스크 그룹 중복성이 자동 변경되거나 두 노드가 모두 축출되지는 않는다.",
+  "reference": "Oracle Database 19c - Clusterware Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-VOTING-MAJORITY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "In a four-node RAC database, all instances insert rows into an ORDERS table whose primary key is populated from a sequence. AWR shows heavy gc buffer busy and gc current block busy waits on the rightmost leaf blocks of the primary key index. Which action most directly reduces this contention?",
+  "options": {
+   "A": "Increase DB_CACHE_SIZE on every instance",
+   "B": "Rebuild the primary key index as a reverse key or hash-partitioned global index",
+   "C": "Move the index to a bigfile tablespace",
+   "D": "Add more SCAN listeners to the cluster",
+   "E": "Change the sequence to ORDER NOCACHE so that each instance gets strictly ordered key values"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "순차적으로 증가하는 키로 인해 모든 인스턴스가 인덱스의 가장 오른쪽 리프 블록에 삽입하면서 글로벌 캐시 경합이 생긴다. 해시 파티션 글로벌 인덱스나 reverse key 인덱스로 삽입 위치를 여러 블록에 분산하면 경합이 줄어든다. 시퀀스를 ORDER NOCACHE로 바꾸면 인스턴스 간 조정이 늘어 오히려 악화되며, 버퍼 캐시 크기, bigfile 테이블스페이스, SCAN 리스너 수는 이 블록 경합과 무관하다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-RIGHT-HAND-INDEX"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A nightly batch job that updates large parts of the SALES schema runs through a service available on all four RAC instances. During the batch window, OLTP users see high Cluster-class waits on SALES blocks. The DBA wants to reduce inter-instance block transfers without adding hardware. What is the best approach?",
+  "options": {
+   "A": "Convert the database to a single-instance database for the batch window",
+   "B": "Run the batch job through the SCAN using the instance name of a random node",
+   "C": "Disable the private interconnect during the batch window",
+   "D": "Increase the number of LMS processes on every instance so that more blocks can be shipped in parallel, leaving the services unchanged",
+   "E": "Create a dedicated batch service with a single preferred instance and run the batch job through that service"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "배치 작업을 하나의 preferred 인스턴스를 가진 전용 서비스로 실행하면 해당 데이터에 대한 접근이 한 인스턴스로 모여 인스턴스 간 블록 전송이 줄어든다(서비스를 이용한 워크로드 분리). 인터커넥트를 끄면 클러스터가 정상 동작할 수 없다. LMS 수만 늘리는 것은 전송 자체를 줄이지 못하고, 임의 노드 접속이나 단일 인스턴스 전환은 현실적이지 않거나 목적에 맞지 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-WORKLOAD-ISOLATION"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "A configuration runs in Maximum Performance mode. The primary site is destroyed, and the physical standby has received redo up to a point a few seconds behind the primary and has some unapplied redo. The DBA runs FAILOVER TO 'stby' in DGMGRL. Which statement is true?",
+  "options": {
+   "A": "The standby is opened read-only and must be converted manually with RMAN",
+   "B": "No data is lost because the Broker retrieves the missing redo from the destroyed primary",
+   "C": "All redo that was received by the standby is applied before the role change, but redo that never reached the standby is lost",
+   "D": "Unapplied redo on the standby is discarded to speed up the failover",
+   "E": "The failover fails because a failover is allowed only in Maximum Protection mode"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "기본(complete) failover는 standby가 이미 수신한 리두를 모두 적용한 뒤 역할을 전환한다. 하지만 Maximum Performance에서는 primary에서 standby로 전달되지 못한 리두가 있을 수 있고 이 리두는 손실된다. 파괴된 primary에서 리두를 가져올 수 없으며, 수신된 리두를 버리지 않는다. Failover는 모든 보호 모드에서 가능하며, 완료 후 새 primary로 열린다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-FAILOVER-DATALOSS"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SCENARIO",
+  "product_version": "19c",
+  "stem": "Before a planned switchover, the DBA wants a single Broker command that reports whether the standby is ready for a role change, including checks such as redo apply status and standby redo log configuration. Which DGMGRL command should be used?",
+  "options": {
+   "A": "VALIDATE DATABASE 'stby'",
+   "B": "CONVERT DATABASE 'stby' TO PHYSICAL STANDBY",
+   "C": "ENABLE DATABASE 'stby'",
+   "D": "EDIT DATABASE 'stby' SET STATE='APPLY-ON'",
+   "E": "SHOW CONFIGURATION VERBOSE"
+  },
+  "correct_keys": [
+   "A"
+  ],
+  "explanation": "VALIDATE DATABASE는 standby의 역할 전환 준비 상태(switchover/failover 준비 여부, 적용 상태, standby redo log 구성 등)를 종합적으로 점검해 보고한다. SHOW CONFIGURATION은 구성 상태 요약일 뿐 역할 전환 준비 점검을 하지 않는다. ENABLE DATABASE는 Broker 관리를 활성화하고, CONVERT는 스냅샷 standby 변환, SET STATE='APPLY-ON'은 Redo Apply 시작이다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-VALIDATE-DB"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a Fast-Start Failover configuration, which component monitors the primary and target standby databases and initiates the automatic failover when the failover conditions are met?",
+  "options": {
+   "A": "Oracle Clusterware CRSD",
+   "B": "The SCAN listener",
+   "C": "The DMON process on the primary",
+   "D": "The observer",
+   "E": "The RFS process on the target standby"
+  },
+  "correct_keys": [
+   "D"
+  ],
+  "explanation": "Fast-Start Failover에서는 별도 호스트에서 실행되는 observer가 primary와 대상 standby를 감시하고, 조건이 충족되면 대상 standby로 자동 failover를 시작한다. primary의 DMON은 primary가 장애일 때 failover를 주도할 수 없고, RFS는 리두 수신 프로세스이다. CRSD는 클러스터 리소스 관리, SCAN 리스너는 접속 분배 담당으로 Data Guard failover를 수행하지 않는다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-FSFO-OBSERVER"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "In a three-node RAC database, instance 1 requests a block. The block's resource is mastered by instance 3, and instance 2 currently holds the block in its buffer cache. What is the typical message flow?",
+  "options": {
+   "A": "Instance 1 reads the block from disk because a remote holder can never ship a block directly",
+   "B": "Instance 1 asks the master (instance 3), which forwards the request to instance 2, and instance 2 ships the block directly to instance 1",
+   "C": "Instance 1 asks instance 3, which reads the block from disk and sends it to instance 1",
+   "D": "Instance 3 receives the block from instance 2 and then forwards it to instance 1",
+   "E": "Instance 1 broadcasts the request to all instances, and every instance that holds the block sends a copy"
+  },
+  "correct_keys": [
+   "B"
+  ],
+  "explanation": "3-way 전송에서는 요청 인스턴스가 리소스 마스터에게 요청하고, 마스터가 블록 보유 인스턴스로 요청을 전달하며, 보유 인스턴스가 블록을 요청자에게 직접 전송한다. 마스터가 디스크에서 읽거나 중간에 블록을 받아 전달하지 않으며, 모든 인스턴스로 브로드캐스트하지도 않는다. 원격 보유 인스턴스는 블록을 직접 전송할 수 있다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-CF-3WAY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A two-node RAC primary sends redo to a two-node RAC physical standby. Multi-instance Redo Apply has not been configured. How is Redo Apply performed on the standby in Oracle Database 19c?",
+  "options": {
+   "A": "Both standby instances must be shut down except one, and the other cannot be started",
+   "B": "Redo Apply cannot run on a RAC standby without the Active Data Guard option",
+   "C": "Redo is applied only on the instance that received it through RFS",
+   "D": "Each standby instance applies only the redo thread of the matching primary instance",
+   "E": "One standby instance (the apply instance) applies redo from all primary redo threads"
+  },
+  "correct_keys": [
+   "E"
+  ],
+  "explanation": "다중 인스턴스 Redo Apply(MIRA)를 구성하지 않은 기본 상태에서는 하나의 standby 인스턴스(apply instance)에서 MRP가 primary의 모든 리두 스레드를 병합해 적용한다. 인스턴스별로 스레드를 나누어 적용하지 않으며, RFS 수신 인스턴스에서만 적용하는 것도 아니다. 다른 standby 인스턴스는 기동해 둘 수 있고, Redo Apply 자체는 Active Data Guard 옵션이 필요 없다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-RAC-STANDBY-APPLY"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "SINGLE",
+  "product_version": "19c",
+  "stem": "A Broker-managed configuration runs in Maximum Performance mode with ASYNC transport to its only standby. The DBA wants to change to Maximum Availability. What must be done before running EDIT CONFIGURATION SET PROTECTION MODE AS MAXAVAILABILITY?",
+  "options": {
+   "A": "Enable Fast-Start Failover",
+   "B": "Convert the standby to a snapshot standby",
+   "C": "Set the standby's LogXptMode property to SYNC (or FASTSYNC)",
+   "D": "Shut down the primary and restart it in MOUNT mode",
+   "E": "Set the DelayMins property of the standby to 0 and disable Redo Apply"
+  },
+  "correct_keys": [
+   "C"
+  ],
+  "explanation": "Maximum Availability로 올리려면 최소 하나의 standby가 SYNC 계열 전송을 사용해야 하므로 먼저 LogXptMode를 SYNC 또는 FASTSYNC로 설정한다. Fast-Start Failover는 보호 모드 변경 요건이 아니고, 스냅샷 standby 변환은 무관하다. Maximum Performance에서 Maximum Availability로의 상향은 primary를 재시작할 필요가 없으며, Redo Apply 비활성화도 필요 없다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-PROTMODE-UPGRADE"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are prerequisites for enabling Fast-Start Failover in Oracle Data Guard 19c? (Choose two.)",
+  "options": {
+   "A": "The configuration must be managed by Data Guard Broker",
+   "B": "The configuration must be in Maximum Protection mode with SYNC AFFIRM transport",
+   "C": "The Active Data Guard option must be licensed",
+   "D": "Flashback Database must be enabled on the primary and the target standby",
+   "E": "The target standby must be a snapshot standby"
+  },
+  "correct_keys": [
+   "A",
+   "D"
+  ],
+  "explanation": "Fast-Start Failover는 Broker가 관리하는 구성에서만 사용할 수 있고, failover 후 이전 primary를 자동 reinstate할 수 있도록 primary와 대상 standby 모두 Flashback Database가 활성화되어야 한다. Maximum Protection 모드에서는 Fast-Start Failover를 사용할 수 없으며(Maximum Availability 또는 Maximum Performance), 대상은 스냅샷 standby가 될 수 없다. Active Data Guard 라이선스는 요건이 아니다.",
+  "reference": "Oracle Database 19c - Data Guard Broker (검수 필요)",
+  "variant_group": "DB-HA-FSFO-PREREQ"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "One instance of a three-node RAC database crashes. Which two actions are performed by the surviving instances? (Choose two.)",
+  "options": {
+   "A": "The Global Resource Directory is reconfigured and resources mastered by the failed instance are remastered",
+   "B": "The failed instance's online redo log files are discarded",
+   "C": "The database is closed on all instances so that media recovery can be performed",
+   "D": "Uncommitted transactions of the failed instance are committed to preserve the work",
+   "E": "Instance recovery is performed for the failed instance by using its redo thread"
+  },
+  "correct_keys": [
+   "A",
+   "E"
+  ],
+  "explanation": "인스턴스가 실패하면 생존 인스턴스가 GRD를 재구성해 실패한 인스턴스가 마스터하던 리소스를 재배치하고, 실패한 인스턴스의 리두 스레드를 이용해 인스턴스 복구를 수행한다. 데이터베이스를 닫고 미디어 복구할 필요는 없으며, 커밋되지 않은 트랜잭션은 롤백된다. 실패한 인스턴스의 온라인 리두 로그는 복구에 사용되므로 버려지지 않는다.",
+  "reference": "Oracle Database 19c - Real Application Clusters Administration and Deployment Guide (검수 필요)",
+  "variant_group": "DB-HA-INSTANCE-CRASH"
+ },
+ {
+  "domain": "DB_HA",
+  "difficulty": "HIGH",
+  "item_type": "MULTI",
+  "product_version": "19c",
+  "stem": "Which two are Oracle best practices for configuring standby redo logs? (Choose two.)",
+  "options": {
+   "A": "For each redo thread, create at least one more standby redo log group than the number of online redo log groups",
+   "B": "Standby redo logs should be smaller than online redo logs so that they are archived faster and apply lag is reduced",
+   "C": "Each standby redo log file should be at least as large as the largest online redo log file of the primary",
+   "D": "Standby redo logs must never be created on the primary database",
+   "E": "A single standby redo log group is sufficient for all threads of a RAC primary"
+  },
+  "correct_keys": [
+   "A",
+   "C"
+  ],
+  "explanation": "Standby redo log는 primary의 가장 큰 온라인 리두 로그 이상의 크기로 만들고, 스레드별로 온라인 리두 로그 그룹 수보다 최소 하나 더 많이 만드는 것이 권장된다. 더 작게 만들면 리두를 수용하지 못하며, 역할 전환에 대비해 primary에도 standby redo log를 만드는 것이 권장된다. RAC primary는 스레드마다 standby redo log 그룹이 필요하다.",
+  "reference": "Oracle Database 19c - Data Guard Concepts and Administration (검수 필요)",
+  "variant_group": "DB-HA-SRL-SIZING"
+ }
+]
